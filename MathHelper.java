@@ -6,7 +6,7 @@
      * @author (your name)
      * @version (a version number or a date)
      */
-    public  class Handler
+    public  class MathHelper
     {
         // instance variables - replace the example below with your own
         public static int[][] abstractList;
@@ -31,7 +31,7 @@
         
         
         
-        public static void generateMatrix()
+        public static int[][] getAllKeys()
         {
             abstractList = new int[250][7];
             // initialise instance variables
@@ -42,7 +42,7 @@
             //lastKey = new int[]{0,0,0,0,0,0,0}; //creates prime key
     
             makeKey(initKey,1);
-            
+            return abstractList;
     
         }
         
