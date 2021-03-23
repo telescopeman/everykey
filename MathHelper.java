@@ -56,32 +56,7 @@ public  class MathHelper
         }
     }
 
-    public static int[][] getKeysFiltered(Filter[] filterList)
-    {
-        int[][] fullList = getAllKeys();
-        int[][] newList = fullList;
-        int num = 0;
-        for (int[] key : fullList)
-        {
-            boolean valid = true;
-            for (Filter f : filterList)
-            {
-
-                if (!f.checkKey(key))
-                {
-                    valid = false;
-                    break;
-                }
-
-            }
-            if (!valid)
-            {
-                newList[num] = new int[]{0};
-            }
-            num++;
-        }
-        return newList;
-    }
+    
 
       
     private static void makeKey(int[] curArr, int index)
@@ -102,7 +77,7 @@ public  class MathHelper
         else
         {
             int lastNote = curArr[index-1];
-            ;
+            
 
             for(int branch = lastNote + 1; branch < 6 + index;branch++)
             {
@@ -128,7 +103,7 @@ public  class MathHelper
         return openSlot;
     }
 
-    private static String expand(int[] key)
+    public static String expand(int[] key)
     {
         String name = "";
         int count = 0;

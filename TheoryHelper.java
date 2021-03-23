@@ -1,4 +1,4 @@
-
+ 
 /**
  * Write a description of class TheoryHelper here.
  *
@@ -13,7 +13,23 @@ public class TheoryHelper
     private static String[] noteNames = new String[]{"Null","C","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
     private static String[] altNames =  new String[]{"",    "", "C#","", "D#","", "F#", "","G#","", "A#","",""};
     
-
+    
+    private static String[] targetNoteNames =  new String[]{"", "the root","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
+    
+    private static String[] intervalNames =  new String[]{"same note", "minor second","second","minor third","major third","perfect fourth","augmented fourth / diminished fifth","perfect fifth","minor sixth","major sixth","seventh","major seventh","Null"};
+    
+    
+    
+    
+    
+    public static String getKeyName(int[] key) //Assumes root note is C.
+    {
+        return KeyNamesHelper.get(key);
+        
+        
+    }
+    
+    
     public static String getNoteName(int index) //Assumes root note is C.
     {
         if (index > 12 || index < 0)
@@ -25,6 +41,39 @@ public class TheoryHelper
             return noteNames[index];
         }
     }
+    
+    public static String getNoteName(int index, boolean withAlt) //Assumes root note is C.
+    {
+        if (index > 12 || index < 0)
+        {
+            return "Null";
+        }
+        else
+        {
+            if (withAlt && !altNames[index].equals(""))
+            {
+                return noteNames[index] + "/" + altNames[index];
+            }
+            else
+            {
+                return noteNames[index];
+            }
+        }
+    }
+    
+    public static String getIntervalName(int index)
+    {
+        return intervalNames[index];
+        
+    }
+    
+    public static String getTargetNoteName(int index)
+    {
+        return targetNoteNames[index];
+        
+        
+    }
+    
     
     
     // /**
