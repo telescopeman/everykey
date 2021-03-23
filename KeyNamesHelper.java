@@ -22,10 +22,19 @@ public class KeyNamesHelper
         commonKeys.put(minorKey, "Minor");
     }
     
+    
+    
     public static String get(int[] key)
     {
-        return commonKeys.get(key);
-        
+        var name = commonKeys.get(key);
+        if (name == null)
+        {
+            return "";
+        }
+        else
+        {
+            return name;
+        }
     }
 
 }

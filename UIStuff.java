@@ -14,40 +14,73 @@ public class UIStuff
     int[][] masterList;
     JFrame mainWindow;
     
+    static boolean debugMode = true;
+    
     JPanel inner;
     Filter[] defaultFilters = new Filter[]{new Filter(1,7)}; //perfect fifth to the root
     JMenu viewfilters;
     
     Filter[] curFilters = defaultFilters;
+    
+    MathHelper myUtility;
+    
+    int[][] curList;
 
     /**
      * Constructor for objects of class UIStuff
      */
     public UIStuff()
     {
-        masterList = MathHelper.getAllKeys();
+        myUtility = new MathHelper();
+        masterList = myUtility.getAllKeys();
+        //printlnDebug(masterList);
+        //masterList = myUtility.getAllKeys();
+        //myUtility.sanityCheck();
         irrelevantSetup();
-        int[][] curList = filterKeys(masterList, defaultFilters);
-        
+        // Scrollbar s=new Scrollbar();  
+        // s.setBounds(100,100, 50,100);   
+        // inner.add(s);  
+        curList = filterKeys(masterList, curFilters);
         updateFilterList();
         updateKeys(curList);
         
+        
+    }
+    
+    private static void printlnDebug(String str)
+    {
+        if (debugMode)
+        {
+            System.out.println(str);
+
+        }
     }
 
-    private void updateKeys(int[][] curList)
+    private void updateKeys(int[][] keys)
     {
         inner.removeAll();
-        for (int[] key : curList)
+        int[] lastKey = keys[6];
+        int counter = 0;
+        for (int[] key : keys)
         {
+            counter++;
+            if (lastKey ==key)
+            {
+                
+                //continue;
+            }
             if (key[0] == 0)
             {
                 //System.out.println("blanked");
+                //System.out.println(MathHelper.expand(key));
                 continue;
             }
             else
             {
-                //System.out.println("unblanked");
-                String name = MathHelper.expand(key);
+                //System.out.println(String.valueOf(counter) + ": " + MathHelper.expand(key));
+                
+                String name = getKeyName(key);
+                
                 
                 JButton jb1 = new JButton("Chords");      
                 JButton jb2 = new JButton("Intervals");
@@ -56,8 +89,9 @@ public class UIStuff
                 JButton jb5 = new JButton("Button 5");
                 
                 JLabel label = new JLabel(name);
+                //System.out.println(key.toString());
                 JPanel keyPanel = new JPanel();
-                //keyPanel.setLayout(new GridLayout(3, 1));
+                
                 keyPanel.add(label);
                 keyPanel.add(jb1); keyPanel.add(jb2); 
                 
@@ -70,6 +104,22 @@ public class UIStuff
         mainWindow.pack();
     }
     
+    private String getKeyName(int[] key)
+    {
+        String name =TheoryHelper.getKeyName(key);
+        if (name == "")
+        {
+            return "Unnamed Key (" + MathHelper.expand(key) + ")";
+        }
+        else
+        {
+            return name + " (" + MathHelper.expand(key) + ")";
+        }
+        
+        
+        
+    }
+    
     
     private void irrelevantSetup()
     {
@@ -79,7 +129,7 @@ public class UIStuff
         //myWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inner = new JPanel();
-        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+        inner.setLayout(new BoxLayout(inner, BoxLayout.PAGE_AXIS));
         mainWindow.add(inner);
 
         JMenu filtermenu, addfilter; 
@@ -95,9 +145,7 @@ public class UIStuff
         i4=new JMenuItem("Filter by something else idk");  
         i5=new JMenuItem("deez nuts");  
         
-        Scrollbar s=new Scrollbar();  
-        //s.setBounds();  
-        inner.add(s);  
+        
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
         addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
@@ -118,7 +166,7 @@ public class UIStuff
         }
     }
 
-    public static int[][] filterKeys(int[][] keyList, Filter[] filterList)
+    private static int[][] filterKeys(int[][] keyList, Filter[] filterList)
     {
 
         int[][] newList = keyList;
@@ -131,8 +179,9 @@ public class UIStuff
 
                 if (!f.checkKey(key))
                 {
+                    //System.out.println("Failed filter test" + num);
                     valid = false;
-                    break;
+                    
                 }
 
             }

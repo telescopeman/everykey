@@ -6,17 +6,20 @@ import java.util.HashMap;
  * @author (your name)
  * @version (a version number or a date)
  */
-public  class MathHelper
+public class MathHelper
 {
     // instance variables - replace the example below with your own
-    public static int[][] abstractList;
+    private static int[][] abstractList;
+    
+    private static int[][] trysomething;
+    
     //private static int[] lastKey;
-    private static final int[] initKey = new int[]{1,0,0,0,0,0,0};
-    private static int counter = 1;
+    private static final int[] initKey = new int[]{1,1,1,1,1,1,1};
+    private static int counter;
 
     private static HashMap<Integer,String> noteNames;
 
-    private static boolean debugMode = false;
+    private final static boolean debugMode = false;
 
     //private static String offset;
     // /**
@@ -31,18 +34,24 @@ public  class MathHelper
         
     public static int[][] getAllKeys()
     {
-        if (counter > 1)
-        {
-            return abstractList;
-        }
-        abstractList = new int[250][7];
+        // if (counter > 3)
+        // {
+            // return abstractList;
+        // }
+        abstractList = new int[210][7];
+        //trysomething = new int[210][7];
         // initialise instance variables
-        counter = 1;
+        counter = 0;
 
         int n = 0;
         //lastKey = new int[]{0,0,0,0,0,0,0}; //creates prime key
 
+        //sanityCheck();
+        
         makeKey(initKey,1);
+        
+        sanityCheck();
+        
         return abstractList;
 
     }
@@ -56,32 +65,46 @@ public  class MathHelper
         }
     }
 
+    public static void sanityCheck()
+    {
+        for(int g = 0; g < abstractList.length;g++)
+        {
+            System.out.println("Key #" + g + " has pitches: " + expand(abstractList[g]));
+            
+        }
+        
+    }
     
+    private static void setKey(int[] k, int i)
+    {
+        abstractList[i] = k;
+
+        System.out.println("Key #" + i + " set to " + expand(abstractList[i]));
+        
+    }
 
       
     private static void makeKey(int[] curArr, int index)
     {
         if (index == 7)
         {
-            int ind2 = getEmpty();
-            if (ind2 < 0)
-            {
-                //System.out.println("ERROR: getEmpty() check failed.");
-                return;
-            }
-            abstractList[ind2] = curArr;
-
-            printlnDebug("Key #" + counter + " successfully created with pitches: " + expand(curArr));
+            setKey(curArr,counter);
             counter++;
         }
         else
         {
+            
             int lastNote = curArr[index-1];
             
 
             for(int branch = lastNote + 1; branch < 6 + index;branch++)
             {
-                int[] passAlong = curArr;
+                 int[] passAlong = new int[curArr.length];
+ 
+        // Copy elements of a[] to b[]
+                for (int i = 0; i < passAlong.length; i++)
+                    passAlong[i] = curArr[i];
+                //int[] passAlong = curArr;
                 passAlong[index] = branch;
                 //System.out.println(expand(passAlong));
                 makeKey(passAlong,index+1);
@@ -89,6 +112,8 @@ public  class MathHelper
         }
 
     }
+    
+    
 
     private static int getEmpty()
     {
@@ -129,52 +154,5 @@ public  class MathHelper
         return name;
     }
 
-    // /**
-    // * An example of a method - replace this comment with your own
-    // *
-    // * @param  y  a sample parameter for a method
-    // * @return    the sum of x and y
-    // */
-    // public static int[] generateKey(int n)
-    // {
-    // int[] newKey;
-    // if (n == 0)
-    // {
-    // newKey = new int[]{1,2,3,4,5,6,7};
-    // }
-    // else
-    // {
-    // newKey = sharpenKey(abstractList[n-1],1);
-    // }
-    // // put your code here
-    // abstractList[n] = newKey;
-    // return newKey; 
-    // }
-
-    // private static int[] sharpenKey(int[] key, int index)
-    // {
-    // int[] newKey = key;
-    // int count = 1;
-
-    // if (newKey[index] == 12)
-    // {
-    // return newKey;
-    // }
-    // else if (index == 6)
-    // {
-    // newKey[index]++;
-    // return newKey;
-    // }
-
-    // if (newKey[index] + 1 == newKey[index + 1])
-    // {
-    // return sharpenKey(newKey, index+1);
-    // }
-    // else
-    // {
-    // newKey[index]++;
-    // return newKey;
-    // }
-
-    // }
+    
 }

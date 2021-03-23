@@ -18,15 +18,13 @@ public class TheoryHelper
     
     private static String[] intervalNames =  new String[]{"same note", "minor second","second","minor third","major third","perfect fourth","augmented fourth / diminished fifth","perfect fifth","minor sixth","major sixth","seventh","major seventh","Null"};
     
-    
+    private static KeyNamesHelper namer = new KeyNamesHelper();
     
     
     
     public static String getKeyName(int[] key) //Assumes root note is C.
     {
-        return KeyNamesHelper.get(key);
-        
-        
+        return namer.get(key);
     }
     
     
