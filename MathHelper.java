@@ -1,71 +1,89 @@
-    import java.util.HashMap;
-    
-    /**
-     * Write a description of class MainThing here.
-     *
-     * @author (your name)
-     * @version (a version number or a date)
-     */
-    public  class MathHelper
+import java.util.HashMap;
+
+/**
+ * Write a description of class MainThing here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+public  class MathHelper
+{
+    // instance variables - replace the example below with your own
+    public static int[][] abstractList;
+    //private static int[] lastKey;
+    private static final int[] initKey = new int[]{1,0,0,0,0,0,0};
+    private static int counter = 1;
+
+    private static HashMap<Integer,String> noteNames;
+
+    private static boolean debugMode = false;
+
+    //private static String offset;
+    // /**
+    // * Constructor for objects of class MainThing
+    // */
+    // public MainThing()
+    // {
+
+    // }
+    private static String[] notesArr = new String[]{"Null","C","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
+
+        
+    public static int[][] getAllKeys()
     {
-        // instance variables - replace the example below with your own
-        public static int[][] abstractList;
-        //private static int[] lastKey;
-        private static final int[] initKey = new int[]{1,0,0,0,0,0,0};
-        private static int counter = 1;
-    
-        private static HashMap<Integer,String> noteNames;
-        
-        private static boolean debugMode = false;
-    
-        //private static String offset;
-        // /**
-        // * Constructor for objects of class MainThing
-        // */
-        // public MainThing()
-        // {
-    
-        // }
-        private static String[] notesArr = new String[]{"Null","C","Db","D","Eb","F","Gb","G","Ab","A","Bb","B"};
-            
-        
-        
-        
-        public static int[][] getAllKeys()
+        if (counter > 1)
         {
-            abstractList = new int[250][7];
-            // initialise instance variables
-            counter = 1;
-            setUpMap();
-    
-            int n = 0;
-            //lastKey = new int[]{0,0,0,0,0,0,0}; //creates prime key
-    
-            makeKey(initKey,1);
             return abstractList;
-    
         }
-        
-        private static void printlnDebug(String str)
-        {
-            if (debugMode)
-            {
-               System.out.println(str);
-                
-            }
-        }
-    
-        private static void setUpMap()
-        {
-            noteNames = new HashMap<>();
-            for(int i = 0; i < 12; i++)
-            {
-                noteNames.put(i,notesArr[i]);
-                
-            }
-            
-            
+        abstractList = new int[250][7];
+        // initialise instance variables
+        counter = 1;
+
+        int n = 0;
+        //lastKey = new int[]{0,0,0,0,0,0,0}; //creates prime key
+
+        makeKey(initKey,1);
+        return abstractList;
+
     }
+
+    private static void printlnDebug(String str)
+    {
+        if (debugMode)
+        {
+            System.out.println(str);
+
+        }
+    }
+
+    public static int[][] getKeysFiltered(Filter[] filterList)
+    {
+        int[][] fullList = getAllKeys();
+        int[][] newList = fullList;
+        int num = 0;
+        for (int[] key : fullList)
+        {
+            boolean valid = true;
+            for (Filter f : filterList)
+            {
+
+                if (!f.checkKey(key))
+                {
+                    valid = false;
+                    break;
+                }
+
+            }
+            if (!valid)
+            {
+                newList[num] = new int[]{0};
+            }
+            num++;
+        }
+        return newList;
+    }
+
+      
     private static void makeKey(int[] curArr, int index)
     {
         if (index == 7)
@@ -77,7 +95,7 @@
                 return;
             }
             abstractList[ind2] = curArr;
-            
+
             printlnDebug("Key #" + counter + " successfully created with pitches: " + expand(curArr));
             counter++;
         }
@@ -85,7 +103,6 @@
         {
             int lastNote = curArr[index-1];
             ;
-
 
             for(int branch = lastNote + 1; branch < 6 + index;branch++)
             {
@@ -118,7 +135,7 @@
         while (count < 7)
         {
             int i = key[count];
-            name = name + noteNames.get(i);
+            name = name + TheoryHelper.getNoteName(i);
             if (count < 5)
             {
                 name = name + ", ";

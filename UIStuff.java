@@ -9,20 +9,20 @@ import java.awt.Dimension;
 public class UIStuff
 {
     // instance variables - replace the example below with your own
-    
-    JFrame myWindow;
+    int[][] masterList;
+    JFrame mainWindow;
     /**
      * Constructor for objects of class UIStuff
      */
     public UIStuff()
     {
-        myWindow = new JFrame("SkeletonKey");
+        mainWindow = new JFrame("SkeletonKey");
         //myWindow.pack();
-        myWindow.setSize(new Dimension(400, 1000));
+        mainWindow.setSize(new Dimension(400, 1000));
         //myWindow.setVisible(true);
-        MathHelper.getAllKeys();
-        
-
+        masterList = MathHelper.getAllKeys();
+        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainWindow.show();
     }
 
     
