@@ -79,7 +79,7 @@ public class MathHelper
     {
         abstractList[i] = k;
 
-        System.out.println("Key #" + i + " set to " + expand(abstractList[i]));
+        printlnDebug("Key #" + i + " set to " + expand(abstractList[i]));
         
     }
 

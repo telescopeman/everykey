@@ -17,12 +17,15 @@ public class UIStuff
     static boolean debugMode = true;
     
     JPanel inner;
-    Filter[] defaultFilters = new Filter[]{new Filter(1,7)}; //perfect fifth to the root
+    JScrollPane outer;
+    Filter[] defaultFilters = new Filter[]{new Filter(8)}; //perfect fifth to the root
     JMenu viewfilters;
     
     Filter[] curFilters = defaultFilters;
     
     MathHelper myUtility;
+    
+    
     
     int[][] curList;
 
@@ -33,13 +36,7 @@ public class UIStuff
     {
         myUtility = new MathHelper();
         masterList = myUtility.getAllKeys();
-        //printlnDebug(masterList);
-        //masterList = myUtility.getAllKeys();
-        //myUtility.sanityCheck();
         irrelevantSetup();
-        // Scrollbar s=new Scrollbar();  
-        // s.setBounds(100,100, 50,100);   
-        // inner.add(s);  
         curList = filterKeys(masterList, curFilters);
         updateFilterList();
         updateKeys(curList);
@@ -79,7 +76,7 @@ public class UIStuff
             {
                 //System.out.println(String.valueOf(counter) + ": " + MathHelper.expand(key));
                 
-                String name = getKeyName(key);
+                String name = String.valueOf(counter) + ": " + getKeyName(key);
                 
                 
                 JButton jb1 = new JButton("Chords");      
@@ -96,12 +93,14 @@ public class UIStuff
                 keyPanel.add(jb1); keyPanel.add(jb2); 
                 
                 inner.add(keyPanel); 
-                keyPanel.show();
+                inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
             }
         }
+        //outer.setLayout(new ScrollPaneLayout());
         
-        inner.show();
         mainWindow.pack();
+        mainWindow.setSize(new Dimension(600, 1000));
+        //outer.setPreferredSize(new Dimension(640,1000));
     }
     
     private String getKeyName(int[] key)
@@ -129,8 +128,9 @@ public class UIStuff
         //myWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inner = new JPanel();
-        inner.setLayout(new BoxLayout(inner, BoxLayout.PAGE_AXIS));
-        mainWindow.add(inner);
+        outer = new JScrollPane(inner);
+        
+        mainWindow.add(outer);
 
         JMenu filtermenu, addfilter; 
         JMenuItem i1, i2, i3, i4, i5;  
@@ -179,8 +179,9 @@ public class UIStuff
 
                 if (!f.checkKey(key))
                 {
-                    //System.out.println("Failed filter test" + num);
+                    System.out.println("Failed filter test" + num);
                     valid = false;
+                    break;
                     
                 }
 

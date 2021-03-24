@@ -17,9 +17,10 @@ public class Filter
      */
     public Filter(int noteIndex, int interval) 
     {
-        requiredNotes = new int[]{noteIndex,noteIndex+interval};
+        requiredNotes = new int[]{interval};
         type = "Interval";
     }
+    
     
     /**
      * Tests for a specific note.
@@ -38,7 +39,7 @@ public class Filter
         }
         else if (type == "Interval")
         {
-            return ("Must contain a " + TheoryHelper.getIntervalName(requiredNotes[1]-requiredNotes[0]) + " over " + TheoryHelper.getTargetNoteName(requiredNotes[0]));
+            return ("Must contain a " + TheoryHelper.getIntervalName(requiredNotes[0]) + " over the root.");
         }
         else
         {
@@ -47,13 +48,21 @@ public class Filter
         
     }
     
+    public String toString()
+    {
+        
+        
+        return translateToReadable();
+    }
+    
+    
     public boolean checkKey(int[] key)
     {
-        Arrays.sort(requiredNotes);
+        //Arrays.sort(key);
         
         for (int note : requiredNotes)
         {
-            if (Arrays.binarySearch(key,note)<0)
+            if (Arrays.binarySearch(key,note) < 0)
             {
                 return false;
             }
