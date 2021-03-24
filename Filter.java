@@ -12,6 +12,8 @@ public class Filter
     int[] requiredNotes;
     int requiredPosition;
     private String type = "";
+    
+    KeyNamesHelper namer = new KeyNamesHelper();
 
     /**
      * Tests for a specific note, at a specific point.
@@ -41,6 +43,14 @@ public class Filter
         requiredNotes = new int[]{note};
         type = "Note";
     }
+    
+    /**
+     * Tests for it being named.
+     */
+    public Filter(String spc) 
+    {
+        type = spc;
+    }
 
     public String translateToReadable()
     {
@@ -55,6 +65,10 @@ public class Filter
         else if (type == "NotePos")
         {
             return ("Must contain the notes " + TheoryHelper.getNoteName(requiredNotes[0],true) + " or " + TheoryHelper.getNoteName(requiredNotes[1],true));
+        }
+        else if (type == "isNamed")
+        {
+            return ("Must be a named key.");
         }
         else
         {
@@ -72,6 +86,11 @@ public class Filter
     public boolean checkKey(int[] key)
     {
         //Arrays.sort(key);
+        if (type=="isNamed")
+        {
+            return (!namer.get(key).equals(""));
+            
+        }
 
         for (int note : requiredNotes)
         {

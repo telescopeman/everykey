@@ -38,6 +38,6 @@ public class ChordViewer extends JFrame implements ActionListener
      
     public void actionPerformed(ActionEvent e) {
         show();
-        System.out.println(e);
+        //System.out.println(e);
 }
 }

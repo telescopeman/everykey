@@ -1,7 +1,11 @@
+
 import javax.swing.*;
 import java.awt.*; 
 import javax.swing.BoxLayout;
+import java.awt.event.ActionListener;
 
+import java.util.HashMap;
+import java.awt.event.ActionEvent;
 
 /**
  * Write a description of class UIStuff here.
@@ -19,12 +23,19 @@ public class UIStuff
 
     JPanel inner;
     JScrollPane outer;
-    Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
+    //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
+    Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
+    boolean[] filterStatuses = new boolean[]{false};
+    
+    private HashMap<Boolean,String> enableText;
+    
     JMenu viewfilters;
 
     Filter[] curFilters = defaultFilters;
 
     MathHelper myUtility;
+    
+    private static KeyNamesHelper namer = new KeyNamesHelper();
 
     
     int[][] curList;
@@ -34,13 +45,27 @@ public class UIStuff
      */
     public UIStuff()
     {
+        enableText = new HashMap<Boolean,String>();
+        enableText.put(true,"on");
+        enableText.put(false,"off");
+        System.out.print(enableText);
+        
         myUtility = new MathHelper();
         masterList = myUtility.getAllKeys();
         irrelevantSetup();
-        curList = filterKeys(masterList, curFilters);
-        updateFilterList();
-        updateKeys(curList);
+        refresh();
 
+    }
+    
+    
+    private void refresh()
+    {
+        updateFilterList(curFilters);
+        curList = filterKeys(masterList, curFilters);
+        
+        updateKeys(curList);
+        
+        
     }
     private static void printlnDebug(String str)
     {
@@ -109,7 +134,7 @@ public class UIStuff
 
         private String getKeyName(int[] key)
         {
-        String name =TheoryHelper.getKeyName(key);
+        String name =namer.get(key);
         if (name == "")
         {
             return "Unnamed Key (" + MathHelper.expand(key) + ")";
@@ -156,35 +181,91 @@ public class UIStuff
         mainWindow.show();
     }
 
-    private void updateFilterList()
+    private void updateFilterList(Filter[] flist)
     {
         viewfilters.removeAll();
-        for (Filter f : curFilters)
+        int counter = 0;
+        
+        for (Filter f : flist)
         {
-            String label = f.translateToReadable();
-            viewfilters.add(new JMenuItem(label));  
+            
+
+            
+            String thing = enableText.get(filterStatuses[counter]);
+            
+            System.out.println(filterStatuses[0]);
+            
+            String label = f.translateToReadable() + " [" + thing + "]";
+            
+            FilterToggler button = new FilterToggler(counter);
+            button.setText(label);
+            ActionListener menuListener = new ActionListener()
+            {
+                      @Override
+                      public void actionPerformed(ActionEvent event)
+                      {
+                        String invAction = event.getActionCommand();
+        
+        
+                        
+                        FilterToggler actItem = button;
+                        
+                        int ind = button.getIndex();
+                        //System.out.print(String.getValue(ind));
+                        
+                        toggleFilter(ind);
+    
+                        //System.out.println("Popup menu item [" + invAction + "] [ " + actItem + " ] was pressed.");
+                }
+            }
+            ;
+            
+            
+            button.addActionListener(menuListener);
+            viewfilters.add(button);  
+            counter++;
         }
     }
+    
+    public void toggleFilter(int index)
+    {
+        
+        boolean newSet = !filterStatuses[index];
+        printlnDebug(String.valueOf(index) + newSet);
+        filterStatuses[index] = newSet;
+        refresh();
+    }
 
-    private static int[][] filterKeys(int[][] keyList, Filter[] filterList)
+    private int[][] filterKeys(int[][] keyList, Filter[] filterList)
     {
 
         int[][] newList = keyList;
         int num = 0;
+        
         for (int[] key : keyList)
         {
             boolean valid = true;
+            int num2 = -1;
             for (Filter f : filterList)
             {
+                num2++;
+                //printlnDebug(String.valueOf(num2) + f);
+                if (!filterStatuses[num2])
+                {
+                    valid = true;
+                    continue;
+                }
+                
+                
 
                 if (!f.checkKey(key))
                 {
-                    System.out.println("Failed filter test" + num);
+                    //System.out.println("Failed filter test" + num);
                     valid = false;
                     break;
 
                 }
-
+                
             }
             if (!valid)
             {

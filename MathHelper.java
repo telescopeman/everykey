@@ -50,7 +50,7 @@ public class MathHelper
         
         makeKey(initKey,1);
         
-        sanityCheck();
+        //sanityCheck();
         
         return abstractList;
 

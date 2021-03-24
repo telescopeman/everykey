@@ -18,14 +18,15 @@ public class TheoryHelper
     
     private static String[] intervalNames =  new String[]{"same note", "minor second","second","minor third","major third","perfect fourth","augmented fourth / diminished fifth","perfect fifth","minor sixth","major sixth","seventh","major seventh","Null"};
     
-    private static KeyNamesHelper namer = new KeyNamesHelper();
+    //private static KeyNamesHelper namer = new KeyNamesHelper();
     
     
     
-    public static String getKeyName(int[] key) //Assumes root note is C.
-    {
-        return namer.get(key);
-    }
+    // public static String getKeyName(int[] key) //Assumes root note is C.
+    // {
+        // //System.out.print(key);
+        // return namer.get(key);
+    // }
     
     
     public static String getNoteName(int index) //Assumes root note is C.
@@ -75,12 +76,15 @@ public class TheoryHelper
     
     public static String getChordAt(int[] key, int index)
     {
+        final int LOOP = 6;
         if (index > 7)
         {
             return("Invalid Chord!");
         }
         
-        return parseChord(key[index-1],key[(index + 1) % 7],key[(index + 3) % 7]);
+        return "Test Chord";
+        
+        //parseChord(key[index],key[(index + 2) % LOOP],key[(index + 4) % LOOP]);
         
         
         
