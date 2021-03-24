@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*; 
 import javax.swing.BoxLayout;
 
+
 /**
  * Write a description of class UIStuff here.
  *
@@ -13,19 +14,18 @@ public class UIStuff
     // instance variables - replace the example below with your own
     int[][] masterList;
     JFrame mainWindow;
-    
+
     static boolean debugMode = true;
-    
+
     JPanel inner;
     JScrollPane outer;
-    Filter[] defaultFilters = new Filter[]{new Filter(8)}; //perfect fifth to the root
+    Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
     JMenu viewfilters;
-    
+
     Filter[] curFilters = defaultFilters;
-    
+
     MathHelper myUtility;
-    
-    
+
     
     int[][] curList;
 
@@ -40,10 +40,8 @@ public class UIStuff
         curList = filterKeys(masterList, curFilters);
         updateFilterList();
         updateKeys(curList);
-        
-        
+
     }
-    
     private static void printlnDebug(String str)
     {
         if (debugMode)
@@ -63,7 +61,7 @@ public class UIStuff
             counter++;
             if (lastKey ==key)
             {
-                
+
                 //continue;
             }
             if (key[0] == 0)
@@ -75,36 +73,42 @@ public class UIStuff
             else
             {
                 //System.out.println(String.valueOf(counter) + ": " + MathHelper.expand(key));
-                
+
                 String name = String.valueOf(counter) + ": " + getKeyName(key);
+
+                JButton jb1 = new JButton("Chords");    
+                ChordViewer chrds = new ChordViewer();
+                chrds.key = key;
+                jb1.addActionListener(chrds);
                 
-                
-                JButton jb1 = new JButton("Chords");      
-                JButton jb2 = new JButton("Intervals");
-                JButton jb3 = new JButton("Button 3");      
-                JButton jb4 = new JButton("Button 4");
-                JButton jb5 = new JButton("Button 5");
-                
-                JLabel label = new JLabel(name);
-                //System.out.println(key.toString());
-                JPanel keyPanel = new JPanel();
-                
-                keyPanel.add(label);
-                keyPanel.add(jb1); keyPanel.add(jb2); 
-                
-                inner.add(keyPanel); 
-                inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+                          
+                        
+
+                        JButton jb2 = new JButton("Intervals");
+                        JButton jb3 = new JButton("Button 3");      
+                        JButton jb4 = new JButton("Button 4");
+                        JButton jb5 = new JButton("Button 5");
+
+                        JLabel label = new JLabel(name);
+                        //System.out.println(key.toString());
+                        JPanel keyPanel = new JPanel();
+
+                        keyPanel.add(label);
+                        keyPanel.add(jb1); keyPanel.add(jb2); 
+
+                        inner.add(keyPanel); 
+                        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+                    }
             }
+            //outer.setLayout(new ScrollPaneLayout());
+
+            mainWindow.pack();
+            mainWindow.setSize(new Dimension(600, 1000));
+            //outer.setPreferredSize(new Dimension(640,1000));
         }
-        //outer.setLayout(new ScrollPaneLayout());
-        
-        mainWindow.pack();
-        mainWindow.setSize(new Dimension(600, 1000));
-        //outer.setPreferredSize(new Dimension(640,1000));
-    }
-    
-    private String getKeyName(int[] key)
-    {
+
+        private String getKeyName(int[] key)
+        {
         String name =TheoryHelper.getKeyName(key);
         if (name == "")
         {
@@ -114,12 +118,10 @@ public class UIStuff
         {
             return name + " (" + MathHelper.expand(key) + ")";
         }
-        
-        
+
         
     }
-    
-    
+
     private void irrelevantSetup()
     {
         mainWindow = new JFrame("SkeletonKey");
@@ -129,7 +131,7 @@ public class UIStuff
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inner = new JPanel();
         outer = new JScrollPane(inner);
-        
+
         mainWindow.add(outer);
 
         JMenu filtermenu, addfilter; 
@@ -144,15 +146,13 @@ public class UIStuff
         i3=new JMenuItem("Filter by Chord");  
         i4=new JMenuItem("Filter by something else idk");  
         i5=new JMenuItem("deez nuts");  
-        
-        
+
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
         addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
         mb.add(filtermenu);  
         mainWindow.setJMenuBar(mb);  
 
-                    
         mainWindow.show();
     }
 
@@ -182,7 +182,7 @@ public class UIStuff
                     System.out.println("Failed filter test" + num);
                     valid = false;
                     break;
-                    
+
                 }
 
             }

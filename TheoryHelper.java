@@ -10,8 +10,8 @@ public class TheoryHelper
     // instance variables - replace the example below with your own
     private int x;
 
-    private static String[] noteNames = new String[]{"Null","C","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
-    private static String[] altNames =  new String[]{"",    "", "C#","", "D#","", "F#", "","G#","", "A#","",""};
+    private static String[] noteNames = new String[]{"Null","C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B","Null"};
+    private static String[] altNames =  new String[]{"",    "", "C#","", "D#","", "", "F#", "","G#","", "A#","",""};
     
     
     private static String[] targetNoteNames =  new String[]{"", "the root","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
@@ -72,6 +72,80 @@ public class TheoryHelper
         
     }
     
+    
+    public static String getChordAt(int[] key, int index)
+    {
+        if (index > 7)
+        {
+            return("Invalid Chord!");
+        }
+        
+        return parseChord(key[index-1],key[(index + 1) % 7],key[(index + 3) % 7]);
+        
+        
+        
+    }
+    
+    public static String parseChord(int note1, int note2, int note3)
+    {
+        if (!(note1 < note2 && note2 < note3))
+        {
+            return("Invalid Chord!");
+        }
+        
+        String rootname = getNoteName(note1);
+        String thirdname = "";
+        String fifthname  = "";
+        
+        int thirdinterval = note2 - note1;
+        if (thirdinterval == 4)
+        {
+            thirdname = "";
+            
+        }
+        else if (thirdinterval == 3)
+        {
+            thirdname = " Minor";
+            
+        }
+        else if (thirdinterval == 2)
+        {
+            thirdname = "sus2";
+        }
+        else if (thirdinterval == 5)
+        {
+            thirdname = "sus4";
+        }
+        else
+        {
+            thirdname = "?";
+        }
+        
+        int fifthint = note3 - note1;
+        if (fifthint == 7)
+        {
+            fifthname = "";
+        }
+        else if (fifthint == 8 && thirdinterval == 4)
+        {
+            fifthname = " Augmented";
+        }
+        else if (fifthint == 6 && thirdinterval == 3)
+        {
+            thirdname = "";
+            fifthname = " Diminished";
+        }
+        else if (fifthint == 6 && thirdinterval == 4)
+        {
+            fifthname = "b5";
+        }
+        else
+        {
+            fifthname = "?";
+        }
+        
+        return rootname + thirdname + fifthname;
+    }
     
     
     // /**

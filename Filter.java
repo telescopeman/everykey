@@ -10,73 +10,88 @@ public class Filter
 {
     // instance variables - replace the example below with your own
     int[] requiredNotes;
+    int requiredPosition;
     private String type = "";
 
     /**
-     * Tests for a specific interval.
+     * Tests for a specific note, at a specific point.
      */
-    public Filter(int noteIndex, int interval) 
+    public Filter(int note, int pos) 
     {
-        requiredNotes = new int[]{interval};
-        type = "Interval";
+        requiredNotes = new int[]{note};
+        requiredPosition = pos;
+        type = "NotePos";
     }
-    
-    
+
+    /**
+     * Tests for a specific notes, at a specific point.
+     */
+    public Filter(int[] notes, int pos) 
+    {
+        requiredNotes = notes;
+        requiredPosition = pos;
+        type = "NotePos";
+    }
+
     /**
      * Tests for a specific note.
      */
-    public Filter(int noteIndex) 
+    public Filter(int note) 
     {
-        requiredNotes = new int[]{noteIndex};
+        requiredNotes = new int[]{note};
         type = "Note";
     }
-    
+
     public String translateToReadable()
     {
         if (type == "Note")
         {
             return ("Must contain the note " + TheoryHelper.getNoteName(requiredNotes[0],true));
         }
-        else if (type == "Interval")
+        else if (type == "NotePos" && requiredNotes.length == 1)
         {
-            return ("Must contain a " + TheoryHelper.getIntervalName(requiredNotes[0]) + " over the root.");
+            return ("Must contain the note " + TheoryHelper.getNoteName(requiredNotes[0],true));
+        }
+        else if (type == "NotePos")
+        {
+            return ("Must contain the notes " + TheoryHelper.getNoteName(requiredNotes[0],true) + " or " + TheoryHelper.getNoteName(requiredNotes[1],true));
         }
         else
         {
             return ("UNHANDLED_TYPE: REQUIRED NOTES:" + requiredNotes);
         }
-        
+
     }
-    
+
     public String toString()
     {
-        
-        
+
         return translateToReadable();
     }
-    
-    
+
     public boolean checkKey(int[] key)
     {
         //Arrays.sort(key);
-        
+
         for (int note : requiredNotes)
         {
-            if (Arrays.binarySearch(key,note) < 0)
+            if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)
             {
                 return false;
             }
+            if (type.equals("NotePos") && key[requiredPosition] == note)
+            {
+                return true;
+            }
+
+        }
+
+        if (type.equals("NotePos"))
+        {
+            return false;
         }
         return true;
     }
-    
-    // /**
-     // * Filters for a certain chord.
-     // */
-    // public Filter(Chord chordType)
-    // {
-        
-        
-    // }
-    
+
 }
+

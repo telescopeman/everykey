@@ -38,7 +38,7 @@ public class MathHelper
         // {
             // return abstractList;
         // }
-        abstractList = new int[210][7];
+        abstractList = new int[555][7];
         //trysomething = new int[210][7];
         // initialise instance variables
         counter = 0;
@@ -97,7 +97,7 @@ public class MathHelper
             int lastNote = curArr[index-1];
             
 
-            for(int branch = lastNote + 1; branch < 6 + index;branch++)
+            for(int branch = lastNote + 1; branch < 7 + index;branch++)
             {
                  int[] passAlong = new int[curArr.length];
  
