@@ -167,11 +167,14 @@ public class UIStuff
         viewfilters=new JMenu("View Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
         i1=new JMenuItem("Filter by Tonality");  
-        i2=new JMenuItem("Filter by Interval");  
+        i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
         i4=new JMenuItem("Filter by something else idk");  
         i5=new JMenuItem("deez nuts");  
-
+        
+        i1.addActionListener(new FilterCreator("Tonality"));
+        i2.addActionListener(new FilterCreator("Note"));
+        i3.addActionListener(new FilterCreator("Chord"));
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
         addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
