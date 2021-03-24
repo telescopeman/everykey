@@ -20,6 +20,8 @@ public class MathHelper
     private static HashMap<Integer,String> noteNames;
 
     private final static boolean debugMode = false;
+    
+    private static EnharmonicsHelper enh = new EnharmonicsHelper();
 
     //private static String offset;
     // /**
@@ -29,7 +31,7 @@ public class MathHelper
     // {
 
     // }
-    private static String[] notesArr = new String[]{"Null","C","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
+    public static String[] notesArr = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","Null"};
 
         
     public static int[][] getAllKeys()
@@ -69,7 +71,7 @@ public class MathHelper
     {
         for(int g = 0; g < abstractList.length;g++)
         {
-            System.out.println("Key #" + g + " has pitches: " + expand(abstractList[g]));
+            System.out.println("Key #" + g + " has pitches: " + expand(abstractList[g],false));
             
         }
         
@@ -79,7 +81,7 @@ public class MathHelper
     {
         abstractList[i] = k;
 
-        printlnDebug("Key #" + i + " set to " + expand(abstractList[i]));
+        printlnDebug("Key #" + i + " set to " + expand(abstractList[i],false));
         
     }
 
@@ -128,14 +130,26 @@ public class MathHelper
         return openSlot;
     }
 
-    public static String expand(int[] key)
+    public static String expand(int[] key, boolean enharmonicsOn)
     {
         String name = "";
         int count = 0;
+        String lastNote = "I";
         while (count < 7)
         {
             int i = key[count];
-            name = name + TheoryHelper.getNoteName(i);
+            String newNote = TheoryHelper.getNoteName(i);
+            if (enharmonicsOn && count < 6 && newNote.substring(0,1).equals(TheoryHelper.getNoteName(key[count+1]).substring(0,1)))
+            {
+                String sameNote = enh.getEnharmonic(newNote);
+                if (!newNote.substring(0,1).equals(lastNote.substring(0,1)))
+                {
+                    newNote = sameNote;
+                    
+                }
+                
+            }
+            name = name + newNote;
             if (count < 5)
             {
                 name = name + ", ";
@@ -148,6 +162,7 @@ public class MathHelper
             {
                 name = name + ".";
             }
+            lastNote = newNote;
             count++;
 
         }

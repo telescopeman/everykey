@@ -25,7 +25,7 @@ public class UIStuff
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
     Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    boolean[] filterStatuses = new boolean[]{false};
+    boolean[] filterStatuses = new boolean[]{true};
     
     private HashMap<Boolean,String> enableText;
     
@@ -58,8 +58,9 @@ public class UIStuff
     }
     
     
-    private void refresh()
+    public void refresh()
     {
+        printlnDebug("Refreshing...");
         updateFilterList(curFilters);
         curList = filterKeys(masterList, curFilters);
         
@@ -81,6 +82,7 @@ public class UIStuff
         inner.removeAll();
         int[] lastKey = keys[6];
         int counter = 0;
+        int num = 0;
         for (int[] key : keys)
         {
             counter++;
@@ -97,9 +99,10 @@ public class UIStuff
             }
             else
             {
+                num++;
                 //System.out.println(String.valueOf(counter) + ": " + MathHelper.expand(key));
 
-                String name = String.valueOf(counter) + ": " + getKeyName(key);
+                String name = "#" + String.valueOf(counter) + ": " + getKeyName(key);
 
                 JButton jb1 = new JButton("Chords");    
                 ChordViewer chrds = new ChordViewer();
@@ -126,9 +129,13 @@ public class UIStuff
                     }
             }
             //outer.setLayout(new ScrollPaneLayout());
+            JLabel lab = new JLabel("Showing " + num + " out of 462 keys.");
+            JPanel header = new JPanel();
+            header.add(lab);
+            inner.add(header,0);
 
             mainWindow.pack();
-            mainWindow.setSize(new Dimension(600, 1000));
+            mainWindow.setSize(new Dimension(800, 1000));
             //outer.setPreferredSize(new Dimension(640,1000));
         }
 
@@ -137,11 +144,11 @@ public class UIStuff
         String name =namer.get(key);
         if (name == "")
         {
-            return "Unnamed Key (" + MathHelper.expand(key) + ")";
+            return "Unnamed Key (" + MathHelper.expand(key,true) + ")";
         }
         else
         {
-            return name + " (" + MathHelper.expand(key) + ")";
+            return name + " (" + MathHelper.expand(key,true) + ")";
         }
 
         
@@ -172,9 +179,10 @@ public class UIStuff
         i4=new JMenuItem("Filter by something else idk");  
         i5=new JMenuItem("deez nuts");  
         
-        i1.addActionListener(new FilterCreator("Tonality"));
-        i2.addActionListener(new FilterCreator("Note"));
-        i3.addActionListener(new FilterCreator("Chord"));
+        
+        i1.addActionListener(makeFC());
+        i2.addActionListener(makeFC());
+        i3.addActionListener(makeFC());
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
         addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
@@ -182,6 +190,15 @@ public class UIStuff
         mainWindow.setJMenuBar(mb);  
 
         mainWindow.show();
+    }
+    
+     /**
+     * Quick way to make FilterCreator class
+     */
+    private FilterCreator makeFC()
+    {
+        return new FilterCreator(this);
+        
     }
 
     private void updateFilterList(Filter[] flist)

@@ -12,6 +12,7 @@ public class Filter
     int[] requiredNotes;
     int requiredPosition;
     private String type = "";
+    boolean inverted = false;
     
     KeyNamesHelper namer = new KeyNamesHelper();
 
@@ -26,15 +27,28 @@ public class Filter
     }
 
     /**
-     * Tests for a specific notes, at a specific point.
+     * Tests for one of specific notes, at a specific point.
      */
     public Filter(int[] notes, int pos) 
     {
         requiredNotes = notes;
         requiredPosition = pos;
         type = "NotePos";
+        
+    }
+    
+    /**
+     * Tests for a specific notes, at a specific point.
+     */
+    public Filter(int[] notes, int pos,boolean inv) 
+    {
+        requiredNotes = notes;
+        requiredPosition = pos;
+        type = "NotePos";
+        inverted = inv;
     }
 
+    
     /**
      * Tests for a specific note.
      */
@@ -45,11 +59,30 @@ public class Filter
     }
     
     /**
-     * Tests for it being named.
+     * Tests for a specific note.
+     */
+    public Filter(int note, boolean inv) 
+    {
+        requiredNotes = new int[]{note};
+        type = "Note";
+        inverted = inv;
+    }
+    
+    /**
+     * Tests for it being named or other qualities.
      */
     public Filter(String spc) 
     {
         type = spc;
+    }
+    
+    /**
+     * Tests for it being named or other qualities.
+     */
+    public Filter(String spc, boolean inv) 
+    {
+        type = spc;
+        inverted = inv;
     }
 
     public String translateToReadable()
@@ -86,6 +119,12 @@ public class Filter
     public boolean checkKey(int[] key)
     {
         //Arrays.sort(key);
+        return !(inverted == checkKeyHelper(key));
+    }
+    
+    public boolean checkKeyHelper(int[] key)
+    {
+        
         if (type=="isNamed")
         {
             return (!namer.get(key).equals(""));
@@ -110,6 +149,7 @@ public class Filter
             return false;
         }
         return true;
+        
     }
 
 }

@@ -10,11 +10,11 @@ public class TheoryHelper
     // instance variables - replace the example below with your own
     private int x;
 
-    private static String[] noteNames = new String[]{"Null","C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B","Null"};
-    private static String[] altNames =  new String[]{"",    "", "C#","", "D#","", "", "F#", "","G#","", "A#","",""};
+    private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","Null"};
+    private static String[] altNames =  new String[]{"",    "", "C♯","", "D♯","", "", "F♯", "","G♯","", "A♯","",""};
     
     
-    private static String[] targetNoteNames =  new String[]{"", "the root","Db","D","Eb","F","Gb","G","Ab","A","Bb","B","Null"};
+    private static String[] targetNoteNames =  new String[]{"", "the root","D♭","D","E♭","F","G♭","G","A♭","A","B♭","B","Null"};
     
     private static String[] intervalNames =  new String[]{"same note", "minor second","second","minor third","major third","perfect fourth","augmented fourth / diminished fifth","perfect fifth","minor sixth","major sixth","seventh","major seventh","Null"};
     
