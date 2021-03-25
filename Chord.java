@@ -13,6 +13,7 @@ public class Chord extends TheoryObj
     private int fifth;
     private int[] extensions;
 
+    private final int LOOP = 7;
     private int keyOffset;
     /**
      * Constructor for objects of class Chord
@@ -25,7 +26,7 @@ public class Chord extends TheoryObj
         fifth = three;
         extensions = new int[]{};
         keyOffset = 0;
-        removeInversion();
+        sort();
     }
 
     /**
@@ -39,10 +40,10 @@ public class Chord extends TheoryObj
         fifth = three;
         extensions = others;
         keyOffset = 0;
-        removeInversion();
+        sort();
     }
 
-    private void removeInversion()
+    private void sort()
     {
         while (root >= third)
         {
@@ -55,18 +56,37 @@ public class Chord extends TheoryObj
         }
 
     }
-    
+
+    private void invert()
+    {
+        int temp = root;
+        root = third % LOOP;
+        third = fifth % LOOP;
+        fifth = temp;
+    }
+
     public String toString()
     {
 
         System.out.println(root + ",");
         String rootname = getNoteName(root);
-        String thirdname = "";
-        String fifthname  = "";
+        String thirdname = getThirdType();
+        String fifthname  = getFifthType();
+        if (fifthname.equals("?")) //invert twice if getting null values
+        {
+            invert();
+            rootname = getNoteName(root);
+            thirdname = getThirdType();
+            fifthname  = getFifthType();
+            if (fifthname.equals("?"))
+            {
+                invert();
+                rootname = getNoteName(root);
+                thirdname = getThirdType();
+                fifthname  = getFifthType();
+            }
+        }
 
-        thirdname = getThirdType();
-
-        fifthname = getFifthType();
         if (fifthname.equals("Augmented") || fifthname.equals("Diminished"))
         {
             thirdname = "";
@@ -76,6 +96,8 @@ public class Chord extends TheoryObj
 
         //return "Test";
     }
+    
+    
 
     public String getFifthType()
     {
@@ -156,8 +178,6 @@ public class Chord extends TheoryObj
         }
         return Color.gray;
     }
-    
-    
 
     public Color soften(Color c)
     {
@@ -168,7 +188,6 @@ public class Chord extends TheoryObj
         System.out.println(m);
         return new Color(m*r,m*g,m*b);
     }
-    
 
     public String getNotes()
     {

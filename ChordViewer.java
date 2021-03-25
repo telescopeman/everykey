@@ -60,6 +60,10 @@ public class ChordViewer extends EasyFrame implements ActionListener
             jLabel1.setOpaque(true);
             //String third = aChord.getThirdType();
             jLabel1.setBackground(aChord.toColor());
+            JButton jb3 = new JButton("Listen");    
+            MusicPlayer playr = new MusicPlayer(aChord.getNotes());
+            jb3.addActionListener(playr);
+            add(jb3);
             add(jLabel1);
         }
         

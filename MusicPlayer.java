@@ -44,6 +44,30 @@ public class MusicPlayer extends TheoryObj implements ActionListener
 
     }
     
+    /**
+     * Constructor for objects of class MusicPlayer
+     */
+    public MusicPlayer(String seq)
+    {
+        plyr = new Player();
+        
+        sequence = "T140 ";
+        for (int i = 0; i < seq.length(); i++) {
+            Character c = seq.charAt(i);
+            if (c.equals('♭'))
+            {
+                sequence += "b";
+            }
+            else
+            {
+               sequence += c; 
+            }
+            
+        }
+        //System.out.println(sequence);
+
+    }
+    
     public void actionPerformed(ActionEvent e) {
         System.out.println(sequence);
         plyr.play(sequence);

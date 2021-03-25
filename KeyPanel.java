@@ -32,16 +32,19 @@ public class KeyPanel extends JPanel
         JButton jb1 = new JButton("Chords");    
         ChordViewer chrds = new ChordViewer(key,name);
 
-        MusicPlayer playr = new MusicPlayer(key);
+        
         chrds.myKey = key;
 
         JButton jb2 = new JButton("Intervals");
-        JButton jb3 = new JButton("Listen");      
+        JButton jb3 = new JButton("Listen");    
+        MusicPlayer playr = new MusicPlayer(key);
+        jb3.addActionListener(playr);
+        add(jb3);
         JButton jb4 = new JButton("Button 4");
         JButton jb5 = new JButton("Button 5");
 
         jb1.addActionListener(chrds);
-        jb3.addActionListener(playr);
+        
 
         JLabel label = new JLabel(lbl);
         if (pt > -1)
@@ -51,7 +54,7 @@ public class KeyPanel extends JPanel
         //System.out.println(key.toString());
 
         add(label);
-        add(jb1); add(jb3);
+        add(jb1); 
 
     }
 
