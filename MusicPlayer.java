@@ -1,3 +1,4 @@
+import org.jfugue.player.ManagedPlayer;
 import org.jfugue.player.Player;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,7 +20,7 @@ public class MusicPlayer extends TheoryObj implements ActionListener
     {
         plyr = new Player();
         String tempSequence = "";
-        
+
         for (int note : k)
         {
             tempSequence += getNoteName(note) + "5q ";
@@ -36,21 +37,21 @@ public class MusicPlayer extends TheoryObj implements ActionListener
             }
             else
             {
-               sequence += c; 
+                sequence += c; 
             }
-            
+
         }
         //System.out.println(sequence);
 
     }
-    
+
     /**
      * Constructor for objects of class MusicPlayer
      */
     public MusicPlayer(String seq)
     {
         plyr = new Player();
-        
+
         sequence = "T140 ";
         for (int i = 0; i < seq.length(); i++) {
             Character c = seq.charAt(i);
@@ -60,22 +61,38 @@ public class MusicPlayer extends TheoryObj implements ActionListener
             }
             else
             {
-               sequence += c; 
+                sequence += c; 
             }
-            
+
         }
         //System.out.println(sequence);
 
     }
-    
+
     public void actionPerformed(ActionEvent e) {
-        System.out.println(sequence);
-        plyr.play(sequence);
+
+        //System.out.println(sequence);
+        class MyThread extends Thread { //this is here to prevent app freezing during note play
+
+            public void run(){
+                plyr.play(sequence);
+            }
+        }
+        
+        if (plyr.getManagedPlayer().isPlaying())
+        {
+            plyr.getManagedPlayer().finish();
+        }
+        
+        
+        MyThread thr = new MyThread();
+        thr.start();
+
+        
 
         //System.out.print();
         //System.out.println(e);
     }
 
-    
    
 }
