@@ -40,7 +40,7 @@ public class MathHelper extends TheoryObj
         // {
             // return abstractList;
         // }
-        abstractList = new int[555][7];
+        abstractList = new int[462][7];
         //trysomething = new int[210][7];
         // initialise instance variables
         counter = 0;

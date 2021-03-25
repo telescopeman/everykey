@@ -13,12 +13,23 @@ public class MusicPlayer extends TheoryObj implements ActionListener
     // instance variables - replace the example below with your own
     private Player plyr;
     private String sequence;
+    private int tempo = 140;
+    
+    private int[] savedKey;
     /**
      * Constructor for objects of class MusicPlayer
      */
     public MusicPlayer(int[] k)
     {
         plyr = new Player();
+        savedKey = k;
+        refreshSequence(k);
+
+    }
+    
+    public void refreshSequence(int[] k)
+    {
+        
         String tempSequence = "";
 
         for (int note : k)
@@ -26,9 +37,9 @@ public class MusicPlayer extends TheoryObj implements ActionListener
             tempSequence += getNoteName(note) + "5q ";
 
         }
-        tempSequence += getNoteName(1) + "6h";
+        tempSequence += getNoteName(1) + "6w";
         //System.out.println(tempSequence);
-        sequence = "T140 ";
+        sequence = "T" + String.valueOf(tempo) + " ";
         for (int i = 0; i < tempSequence.length(); i++) {
             Character c = tempSequence.charAt(i);
             if (c.equals('♭'))
@@ -41,8 +52,7 @@ public class MusicPlayer extends TheoryObj implements ActionListener
             }
 
         }
-        //System.out.println(sequence);
-
+        System.out.println(sequence);
     }
 
     /**
@@ -69,6 +79,22 @@ public class MusicPlayer extends TheoryObj implements ActionListener
 
     }
 
+    public void setTempo(int newTempo)
+    {
+        if (tempo < 1)
+        {
+            return;
+        }
+        tempo = newTempo;
+        refreshSequence(savedKey);
+
+    }
+
+    public void stop()
+    {
+        plyr.getManagedPlayer().finish();
+    }
+    
     public void actionPerformed(ActionEvent e) {
 
         //System.out.println(sequence);
@@ -78,21 +104,18 @@ public class MusicPlayer extends TheoryObj implements ActionListener
                 plyr.play(sequence);
             }
         }
-        
+
         if (plyr.getManagedPlayer().isPlaying())
         {
-            plyr.getManagedPlayer().finish();
+            stop();
         }
-        
-        
+
         MyThread thr = new MyThread();
         thr.start();
 
-        
 
         //System.out.print();
         //System.out.println(e);
     }
 
-   
 }

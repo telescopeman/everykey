@@ -34,6 +34,8 @@ public class UIStuff
     Filter[] curFilters = defaultFilters;
 
     MathHelper myUtility;
+    
+    private int globalTempo = 140;
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
 
@@ -48,7 +50,21 @@ public class UIStuff
 
     }
 
+    public int getTempo()
+    {
+        return globalTempo;
+    }
     
+    public void setTempo(int n)
+    {
+        globalTempo = n;
+        //KeyPanel[] panels = inner.getComponents();
+        for (Component panel : inner.getComponents() )
+        {
+            panel.resize(globalTempo,0);
+            
+        }
+    }
     
     public void setupEnableText()
     {
@@ -121,7 +137,7 @@ public class UIStuff
             }
         }
         //outer.setLayout(new ScrollPaneLayout());
-        JLabel lab = new JLabel("Showing " + num + " out of 462 keys. Hover over a key to see its modal relationships, if applicable.");
+        JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
         header.add(lab);
         inner.add(header,0);
@@ -149,7 +165,7 @@ public class UIStuff
     {
         mainWindow = new EasyFrame("Skeleton Key");
         //myWindow.pack();
-        mainWindow.setSize(new Dimension(600, 1000));
+        //mainWindow.setSize();
         //myWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inner = new JPanel();
@@ -158,41 +174,57 @@ public class UIStuff
 
         mainWindow.add(outer);
 
-        JMenu filtermenu, viewops, addfilter; 
-        JMenuItem i1, i2, i3, i4, i5;  
+        JMenu filtermenu, audio, addfilter; 
+        JMenuItem i1, i2, i3;
+        JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
 
         filtermenu=new JMenu("Filter Options");  
-        viewops=new JMenu("View Options");
+        audio=new JMenu("Audio Options");
 
         viewfilters=new JMenu("View Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
-        i4=new JMenuItem("Filter by something else idk");  
-        i5=new JMenuItem("deez nuts");  
-
-        i1.addActionListener(makeFC());
-        i2.addActionListener(makeFC());
-        i3.addActionListener(makeFC());
+        
+        i1.addActionListener(makeModBox("FilterCreator"));
+        i2.addActionListener(makeModBox("FilterCreator"));
+        i3.addActionListener(makeModBox("FilterCreator"));
+        
+        a1=new JMenuItem("Audio Speed");  
+        //a2=new JMenuItem("deez nuts");  
+        a1.addActionListener(makeModBox("AudioSpeed"));
+        
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
         addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
-        mb.add(filtermenu); mb.add(viewops);
+        
+        audio.add(a1); //audio.add(a2);
+        mb.add(filtermenu); mb.add(audio);
         mainWindow.setJMenuBar(mb);  
 
-        mainWindow.show();
+        
+        mainWindow.appear(new Dimension(600, 1000));
     }
 
+    
+    
     /**
      * Quick way to make FilterCreator class
      */
-    private FilterCreator makeFC()
+    private ModBox makeModBox(String type)
     {
-        return new FilterCreator(this);
-
+        switch (type)
+        {
+            case "FilterCreator":
+                return new FilterCreator(this);
+            case "AudioSpeed":
+                return new SettingsBox(this);
+            default:
+                return new FilterCreator(this);
+        }
     }
 
 

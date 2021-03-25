@@ -2,30 +2,21 @@ import javax.swing.*;
 import java.awt.*; 
 import java.awt.event.ActionListener;
 /**
- * Inherited class that has a few methods I like to have handy in frames.
+ * Write a description of class EasyPanel here.
  *
- * @author Caleb Copeland
+ * @author (your name)
  * @version (a version number or a date)
  */
-public class EasyFrame extends JFrame
+public class EasyPanel extends JPanel
 {
     // instance variables - replace the example below with your own
     private int x;
+    
 
-    /**
-     * Constructor for objects of class EasyFrame
-     */
-    public EasyFrame()
+     public EasyPanel()
     {
         // initialise instance variables
-        
-    }
-    
-    
-    public EasyFrame(String name)
-    {
-        // initialise instance variables
-        setTitle(name);
+        //setTitle(name);
     }
 
     public void addButton(String name, ActionListener trig)
@@ -53,9 +44,9 @@ public class EasyFrame extends JFrame
     }
     
     
-    public void clear()
-    {
-        // put your code here
-        getContentPane().removeAll();
-    }
+    // public void clear()
+    // {
+        // // put your code here
+        // //getContentPane().removeAll();
+    // }
 }

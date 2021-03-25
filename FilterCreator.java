@@ -1,11 +1,13 @@
 
-
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 import java.awt.*; 
 import java.util.Arrays;
+
+
 //import javafx.scene.control.MenuButton;
 //import javafx.scene.control.MenuItem;
 /**
@@ -14,7 +16,7 @@ import java.util.Arrays;
  * @author Caleb Copeland
  * @version (a version number or a date)
  */
-public class FilterCreator extends EasyFrame implements ActionListener
+public class FilterCreator extends ModBox
 {
     // instance variables - replace the example below with your own
     String type;
@@ -23,19 +25,19 @@ public class FilterCreator extends EasyFrame implements ActionListener
 
     Filter[] myFilters;
     boolean[] setList;
-    UIStuff ui;
+    //private UIStuff ui;
 
     /**
      * Constructor for objects of class FilterCreator
      */
     public FilterCreator(UIStuff uiref)
     {
-        ui = uiref;
+        super(uiref);
         myFilters = uiref.curFilters;
         setList = uiref.filterStatuses;
 
-        setSize(new Dimension(350, 100));
-        setLayout(new GridLayout(3,1));
+        
+        //setLayout(new GridLayout(3,1));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Create the combo box, select item at index 4.
@@ -48,9 +50,8 @@ public class FilterCreator extends EasyFrame implements ActionListener
         //removeAll();
         clear();
 
-        JLabel title = new JLabel("Filter Designer - " + id, JLabel.CENTER);
-        title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
-        add(title);
+        addHeader("Filter Designer - " + id);
+        
         String[] options = new String[]{"Error!"};
         String[] options2 = new String[]{"Error!"};
         boolean hasSecondDropDown = false;
@@ -85,9 +86,7 @@ public class FilterCreator extends EasyFrame implements ActionListener
             add(list2);
         }
 
-        JButton adder = new JButton("Add Filter");
-        adder.addActionListener(this);
-        add(adder);
+        addButton("Add Filter",this);
     }
 
     public Filter constructFilter(String opt1, String opt2)
@@ -126,9 +125,11 @@ public class FilterCreator extends EasyFrame implements ActionListener
     private void setCurFilters(Filter[] f)
     {
         ui.setCurFilters(f);
-        
     }
 
+    
+    
+    
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
         //System.out.print(id);
@@ -161,8 +162,8 @@ public class FilterCreator extends EasyFrame implements ActionListener
         {
             type = id.substring(10);
             setUpUniqueFactors(type);
-            show();
-            requestFocusInWindow();
+            appear(STANDARD);
+            
         }
 
         //System.out.print();

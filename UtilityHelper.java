@@ -49,4 +49,23 @@ public class UtilityHelper
 
         return newarr;
     }
+    
+    public static Object[] addX(Object[] list, Object x)
+    {
+        int i;
+
+        // create a new array of size n+1
+        Object[] newarr = new Object[list.length + 1];
+
+        // insert the elements from
+        // the old array into the new array
+        // insert all elements till n
+        // then insert x at n+1
+        for (i = 0; i < list.length; i++)
+            newarr[i] = list[i];
+
+        newarr[list.length] = x;
+
+        return newarr;
+    }
 }
