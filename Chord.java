@@ -1,4 +1,4 @@
-
+import java.awt.Color;
 /**
  * Represents a chord.
  *
@@ -46,12 +46,12 @@ public class Chord extends TheoryObj
     
     private void removeInversion()
     {
-        if (root >= third)
+        while (root >= third)
         {
             third = third + 7;
         }
         
-        if (third >= fifth)
+        while (third >= fifth)
         {
             fifth = fifth + 7;
         }
@@ -70,32 +70,10 @@ public class Chord extends TheoryObj
         String thirdname = "";
         String fifthname  = "";
         
-        int thirdinterval = third - root;
-        if (thirdinterval == 4)
-        {
-            thirdname = " Major";
-            
-        }
-        else if (thirdinterval == 3)
-        {
-            thirdname = " Minor";
-            
-        }
-        else if (thirdinterval == 2)
-        {
-            thirdname = "sus2";
-        }
-        else if (thirdinterval == 5)
-        {
-            thirdname = "sus4";
-        }
-        else
-        {
-            thirdname = "?";
-        }
+        thirdname = getThirdType();
         
         int fifthint = fifth - root;
-        
+        int thirdinterval = third - root;
         if (fifthint == 7)
         {
             fifthname = "";
@@ -118,9 +96,52 @@ public class Chord extends TheoryObj
             fifthname = "?";
         }
         
-        return rootname + thirdname + fifthname;
+        return rootname + " " + thirdname + fifthname;
     
         //return "Test";
+    }
+    
+    public String getThirdType()
+    {
+        String thirdname = "";
+        int thirdinterval = third - root;
+        if (thirdinterval == 4)
+        {
+            thirdname = "Major";
+            
+        }
+        else if (thirdinterval == 3)
+        {
+            thirdname = "Minor";
+            
+        }
+        else if (thirdinterval == 2)
+        {
+            thirdname = "sus2";
+        }
+        else if (thirdinterval == 5)
+        {
+            thirdname = "sus4";
+        }
+        else
+        {
+            thirdname = "?";
+        }
+        
+        return thirdname;
+    }
+    
+    public Color toColor()
+    {
+        
+        return Color.red;
+    }
+    
+    public String getNotes()
+    {
+        return getNoteName(root) + " + " + getNoteName(third) + " + " + getNoteName(fifth);
+        
+        
     }
     
 }
