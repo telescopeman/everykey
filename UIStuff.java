@@ -17,7 +17,7 @@ public class UIStuff
 {
     // instance variables - replace the example below with your own
     int[][] masterList;
-    JFrame mainWindow;
+    EasyFrame mainWindow;
 
     static boolean debugMode = true;
 
@@ -83,6 +83,7 @@ public class UIStuff
         int[] lastKey = keys[6];
         int counter = 0;
         int num = 0;
+        
         for (int[] key : keys)
         {
             counter++;
@@ -105,8 +106,8 @@ public class UIStuff
                 String name = "#" + String.valueOf(counter) + ": " + getKeyName(key);
 
                 JButton jb1 = new JButton("Chords");    
-                ChordViewer chrds = new ChordViewer();
-                chrds.key = key;
+                ChordViewer chrds = new ChordViewer(key,getKeyName(key));
+                chrds.myKey = key;
                 jb1.addActionListener(chrds);
                 
                           
@@ -156,7 +157,7 @@ public class UIStuff
 
     private void irrelevantSetup()
     {
-        mainWindow = new JFrame("SkeletonKey");
+        mainWindow = new EasyFrame("Skeleton Key");
         //myWindow.pack();
         mainWindow.setSize(new Dimension(600, 1000));
         //myWindow.setVisible(true);
@@ -166,11 +167,14 @@ public class UIStuff
 
         mainWindow.add(outer);
 
-        JMenu filtermenu, addfilter; 
+        JMenu filtermenu, viewops, addfilter; 
         JMenuItem i1, i2, i3, i4, i5;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
-        filtermenu=new JMenu("Filter");  
+        
+        filtermenu=new JMenu("Filter Options");  
+        viewops=new JMenu("View Options");
+        
         viewfilters=new JMenu("View Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
         i1=new JMenuItem("Filter by Tonality");  
@@ -186,7 +190,7 @@ public class UIStuff
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
         addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
-        mb.add(filtermenu);  
+        mb.add(filtermenu); mb.add(viewops);
         mainWindow.setJMenuBar(mb);  
 
         mainWindow.show();

@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class FilterCreator extends JFrame implements ActionListener
+public class FilterCreator extends EasyFrame implements ActionListener
 {
     // instance variables - replace the example below with your own
     String type;

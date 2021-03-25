@@ -27,6 +27,7 @@ public class Chord
         keyOffset = 0;
     }
     
+    
     /**
      * Constructor for objects of class Chord
      */
@@ -39,14 +40,17 @@ public class Chord
         extensions = others;
         keyOffset = 0;
     }
+    
+    
 
     public String toString()
     {
         
-        if (root >= third || third <= fifth)
-        {
-            return("Invalid Chord!");
-        }
+        // if (root >= third || third >= fifth)
+        // {
+            // return("Invalid Chord!");
+        // }
+        System.out.println(root + ",");
         
         String rootname = RomanNumeralsHelper.convert(root);
         String thirdname = "";

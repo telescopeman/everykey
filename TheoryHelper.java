@@ -74,82 +74,8 @@ public class TheoryHelper
     }
     
     
-    public static String getChordAt(int[] key, int index)
-    {
-        final int LOOP = 6;
-        if (index > 7)
-        {
-            return("Invalid Chord!");
-        }
-        
-        //return "Test Chord";
-        
-        return parseChord(key[index],key[(index + 2) % LOOP],key[(index + 4) % LOOP]);
-        
-        
-        
-    }
     
-    public static String parseChord(int note1, int note2, int note3)
-    {
-        if (!(note1 < note2 && note2 < note3))
-        {
-            return("Invalid Chord!");
-        }
-        
-        String rootname = getNoteName(note1);
-        String thirdname = "";
-        String fifthname  = "";
-        
-        int thirdinterval = note2 - note1;
-        if (thirdinterval == 4)
-        {
-            thirdname = "";
-            
-        }
-        else if (thirdinterval == 3)
-        {
-            thirdname = " Minor";
-            
-        }
-        else if (thirdinterval == 2)
-        {
-            thirdname = "sus2";
-        }
-        else if (thirdinterval == 5)
-        {
-            thirdname = "sus4";
-        }
-        else
-        {
-            thirdname = "?";
-        }
-        
-        int fifthint = note3 - note1;
-        if (fifthint == 7)
-        {
-            fifthname = "";
-        }
-        else if (fifthint == 8 && thirdinterval == 4)
-        {
-            fifthname = " Augmented";
-        }
-        else if (fifthint == 6 && thirdinterval == 3)
-        {
-            thirdname = "";
-            fifthname = " Diminished";
-        }
-        else if (fifthint == 6 && thirdinterval == 4)
-        {
-            fifthname = "b5";
-        }
-        else
-        {
-            fifthname = "?";
-        }
-        
-        return rootname + thirdname + fifthname;
-    }
+    
     
     
     // /**
