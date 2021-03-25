@@ -1,6 +1,6 @@
 import java.util.HashMap;
 /**
- * Write a description of class KeyNamesHelper here.
+ * Class that helps access names of common keys.
  *
  * @author (your name)
  * @version (a version num♭er or a date)
@@ -18,18 +18,20 @@ public class KeyNamesHelper
     static HashMap<int[],String> commonKeys;
     
     static HashMap<String,String> stringKeys;
+    
+    
     /**
      * I don't know why I need to put this in another class ♭ut that's just how it is i guess
      */
     public KeyNamesHelper()
     {
-        commonKeys = new HashMap<int[],String>();
-        commonKeys.put(majorKey, "Major");
-        commonKeys.put(minorKey, "Minor");
-        commonKeys.put(lydian, "Lydian");
+        // commonKeys = new HashMap<int[],String>();
+        // commonKeys.put(majorKey, "Major");
+        // commonKeys.put(minorKey, "Minor");
+        // commonKeys.put(lydian, "Lydian");
         
         stringKeys = new HashMap<String,String>();
-        stringKeys.put("C, D, E, F, G, A, and B.", "Ionian (Major)"); //the modes of major
+        stringKeys.put("C, D, E, F, G, A, and B.", "Ionian (Major)"); // the modes of major
         stringKeys.put("C, D, E♭, F, G, A♭, and B♭.", "Aeolian (Minor)");
         stringKeys.put("C, D, E♭, F, G, A, and B♭.", "Dorian");
         stringKeys.put("C, D, E, G♭, G, A, and B.", "Lydian");
@@ -37,7 +39,7 @@ public class KeyNamesHelper
         stringKeys.put("C, D♭, E♭, F, G♭, A♭, and B♭.", "Locrian");
         stringKeys.put("C, D, E, F, G, A, and B♭.", "Mixolydian");
         
-        stringKeys.put("C, D, E♭, F, G, A♭, and B.", "Harmonic Minor"); //the modes of harmonic minor
+        stringKeys.put("C, D, E♭, F, G, A♭, and B.", "Harmonic Minor"); // the modes of harmonic minor
         stringKeys.put("C, D♭, E♭, F, G♭, A, and B♭.", "Locrian ♮7 (Second mode of Harmonic Minor)"); 
         stringKeys.put("C, D, E, F, A♭, A, and B.", "Ionian ♯5 (Third mode of Harmonic Minor)"); 
         stringKeys.put("C, D, E♭, G♭, G, A, and B♭.", "Dorian ♯4 (Fourth mode of Harmonic Minor)"); 
@@ -45,13 +47,22 @@ public class KeyNamesHelper
         stringKeys.put("C, E♭, E, G♭, G, A, and B.", "Lydian ♯2 (Sixth mode of Harmonic Minor)"); 
         stringKeys.put("C, D♭, E♭, E, G♭, A♭, and A.", "Super Locrian ♭♭7 (Seventh mode of Harmonic Minor)"); 
         
-        stringKeys.put("C, D, E♭, F, G, A, and B.", "Melodic Minor"); //the modes of melodic minor
+        stringKeys.put("C, D, E♭, F, G, A, and B.", "Melodic Minor"); // the modes of melodic minor
         stringKeys.put("C, D♭, E♭, F, G, A, and B♭.", "Dorian ♭2 (Second mode of Melodic Minor)"); 
         stringKeys.put("C, D, E, G♭, A♭, A, and B.", "Lydian ♯5 (Third mode of Melodic Minor)"); 
         stringKeys.put("C, D, E, G♭, G, A, and B♭.", "Lydian Dominant (Fourth mode of Melodic Minor)"); 
         stringKeys.put("C, D♭, E♭, F, G, A♭, and B♭..", "Mixolydian ♭6 (Fifth mode of Melodic Minor)"); 
         stringKeys.put("C, D, E♭, F, G♭, A♭, and B♭.", "Locrian ♯2 (Sixth mode of Melodic Minor)"); 
         stringKeys.put("C, D♭, E♭, E, G♭, A♭, and B♭.", "Super Locrian (Seventh mode of Melodic Minor)"); 
+        
+        stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // odd historical keys
+        stringKeys.put("C, D♭, E, F, G, A♭, and B.", "Gypsy/Byzantine");
+        stringKeys.put("C, D, E, F, G♭, A♭, and B♭.", "Arabian (Major Locrian)");
+        stringKeys.put("C, D♭, E, F, G, B♭, and B.", "Persian");
+        stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian");
+        
+        stringKeys.put("C, D♭, E♭, G♭, G, A♭, and B♭.", "Black Keys + Perfect Fifth"); //Fun keys
+        
         
         // stringKeys.put("C, D, E, F, G♭, A, and B.", "Ionian ♭5"); //the modes of major but with flatted fifths
         // stringKeys.put("C, D, E♭, F, G♭, A♭, and B♭.", "Aeolian ♭5");

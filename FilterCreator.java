@@ -9,9 +9,9 @@ import java.util.Arrays;
 //import javafx.scene.control.MenuButton;
 //import javafx.scene.control.MenuItem;
 /**
- * Popup that lets the user create a filter.
+ * Dialogue popup that lets the user create a filter.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class FilterCreator extends EasyFrame implements ActionListener

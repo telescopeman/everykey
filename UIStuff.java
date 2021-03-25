@@ -39,24 +39,30 @@ public class UIStuff
 
     
     int[][] curList;
-
-    /**
-     * Constructor for objects of class UIStuff
-     */
+    
     public UIStuff()
+    {
+        myUtility = new MathHelper();
+        masterList = myUtility.getAllKeys();
+        setupEnableText();
+        irrelevantSetup();
+        refresh();
+        
+    }
+    
+       
+    
+    
+    
+    
+    public void setupEnableText()
     {
         enableText = new HashMap<Boolean,String>();
         enableText.put(true,"on");
         enableText.put(false,"off");
-        System.out.print(enableText);
+        //System.out.print(enableText);
         
-        myUtility = new MathHelper();
-        masterList = myUtility.getAllKeys();
-        irrelevantSetup();
-        refresh();
-
     }
-    
     
     public void setCurFilters(Filter[] newFilters)
     {
