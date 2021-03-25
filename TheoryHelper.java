@@ -82,9 +82,9 @@ public class TheoryHelper
             return("Invalid Chord!");
         }
         
-        return "Test Chord";
+        //return "Test Chord";
         
-        //parseChord(key[index],key[(index + 2) % LOOP],key[(index + 4) % LOOP]);
+        return parseChord(key[index],key[(index + 2) % LOOP],key[(index + 4) % LOOP]);
         
         
         

@@ -122,7 +122,7 @@ public class UIStuff
                         JPanel keyPanel = new JPanel();
 
                         keyPanel.add(label);
-                        keyPanel.add(jb1); keyPanel.add(jb2); 
+                        keyPanel.add(jb1); //keyPanel.add(jb2); 
 
                         inner.add(keyPanel); 
                         inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));

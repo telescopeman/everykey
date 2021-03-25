@@ -18,11 +18,22 @@ public class EnharmonicsHelper
     {
         enharmonics = new HashMap<String,String>();
         enharmonics.put("D♭", "C♯");
+        
         enharmonics.put("E♭", "D♯");
+        enharmonics.put("E", "D♯♯");
+        
         enharmonics.put("F", "E♯");
+        
+        
         enharmonics.put("G♭", "F♯");
+        
+        enharmonics.put("G", "F♯♯");
+        
         enharmonics.put("A♭", "G♯");
+        
+        
         enharmonics.put("B♭", "A♯");
+        
     }
 
     public String getEnharmonic(String note)
