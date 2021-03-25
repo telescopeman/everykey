@@ -12,7 +12,7 @@ public class Chord extends TheoryObj
     private int third;
     private int fifth;
     private int[] extensions;
-    
+
     private int keyOffset;
     /**
      * Constructor for objects of class Chord
@@ -27,8 +27,7 @@ public class Chord extends TheoryObj
         keyOffset = 0;
         removeInversion();
     }
-    
-    
+
     /**
      * Constructor for objects of class Chord
      */
@@ -42,36 +41,45 @@ public class Chord extends TheoryObj
         keyOffset = 0;
         removeInversion();
     }
-    
-    
+
     private void removeInversion()
     {
         while (root >= third)
         {
             third = third + 7;
         }
-        
+
         while (third >= fifth)
         {
             fifth = fifth + 7;
         }
-        
-        
+
     }
-    
     
     public String toString()
     {
-        
-        
+
         System.out.println(root + ",");
-        
         String rootname = getNoteName(root);
         String thirdname = "";
         String fifthname  = "";
-        
+
         thirdname = getThirdType();
-        
+
+        fifthname = getFifthType();
+        if (fifthname.equals("Augmented") || fifthname.equals("Diminished"))
+        {
+            thirdname = "";
+
+        }
+        return rootname + " " + thirdname + " " + fifthname;
+
+        //return "Test";
+    }
+
+    public String getFifthType()
+    {
+        String fifthname = "";
         int fifthint = fifth - root;
         int thirdinterval = third - root;
         if (fifthint == 7)
@@ -80,12 +88,11 @@ public class Chord extends TheoryObj
         }
         else if (fifthint == 8 && thirdinterval == 4)
         {
-            fifthname = " Augmented";
+            fifthname = "Augmented";
         }
         else if (fifthint == 6 && thirdinterval == 3)
         {
-            thirdname = "";
-            fifthname = " Diminished";
+            fifthname = "Diminished";
         }
         else if (fifthint == 6 && thirdinterval == 4)
         {
@@ -95,12 +102,10 @@ public class Chord extends TheoryObj
         {
             fifthname = "?";
         }
-        
-        return rootname + " " + thirdname + fifthname;
-    
-        //return "Test";
+        return fifthname;
+
     }
-    
+
     public String getThirdType()
     {
         String thirdname = "";
@@ -108,12 +113,12 @@ public class Chord extends TheoryObj
         if (thirdinterval == 4)
         {
             thirdname = "Major";
-            
+
         }
         else if (thirdinterval == 3)
         {
             thirdname = "Minor";
-            
+
         }
         else if (thirdinterval == 2)
         {
@@ -127,21 +132,47 @@ public class Chord extends TheoryObj
         {
             thirdname = "?";
         }
-        
+
         return thirdname;
     }
-    
+
     public Color toColor()
     {
-        
-        return Color.red;
+        if (getFifthType().equals("Augmented"))
+        {
+            return soften(Color.yellow);
+        }
+        else if (getFifthType().equals("Diminished"))
+        {
+            return soften(Color.green);
+        }
+        else if (getThirdType().equals("Minor"))
+        {
+            return soften(Color.cyan);
+        }
+        else if (getThirdType().equals("Major"))
+        {
+            return soften(Color.orange);
+        }
+        return Color.gray;
     }
     
+    
+
+    public Color soften(Color c)
+    {
+        float r = c.getRed()/255;
+        float g = c.getGreen()/255;
+        float b = c.getBlue()/255;
+        float m = new Double(0.9).floatValue();
+        System.out.println(m);
+        return new Color(m*r,m*g,m*b);
+    }
+    
+
     public String getNotes()
     {
         return getNoteName(root) + " + " + getNoteName(third) + " + " + getNoteName(fifth);
-        
-        
+
     }
-    
 }

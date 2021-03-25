@@ -20,7 +20,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
     {
         setSize(new Dimension(900, 150));
         setResizable(false);
-        setLayout(new GridLayout(3, 7));
+        setLayout(new GridLayout(2, 7));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         myKey= k;
         
@@ -49,10 +49,10 @@ public class ChordViewer extends EasyFrame implements ActionListener
         System.out.print(e);
         clear();
         
-        for(int i = 1; i < 8; i++)
-        {
-            add(new JLabel(String.valueOf(i), JLabel.CENTER));
-        }
+        // for(int i = 1; i < 8; i++)
+        // {
+            // add(new JLabel(String.valueOf(i), JLabel.CENTER));
+        // }
         for(int i = 1; i < 8; i++)
         {
             Chord aChord = getChordAt(myKey,i);

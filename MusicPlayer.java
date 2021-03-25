@@ -1,4 +1,4 @@
-
+import org.jfugue.player.Player;
 /**
  * Write a description of class MusicPlayer here.
  *

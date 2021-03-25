@@ -26,20 +26,18 @@ public class UIStuff
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
     Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
     boolean[] filterStatuses = new boolean[]{true};
-    
+
     private HashMap<Boolean,String> enableText;
-    
+
     JMenu viewfilters;
 
     Filter[] curFilters = defaultFilters;
 
     MathHelper myUtility;
-    
+
     private static KeyNamesHelper namer = new KeyNamesHelper();
 
-    
     int[][] curList;
-    
     public UIStuff()
     {
         myUtility = new MathHelper();
@@ -47,12 +45,9 @@ public class UIStuff
         setupEnableText();
         irrelevantSetup();
         refresh();
-        
+
     }
-    
-       
-    
-    
+
     
     
     public void setupEnableText()
@@ -61,29 +56,28 @@ public class UIStuff
         enableText.put(true,"on");
         enableText.put(false,"off");
         //System.out.print(enableText);
-        
+
     }
-    
+
     public void setCurFilters(Filter[] newFilters)
     {
         curFilters = newFilters;
-        
+
     }
-    
+
     public void setFilterStatuses(boolean[] newThings)
     {
         filterStatuses = newThings;
     }
-    
+
     public void refresh()
     {
         printlnDebug("Refreshing...");
         updateFilterList(curFilters);
         curList = filterKeys(masterList, curFilters);
-        
+
         updateKeys(curList);
-        
-        
+
     }
     private static void printlnDebug(String str)
     {
@@ -100,7 +94,7 @@ public class UIStuff
         int[] lastKey = keys[6];
         int counter = 0;
         int num = 0;
-        
+
         for (int[] key : keys)
         {
             counter++;
@@ -118,47 +112,27 @@ public class UIStuff
             else
             {
                 num++;
-                //System.out.println(String.valueOf(counter) + ": " + MathHelper.expand(key));
-
-                String name = "#" + String.valueOf(counter) + ": " + getKeyName(key);
-
-                JButton jb1 = new JButton("Chords");    
-                ChordViewer chrds = new ChordViewer(key,getKeyName(key));
-                chrds.myKey = key;
-                jb1.addActionListener(chrds);
                 
-                          
-                        
-
-                        JButton jb2 = new JButton("Intervals");
-                        JButton jb3 = new JButton("Button 3");      
-                        JButton jb4 = new JButton("Button 4");
-                        JButton jb5 = new JButton("Button 5");
-
-                        JLabel label = new JLabel(name);
-                        //System.out.println(key.toString());
-                        JPanel keyPanel = new JPanel();
-
-                        keyPanel.add(label);
-                        keyPanel.add(jb1); //keyPanel.add(jb2); 
-
-                        inner.add(keyPanel); 
-                        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
-                    }
+                KeyPanel keyPanel = new KeyPanel(counter, key, getKeyName(key));
+                
+                
+                inner.add(keyPanel); 
+                inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
             }
-            //outer.setLayout(new ScrollPaneLayout());
-            JLabel lab = new JLabel("Showing " + num + " out of 462 keys.");
-            JPanel header = new JPanel();
-            header.add(lab);
-            inner.add(header,0);
-
-            mainWindow.pack();
-            mainWindow.setSize(new Dimension(800, 1000));
-            //outer.setPreferredSize(new Dimension(640,1000));
         }
+        //outer.setLayout(new ScrollPaneLayout());
+        JLabel lab = new JLabel("Showing " + num + " out of 462 keys.");
+        JPanel header = new JPanel();
+        header.add(lab);
+        inner.add(header,0);
 
-        private String getKeyName(int[] key)
-        {
+        mainWindow.pack();
+        mainWindow.setSize(new Dimension(800, 1000));
+        //outer.setPreferredSize(new Dimension(640,1000));
+    }
+
+    private String getKeyName(int[] key)
+    {
         String name =namer.get(key);
         if (name == "")
         {
@@ -169,9 +143,7 @@ public class UIStuff
             return name + " (" + MathHelper.expand(key,true) + ")";
         }
 
-        
     }
-
     private void irrelevantSetup()
     {
         mainWindow = new EasyFrame("Skeleton Key");
@@ -188,10 +160,10 @@ public class UIStuff
         JMenuItem i1, i2, i3, i4, i5;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
-        
+
         filtermenu=new JMenu("Filter Options");  
         viewops=new JMenu("View Options");
-        
+
         viewfilters=new JMenu("View Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
         i1=new JMenuItem("Filter by Tonality");  
@@ -199,8 +171,7 @@ public class UIStuff
         i3=new JMenuItem("Filter by Chord");  
         i4=new JMenuItem("Filter by something else idk");  
         i5=new JMenuItem("deez nuts");  
-        
-        
+
         i1.addActionListener(makeFC());
         i2.addActionListener(makeFC());
         i3.addActionListener(makeFC());
@@ -212,67 +183,63 @@ public class UIStuff
 
         mainWindow.show();
     }
-    
-     /**
+
+    /**
      * Quick way to make FilterCreator class
      */
     private FilterCreator makeFC()
     {
         return new FilterCreator(this);
-        
+
     }
-    
-    
+
 
     private void updateFilterList(Filter[] flist)
     {
         viewfilters.removeAll();
         int counter = 0;
-        
+
         for (Filter f : flist)
         {
-            
 
             
             String thing = enableText.get(filterStatuses[counter]);
-            
+
             System.out.println(filterStatuses[0]);
-            
+
             String label = f.translateToReadable() + " [" + thing + "]";
-            
+
             FilterToggler button = new FilterToggler(counter);
             button.setText(label);
             ActionListener menuListener = new ActionListener()
-            {
-                      @Override
-                      public void actionPerformed(ActionEvent event)
-                      {
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent event)
+                    {
                         String invAction = event.getActionCommand();
-        
-        
+
                         
                         FilterToggler actItem = button;
-                        
+
                         int ind = button.getIndex();
                         //System.out.print(String.getValue(ind));
-                        
+
                         toggleFilter(ind);
-    
+
                         //System.out.println("Popup menu item [" + invAction + "] [ " + actItem + " ] was pressed.");
+                    }
                 }
-            }
             ;
-            
-            
+
             button.addActionListener(menuListener);
             viewfilters.add(button);  
             counter++;
         }
     }
-    
+
     public void toggleFilter(int index)
     {
-        
+
         boolean newSet = !filterStatuses[index];
         printlnDebug(String.valueOf(index) + newSet);
         filterStatuses[index] = newSet;
@@ -284,7 +251,7 @@ public class UIStuff
 
         int[][] newList = Arrays.copyOf(keyList,keyList.length);
         int num = 0;
-        
+
         for (int[] key : keyList)
         {
             boolean valid = true;
@@ -298,8 +265,7 @@ public class UIStuff
                     valid = true;
                     continue;
                 }
-                
-                
+
 
                 if (!f.checkKey(key))
                 {
@@ -308,7 +274,7 @@ public class UIStuff
                     break;
 
                 }
-                
+
             }
             if (!valid)
             {
