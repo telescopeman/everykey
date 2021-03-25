@@ -31,7 +31,7 @@ public class TheoryObj
         }
         else if (index <= 0)
         {
-            return "Null";
+            return getNoteName(index+12);
         }
         else
         {

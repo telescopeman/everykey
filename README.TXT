@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------
-A procedurally generated database of all musical keys. Requires JFugue.
+A procedurally generated database of all musical keys. Requires JFugue for audio.
 ------------------------------------------------------------------------
 
 PROJECT TITLE: Skeleton Key

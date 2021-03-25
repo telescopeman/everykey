@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 /**
  * Represents a chord.
@@ -11,6 +12,7 @@ public class Chord extends TheoryObj
     private int root;
     private int third;
     private int fifth;
+    private int permRoot;
     private int[] extensions;
 
     private final int LOOP = 7;
@@ -22,6 +24,7 @@ public class Chord extends TheoryObj
     {
         // initialise instance variables
         root = one;
+        permRoot = root;
         third = two;
         fifth = three;
         extensions = new int[]{};
@@ -38,6 +41,7 @@ public class Chord extends TheoryObj
         root = one;
         third = two;
         fifth = three;
+        permRoot = root;
         extensions = others;
         keyOffset = 0;
         sort();
@@ -92,12 +96,10 @@ public class Chord extends TheoryObj
             thirdname = "";
 
         }
-        return rootname + " " + thirdname + " " + fifthname;
+        return getNoteName(permRoot) + " " + thirdname + " " + fifthname;
 
         //return "Test";
     }
-    
-    
 
     public String getFifthType()
     {
@@ -118,7 +120,11 @@ public class Chord extends TheoryObj
         }
         else if (fifthint == 6 && thirdinterval != 3)
         {
-            fifthname = "b5";
+            fifthname = "♭5";
+        }
+        else if (fifthint == 5)
+        {
+            fifthname = "♭♭5";
         }
         else
         {
@@ -160,23 +166,49 @@ public class Chord extends TheoryObj
 
     public Color toColor()
     {
-        if (getFifthType().equals("Augmented"))
+        System.out.println(getFifthType() + " " + getThirdType());
+        switch (getFifthType())
         {
+            case "Augmented":
+
             return soften(Color.yellow);
-        }
-        else if (getFifthType().equals("Diminished"))
-        {
+
+            case "Diminished":
+
             return soften(Color.green);
+            
+            case "♭5":
+
+            return soften(Color.green);
+            
+            case "♭♭5":
+
+            return new Color(144,144,144);
+
+            default:
+            switch (getThirdType())
+            {
+                case "Minor":
+
+                    return new Color(30,100,200);
+
+                case "Major":
+
+                    return soften(Color.red);
+
+                case "sus2":
+
+                    return new Color(100,200,200);
+                    
+                case "sus4":
+
+                    return new Color(100,200,200);
+                    
+                default:
+                    return Color.gray;
+            }
         }
-        else if (getThirdType().equals("Minor"))
-        {
-            return soften(Color.cyan);
-        }
-        else if (getThirdType().equals("Major"))
-        {
-            return soften(Color.orange);
-        }
-        return Color.gray;
+       
     }
 
     public Color soften(Color c)
@@ -194,6 +226,5 @@ public class Chord extends TheoryObj
         return getNoteName(root) + " + " + getNoteName(third) + " + " + getNoteName(fifth);
 
     }
-    
-    
+
 }
