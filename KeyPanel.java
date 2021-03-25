@@ -16,8 +16,6 @@
                 public void resize(int num, int dummy) //sets tempo
                 {
                     playr.setTempo(num);
-                    
-                    
                 }
                 
                 /**

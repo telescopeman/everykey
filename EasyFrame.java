@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
  * @author Caleb Copeland
  * @version (a version number or a date)
  */
-public class EasyFrame extends JFrame
+public class EasyFrame extends JFrame implements EasyVisual
 {
     // instance variables - replace the example below with your own
     private int x;

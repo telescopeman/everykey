@@ -7,13 +7,12 @@ import java.awt.event.ActionListener;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class EasyPanel extends JPanel
+public class EasyPanel extends JPanel implements EasyVisual
 {
     // instance variables - replace the example below with your own
     private int x;
-    
 
-     public EasyPanel()
+    public EasyPanel()
     {
         // initialise instance variables
         //setTitle(name);
@@ -25,28 +24,26 @@ public class EasyPanel extends JPanel
         jb3.addActionListener(trig);
         add(jb3);
     }
-    
+
     public void appear()
     {
         show();
         requestFocusInWindow();
-        
-        
+
     }
-    
     public void appear(Dimension dim)
     {
         show();
         requestFocusInWindow();
         setSize(dim);
-        
-        
+
     }
     
-    
-    // public void clear()
-    // {
-        // // put your code here
-        // //getContentPane().removeAll();
-    // }
+    public void clear()
+    {
+        for(Component child : getComponents())
+        {
+            remove(child);
+        }
+    }
 }

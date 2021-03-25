@@ -62,11 +62,11 @@ public class FilterCreator extends ModBox
             break;
 
             case "Note":
-            options = Arrays.copyOfRange(MathHelper.notesArr, 1, 12);
+            options = CHROMATICSCALE;
             break;
 
             case "Chord":
-            options = Arrays.copyOfRange(MathHelper.notesArr, 1, 12);
+            options = CHROMATICSCALE;
             options2 = new String[]{"Major", "Minor", "Either","Neither"};
             hasSecondDropDown = true;
             break;
@@ -141,13 +141,13 @@ public class FilterCreator extends ModBox
         {
             String o1 = list1.getSelectedItem().toString();
             String o2 = list2.getSelectedItem().toString();
-            Filter[] tempList = UtilityHelper.addX(myFilters,constructFilter(o1,o2));
+            Filter[] tempList = addX(myFilters,constructFilter(o1,o2));
             
             
             //System.out.println("SUPER: " + super.toString());
             ui.setCurFilters(tempList);
             
-            boolean[] tempList2 = UtilityHelper.addX(setList,true);
+            boolean[] tempList2 = addX(setList,true);
             
             ui.setFilterStatuses(tempList2);
             
