@@ -121,7 +121,7 @@ public class UIStuff
             }
         }
         //outer.setLayout(new ScrollPaneLayout());
-        JLabel lab = new JLabel("Showing " + num + " out of 462 keys.");
+        JLabel lab = new JLabel("Showing " + num + " out of 462 keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
         header.add(lab);
         inner.add(header,0);

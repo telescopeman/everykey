@@ -44,7 +44,7 @@ public class KeyNamesHelper
         stringKeys.put("C, D, E♭, F, G, A♭, and B.", "Harmonic Minor"); // the modes of harmonic minor
         stringKeys.put("C, D♭, E♭, F, G♭, A, and B♭.", "Locrian ♮7 [Second mode of Harmonic Minor]"); 
         stringKeys.put("C, D, E, F, A♭, A, and B.", "Ionian Augmented [Third mode of Harmonic Minor]"); 
-        stringKeys.put("C, D, E♭, G♭, G, A, and B♭.", "Dorian ♯4 [Fourth mode of Harmonic Minor]"); 
+        stringKeys.put("C, D, E♭, G♭, G, A, and B♭.", "Ukrainian Dorian/Dorian ♯4 [Fourth mode of Harmonic Minor]"); 
         stringKeys.put("C, D♭, E, F, G, A♭, and B♭.", "Phrygian Dominant [Fifth mode of Harmonic Minor]"); 
         stringKeys.put("C, E♭, E, G♭, G, A, and B.", "Lydian ♯2 [Sixth mode of Harmonic Minor]"); 
         stringKeys.put("C, D♭, E♭, E, G♭, A♭, and A.", "Ultra Locrian [Seventh mode of Harmonic Minor]"); 
@@ -78,19 +78,38 @@ public class KeyNamesHelper
         
         
         stringKeys.put("C, D♭, E, F, G, A♭, and B.", "Double Harmonic"); // modes of the double harmonic scale
-        stringKeys.put("C, E♭, E, G♭, G, B♭, and B.", "Lydian ♯2,♯6 [Second mode of the Double Harmonic Scale]");
-        stringKeys.put("C, D♭, E♭, F♭, G, A♭, and A.", "Ultra Phrygian [Third mode of the Double Harmonic Scale]");
-        stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic Scale]");
-        stringKeys.put("C, D♭, E, F, G♭, A, and B♭.", "Oriental [Fifth mode of the Double Harmonic Scale]");
-        stringKeys.put("C, E♭, E, F, A♭, A, and B.", "Ionian ♯2,♯5 [Sixth mode of the Double Harmonic Scale]");
-        stringKeys.put("C, D♭, D, F, G♭, A♭, and A.", "Locrian ♭♭3,♭♭7 [Seventh mode of the Double Harmonic Scale]");
+        stringKeys.put("C, E♭, E, G♭, G, B♭, and B.", "Lydian ♯2,♯6 [Second mode of the Double Harmonic scale]");
+        stringKeys.put("C, D♭, E♭, F♭, G, A♭, and A.", "Ultra Phrygian [Third mode of the Double Harmonic scale]");
+        stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic scale]");
+        stringKeys.put("C, D♭, E, F, G♭, A, and B♭.", "Oriental [Fifth mode of the Double Harmonic scale]");
+        stringKeys.put("C, E♭, E, F, A♭, A, and B.", "Ionian ♯2,♯5 [Sixth mode of the Double Harmonic scale]");
+        stringKeys.put("C, D♭, D, F, G♭, A♭, and A.", "Locrian ♭♭3,♭♭7 [Seventh mode of the Double Harmonic scale]");
         
-        stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // Keys from Wikipedia and other things.
+        
+        stringKeys.put("C, D♭, E, F, G, B♭, and B.", "Persian"); // modes of the persian scale
+        stringKeys.put("C, E♭, E, F, G, B♭, and B.", "Ionian ♯2,♯6 [Second mode of the Persian scale]");
+        stringKeys.put("C, D♭, D, G♭, G, A♭, and A.", "Ultra Phrygian ♭♭3 [Third mode of the Persian scale]");
+        stringKeys.put("C, D♭, D, G♭, G, A♭, and A.", "Todi Raga [Fourth mode of the Persian scale]");
+        stringKeys.put("C, D, F, G♭, G, B♭, and B.", "Lydian ♯3,♯6 [Fifth mode of the Persian scale]");
+        stringKeys.put("C, E♭, E, F, A♭, A, and B♭.", "Mixolydian Augmented ♯2 [Sixth mode of the Persian scale]");
+        stringKeys.put("C, D♭, D, F, G♭, G, and A.", "Chromatic Hypophrygian Inverse [Seventh mode of the Persian scale]"); //jesus christ wtf is this lmao
+        
+        
+        stringKeys.put("C, E♭, E, G♭, G, A, and B♭.", "Hungarian/\"Gypsy\" Major/Nasikabhushani Raga"); // modes of the hungarian major scale
+        stringKeys.put("C, D♭, E♭, E, G♭, G, and A.", "Ultra Locrian ♭♭6 [Second mode of Hungarian Major]"); 
+        stringKeys.put("C, D, E♭, F, G♭, A♭, and B.", "Harmonic Minor ♭5 [Third mode of Hungarian Major]"); 
+        stringKeys.put("C, D♭, E♭, E, G♭, A, and B♭.", "Super Locrian ♮6 [Fourth mode of Hungarian Major]"); 
+        stringKeys.put("C, D, E♭, F, A♭, A, and B.", "Melodic Minor ♯5 [Fifth mode of Hungarian Major]");
+        stringKeys.put("C, D♭, E♭, G♭, G, A, and B♭.", "Dorian ♭2,♯4 [Sixth mode of Hungarian Major]");
+        stringKeys.put("C, D, F, G♭, A♭, A, and B.", "Nohkan Flute Scale [Seventh mode of Hungarian Major]");
+        
+        
+        stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // Other keys
         stringKeys.put("C, D♭, E, F, G, A♭, and B.", "\"Gypsy\"/Byzantine");
         
-        stringKeys.put("C, D♭, E, F, G, B♭, and B.", "Persian");
         
-        stringKeys.put("C, E♭, E, G♭, G, A, and B♭.", "Hungarian Major");
+        
+        
         stringKeys.put("C, D, E♭, G♭, G, A♭, and B.", "Algerian");
         
         
