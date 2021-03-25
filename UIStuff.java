@@ -24,8 +24,8 @@ public class UIStuff
     JPanel inner;
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
-    Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    boolean[] filterStatuses = new boolean[]{true};
+    Filter[] defaultFilters = new Filter[]{new Filter("isNamed"),new Filter("Exotic",true)};
+    boolean[] filterStatuses = new boolean[]{true,true};
 
     private HashMap<Boolean,String> enableText;
 
@@ -72,7 +72,7 @@ public class UIStuff
 
     public void refresh()
     {
-        printlnDebug("Refreshing...");
+        //printlnDebug("Refreshing...");
         updateFilterList(curFilters);
         curList = filterKeys(masterList, curFilters);
 
@@ -127,6 +127,7 @@ public class UIStuff
         inner.add(header,0);
 
         mainWindow.pack();
+        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setSize(new Dimension(800, 1000));
         //outer.setPreferredSize(new Dimension(640,1000));
     }
@@ -153,6 +154,7 @@ public class UIStuff
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         inner = new JPanel();
         outer = new JScrollPane(inner);
+        outer.getVerticalScrollBar().setUnitIncrement(16);
 
         mainWindow.add(outer);
 
@@ -205,7 +207,7 @@ public class UIStuff
             
             String thing = enableText.get(filterStatuses[counter]);
 
-            System.out.println(filterStatuses[0]);
+            //System.out.println(filterStatuses[0]);
 
             String label = f.translateToReadable() + " [" + thing + "]";
 

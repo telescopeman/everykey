@@ -87,21 +87,30 @@ public class Filter extends TheoryObj
 
     public String translateToReadable()
     {
+        String preceder = "";
+        if (inverted)
+        {
+            preceder = "not ";
+        }
         if (type == "Note")
         {
-            return ("Must contain the note " + getNoteName(requiredNotes[0]));
+            return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
         }
         else if (type == "NotePos" && requiredNotes.length == 1)
         {
-            return ("Must contain the note " + getNoteName(requiredNotes[0]));
+            return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
         }
         else if (type == "NotePos")
         {
-            return ("Must contain the notes " + getNoteName(requiredNotes[0]) + " or " + getNoteName(requiredNotes[1]));
+            return ("Must " + preceder + "contain the notes " + getNoteName(requiredNotes[0]) + " or " + getNoteName(requiredNotes[1]));
         }
         else if (type == "isNamed")
         {
-            return ("Must be a named key.");
+            return ("Must " + preceder + "be a named key.");
+        }
+        else if (type == "Exotic")
+        {
+            return ("Must " + preceder + "be an exotic key.");
         }
         else
         {
@@ -127,10 +136,14 @@ public class Filter extends TheoryObj
     public boolean checkKeyHelper(int[] key)
     {
         
-        if (type=="isNamed")
+        if (type.equals("isNamed"))
         {
             return (!namer.get(key).equals(""));
             
+        }
+        else if (type.equals("Exotic"))
+        {
+            return (namer.get(key).indexOf("[") > 0);
         }
 
         for (int note : requiredNotes)

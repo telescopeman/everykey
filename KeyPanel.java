@@ -9,19 +9,32 @@ import java.awt.*;
 public class KeyPanel extends JPanel
 {
     // instance variables - replace the example below with your own
-    private int x;
+    
 
     /**
      * Constructor for objects of class KeyPanel
      */
     public KeyPanel(int num, int[] key, String name)
     {
-        String lbl = "#" + String.valueOf(num) + ": " + name;
+        int pt = name.indexOf("[");
+        int pt2 = name.indexOf("]");
+        String dispName;
+        if (pt > -1)
+        {
+             dispName =  name.substring(0,pt-1) + name.substring(pt2+1);
+        }
+        else
+        {
+            dispName =  name;
+        }
+        String lbl = "#" + String.valueOf(num) + ": " + dispName;
 
         
         
         JButton jb1 = new JButton("Chords");    
         ChordViewer chrds = new ChordViewer(key,name);
+        
+        MusicPlayer playr = new MusicPlayer(key);
         chrds.myKey = key;
         
         JButton jb2 = new JButton("Intervals");
@@ -30,10 +43,10 @@ public class KeyPanel extends JPanel
         JButton jb5 = new JButton("Button 5");
         
         jb1.addActionListener(chrds);
-        jb1.addActionListener(chrds);
+        jb3.addActionListener(playr);
 
 
-        JLabel label = new JLabel(name);
+        JLabel label = new JLabel(lbl);
         //System.out.println(key.toString());
 
         add(label);
@@ -41,15 +54,5 @@ public class KeyPanel extends JPanel
 
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    
 }

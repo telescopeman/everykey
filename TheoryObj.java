@@ -11,7 +11,7 @@ public class TheoryObj
     private int x;
 
     
-    public static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","Null"};
+    public static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
     
     /**
      * Constructor for objects of class TheoryObj
@@ -24,7 +24,7 @@ public class TheoryObj
 
     public static String getNoteName(int index) //Assumes root note is C.
     {
-        if (index > 12 || index < 0)
+        if (index > 13 || index < 0)
         {
             return "Null";
         }

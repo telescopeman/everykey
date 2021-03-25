@@ -1,33 +1,57 @@
 import org.jfugue.player.Player;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 /**
  * Write a description of class MusicPlayer here.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MusicPlayer
+public class MusicPlayer extends TheoryObj implements ActionListener
 {
     // instance variables - replace the example below with your own
-    private int x;
-
+    private Player plyr;
+    private String sequence;
     /**
      * Constructor for objects of class MusicPlayer
      */
-    public MusicPlayer()
+    public MusicPlayer(int[] k)
     {
-        // initialise instance variables
-        x = 0;
+        plyr = new Player();
+        String tempSequence = "";
+        
+        for (int note : k)
+        {
+            tempSequence += getNoteName(note) + "5q ";
+
+        }
+        tempSequence += getNoteName(1) + "6h";
+        //System.out.println(tempSequence);
+        sequence = "T140 ";
+        for (int i = 0; i < tempSequence.length(); i++) {
+            Character c = tempSequence.charAt(i);
+            if (c.equals('♭'))
+            {
+                sequence += "b";
+            }
+            else
+            {
+               sequence += c; 
+            }
+            
+        }
+        //System.out.println(sequence);
+
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        System.out.println(sequence);
+        plyr.play(sequence);
+
+        //System.out.print();
+        //System.out.println(e);
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
-    {
-        // put your code here
-        return x + y;
-    }
+    
+   
 }
