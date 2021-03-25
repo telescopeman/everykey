@@ -100,10 +100,10 @@ public class FilterCreator extends JFrame implements ActionListener
                 switch (opt1)
                 {
                     case "Major":
-                        return new Filter(5,3);
+                        return new Filter(5,2);
                         
                     case "Minor":
-                        return new Filter(4,3);
+                        return new Filter(4,2);
                         
                     case "Either":
                         return new Filter(new int[]{4,5},3);
