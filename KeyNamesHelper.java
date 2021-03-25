@@ -81,6 +81,7 @@ public class KeyNamesHelper
         stringKeys.put("C, E♭, E, G♭, G, B♭, and B.", "Lydian ♯2,♯6 [Second mode of the Double Harmonic scale]");
         stringKeys.put("C, D♭, E♭, F♭, G, A♭, and A.", "Ultra Phrygian [Third mode of the Double Harmonic scale]");
         stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic scale]");
+        
         stringKeys.put("C, D♭, E, F, G♭, A, and B♭.", "Oriental [Fifth mode of the Double Harmonic scale]");
         stringKeys.put("C, E♭, E, F, A♭, A, and B.", "Ionian ♯2,♯5 [Sixth mode of the Double Harmonic scale]");
         stringKeys.put("C, D♭, D, F, G♭, A♭, and A.", "Locrian ♭♭3,♭♭7 [Seventh mode of the Double Harmonic scale]");
@@ -105,12 +106,12 @@ public class KeyNamesHelper
         
         
         stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // Other keys
-        //stringKeys.put("C, D♭, E, F, G, A♭, and B.", "\"Gypsy\"/Byzantine");
+        
+        
+        //stringKeys.put("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
         
         
         
-        
-        stringKeys.put("C, D, E♭, G♭, G, A♭, and B.", "Algerian");
         
         
         
