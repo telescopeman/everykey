@@ -52,7 +52,7 @@ public class MusicPlayer extends TheoryObj implements ActionListener
             }
 
         }
-        System.out.println(sequence);
+        //System.out.println(sequence);
     }
 
     /**

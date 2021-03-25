@@ -108,7 +108,7 @@ public class Chord extends TheoryObj
         {
             fifthname = "";
         }
-        else if (fifthint == 8 && thirdinterval == 4)
+        else if (fifthint == 8 && thirdinterval != 3)
         {
             fifthname = "Augmented";
         }
@@ -116,7 +116,7 @@ public class Chord extends TheoryObj
         {
             fifthname = "Diminished";
         }
-        else if (fifthint == 6 && thirdinterval == 4)
+        else if (fifthint == 6 && thirdinterval != 3)
         {
             fifthname = "b5";
         }
