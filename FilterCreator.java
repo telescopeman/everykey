@@ -1,4 +1,6 @@
 
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
@@ -7,12 +9,12 @@ import java.util.Arrays;
 //import javafx.scene.control.MenuButton;
 //import javafx.scene.control.MenuItem;
 /**
- * Write a description of class FilterCreator here.
+ * Popup that lets the user create a filter.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class FilterCreator extends EasyFrame implements ActionListener
+public class FilterCreator extends JFrame implements ActionListener
 {
     // instance variables - replace the example below with your own
     String type;
@@ -120,42 +122,10 @@ public class FilterCreator extends EasyFrame implements ActionListener
         }
     }
 
-    public static Filter[] addX(Filter[] list, Filter x)
+    private void setCurFilters(Filter[] f)
     {
-        int i;
-
-        // create a new array of size n+1
-        Filter[] newarr = new Filter[list.length + 1];
-
-        // insert the elements from
-        // the old array into the new array
-        // insert all elements till n
-        // then insert x at n+1
-        for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
-
-        newarr[list.length] = x;
-
-        return newarr;
-    }
-    
-    public static boolean[] addX(boolean[] list, boolean x)
-    {
-        int i;
-
-        // create a new array of size n+1
-        boolean[] newarr = new boolean[list.length + 1];
-
-        // insert the elements from
-        // the old array into the new array
-        // insert all elements till n
-        // then insert x at n+1
-        for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
-
-        newarr[list.length] = x;
-
-        return newarr;
+        ui.setCurFilters(f);
+        
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -169,15 +139,17 @@ public class FilterCreator extends EasyFrame implements ActionListener
         {
             String o1 = list1.getSelectedItem().toString();
             String o2 = list2.getSelectedItem().toString();
-            Filter[] tempList = addX(myFilters,constructFilter(o1,o2));
+            Filter[] tempList = UtilityHelper.addX(myFilters,constructFilter(o1,o2));
             
-            myFilters = tempList;
             
-            boolean[] tempList2 = addX(setList,true);
+            //System.out.println("SUPER: " + super.toString());
+            ui.setCurFilters(tempList);
             
-            setList = tempList2;
+            boolean[] tempList2 = UtilityHelper.addX(setList,true);
             
-            System.out.print("New List:" +tempList);
+            ui.setFilterStatuses(tempList2);
+            
+            //System.out.print("New List:" +tempList);
             ui.refresh();
             //frame.dispose();
             

@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 import javax.swing.*;
 import java.awt.*; 
 import javax.swing.BoxLayout;
@@ -57,6 +57,17 @@ public class UIStuff
 
     }
     
+    
+    public void setCurFilters(Filter[] newFilters)
+    {
+        curFilters = newFilters;
+        
+    }
+    
+    public void setFilterStatuses(boolean[] newThings)
+    {
+        filterStatuses = newThings;
+    }
     
     public void refresh()
     {
@@ -204,6 +215,8 @@ public class UIStuff
         return new FilterCreator(this);
         
     }
+    
+    
 
     private void updateFilterList(Filter[] flist)
     {
@@ -263,7 +276,7 @@ public class UIStuff
     private int[][] filterKeys(int[][] keyList, Filter[] filterList)
     {
 
-        int[][] newList = keyList;
+        int[][] newList = Arrays.copyOf(keyList,keyList.length);
         int num = 0;
         
         for (int[] key : keyList)
