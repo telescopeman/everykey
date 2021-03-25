@@ -47,12 +47,12 @@ public class Chord extends TheoryObj
     {
         while (root >= third)
         {
-            third = third + 7;
+            third = third + 12;
         }
 
         while (third >= fifth)
         {
-            fifth = fifth + 7;
+            fifth = fifth + 12;
         }
 
     }
@@ -60,8 +60,8 @@ public class Chord extends TheoryObj
     private void invert()
     {
         int temp = root;
-        root = third % LOOP;
-        third = fifth % LOOP;
+        root = third - 12;
+        third = fifth - 12;
         fifth = temp;
     }
 
@@ -194,4 +194,6 @@ public class Chord extends TheoryObj
         return getNoteName(root) + " + " + getNoteName(third) + " + " + getNoteName(fifth);
 
     }
+    
+    
 }

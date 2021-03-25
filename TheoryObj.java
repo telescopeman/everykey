@@ -24,7 +24,12 @@ public class TheoryObj
 
     public static String getNoteName(int index) //Assumes root note is C.
     {
-        if (index > 13 || index < 0)
+        if (index > 13)
+        {
+            return getNoteName(index-12);
+            
+        }
+        else if (index <= 0)
         {
             return "Null";
         }

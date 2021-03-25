@@ -39,7 +39,7 @@ public class KeyPanel extends JPanel
         JButton jb3 = new JButton("Listen");    
         MusicPlayer playr = new MusicPlayer(key);
         jb3.addActionListener(playr);
-        add(jb3);
+        
         JButton jb4 = new JButton("Button 4");
         JButton jb5 = new JButton("Button 5");
 
@@ -53,8 +53,7 @@ public class KeyPanel extends JPanel
         }
         //System.out.println(key.toString());
 
-        add(label);
-        add(jb1); 
+        add(label); add(jb1); add(jb3);
 
     }
 
