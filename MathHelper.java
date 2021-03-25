@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class MathHelper
+public class MathHelper extends TheoryObj
 {
     // instance variables - replace the example below with your own
     private static int[][] abstractList;
@@ -138,8 +138,8 @@ public class MathHelper
         while (count < 7)
         {
             int i = key[count];
-            String newNote = TheoryHelper.getNoteName(i);
-            if (enharmonicsOn && count < 6 && newNote.substring(0,1).equals(TheoryHelper.getNoteName(key[count+1]).substring(0,1)))
+            String newNote = getNoteName(i);
+            if (enharmonicsOn && count < 6 && newNote.substring(0,1).equals(getNoteName(key[count+1]).substring(0,1)))
             {
                 String sameNote = enh.getEnharmonic(newNote);
                 if (!newNote.substring(0,1).equals(lastNote.substring(0,1)))

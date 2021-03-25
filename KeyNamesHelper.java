@@ -62,7 +62,7 @@ public class KeyNamesHelper
         stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian");
         
         stringKeys.put("C, D♭, E♭, G♭, G, A♭, and B♭.", "Black Keys + Perfect Fifth"); //Fun keys
-        
+        stringKeys.put("C, D♭, E, F, G♭, G, and B♭.", "\"The Becoming\" Scale");
         
         // stringKeys.put("C, D, E, F, G♭, A, and B.", "Ionian ♭5"); //the modes of major but with flatted fifths
         // stringKeys.put("C, D, E♭, F, G♭, A♭, and B♭.", "Aeolian ♭5");

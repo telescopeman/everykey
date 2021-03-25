@@ -6,7 +6,7 @@ import java.util.Arrays;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Filter
+public class Filter extends TheoryObj
 {
     // instance variables - replace the example below with your own
     int[] requiredNotes;
@@ -89,15 +89,15 @@ public class Filter
     {
         if (type == "Note")
         {
-            return ("Must contain the note " + TheoryHelper.getNoteName(requiredNotes[0],true));
+            return ("Must contain the note " + getNoteName(requiredNotes[0]));
         }
         else if (type == "NotePos" && requiredNotes.length == 1)
         {
-            return ("Must contain the note " + TheoryHelper.getNoteName(requiredNotes[0],true));
+            return ("Must contain the note " + getNoteName(requiredNotes[0]));
         }
         else if (type == "NotePos")
         {
-            return ("Must contain the notes " + TheoryHelper.getNoteName(requiredNotes[0],true) + " or " + TheoryHelper.getNoteName(requiredNotes[1],true));
+            return ("Must contain the notes " + getNoteName(requiredNotes[0]) + " or " + getNoteName(requiredNotes[1]));
         }
         else if (type == "isNamed")
         {

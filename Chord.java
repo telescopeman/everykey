@@ -5,7 +5,7 @@
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Chord
+public class Chord extends TheoryObj
 {
     // instance variables - replace the example below with your own
     private int root;
@@ -25,6 +25,7 @@ public class Chord
         fifth = three;
         extensions = new int[]{};
         keyOffset = 0;
+        removeInversion();
     }
     
     
@@ -39,20 +40,33 @@ public class Chord
         fifth = three;
         extensions = others;
         keyOffset = 0;
+        removeInversion();
     }
     
     
-
+    private void removeInversion()
+    {
+        if (root >= third)
+        {
+            third = third + 7;
+        }
+        
+        if (third >= fifth)
+        {
+            fifth = fifth + 7;
+        }
+        
+        
+    }
+    
+    
     public String toString()
     {
         
-        // if (root >= third || third >= fifth)
-        // {
-            // return("Invalid Chord!");
-        // }
+        
         System.out.println(root + ",");
         
-        String rootname = RomanNumeralsHelper.convert(root);
+        String rootname = getNoteName(root);
         String thirdname = "";
         String fifthname  = "";
         
