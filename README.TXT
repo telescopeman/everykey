@@ -1,12 +1,10 @@
 ------------------------------------------------------------------------
-This is the project README file. Here, you should describe your project.
-Tell the reader (someone who does not know anything about this project)
-all he/she needs to know. The comments should usually include at least:
+A procedurally generated database of all musical keys. Requires JFugue.
 ------------------------------------------------------------------------
 
-PROJECT TITLE:
+PROJECT TITLE: Skeleton Key
 PURPOSE OF PROJECT:
 VERSION or DATE:
-HOW TO START THIS PROJECT:
-AUTHORS:
+HOW TO START THIS PROJECT: Run the main method in class Root.
+AUTHORS: Caleb Copeland
 USER INSTRUCTIONS:
