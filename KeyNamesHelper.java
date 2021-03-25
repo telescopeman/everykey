@@ -31,13 +31,14 @@ public class KeyNamesHelper
         // commonKeys.put(lydian, "Lydian");
         
         stringKeys = new HashMap<String,String>();
-        stringKeys.put("C, D, E, F, G, A, and B.", "Ionian/Major)"); // the modes of major
-        stringKeys.put("C, D, E♭, F, G, A♭, and B♭.", "Aeolian/Minor)");
+        stringKeys.put("C, D, E, F, G, A, and B.", "Ionian/Major"); // the modes of major
         stringKeys.put("C, D, E♭, F, G, A, and B♭.", "Dorian");
-        stringKeys.put("C, D, E, G♭, G, A, and B.", "Lydian");
         stringKeys.put("C, D♭, E♭, F, G, A♭, and B♭.", "Phrygian");
-        stringKeys.put("C, D♭, E♭, F, G♭, A♭, and B♭.", "Locrian");
+        stringKeys.put("C, D, E, G♭, G, A, and B.", "Lydian");
         stringKeys.put("C, D, E, F, G, A, and B♭.", "Mixolydian");
+        stringKeys.put("C, D, E♭, F, G, A♭, and B♭.", "Aeolian/Minor");
+        stringKeys.put("C, D♭, E♭, F, G♭, A♭, and B♭.", "Locrian");
+        
         
         
         stringKeys.put("C, D, E♭, F, G, A♭, and B.", "Harmonic Minor"); // the modes of harmonic minor
@@ -76,13 +77,19 @@ public class KeyNamesHelper
         stringKeys.put("C, D♭, D, E, G♭, A♭, and B♭.", "Super Locrian ♭♭3 [Seventh mode of Neapolitan Major]");
         
         
-        stringKeys.put("C, D♭, E, F, G, A♭, and B.", "Double Harmonic");
+        stringKeys.put("C, D♭, E, F, G, A♭, and B.", "Double Harmonic"); // modes of the double harmonic scale
+        stringKeys.put("C, E♭, E, G♭, G, B♭, and B.", "Lydian ♯2,♯6 [Second mode of the Double Harmonic Scale]");
+        stringKeys.put("C, D♭, E♭, F♭, G, A♭, and A.", "Ultra Phrygian [Third mode of the Double Harmonic Scale]");
+        stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic Scale]");
+        stringKeys.put("C, D♭, E, F, G♭, A, and B♭.", "Oriental [Fifth mode of the Double Harmonic Scale]");
+        stringKeys.put("C, E♭, E, F, A♭, A, and B.", "Ionian ♯2,♯5 [Sixth mode of the Double Harmonic Scale]");
+        stringKeys.put("C, D♭, D, F, G♭, A♭, and A.", "Locrian ♭♭3,♭♭7 [Seventh mode of the Double Harmonic Scale]");
         
         stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // Keys from Wikipedia and other things.
         stringKeys.put("C, D♭, E, F, G, A♭, and B.", "\"Gypsy\"/Byzantine");
         
         stringKeys.put("C, D♭, E, F, G, B♭, and B.", "Persian");
-        stringKeys.put("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian Minor");
+        
         stringKeys.put("C, E♭, E, G♭, G, A, and B♭.", "Hungarian Major");
         stringKeys.put("C, D, E♭, G♭, G, A♭, and B.", "Algerian");
         
