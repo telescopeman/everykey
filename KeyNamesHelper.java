@@ -105,8 +105,13 @@ public class KeyNamesHelper
         stringKeys.put("C, D, F, G♭, A♭, A, and B.", "Nohkan Flute Scale [Seventh mode of Hungarian Major]");
         
         
-        stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // Other keys
-        
+        stringKeys.put("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // modes of the enigmatic scale. names are from https://ianring.com/musictheory/scales/3411
+        stringKeys.put("C, E♭, F, G, A, B♭, and B.", "Phraptian [Second mode of the Enigmatic Scale]");
+        stringKeys.put("C, D, E, G♭, G, A♭, and A.", "Mela Kantamani [Third mode of the Enigmatic Scale]");
+        stringKeys.put("C, D, E, F, G♭, G, and B♭.", "Katythian [Fourth mode of the Enigmatic Scale]");
+        stringKeys.put("C, D, E♭, E, F, A♭, and B♭.", "Madian [Fifth mode of the Enigmatic Scale]");
+        stringKeys.put("C, D♭, D, E♭, G♭, A♭, and B♭.", "Aerygian [Sixth mode of the Enigmatic Scale]");
+        stringKeys.put("C, D♭, D, F, G, A, and B.", "Mela Manavati [Seventh mode of the Enigmatic Scale]");
         
         //stringKeys.put("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
         
