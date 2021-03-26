@@ -9,15 +9,21 @@ import java.util.Arrays;
 public class Filter extends TheoryObj
 {
     // instance variables - replace the example below with your own
-    int[] requiredNotes;
-    int requiredPosition;
+    private int[] requiredNotes;
+    private int requiredPosition;
     private String type = "";
-    boolean inverted = false;
     
-    KeyNamesHelper namer = new KeyNamesHelper();
+    
+    /** 
+    * If this is turned on, the filter acts opposite to how it usually would.
+    */   
+    private boolean inverted = false;
+    
+    private KeyNamesHelper namer = new KeyNamesHelper();
 
     /**
      * Tests for a specific note, at a specific point.
+     * @param note The note to check for.
      */
     public Filter(int note, int pos) 
     {
@@ -39,6 +45,7 @@ public class Filter extends TheoryObj
     
     /**
      * Tests for a specific notes, at a specific point.
+     * @param inv If this is turned on, the filter acts opposite to how it usually would. 
      */
     public Filter(int[] notes, int pos,boolean inv) 
     {
@@ -51,6 +58,7 @@ public class Filter extends TheoryObj
     
     /**
      * Tests for a specific note.
+     * @param note The note to check for.
      */
     public Filter(int note) 
     {
@@ -60,6 +68,8 @@ public class Filter extends TheoryObj
     
     /**
      * Tests for a specific note.
+     * @param note The note to check for.
+     * @param inv If this is turned on, the filter acts opposite to how it usually would. 
      */
     public Filter(int note, boolean inv) 
     {
@@ -70,6 +80,7 @@ public class Filter extends TheoryObj
     
     /**
      * Tests for it being named or other qualities.
+     * @param spc The quality to filter by.
      */
     public Filter(String spc) 
     {
@@ -78,6 +89,8 @@ public class Filter extends TheoryObj
     
     /**
      * Tests for it being named or other qualities.
+     * @param spc The quality to filter by.
+     * @param inv If this is turned on, the filter acts opposite to how it usually would. 
      */
     public Filter(String spc, boolean inv) 
     {
@@ -85,6 +98,10 @@ public class Filter extends TheoryObj
         inverted = inv;
     }
 
+    
+    /**
+     * Generates a description of the Filter.
+     */
     public String translateToReadable()
     {
         String preceder = "";
@@ -120,20 +137,28 @@ public class Filter extends TheoryObj
     }
     
 
-
+    /**
+     * Generates a description of the Filter.
+     */
     public String toString()
     {
 
         return translateToReadable();
     }
 
+    
+    /**
+     * Analyzes a given scale to see if it matches the Filter.
+     * @param key The key to analyze.
+     * @return A boolean noting if the scale matched the Filter or not.
+     */
     public boolean checkKey(int[] key)
     {
         //Arrays.sort(key);
         return !(inverted == checkKeyHelper(key));
     }
     
-    public boolean checkKeyHelper(int[] key)
+    private boolean checkKeyHelper(int[] key)
     {
         
         if (type.equals("isNamed"))
