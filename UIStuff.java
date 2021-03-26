@@ -24,7 +24,7 @@ public class UIStuff
     JPanel inner;
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
-    Filter[] defaultFilters = new Filter[]{new Filter("isNamed"),new Filter("Modes of Major",true)};
+    Filter[] defaultFilters = new Filter[]{new Filter("isNamed"),new Filter("Modes of Major",false)};
     boolean[] filterStatuses = new boolean[]{true,true};
 
     private HashMap<Boolean,String> enableText;
@@ -175,7 +175,7 @@ public class UIStuff
         mainWindow.add(outer);
 
         JMenu filtermenu, audio, addfilter; 
-        JMenuItem i1, i2, i3;
+        JMenuItem i1, i2, i3, i4;
         JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
@@ -188,10 +188,12 @@ public class UIStuff
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
+        i4=new JMenuItem("Filter by Tags");  
         
         i1.addActionListener(ModBox.buildFilterCreator(this));
         i2.addActionListener(ModBox.buildFilterCreator(this));
         i3.addActionListener(ModBox.buildFilterCreator(this));
+        i4.addActionListener(ModBox.buildFilterCreator(this));
         
         a1=new JMenuItem("Audio Speed");  
         //a2=new JMenuItem("deez nuts");  
@@ -199,7 +201,8 @@ public class UIStuff
         
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
-        addfilter.add(i1); addfilter.add(i2); addfilter.add(i3);  
+        addfilter.add(i1); addfilter.add(i2); 
+        addfilter.add(i3); addfilter.add(i4);  
         
         audio.add(a1); //audio.add(a2);
         mb.add(filtermenu); mb.add(audio);

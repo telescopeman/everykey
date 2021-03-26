@@ -156,9 +156,9 @@ public class Filter extends TheoryObj
         {
             return ("Must " + preceder + "be an exotic key.");
         }
-        else if (type == "Tags")
+        else if (type == "Tag")
         {
-            return ("Only scales tagged with tags " + tags);
+            return ("Only scales " + preceder + "tagged with tag: " + tags[0]);
             
         }
         else
@@ -208,10 +208,18 @@ public class Filter extends TheoryObj
             boolean isValid = true;
             for (String tag : tags)
             {
-                if (!list.contains(tag))
+                
+                boolean going = false;
+                for (String t : namer.getTags(key))
                 {
-                    return false;
+                    //System.out.println("Comparing " + t + " with " + tag +"...");
+                    if (t.equals(tag))
+                    {
+                        going = true;
+                    }
+                    
                 }
+                return going;
                 
             }
             return isValid;

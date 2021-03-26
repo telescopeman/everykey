@@ -52,7 +52,8 @@
                         i = false;
                         if (pt[0] > -1 && pt[1] > -1)
                         {
-                        dispName = dispName.substring(0,pt[0]);
+                        dispName = dispName.substring(0,pt[0]) 
+                            + dispName.substring(pt[1]+1); //name + notes
                         i = true;
                     }
                         

@@ -8,14 +8,17 @@
 public class TagsManager
 {
     // instance variables - replace the example below with your own
-    public static final String[][] ALLTAGS = new String[][]{
+    
+    
+    public static String[][] tagsOrdered = new String[][]{
         {"Modes of Major"},
         {"Modes of Harmonic Minor","Jazz Scales"},
         {"Modes of Melodic Minor","Jazz Scales"},
         {"Modes of the Neapolitan scales","Jazz Scales"},
         {"Modes of the Double Harmonic scale","World Scales"},
         {"Modes of the Persian scale","World Scales"},
-        {"Modes of Hungarian major","Constructed Scales"},
+        {"Modes of Hungarian major","World Scales"},
+        {"Modes of the Enigmatic scale","Constructed Scales"},
         
     };
 
@@ -30,8 +33,34 @@ public class TagsManager
     
     public static String[] getTagGroup(int index)
     {
-        return ALLTAGS[index];
+        return tagsOrdered[index];
         
+    }
+    
+    public static String[] getAllTags()
+    {
+        String[] result = new String[]{};
+        for(String[] layer : tagsOrdered)
+        {
+            for (String tag : layer)
+            {
+                boolean addable = true;
+                for (String t : result)
+                {
+                    if (t.equals(tag))
+                    {
+                        addable = false;
+                    }
+                }
+                if (addable)
+                {
+                    result = ArrayHelper.addX(result,tag);
+                }
+                //System.out.println(tag);
+            }
+        }
+        
+        return result;
     }
     
     public static String curl(String[] tagGroup)

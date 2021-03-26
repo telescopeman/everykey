@@ -16,6 +16,7 @@ public abstract class ModBox extends EasyFrame implements ActionListener
     // instance variables - replace the example below with your own
     UIStuff ui;
     public final Dimension STANDARD = new Dimension(350,100);
+    ArrayHelper arr;
     
     public final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
     /**
@@ -25,6 +26,7 @@ public abstract class ModBox extends EasyFrame implements ActionListener
     {
         // initialise instance variables
         ui = uiref;
+        arr = new ArrayHelper();
         setLayout(new GridLayout(3,1));
     }
     
@@ -72,60 +74,7 @@ public abstract class ModBox extends EasyFrame implements ActionListener
         appear(STANDARD);
     }
     
-    public static Filter[] addX(Filter[] list, Filter x)
-    {
-        int i;
-
-        // create a new array of size n+1
-        Filter[] newarr = new Filter[list.length + 1];
-
-        // insert the elements from
-        // the old array into the new array
-        // insert all elements till n
-        // then insert x at n+1
-        for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
-
-        newarr[list.length] = x;
-
-        return newarr;
-    }
     
-    public static boolean[] addX(boolean[] list, boolean x)
-    {
-        int i;
-
-        // create a new array of size n+1
-        boolean[] newarr = new boolean[list.length + 1];
-
-        // insert the elements from
-        // the old array into the new array
-        // insert all elements till n
-        // then insert x at n+1
-        for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
-
-        newarr[list.length] = x;
-
-        return newarr;
-    }
     
-    public static Object[] addX(Object[] list, Object x)
-    {
-        int i;
-
-        // create a new array of size n+1
-        Object[] newarr = new Object[list.length + 1];
-
-        // insert the elements from
-        // the old array into the new array
-        // insert all elements till n
-        // then insert x at n+1
-        for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
-
-        newarr[list.length] = x;
-
-        return newarr;
-    }
+    
 }

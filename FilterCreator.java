@@ -22,7 +22,9 @@ public class FilterCreator extends ModBox
     String type;
     JComboBox list1;
     JComboBox list2;
-
+    JCheckBox tickBox;
+    
+    
     Filter[] myFilters;
     boolean[] setList;
     //private UIStuff ui;
@@ -55,6 +57,8 @@ public class FilterCreator extends ModBox
         String[] options = new String[]{"Error!"};
         String[] options2 = new String[]{"Error!"};
         boolean hasSecondDropDown = false;
+        
+        
         switch (id)
         {
             case "Tonality":
@@ -63,12 +67,17 @@ public class FilterCreator extends ModBox
 
             case "Note":
             options = CHROMATICSCALE;
+            
             break;
 
             case "Chord":
             options = CHROMATICSCALE;
-            options2 = new String[]{"Major", "Minor", "Either","Neither"};
+            options2 = new String[]{"Major", "Minor", "Either"};
             hasSecondDropDown = true;
+            break;
+            
+            case "Tags":
+            options = TagsManager.getAllTags();
             break;
 
         }
@@ -78,6 +87,7 @@ public class FilterCreator extends ModBox
         add(list1);
         list2 = new JComboBox(new String[]{"Dummy"});
         list2.setSelectedIndex(0);
+        
         if (hasSecondDropDown)
         {
             list2 = new JComboBox(options);
@@ -85,7 +95,8 @@ public class FilterCreator extends ModBox
             //list2.addActionListener(this);
             add(list2);
         }
-
+        tickBox = new JCheckBox("Inverted?");
+        add(tickBox);
         addButton("Add Filter",this);
     }
 
@@ -94,7 +105,7 @@ public class FilterCreator extends ModBox
         switch (type)
         {
             case "Note":
-                return new Filter(list1.getSelectedIndex() + 1);
+                return new Filter(list1.getSelectedIndex() + 1,tickBox.isSelected());
 
             case "Tonality":
                 switch (opt1)
@@ -116,6 +127,9 @@ public class FilterCreator extends ModBox
             case "Chord":
                 return new Filter("isNamed");
                 
+            case "Tags":
+                return new Filter((list1.getSelectedItem()).toString());
+                
             default:
                 return new Filter("isNamed");
             
@@ -130,6 +144,8 @@ public class FilterCreator extends ModBox
     
     
     
+    
+    
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
         //System.out.print(id);
@@ -141,13 +157,13 @@ public class FilterCreator extends ModBox
         {
             String o1 = list1.getSelectedItem().toString();
             String o2 = list2.getSelectedItem().toString();
-            Filter[] tempList = addX(myFilters,constructFilter(o1,o2));
+            Filter[] tempList = arr.addX(myFilters,constructFilter(o1,o2));
             
             
             //System.out.println("SUPER: " + super.toString());
             ui.setCurFilters(tempList);
             
-            boolean[] tempList2 = addX(setList,true);
+            boolean[] tempList2 = arr.addX(setList,true);
             
             ui.setFilterStatuses(tempList2);
             
@@ -160,6 +176,7 @@ public class FilterCreator extends ModBox
         }
         else
         {
+            
             type = id.substring(10);
             setUpUniqueFactors(type);
             appear(STANDARD);

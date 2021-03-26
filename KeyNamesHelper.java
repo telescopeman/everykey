@@ -100,7 +100,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, E♭, E, F, A♭, A, and B♭.", "Mixolydian Augmented ♯2 [Sixth mode of the Persian scale]");
         addScale("C, D♭, D, F, G♭, G, and A.", "Chromatic Hypophrygian Inverse [Seventh mode of the Persian scale]"); //jesus christ wtf is this lmao
         
-        
+        group = 6; //hungarian + world
         
         addScale("C, E♭, E, G♭, G, A, and B♭.", "Hungarian/\"Gypsy\" Major"); // modes of the hungarian major scale
         addScale("C, D♭, E♭, E, G♭, G, and A.", "Ultra Locrian ♭♭6 [Second mode of Hungarian Major]"); 
@@ -110,7 +110,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E♭, G♭, G, A, and B♭.", "Dorian ♭2,♯4 [Sixth mode of Hungarian Major]");
         addScale("C, D, F, G♭, A♭, A, and B.", "Nohkan Flute Scale [Seventh mode of Hungarian Major]");
         
-        group = 6; //enigmatic + constructed
+        group = 7; //enigmatic + constructed
         
         addScale("C, D♭, E, G♭, A♭, B♭, and B.", "Enigmatic"); // modes of the enigmatic scale. names are from https://ianring.com/musictheory/scales/3411
         addScale("C, E♭, F, G, A, B♭, and B.", "Phraptian [Second mode of the Enigmatic scale]");
@@ -191,7 +191,7 @@ public class KeyNamesHelper extends TheoryObj
                         i = false;
                         if (pt[0] > -1 && pt[1] > -1)
                         {
-                            result = addX(result,quickSubstring(dispName,pt));
+                            result = addX(result,dispName.substring(pt[0]+1,pt[1]));
                             dispName = dispName.substring(pt[1]+1);
                         
                             i = true;
