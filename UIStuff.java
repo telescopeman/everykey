@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*; 
 import javax.swing.BoxLayout;
@@ -34,18 +35,26 @@ public class UIStuff
     Filter[] curFilters = defaultFilters;
 
     MathHelper myUtility;
-    
+
     private int globalTempo = 140;
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
-
+    
+    private String sortStyle;
+    
+    final String SORT1 = "Brightness (Ascending)";
+    final String SORT2 = "Brightness (Descending)";
+    final String SORT3 = "Strangeness (Ascending)";
+    final String SORT4 = "Strangeness (Descending)";
     int[][] curList;
+    int[] absoluteList;
     public UIStuff()
     {
         myUtility = new MathHelper();
         masterList = myUtility.getAllKeys();
+        sortStyle = SORT1;
         setupEnableText();
-        irrelevantSetup();
+        oneTimeSetup();
         refresh();
 
     }
@@ -54,7 +63,7 @@ public class UIStuff
     {
         return globalTempo;
     }
-    
+
     public void setTempo(int n)
     {
         globalTempo = n;
@@ -62,10 +71,10 @@ public class UIStuff
         for (Component panel : inner.getComponents() )
         {
             panel.resize(globalTempo,0);
-            
+
         }
     }
-    
+
     public void setupEnableText()
     {
         enableText = new HashMap<Boolean,String>();
@@ -95,6 +104,7 @@ public class UIStuff
         updateKeys(curList);
 
     }
+
     private static void printlnDebug(String str)
     {
         if (debugMode)
@@ -108,18 +118,31 @@ public class UIStuff
     {
         inner.removeAll();
         int[] lastKey = keys[6];
-        int counter = 0;
+        int counter = -1;
         int num = 0;
-
-        for (int[] key : keys)
+        int[] list = new int[keys.length];
+        // for (int[] key : keys)
+        // {
+            // counter++;
+            
+            // if (key[0] == 0)
+            // {
+                // //System.out.println("blanked");
+                // //System.out.println(MathHelper.expand(key));
+                // continue;
+            // }
+            // else
+            // {
+                // list[counter] = counter;
+            // }
+        // }
+        counter = 0;
+        int[] specificList = styleSort(absoluteList);
+        for (int ind : specificList)
         {
             counter++;
-            if (lastKey ==key)
-            {
-
-                //continue;
-            }
-            if (key[0] == 0)
+            
+            if (keys[ind][0] == 0)
             {
                 //System.out.println("blanked");
                 //System.out.println(MathHelper.expand(key));
@@ -128,10 +151,9 @@ public class UIStuff
             else
             {
                 num++;
-                
-                KeyPanel keyPanel = new KeyPanel(counter, key, getKeyName(key));
-                
-                
+
+                KeyPanel keyPanel = new KeyPanel(ind, keys[ind], getKeyName(keys[ind]));
+
                 inner.add(keyPanel,BorderLayout.WEST); 
                 inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
             }
@@ -147,6 +169,62 @@ public class UIStuff
         mainWindow.setSize(new Dimension(800, 1000));
         //outer.setPreferredSize(new Dimension(640,1000));
     }
+    
+    private int[] styleSort(int[] list)
+    {
+        int[] result = new int[list.length];
+        
+        switch(sortStyle)
+        {
+            case SORT1:
+            {
+                return list;
+            }
+            case SORT2:
+            {
+                return ArrayHelper.reverse(list);
+            }
+                case SORT3:
+            {
+                Integer[] temp = new Integer[]{};
+                for(int c : list)
+                {
+                    temp = ArrayHelper.addX(temp,c);
+                }
+                Arrays.sort(temp, new StrangeCompare());
+                int i = 0;
+                //result = list
+                for(int d : temp)
+                {
+                    result[i] = d;
+                    i++;
+                }
+                return result;
+            }
+            case SORT4:
+            {
+                Integer[] temp = new Integer[]{};
+                for(int c : list)
+                {
+                    temp = ArrayHelper.addX(temp,c);
+                }
+                Arrays.sort(temp, new StrangeCompare());
+                int i = 0;
+                //result = list
+                for(int d : temp)
+                {
+                    result[i] = d;
+                    i++;
+                }
+                return ArrayHelper.reverse(result);
+            }
+            default:
+            {
+                System.out.println("Invalid sort style!");
+            }
+        }
+        return result;
+    }
 
     private String getKeyName(int[] key)
     {
@@ -161,7 +239,8 @@ public class UIStuff
         }
 
     }
-    private void irrelevantSetup()
+
+    private void oneTimeSetup()
     {
         mainWindow = new EasyFrame("Skeleton Key");
         //myWindow.pack();
@@ -174,64 +253,72 @@ public class UIStuff
 
         mainWindow.add(outer);
 
-        JMenu filtermenu, audio, addfilter; 
+        JMenu filtermenu,audio,addfilter,viewops,sortops;
         JMenuItem i1, i2, i3, i4;
+        JMenuItem s1,s2,s3,s4;
         JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
-
+        viewops=new JMenu("View Options");
         filtermenu=new JMenu("Filter Options");  
         audio=new JMenu("Audio Options");
-
+        
+        sortops=new JMenu("Change Sorting Order");  
+        
+        
+        
+        s1=new JMenuItem(SORT1);  
+        s2=new JMenuItem(SORT2);  
+        s3=new JMenuItem(SORT3);  
+        s4=new JMenuItem(SORT4);  
+        
+        s1.addActionListener(new ModActor(this,"setSortStyle",SORT1));
+        s2.addActionListener(new ModActor(this,"setSortStyle",SORT2));
+        s3.addActionListener(new ModActor(this,"setSortStyle",SORT3));
+        s4.addActionListener(new ModActor(this,"setSortStyle",SORT4));
+        
         viewfilters=new JMenu("View Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
         removefilters=new JMenu("Remove Filter"); 
-        
+
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
         i4=new JMenuItem("Filter by Tags");  
-        
+
         i1.addActionListener(ModBox.buildFilterCreator(this));
         i2.addActionListener(ModBox.buildFilterCreator(this));
         i3.addActionListener(ModBox.buildFilterCreator(this));
         i4.addActionListener(ModBox.buildFilterCreator(this));
-        
-        a1=new JMenuItem("Audio Speed");  
+
+        a1=new JMenuItem("Change Note Speed");  
         //a2=new JMenuItem("deez nuts");  
         a1.addActionListener(ModBox.buildSettingsBox(this));
         
-
+        viewops.add(sortops);
         filtermenu.add(viewfilters); filtermenu.add(addfilter); filtermenu.add(removefilters); 
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         
+        s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
+        s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
+        
+        sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
+
         audio.add(a1); //audio.add(a2);
-        mb.add(filtermenu); mb.add(audio);
+        mb.add(viewops); mb.add(filtermenu); mb.add(audio);
         mainWindow.setJMenuBar(mb);  
 
-        
         mainWindow.appear(new Dimension(600, 1000));
     }
 
+    public void setSortStyle(String newStyle)
+    {
+        sortStyle = newStyle;
+        refresh();
+        
+    }
     
-    
-    // /**
-     // * Gets a child of ModBox.
-     // */
-    // private ModBox makeModBox(String type)
-    // {
-        // switch (type)
-        // {
-            // case "FilterCreator":
-                // return new FilterCreator(this);
-            // case "AudioSpeed":
-                // return new SettingsBox(this);
-            // default:
-                // return new FilterCreator(this);
-        // }
-    // }
-
 
     private void updateFilterList(Filter[] flist)
     {
@@ -242,82 +329,33 @@ public class UIStuff
         for (Filter f : flist)
         {
 
-            
             String status = enableText.get(filterStatuses[counter]);
-
             //System.out.println(filterStatuses[0]);
+            JMenuItem button = new JMenuItem(f.translateToReadable() + " [" + status + "]" ); //the 
 
-            String label = f.translateToReadable() + " [" + status + "]";
-
-            Toggler button = new Toggler(counter); //the 
-            button.setText(label);
+            JMenuItem button2 = new JMenuItem(f.translateToReadable() ); //the remove button
             
-            Toggler button2 = new Toggler(counter); //the remove button
-            button2.setText(f.translateToReadable());
-            ActionListener menuListener = new ActionListener()
-                {
-                    @Override
-                    public void actionPerformed(ActionEvent event)
-                    {
-                        String invAction = event.getActionCommand();
-
-                        
-                        Toggler actItem = button;
-
-                        int ind = button.getIndex();
-                        //System.out.print(String.getValue(ind));
-
-                        toggleFilter(ind);
-
-                        //System.out.println("Popup menu item [" + invAction + "] [ " + actItem + " ] was pressed.");
-                    }
-                }
-            ;
-            
-            ActionListener filterkiller = new ActionListener()
-                {
-                    @Override
-                    public void actionPerformed(ActionEvent event)
-                    {
-                        String invAction = event.getActionCommand();
-
-                        
-                        Toggler actItem = button;
-
-                        int ind = button.getIndex();
-                        //System.out.print(String.getValue(ind));
-
-                        removeFilter(ind);
-
-                        //System.out.println("Popup menu item [" + invAction + "] [ " + actItem + " ] was pressed.");
-                    }
-                }
-            ;
-
-            button.addActionListener(menuListener);
-            button2.addActionListener(filterkiller);
-            viewfilters.add(button);  
-            removefilters.add(button2);
+            button.addActionListener(new ModActor(this,"toggle",counter)); 
+            button2.addActionListener(new ModActor(this,"remove",counter));
+            viewfilters.add(button); removefilters.add(button2);
             counter++;
         }
     }
 
     public void toggleFilter(int index)
     {
-        
-        
         boolean newSet = !filterStatuses[index];
         printlnDebug(String.valueOf(index) + newSet);
         filterStatuses[index] = newSet;
         refresh();
     }
-    
+
     public void removeFilter(int index)
     {
         curFilters = ArrayHelper.removeOne(curFilters,index);
         filterStatuses = ArrayHelper.removeOne(filterStatuses,index);
         refresh();
-        
+
     }
 
     private int[][] filterKeys(int[][] keyList, Filter[] filterList)
@@ -325,11 +363,12 @@ public class UIStuff
 
         int[][] newList = Arrays.copyOf(keyList,keyList.length);
         int num = 0;
-
+        
+        absoluteList = new int[]{};
         for (int[] key : keyList)
         {
             boolean valid = true;
-            int num2 = -1;
+            int num2 = -1;            
             for (Filter f : filterList)
             {
                 num2++;
@@ -337,9 +376,9 @@ public class UIStuff
                 if (!filterStatuses[num2])
                 {
                     valid = true;
+                    
                     continue;
                 }
-
 
                 if (!f.checkKey(key))
                 {
@@ -349,11 +388,17 @@ public class UIStuff
 
                 }
 
+
             }
-            if (!valid)
+            if (valid)
+            {
+                absoluteList = ArrayHelper.addX(absoluteList,num);
+            }
+            else
             {
                 newList[num] = new int[]{0};
             }
+            
             num++;
         }
         return newList;

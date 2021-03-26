@@ -83,9 +83,17 @@
                     super();
                     
                     String lbl = "#" + String.format("%03d",num) + ": " + parse(name);
-            
+                    
                     
                     //JButton jb1 = new JButton("Chords");    
+                    // JButton jb4 = new JButton("Button 4");
+                    
+                    // Str
+                    // JComboBox list1 = new JComboBox(options);
+                    // list1.setSelectedIndex(0);
+        // //list1.addActionListener(this);
+                    // add(list1);
+                    
                     ChordViewer chrds = new ChordViewer(key,name);
             
                     
@@ -96,7 +104,7 @@
                     playr = new MusicPlayer(key);
                     //jb3.addActionListener(playr);
                     
-                    JButton jb4 = new JButton("Button 4");
+                    
                     JButton jb5 = new JButton("Button 5");
             
                     

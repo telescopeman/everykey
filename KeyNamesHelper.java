@@ -135,7 +135,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, E♭, E, G♭, A♭, B♭, and B.", "Leading Wholetone ♯2 [Second Mode of Ionian ♭2]");
         addScale("C, D♭, E♭, F, G, A♭, and B♭.", "Mela Senavati / Phrygian Diminished [Third Mode of Ionian ♭2] ");
         addScale("C, D, E, G♭, G, A♭, and B.", "Harmonic Lydian [Fourth Mode of Ionian ♭2]");
-        addScale("C, D, E, F, G♭, A, and B♭.", "Mixolydian ♭5 [Fifth Mode of Ionian ♭2");
+        addScale("C, D, E, F, G♭, A, and B♭.", "Mixolydian ♭5 [Fifth Mode of Ionian ♭2]");
         addScale("C, D, E♭, E, G, A♭, and B♭.", "Super Minor [Sixth mode of Ionian ♭2]");
         addScale("C, E♭, E, F, G♭, A♭, and B♭.", "Locrian ♭3 [Seventh mode of Ionian ♭2]");
         

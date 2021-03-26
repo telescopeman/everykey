@@ -89,6 +89,7 @@ public class SettingsBox extends ModBox
         }
         else
         {
+            System.out.println(id);
             ui.setTempo(sliderpos);
 
         }

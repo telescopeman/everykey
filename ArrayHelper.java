@@ -37,9 +37,59 @@ public class ArrayHelper
 
         return newarr;
     }
+
+    public static int[] addX(int[] list, int x)
+    {
+        int i;
+
+        // create a new array of size n+1
+        int[] newarr = new int[list.length + 1];
+
+        // insert the elements from
+        // the old array into the new array
+        // insert all elements till n
+        // then insert x at n+1
+        for (i = 0; i < list.length; i++)
+            newarr[i] = list[i];
+
+        newarr[list.length] = x;
+
+        return newarr;
+    }
     
-    
-    
+    public static Integer[] addX(Integer[] list, Integer x)
+    {
+        int i;
+
+        // create a new array of size n+1
+        Integer[] newarr = new Integer[list.length + 1];
+
+        // insert the elements from
+        // the old array into the new array
+        // insert all elements till n
+        // then insert x at n+1
+        for (i = 0; i < list.length; i++)
+            newarr[i] = new Integer(list[i]);
+
+        newarr[list.length] = x;
+
+        return newarr;
+    }
+
+    public static int[] reverse(int[] list)
+    {
+        int[] result = new int[]{};
+
+        
+        for(int i = list.length-1; i >= 0; i--)
+        {
+            result = ArrayHelper.addX(result,list[i]);
+
+        }
+
+        return result;
+    }
+
     public static boolean[] addX(boolean[] list, boolean x)
     {
         int i;
@@ -58,7 +108,7 @@ public class ArrayHelper
 
         return newarr;
     }
-    
+
     public static boolean[] removeOne(boolean[] list, int index)
     {
         if (list.length == 1)
@@ -68,16 +118,16 @@ public class ArrayHelper
 
         // create a new array of size n+1
         boolean[] newarr = new boolean[list.length-1];
-        
+
         for (int i = 0; i < index; i++)
             newarr[i] = list[i];
-            
+
         for (int i = index + 1; i < index; i++) //add all old items to new array other than [index]
             newarr[i] = list[i];
 
         return newarr;
     }
-    
+
     public static Filter[] removeOne(Filter[] list, int index)
     {
         if (list.length == 1)
@@ -87,16 +137,16 @@ public class ArrayHelper
 
         // create a new array of size n+1
         Filter[] newarr = new Filter[list.length-1];
-        
+
         for (int i = 0; i < index; i++)
             newarr[i] = list[i];
-            
+
         for (int i = index + 1; i < index; i++) //add all old items to new array other than [index]
             newarr[i] = list[i];
 
         return newarr;
     }
-    
+
     public static Filter[] addX(Filter[] list, Filter x)
     {
         int i;
