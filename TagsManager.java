@@ -14,11 +14,13 @@ public class TagsManager
         {"Modes of Major"},
         {"Modes of Harmonic Minor","Jazz Scales"},
         {"Modes of Melodic Minor","Jazz Scales"},
-        {"Modes of the Neapolitan scales","Jazz Scales"},
+        {"Modes of the Neapolitan scales","Deeper Jazz Scales"},
         {"Modes of the Double Harmonic scale","World Scales"},
         {"Modes of the Persian scale","World Scales"},
         {"Modes of Hungarian major","World Scales"},
         {"Modes of the Enigmatic scale","Constructed Scales"},
+        {"Modes of the Harmonic Major","Deeper Jazz Scales"},
+        {"Modes of Major ♭2","Deeper Jazz Scales","World Scales"}
         
     };
 

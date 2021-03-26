@@ -34,12 +34,12 @@ public class KeyNamesHelper extends TheoryObj
         
         group = 0; // major
         
-        addScale("C, D, E, F, G, A, and B.", "Ionian/Major"); // the modes of major
+        addScale("C, D, E, F, G, A, and B.", "Ionian / Major"); // the modes of major
         addScale("C, D, E♭, F, G, A, and B♭.", "Dorian");
         addScale("C, D♭, E♭, F, G, A♭, and B♭.", "Phrygian");
         addScale("C, D, E, G♭, G, A, and B.", "Lydian");
         addScale("C, D, E, F, G, A, and B♭.", "Mixolydian");
-        addScale("C, D, E♭, F, G, A♭, and B♭.", "Aeolian/Minor");
+        addScale("C, D, E♭, F, G, A♭, and B♭.", "Aeolian / Minor");
         addScale("C, D♭, E♭, F, G♭, A♭, and B♭.", "Locrian");
         
         group = 1; // harmonic minor
@@ -73,10 +73,10 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, D, E, G♭, A♭, and A.", "Ultra Locrian ♭♭3 [Seventh mode of Neapolitan Minor]");
         
         addScale("C, D♭, E♭, F, G, A, and B.", "Neapolitan Major"); // modes of neapolitan major
-        addScale("C, D, E, G♭, A♭, B♭, and B.", "Leading Wholetone/Lydian Augmented ♯6 [Second mode of Neapolitan Major]");
+        addScale("C, D, E, G♭, A♭, B♭, and B.", "Leading Wholetone [Second mode of Neapolitan Major]");
         addScale("C, D, E, G♭, A♭, A, and B♭.", "Lydian Augmented Dominant [Third mode of Neapolitan Major]");
         addScale("C, D, E, G♭, G, A♭, and B♭.", "Lydian Dominant ♭6 [Fourth mode of Neapolitan Major]");
-        addScale("C, D, E, F, G♭, A♭, and B♭.", "Arabian/Major Locrian [Fifth mode of Neapolitan Major]");
+        addScale("C, D, E, F, G♭, A♭, and B♭.", "Arabian / Major Locrian [Fifth mode of Neapolitan Major]");
         addScale("C, D, E♭, E, G♭, A♭, and B♭.", "Super Locrian ♯2 [Sixth mode of Neapolitan Major]"); 
         addScale("C, D♭, D, E, G♭, A♭, and B♭.", "Super Locrian ♭♭3 [Seventh mode of Neapolitan Major]");
         
@@ -85,7 +85,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E, F, G, A♭, and B.", "Double Harmonic/Byzantine"); // modes of the double harmonic scale
         addScale("C, E♭, E, G♭, G, B♭, and B.", "Lydian ♯2,♯6 [Second mode of the Double Harmonic scale]");
         addScale("C, D♭, E♭, F♭, G, A♭, and A.", "Ultra Phrygian [Third mode of the Double Harmonic scale]");
-        addScale("C, D, E♭, G♭, G, A♭, and B.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic scale]");
+        addScale("C, D, E♭, G♭, G, A♭, and B.", "Hungarian / \"Gypsy\" Minor [Fourth mode of the Double Harmonic scale]");
         addScale("C, D♭, E, F, G♭, A, and B♭.", "Oriental [Fifth mode of the Double Harmonic scale]"); 
         addScale("C, E♭, E, F, A♭, A, and B.", "Ionian ♯2,♯5 [Sixth mode of the Double Harmonic scale]");
         addScale("C, D♭, D, F, G♭, A♭, and A.", "Locrian ♭♭3,♭♭7 [Seventh mode of the Double Harmonic scale]");
@@ -95,18 +95,18 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E, F, G, B♭, and B.", "Persian"); // modes of the persian scale
         addScale("C, E♭, E, F, G, B♭, and B.", "Ionian ♯2,♯6 [Second mode of the Persian scale]");
         addScale("C, D♭, D, G♭, G, A♭, and A.", "Ultra Phrygian ♭♭3 [Third mode of the Persian scale]");
-        addScale("C, D♭, E♭, G♭, G, A♭, and A.", "Todi Raga [Fourth mode of the Persian scale]");
+        addScale("C, D♭, E♭, G♭, G, A♭, and A.", "Todi Thaat Raga [Fourth mode of the Persian scale]");
         addScale("C, D, F, G♭, G, B♭, and B.", "Lydian ♯3,♯6 [Fifth mode of the Persian scale]");
         addScale("C, E♭, E, F, A♭, A, and B♭.", "Mixolydian Augmented ♯2 [Sixth mode of the Persian scale]");
         addScale("C, D♭, D, F, G♭, G, and A.", "Chromatic Hypophrygian Inverse [Seventh mode of the Persian scale]"); //jesus christ wtf is this lmao
         
         group = 6; //hungarian + world
         
-        addScale("C, E♭, E, G♭, G, A, and B♭.", "Hungarian/\"Gypsy\" Major"); // modes of the hungarian major scale
+        addScale("C, E♭, E, G♭, G, A, and B♭.", "Hungarian / \"Gypsy\" Major"); // modes of the hungarian major scale
         addScale("C, D♭, E♭, E, G♭, G, and A.", "Ultra Locrian ♭♭6 [Second mode of Hungarian Major]"); 
         addScale("C, D, E♭, F, G♭, A♭, and B.", "Harmonic Minor ♭5 [Third mode of Hungarian Major]"); 
         addScale("C, D♭, E♭, E, G♭, A, and B♭.", "Super Locrian ♮6 [Fourth mode of Hungarian Major]"); 
-        addScale("C, D, E♭, F, A♭, A, and B.", "Melodic Minor ♯5 [Fifth mode of Hungarian Major]");
+        addScale("C, D, E♭, F, A♭, A, and B.", "Melodic Minor  [Fifth mode of Hungarian Major]");
         addScale("C, D♭, E♭, G♭, G, A, and B♭.", "Dorian ♭2,♯4 [Sixth mode of Hungarian Major]");
         addScale("C, D, F, G♭, A♭, A, and B.", "Nohkan Flute Scale [Seventh mode of Hungarian Major]");
         
@@ -119,6 +119,25 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D, E♭, E, F, A♭, and B♭.", "Madian [Fifth mode of the Enigmatic scale]");
         addScale("C, D♭, D, E♭, G♭, A♭, and B♭.", "Aerygian [Sixth mode of the Enigmatic scale]");
         addScale("C, D♭, D, F, G, A, and B.", "Mela Manavati [Seventh mode of the Enigmatic scale]");
+        
+        group = 8; // harmonic major + jazz
+        
+        addScale("C, D, E, F, G, A♭, and B.", "Harmonic Major"); // the modes of harmonic major
+        addScale("C, D, E♭, F, G♭, A, and B♭.", "Dorian ♭5 [Second mode of Harmonic Major]"); 
+        addScale("C, D♭, E♭, E, G, A♭, and B.", "Phrygian ♭4 [Third mode of Harmonic Major]"); 
+        addScale("C, D, E♭, G♭, G, A, and B.", "Lydian ♭3 [Fourth mode of Harmonic Major]"); 
+        addScale("C, D♭, E, F, G, A, and B♭.", "Mixolydian ♭2 [Fifth mode of Harmonic Major]"); 
+        addScale("C, E♭, E, G♭, A♭, A, and B.", "Lydian Augmented ♯6 [Sixth mode of Harmonic Major]"); 
+        addScale("C, D♭, E♭, F, G♭, A♭, and A.", "Locrian ♭♭7 [Seventh mode of Harmonic Major]");
+        
+        group = 9; // ionian flat 2 + world + jazz
+        addScale("C, D♭, E, F, G, A, and B.", "Mela Suryakanta / Ionian ♭2");
+        addScale("C, E♭, E, G♭, A♭, B♭, and B.", "Leading Wholetone ♯2 [Second Mode of Ionian ♭2]");
+        addScale("C, D♭, E♭, F, G, A♭, and B♭.", "Mela Senavati / Phrygian Diminished [Third Mode of Ionian ♭2] ");
+        addScale("C, D, E, G♭, G, A♭, and B.", "Harmonic Lydian [Fourth Mode of Ionian ♭2]");
+        addScale("C, D, E, F, G♭, A, and B♭.", "Mixolydian ♭5 [Fifth Mode of Ionian ♭2");
+        addScale("C, D, E♭, E, G, A♭, and B♭.", "Super Minor [Sixth mode of Ionian ♭2]");
+        addScale("C, E♭, E, F, G♭, A♭, and B♭.", "Locrian ♭3 [Seventh mode of Ionian ♭2]");
         
         //addScale("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
         
@@ -146,7 +165,7 @@ public class KeyNamesHelper extends TheoryObj
         {
             return;
         }
-        if (stringKeys.get(notes) != null)
+        if (!(stringKeys.get(notes) == null))
         {
             System.out.println("Error! Dupes @" + notes);
         }

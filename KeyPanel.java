@@ -79,9 +79,10 @@
                  */
                 public KeyPanel(int num, int[] key, String name)
                 {
+                    
                     super();
                     
-                    String lbl = "#" + String.valueOf(num) + ": " + parse(name);
+                    String lbl = "#" + String.format("%03d",num) + ": " + parse(name);
             
                     
                     //JButton jb1 = new JButton("Chords");    
@@ -105,12 +106,16 @@
             
                     JLabel label = new JLabel(lbl);
                     int[] pt = getEnclosers(name,"[]");
-                    if (pt[0] > -1)
+                    if (pt[0] > -1 && pt[1] > -1)
                     {
                         label.setToolTipText(name.substring(pt[0]+1,pt[1]));
                     }
                     //System.out.println(key.toString());
-            
+        //System.out.println(parse(name).substring(0,11));
+        if (parse(name).substring(0,11).equals("Unnamed Key"))
+        {
+            label.setFont(new Font(label.getFont().getFontName(),Font.ITALIC,12));
+        }
         add(label);//add(jb3);
         addButton("Chords",chrds); addButton("Listen",playr); 
     }

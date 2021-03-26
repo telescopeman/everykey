@@ -24,12 +24,12 @@ public class UIStuff
     JPanel inner;
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
-    Filter[] defaultFilters = new Filter[]{new Filter("isNamed"),new Filter("Modes of Major",false)};
+    Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
     boolean[] filterStatuses = new boolean[]{true,true};
 
     private HashMap<Boolean,String> enableText;
 
-    JMenu viewfilters;
+    JMenu viewfilters, removefilters;
 
     Filter[] curFilters = defaultFilters;
 
@@ -132,7 +132,7 @@ public class UIStuff
                 KeyPanel keyPanel = new KeyPanel(counter, key, getKeyName(key));
                 
                 
-                inner.add(keyPanel); 
+                inner.add(keyPanel,BorderLayout.WEST); 
                 inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
             }
         }
@@ -185,6 +185,8 @@ public class UIStuff
 
         viewfilters=new JMenu("View Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
+        removefilters=new JMenu("Remove Filter"); 
+        
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
@@ -200,7 +202,7 @@ public class UIStuff
         a1.addActionListener(ModBox.buildSettingsBox(this));
         
 
-        filtermenu.add(viewfilters); filtermenu.add(addfilter); 
+        filtermenu.add(viewfilters); filtermenu.add(addfilter); filtermenu.add(removefilters); 
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         
@@ -234,20 +236,24 @@ public class UIStuff
     private void updateFilterList(Filter[] flist)
     {
         viewfilters.removeAll();
+        removefilters.removeAll();
         int counter = 0;
 
         for (Filter f : flist)
         {
 
             
-            String thing = enableText.get(filterStatuses[counter]);
+            String status = enableText.get(filterStatuses[counter]);
 
             //System.out.println(filterStatuses[0]);
 
-            String label = f.translateToReadable() + " [" + thing + "]";
+            String label = f.translateToReadable() + " [" + status + "]";
 
-            Toggler button = new Toggler(counter);
+            Toggler button = new Toggler(counter); //the 
             button.setText(label);
+            
+            Toggler button2 = new Toggler(counter); //the remove button
+            button2.setText(f.translateToReadable());
             ActionListener menuListener = new ActionListener()
                 {
                     @Override
@@ -267,20 +273,51 @@ public class UIStuff
                     }
                 }
             ;
+            
+            ActionListener filterkiller = new ActionListener()
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent event)
+                    {
+                        String invAction = event.getActionCommand();
+
+                        
+                        Toggler actItem = button;
+
+                        int ind = button.getIndex();
+                        //System.out.print(String.getValue(ind));
+
+                        removeFilter(ind);
+
+                        //System.out.println("Popup menu item [" + invAction + "] [ " + actItem + " ] was pressed.");
+                    }
+                }
+            ;
 
             button.addActionListener(menuListener);
+            button2.addActionListener(filterkiller);
             viewfilters.add(button);  
+            removefilters.add(button2);
             counter++;
         }
     }
 
     public void toggleFilter(int index)
     {
-
+        
+        
         boolean newSet = !filterStatuses[index];
         printlnDebug(String.valueOf(index) + newSet);
         filterStatuses[index] = newSet;
         refresh();
+    }
+    
+    public void removeFilter(int index)
+    {
+        curFilters = ArrayHelper.removeOne(curFilters,index);
+        filterStatuses = ArrayHelper.removeOne(filterStatuses,index);
+        refresh();
+        
     }
 
     private int[][] filterKeys(int[][] keyList, Filter[] filterList)
