@@ -116,7 +116,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         for(int i = 1; i < 8; i++)
         {
             Chord aChord = getChordAt(myKey,i);
-            JLabel jLabel1 = new JLabel(RomanNumeralsHelper.convert(i) + ": " + aChord.toString(), JLabel.CENTER);
+            JLabel jLabel1 = new JLabel(RomanHelper.convert(i) + ": " + aChord.toString(), JLabel.CENTER);
             jLabel1.setOpaque(true);
             //String third = aChord.getThirdType();
             jLabel1.setBackground(aChord.toColor());

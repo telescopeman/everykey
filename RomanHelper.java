@@ -2,14 +2,18 @@
 /**
  * Converts numbers to Roman numerals.
  *
- * @author user1752197 on StackOverflow
+ * @author User1752197 on StackOverflow, Caleb Copeland
  * @version October 19, 2012
  */
 public class RomanHelper
 {
     // instance variables - replace the example below with your own
     
-
+    /**
+     * Converts a whole number to its equivalent in Roman numerals.
+     * @param input The number to be converted.
+     * @returns The Roman numeral in text.
+     */
     public static String convert(int input) {
         if (input < 1 || input > 3999)
             return "Invalid Roman Number Value";
