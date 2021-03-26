@@ -85,7 +85,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E, F, G, A♭, and B.", "Double Harmonic/Byzantine"); // modes of the double harmonic scale
         addScale("C, E♭, E, G♭, G, B♭, and B.", "Lydian ♯2,♯6 [Second mode of the Double Harmonic scale]");
         addScale("C, D♭, E♭, F♭, G, A♭, and A.", "Ultra Phrygian [Third mode of the Double Harmonic scale]");
-        addScale("C, D, E♭, G♭, G, A♭, and B♭.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic scale]");
+        addScale("C, D, E♭, G♭, G, A♭, and B.", "Hungarian/\"Gypsy\" Minor [Fourth mode of the Double Harmonic scale]");
         addScale("C, D♭, E, F, G♭, A, and B♭.", "Oriental [Fifth mode of the Double Harmonic scale]"); 
         addScale("C, E♭, E, F, A♭, A, and B.", "Ionian ♯2,♯5 [Sixth mode of the Double Harmonic scale]");
         addScale("C, D♭, D, F, G♭, A♭, and A.", "Locrian ♭♭3,♭♭7 [Seventh mode of the Double Harmonic scale]");
@@ -95,7 +95,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E, F, G, B♭, and B.", "Persian"); // modes of the persian scale
         addScale("C, E♭, E, F, G, B♭, and B.", "Ionian ♯2,♯6 [Second mode of the Persian scale]");
         addScale("C, D♭, D, G♭, G, A♭, and A.", "Ultra Phrygian ♭♭3 [Third mode of the Persian scale]");
-        addScale("C, D♭, D, G♭, G, A♭, and A.", "Todi Raga [Fourth mode of the Persian scale]");
+        addScale("C, D♭, E♭, G♭, G, A♭, and A.", "Todi Raga [Fourth mode of the Persian scale]");
         addScale("C, D, F, G♭, G, B♭, and B.", "Lydian ♯3,♯6 [Fifth mode of the Persian scale]");
         addScale("C, E♭, E, F, A♭, A, and B♭.", "Mixolydian Augmented ♯2 [Sixth mode of the Persian scale]");
         addScale("C, D♭, D, F, G♭, G, and A.", "Chromatic Hypophrygian Inverse [Seventh mode of the Persian scale]"); //jesus christ wtf is this lmao
@@ -145,6 +145,10 @@ public class KeyNamesHelper extends TheoryObj
         if (!(group > -1))
         {
             return;
+        }
+        if (stringKeys.get(notes) != null)
+        {
+            System.out.println("Error! Dupes @" + notes);
         }
         stringKeys.put(notes,name + TagsManager.curl(TagsManager.getTagGroup(group)));
     }

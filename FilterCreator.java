@@ -179,7 +179,7 @@ public class FilterCreator extends ModBox
             
             type = id.substring(10);
             setUpUniqueFactors(type);
-            appear(STANDARD);
+            appear(SUPERSTANDARD);
             
         }
 

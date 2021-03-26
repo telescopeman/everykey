@@ -16,6 +16,7 @@ public abstract class ModBox extends EasyFrame implements ActionListener
     // instance variables - replace the example below with your own
     UIStuff ui;
     public final Dimension STANDARD = new Dimension(350,100);
+    public final Dimension SUPERSTANDARD = new Dimension(550,150);
     ArrayHelper arr;
     
     public final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
