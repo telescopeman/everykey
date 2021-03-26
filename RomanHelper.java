@@ -5,7 +5,7 @@
  * @author user1752197 on StackOverflow
  * @version October 19, 2012
  */
-public class RomanNumeralsHelper
+public class RomanHelper
 {
     // instance variables - replace the example below with your own
     
