@@ -19,7 +19,7 @@ public class KeyNamesHelper extends TheoryObj
     
     static HashMap<String,String> stringKeys;
     
-    
+    String lastKey;
     /**
      * Most of these are from Wikipedia.
      */
@@ -95,7 +95,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E, F, G, B♭, and B.", "Persian"); // modes of the persian scale
         addScale("C, E♭, E, F, G, B♭, and B.", "Ionian ♯2,♯6 [Second mode of the Persian scale]");
         addScale("C, D♭, D, G♭, G, A♭, and A.", "Ultra Phrygian ♭♭3 [Third mode of the Persian scale]");
-        addScale("C, D♭, E♭, G♭, G, A♭, and A.", "Todi Thaat Raga [Fourth mode of the Persian scale]");
+        addScale("C, D♭, E♭, G♭, G, A♭, and A.", "Raga Todi Thaat [Fourth mode of the Persian scale]");
         addScale("C, D, F, G♭, G, B♭, and B.", "Lydian ♯3,♯6 [Fifth mode of the Persian scale]");
         addScale("C, E♭, E, F, A♭, A, and B♭.", "Mixolydian Augmented ♯2 [Sixth mode of the Persian scale]");
         addScale("C, D♭, D, F, G♭, G, and A.", "Chromatic Hypophrygian Inverse [Seventh mode of the Persian scale]"); //jesus christ wtf is this lmao
@@ -139,6 +139,20 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D, E♭, E, G, A♭, and B♭.", "Super Minor [Sixth mode of Ionian ♭2]");
         addScale("C, E♭, E, F, G♭, A♭, and B♭.", "Locrian ♭3 [Seventh mode of Ionian ♭2]");
         
+        group = 10; // modes of Ionian flat 5
+
+        addScale("C, D, E, F, G♭, A, and B.", "Ionian ♭5"); 
+        addScale("C, D, E♭, E, G, A, and B♭.", "Super Dorian / Bebop Minor [Second mode of Ionian ♭5]");
+        addScale("C, D♭, D, F, G, A♭, and B♭.", "Phrygian ♭♭3 [Third mode of Ionian ♭5]");
+        //lydian flat 2
+        //???? insane scale
+        addScale("C, D, E♭, F, G, A♭, and A.","Raga Jhankara Bhramavi / Minor Diminished [Sixth mode of Ionian ♭5]");
+        //locrian flat 6
+        group = 11; //more world stuff
+        
+        addScale("C, D, E♭, F, G, B♭, and B.", "Raga Viravasantham");
+        
+        addScale("C, D, E♭, G♭, G, A♭, and A.","Mela Syamalangi / Raga Shyamalam");
         //addScale("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
         
         
@@ -150,7 +164,7 @@ public class KeyNamesHelper extends TheoryObj
         //addScale("C, D♭, E♭, G♭, G, A♭, and B♭.", "Black Keys + Perfect Fifth"); //Fun keys I made up
         //addScale("C, D♭, E, F, G♭, G, and B♭.", "\"The Becoming\" Scale");
         
-        // addScale("C, D, E, F, G♭, A, and B.", "Ionian ♭5"); //the modes of major but with flatted fifths
+        //the modes of major but with flatted fifths
         // addScale("C, D, E♭, F, G♭, A♭, and B♭.", "Aeolian ♭5");
         // addScale("C, D, E♭, F, G♭, A, and B♭.", "Dorian ♭5");
         // //addScale("C, D, E, G♭, G, A, and B.", "Lydian"); not possible
@@ -161,6 +175,7 @@ public class KeyNamesHelper extends TheoryObj
     
     private void addScale(String notes, String name)
     {
+        lastKey = notes;
         if (!(group > -1))
         {
             return;

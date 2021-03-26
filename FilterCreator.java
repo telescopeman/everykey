@@ -22,6 +22,7 @@ public class FilterCreator extends ModBox
     String type;
     JComboBox list1;
     JComboBox list2;
+    JComboBox listSub;
     JCheckBox tickBox;
     
     
@@ -57,7 +58,7 @@ public class FilterCreator extends ModBox
         String[] options = new String[]{"Error!"};
         String[] options2 = new String[]{"Error!"};
         boolean hasSecondDropDown = false;
-        
+        String[] fullTags = {"f"};
         
         switch (id)
         {
@@ -77,12 +78,20 @@ public class FilterCreator extends ModBox
             break;
             
             case "Tags":
-            options = TagsManager.getAllTags();
+                fullTags = TagsManager.getAllTags();
+                options = ArrayHelper.getFiltered(fullTags,"mode",true);
+                options2 = ArrayHelper.getFiltered(fullTags,"mode",true);
+                
+            
             break;
+            
+            default:
+                break;
 
         }
         list1 = new JComboBox(options);
-        list1.setSelectedIndex(0);
+        System.out.println(options);
+        //list1.setSelectedIndex(0);
         //list1.addActionListener(this);
         add(list1);
         list2 = new JComboBox(new String[]{"Dummy"});
@@ -94,6 +103,14 @@ public class FilterCreator extends ModBox
             list2.setSelectedIndex(0);
             //list2.addActionListener(this);
             add(list2);
+        }
+        
+        if (id.equals("Tags"))
+        {
+            listSub = new JComboBox(options2);
+            list1.add(listSub);
+            
+            
         }
         tickBox = new JCheckBox("Inverted?");
         add(tickBox);

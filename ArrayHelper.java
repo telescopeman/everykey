@@ -75,6 +75,23 @@ public class ArrayHelper
 
         return newarr;
     }
+    
+    public static String[] getFiltered(String[] list, String term, boolean mod)
+    {
+        String[] result = new String[]{};
+        for(String item : list)
+        {
+            if ((term.indexOf(term) > -1) == mod)
+            {
+                result = addX(result,item);
+                
+            }
+            
+        }
+        
+        return result;
+        
+    }
 
     public static int[] reverse(int[] list)
     {
