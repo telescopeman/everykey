@@ -6,7 +6,7 @@ import java.awt.*;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class FilterToggler extends JMenuItem
+public class Toggler extends JMenuItem
 {
     // instance variables - replace the example below with your own
     private int x;
@@ -14,7 +14,7 @@ public class FilterToggler extends JMenuItem
     /**
      * Constructor for objects of class FilterToggler
      */
-    public FilterToggler(int index)
+    public Toggler(int index)
     {
         x = index;
     }

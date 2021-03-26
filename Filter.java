@@ -109,6 +109,8 @@ public class Filter extends TheoryObj
         {
             preceder = "not ";
         }
+        
+        
         if (type == "Note")
         {
             return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));

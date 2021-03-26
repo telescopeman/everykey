@@ -243,7 +243,7 @@ public class UIStuff
 
             String label = f.translateToReadable() + " [" + thing + "]";
 
-            FilterToggler button = new FilterToggler(counter);
+            Toggler button = new Toggler(counter);
             button.setText(label);
             ActionListener menuListener = new ActionListener()
                 {
@@ -253,7 +253,7 @@ public class UIStuff
                         String invAction = event.getActionCommand();
 
                         
-                        FilterToggler actItem = button;
+                        Toggler actItem = button;
 
                         int ind = button.getIndex();
                         //System.out.print(String.getValue(ind));
