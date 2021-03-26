@@ -11,6 +11,7 @@ public class RomanHelper
     
     /**
      * Converts a whole number to its equivalent in Roman numerals.
+     * @author User1752197 on StackOverflow, Caleb Copeland
      * @param input The number to be converted.
      * @returns The Roman numeral in text.
      */

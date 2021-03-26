@@ -24,7 +24,7 @@ public class UIStuff
     JPanel inner;
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
-    Filter[] defaultFilters = new Filter[]{new Filter("isNamed"),new Filter("Exotic",true)};
+    Filter[] defaultFilters = new Filter[]{new Filter("isNamed"),new Filter("Modes of Major",true)};
     boolean[] filterStatuses = new boolean[]{true,true};
 
     private HashMap<Boolean,String> enableText;
@@ -189,13 +189,13 @@ public class UIStuff
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
         
-        i1.addActionListener(makeModBox("FilterCreator"));
-        i2.addActionListener(makeModBox("FilterCreator"));
-        i3.addActionListener(makeModBox("FilterCreator"));
+        i1.addActionListener(ModBox.buildFilterCreator(this));
+        i2.addActionListener(ModBox.buildFilterCreator(this));
+        i3.addActionListener(ModBox.buildFilterCreator(this));
         
         a1=new JMenuItem("Audio Speed");  
         //a2=new JMenuItem("deez nuts");  
-        a1.addActionListener(makeModBox("AudioSpeed"));
+        a1.addActionListener(ModBox.buildSettingsBox(this));
         
 
         filtermenu.add(viewfilters); filtermenu.add(addfilter); 
@@ -211,21 +211,21 @@ public class UIStuff
 
     
     
-    /**
-     * Quick way to make FilterCreator class
-     */
-    private ModBox makeModBox(String type)
-    {
-        switch (type)
-        {
-            case "FilterCreator":
-                return new FilterCreator(this);
-            case "AudioSpeed":
-                return new SettingsBox(this);
-            default:
-                return new FilterCreator(this);
-        }
-    }
+    // /**
+     // * Gets a child of ModBox.
+     // */
+    // private ModBox makeModBox(String type)
+    // {
+        // switch (type)
+        // {
+            // case "FilterCreator":
+                // return new FilterCreator(this);
+            // case "AudioSpeed":
+                // return new SettingsBox(this);
+            // default:
+                // return new FilterCreator(this);
+        // }
+    // }
 
 
     private void updateFilterList(Filter[] flist)

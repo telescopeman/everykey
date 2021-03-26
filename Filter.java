@@ -12,6 +12,7 @@ public class Filter extends TheoryObj
     private int[] requiredNotes;
     private int requiredPosition;
     private String type = "";
+    private String[] tags;
     
     
     /** 
@@ -80,11 +81,28 @@ public class Filter extends TheoryObj
     
     /**
      * Tests for it being named or other qualities.
-     * @param spc The quality to filter by.
+     * @param spc The tag to search for.
      */
-    public Filter(String spc) 
+    public Filter(String tgs) 
     {
-        type = spc;
+        if (tgs.equals("isNamed"))
+        {
+            type = tgs;
+        }
+            else{
+        type = "Tag";
+        tags = new String[]{tgs};
+    }
+    }
+    
+    /**
+     * Tests for it being named or other qualities.
+     * @param spc The tags to search for.
+     */
+    public Filter(String[] tgs) 
+    {
+        type = "Tag";
+        tags = tgs;
     }
     
     /**
@@ -92,9 +110,16 @@ public class Filter extends TheoryObj
      * @param spc The quality to filter by.
      * @param inv If this is turned on, the filter acts opposite to how it usually would. 
      */
-    public Filter(String spc, boolean inv) 
+    public Filter(String tgs, boolean inv) 
     {
-        type = spc;
+        if (tgs.equals("isNamed"))
+        {
+            type = tgs;
+        }
+            else{
+        type = "Tag";
+        tags = new String[]{tgs};
+    }
         inverted = inv;
     }
 
@@ -131,6 +156,11 @@ public class Filter extends TheoryObj
         {
             return ("Must " + preceder + "be an exotic key.");
         }
+        else if (type == "Tags")
+        {
+            return ("Only scales tagged with tags " + tags);
+            
+        }
         else
         {
             return ("UNHANDLED_TYPE: REQUIRED NOTES:" + requiredNotes);
@@ -162,16 +192,31 @@ public class Filter extends TheoryObj
     
     private boolean checkKeyHelper(int[] key)
     {
-        
-        if (type.equals("isNamed"))
+        switch(type)
+        {
+        case "isNamed":
         {
             return (!namer.get(key).equals(""));
-            
         }
-        else if (type.equals("Exotic"))
+        case "Exotic":
         {
             return (namer.get(key).indexOf("[") > 0);
         }
+        case "Tag":
+        {
+            List<String> list = Arrays.asList(namer.getTags(key));
+            boolean isValid = true;
+            for (String tag : tags)
+            {
+                if (!list.contains(tag))
+                {
+                    return false;
+                }
+                
+            }
+            return isValid;
+        }
+    }
 
         for (int note : requiredNotes)
         {

@@ -27,6 +27,35 @@ public abstract class ModBox extends EasyFrame implements ActionListener
         ui = uiref;
         setLayout(new GridLayout(3,1));
     }
+    
+    
+    public static FilterCreator buildFilterCreator(UIStuff uiref)
+    {
+        return new FilterCreator(uiref);
+        
+    }
+    
+    public static SettingsBox buildSettingsBox(UIStuff uiref)
+    {
+        return new SettingsBox(uiref);
+        
+    }
+    
+    // /**
+     // * Gets a child of ModBox.
+     // */
+    // private ModBox makeModBox(String type)
+    // {
+        // switch (type)
+        // {
+            // case "FilterCreator":
+                // return new FilterCreator(this);
+            // case "AudioSpeed":
+                // return new SettingsBox(this);
+            // default:
+                // return new FilterCreator(this);
+        // }
+    // }
 
     public void addHeader(String text)
     {
