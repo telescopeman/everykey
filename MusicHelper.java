@@ -45,6 +45,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
                     counter++;
                 }
                 addFullNote(myTrack,savedNotes[0] + 12, counter);
+                break;
             }
             case "Play Chord":
             {
@@ -53,7 +54,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
                     myTrack.add(toNote(note,1)[0]);
                     myTrack.add(toNote(note,20)[1]);
                 }
-                
+                break;
             }
         }
 
@@ -161,11 +162,13 @@ public class MusicHelper extends TheoryObj implements ActionListener
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
         System.out.println("attempt to play" + id);
+        
         if (!activated)
         {
             activate(id);
 
         }
+        sequencer.stop();
         sequencer.start();
         //return;
 

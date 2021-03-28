@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*; 
 import java.awt.event.ActionListener;
 /**
- * Write a description of interface EasyVis here.
+ * Helps with several visual methods for JFrames and JPanels.
  *
  * @author (your name)
  * @version (a version number or a date)
