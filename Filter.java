@@ -13,6 +13,10 @@ public class Filter extends TheoryObj
     private int requiredPosition;
     private String type = "";
     private String[] tags;
+    private String description;
+    private boolean hasDescription = false;
+    
+    
     
     
     /** 
@@ -33,6 +37,27 @@ public class Filter extends TheoryObj
         type = "NotePos";
     }
 
+    /**
+     * Tests for all of specific notes.
+     */
+    public Filter(int[] notes) 
+    {
+        requiredNotes = notes;
+        type = "AllNotes";
+        
+    }
+    
+    /**
+     * Tests for all of specific notes.
+     */
+    public Filter(int[] notes, boolean inv) 
+    {
+        requiredNotes = notes;
+        inverted = inv;
+        type = "AllNotes";
+        
+    }
+    
     /**
      * Tests for one of specific notes, at a specific point.
      */
@@ -56,7 +81,6 @@ public class Filter extends TheoryObj
         inverted = inv;
     }
 
-    
     /**
      * Tests for a specific note.
      * @param note The note to check for.
@@ -124,11 +148,23 @@ public class Filter extends TheoryObj
     }
 
     
+    public void setDescription(String desc)
+    {
+        description = desc;
+        hasDescription = true;
+        
+    }
+    
     /**
      * Generates a description of the Filter.
      */
     public String translateToReadable()
     {
+        if (hasDescription)
+        {
+            return description;
+        }
+        
         String preceder = "";
         if (inverted)
         {
@@ -152,9 +188,9 @@ public class Filter extends TheoryObj
         {
             return ("Must " + preceder + "be a named key.");
         }
-        else if (type == "Exotic")
+        else if (type == "AllNotes")
         {
-            return ("Must " + preceder + "be an exotic key.");
+            return ("Must " + preceder + "contain notes " + expand(requiredNotes,true));
         }
         else if (type == "Tag")
         {
@@ -224,8 +260,20 @@ public class Filter extends TheoryObj
             }
             return isValid;
         }
+        case "AllNotes":
+        {
+            for (int note : requiredNotes)
+            {
+                if (Arrays.binarySearch(key,note) < 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
+    //if can select one from large list 
         for (int note : requiredNotes)
         {
             if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)

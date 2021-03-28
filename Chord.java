@@ -46,6 +46,8 @@ public class Chord extends TheoryObj
         keyOffset = 0;
         sort();
     }
+    
+    
 
     private void sort()
     {

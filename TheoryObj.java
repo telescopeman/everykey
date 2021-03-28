@@ -45,11 +45,11 @@ public abstract class TheoryObj
         String name = "";
         int count = 0;
         String lastNote = "I";
-        while (count < 7)
+        while (count < key.length)
         {
             int i = key[count];
             String newNote = getNoteName(i);
-            if (enharmonicsOn && count < 6 && newNote.substring(0,1).equals(getNoteName(key[count+1]).substring(0,1)))
+            if (enharmonicsOn && count < key.length -1 && newNote.substring(0,1).equals(getNoteName(key[count+1]).substring(0,1)))
             {
                 String sameNote = enh.getEnharmonic(newNote);
                 if (!newNote.substring(0,1).equals(lastNote.substring(0,1)))
@@ -60,11 +60,11 @@ public abstract class TheoryObj
                 
             }
             name = name + newNote;
-            if (count < 5)
+            if (count < key.length - 2)
             {
                 name = name + ", ";
             }
-            else if (count == 5)
+            else if (count == key.length - 2)
             {
                 name = name + ", and ";
             }
@@ -77,5 +77,21 @@ public abstract class TheoryObj
 
         }
         return name;
+    }
+    
+    public static int[] getRawChordAt(int[] key, int ind)
+    {
+        int index = ind - 1;
+        final int LOOP = 7;
+        System.out.print(ind + "-->");
+        if (index > LOOP)
+        {
+            return new int[]{};
+        }
+
+        //return "Test Chord";
+        //System.out.println(String.valueOf(index) + String.valueOf((index + 2) % LOOP) + String.valueOf((index + 4) % LOOP) + "-->" + key[index] + key[(index + 2) % LOOP] + key[(index + 4) % LOOP]);
+        return new int[]{key[index], key[(index + 2) % 7],key[(index + 4) % 7]};
+
     }
 }

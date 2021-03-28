@@ -22,7 +22,7 @@ public class FilterCreator extends ModBox
     String type;
     JComboBox list1;
     JComboBox list2;
-    JComboBox listSub;
+    JMenu listSub;
     JCheckBox tickBox;
     
     
@@ -63,27 +63,30 @@ public class FilterCreator extends ModBox
         switch (id)
         {
             case "Tonality":
-            options = new String[]{"Major", "Minor", "Either", "Neither"};
-            break;
+                options = new String[]{"Major", "Minor", "Either", "Neither"};
+                break;
 
             case "Note":
-            options = CHROMATICSCALE;
-            
-            break;
+                options = CHROMATICSCALE;
+                break;
 
             case "Chord":
-            options = CHROMATICSCALE;
-            options2 = new String[]{"Major", "Minor", "Either"};
-            hasSecondDropDown = true;
-            break;
+                options = CHROMATICSCALE;
+                options2 = new String[]{"Major", "Minor"};
+                setLayout(new GridLayout(3,2));
+                add(new JLabel(""));
+                hasSecondDropDown = true;
+                break;
             
             case "Tags":
                 fullTags = TagsManager.getAllTags();
                 options = ArrayHelper.getFiltered(fullTags,"Mode",false);
-                options2 = ArrayHelper.getFiltered(fullTags,"Mode",true);
+                break;
                 
-            
-            break;
+            case "Mode":
+                fullTags = TagsManager.getAllTags();
+                options = ArrayHelper.getFiltered(fullTags,"Mode",true);
+                break;
             
             default:
                 break;
@@ -91,27 +94,22 @@ public class FilterCreator extends ModBox
         }
         list1 = new JComboBox(options);
         System.out.println(options);
-        //list1.setSelectedIndex(0);
-        //list1.addActionListener(this);
+       
+        
         add(list1);
         list2 = new JComboBox(new String[]{"Dummy"});
         list2.setSelectedIndex(0);
         
         if (hasSecondDropDown)
         {
-            list2 = new JComboBox(options);
+            list2 = new JComboBox(options2);
             list2.setSelectedIndex(0);
+            
             //list2.addActionListener(this);
             add(list2);
         }
         
-        if (id.equals("Tags"))
-        {
-            listSub = new JComboBox(options2);
-            list1.add(listSub);
-            
-            
-        }
+        
         tickBox = new JCheckBox("Inverted?");
         add(tickBox);
         addButton("Add Filter",this);
@@ -125,26 +123,72 @@ public class FilterCreator extends ModBox
                 return new Filter(list1.getSelectedIndex() + 1,tickBox.isSelected());
 
             case "Tonality":
+            {
+                Filter f;
                 switch (opt1)
                 {
                     case "Major":
-                        return new Filter(5,2);
+                        f = new Filter(5,2);
+                        f.setDescription("Must be a major key.");
+                        break;
                         
                     case "Minor":
-                        return new Filter(4,2);
+                        f = new Filter(4,2);
+                        f.setDescription("Must be a minor key.");
+                        break;
                         
                     case "Either":
-                        return new Filter(new int[]{4,5},3);
+                        f = new Filter(new int[]{4,5},3);
+                        f.setDescription("Must be either major or minor.");
+                        break;
                         
                     case "Neither":
-                        return new Filter(new int[]{4,5},3,true);
+                        f = new Filter(new int[]{4,5},3,true);
+                        f.setDescription("Must be neither major nor minor.");
+                        break;
+                        
+                    default:
+                        f = new Filter("isNamed");
+                        break;
                 }
-                
+                return f;
+            }
 
             case "Chord":
-                return new Filter("isNamed");
+            {
+                int root = list1.getSelectedIndex() + 1;
+                int third;
+                switch (opt2)
+                {
+                    case "Major":
+                    {
+                        third = root + 4;
+                        break;
+                    }
+                    case "Minor":
+                    {
+                        third = root + 3;
+                        break;
+                    }
+                    default:
+                    {
+                        third = root + 2;
+                        break;
+                    }
+                }
+                int fifth = root + 7;
+                Filter f = new Filter(new int[]{root % 12 ,third % 12,fifth % 12});
+                f.setDescription("Must contain a " + opt1 + " " + opt2 + " chord.");
+                return f;
+            }
                 
             case "Tags":
+                return new Filter((list1.getSelectedItem()).toString());
+                
+            case "Mode":
+                return new Filter((list1.getSelectedItem()).toString());
+                
+            case "Special":
                 return new Filter((list1.getSelectedItem()).toString());
                 
             default:

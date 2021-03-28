@@ -254,7 +254,7 @@ public class UIStuff
         mainWindow.add(outer);
 
         JMenu filtermenu,audio,addfilter,viewops,sortops;
-        JMenuItem i1, i2, i3, i4;
+        JMenuItem i1, i2, i3, i4, i5, i6;
         JMenuItem s1,s2,s3,s4;
         JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
@@ -285,12 +285,16 @@ public class UIStuff
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
         i4=new JMenuItem("Filter by Tags");  
+        i5=new JMenuItem("Filter by Mode");  
+        i6=new JMenuItem("Filter by Special");  
 
         i1.addActionListener(ModBox.buildFilterCreator(this));
         i2.addActionListener(ModBox.buildFilterCreator(this));
         i3.addActionListener(ModBox.buildFilterCreator(this));
         i4.addActionListener(ModBox.buildFilterCreator(this));
-
+        i5.addActionListener(ModBox.buildFilterCreator(this));
+        i6.addActionListener(ModBox.buildFilterCreator(this));
+        
         a1=new JMenuItem("Change Note Speed");  
         //a2=new JMenuItem("deez nuts");  
         a1.addActionListener(ModBox.buildSettingsBox(this));
@@ -299,6 +303,7 @@ public class UIStuff
         filtermenu.add(viewfilters); filtermenu.add(addfilter); filtermenu.add(removefilters); 
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
+        addfilter.add(i5); addfilter.add(i6);
         
         s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
         s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
