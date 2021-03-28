@@ -37,16 +37,21 @@ public class MusicHelper extends TheoryObj implements ActionListener
         int counter = 0;
         for (int note : savedNotes)
         {
-            for (MidiEvent event : toNote(note,counter))
-            {
-                myTrack.add(event);
-            }
-            
-            //myTrack.add(new MidiEvent(makeMessage(note,true),counter*timeMult));
+            addFullNote(myTrack, note, counter);
             counter++;
         }
-        myTrack.add(new MidiEvent(makeMessage(savedNotes[0] + 12,true),counter*timeMult)); //add last note
+        addFullNote(myTrack,savedNotes[0] + 12, counter);
+        
+        
         return seq;
+    }
+    
+    private void addFullNote(Track myTrack, int pitch, int counter)
+    {
+        for (MidiEvent event : toNote(pitch,counter))
+        {
+            myTrack.add(event);
+        }
     }
     
     private MidiEvent[] toNote(int pitch, int index)
