@@ -1,9 +1,9 @@
 import java.util.Comparator;
 /**
- * Write a description of class StrangeCompare here.
+ * Compares two scale indexes by their distances to Dorian.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/28/21
  */
 public class StrangeCompare implements Comparator<Integer>
 {
