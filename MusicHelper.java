@@ -11,12 +11,13 @@ import javax.sound.midi.Sequence;
 public class MusicHelper extends TheoryObj implements ActionListener
 {
     // instance variables - replace the example below with your own
-    private int tempo;
+
     private int[] savedNotes;
     private Sequence mySequence;
     private Sequencer sequencer;
     private final int timeMult = 5;
     private final int length = 5;
+    private float tempo;
 
     private boolean activated;
     
@@ -107,14 +108,18 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     }
 
-    public void setTempo(int newTempo) throws javax.sound.midi.MidiUnavailableException
+    public void setTempo(float newTempo) throws javax.sound.midi.MidiUnavailableException
     {
+        tempo = newTempo;
+        //System.out.println("set");
         if (newTempo < 1)
         {
             System.out.println("Invalid tempo!");
             return;
         }
-        MidiSystem.getSequencer().setTempoInBPM(newTempo);
+        
+        sequencer.setTempoInBPM(newTempo);
+        
         //refreshSequence(savedKey);
 
     }
@@ -128,15 +133,6 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     private void activate(String type)
     {
-        try
-        {
-            seqSetup();
-        }
-        catch (javax.sound.midi.MidiUnavailableException mue)
-        {
-            mue.printStackTrace();
-
-        }
         try
         {
             mySequence = toMIDI(savedNotes,type);
@@ -157,18 +153,30 @@ public class MusicHelper extends TheoryObj implements ActionListener
     
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
-        System.out.println("attempt to play" + id);
+        //System.out.println(sequencer.getTempoInBPM());
         
         
         if (!activated)
         {
+            try
+            {
+                seqSetup();
+                //setTempo(tempo);
+            }
+            catch (javax.sound.midi.MidiUnavailableException mue)
+            {
+                mue.printStackTrace();
+            }
+            
             activate(id);
-
+            
         }
         
         
-        PlayerWatcher.requestControl(this);
+        
         sequencer.setTickPosition(0);
+        PlayerWatcher.requestControl(this); // DO NOT CHANGE ORDER HERE
+        //System.out.println(sequencer.getTempoInBPM());
         sequencer.start();
         //return;
 

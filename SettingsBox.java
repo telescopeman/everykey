@@ -27,25 +27,69 @@ public class SettingsBox extends ModBox
     public SettingsBox(UIStuff uiref)
     {
         super(uiref);// initialise instance variables
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tempo_init = ui.getTempo();
         //x = 0;
-        sliderpos= tempo_init;
+        sliderpos = tempo_init;
+        addHeader("Change Note Speed:");
+            //System.out.println("cns");
+            try{
+                playr = new MusicHelper(new int[]{1,2,3,4,5});
+                playr.seqSetup();
+            }
+            catch(Exception ed)
+            {
+                System.out.println(ed + "thiserro");
+            }
+            JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
+                    TEMPO_MIN, TEMPO_MAX, tempo_init);
+
+            class SliderListener implements ChangeListener {
+                private JSlider slider;
+                public SliderListener(JSlider s)
+                {
+                    slider = s;
+
+                }
+
+                public void stateChanged(ChangeEvent e) {
+                    sliderpos = (int)slider.getValue();
+                    update(slider.getValue());
+
+                    //System.out.println("upd" + slider.getValue());
+                }
+            }
+
+            framesPerSecond.addChangeListener(new SliderListener(framesPerSecond));
+            //Turn on labels at major tick marks.
+            framesPerSecond.setMajorTickSpacing(50);
+            framesPerSecond.setMinorTickSpacing(1);
+            framesPerSecond.setPaintTicks(true);
+            framesPerSecond.setPaintLabels(true);
+            framesPerSecond.setBorder(
+                BorderFactory.createEmptyBorder(0,0,10,0));
+            Font font = new Font("Serif", Font.ITALIC, 15);
+            framesPerSecond.setFont(font);
+
+            add(framesPerSecond);
+
+            addButton("Test",playr);
     }
 
     private void update()
     {
-        ui.setTempo(sliderpos);
-        System.out.print(sliderpos);
-        try
-        {
-            playr.setTempo(sliderpos);
-        }
-        catch (javax.sound.midi.MidiUnavailableException mue)
-        {
-            System.out.println("err");
-            mue.printStackTrace();
-        }
-        playr.stop();
+        //System.out.println(sliderpos);
+        PlayerWatcher.setTempo((int)sliderpos);
+        //System.out.print(sliderpos);
+        //playr.stop();
+    }
+
+    private void update(float d)
+    {
+        //System.out.println(d);
+        PlayerWatcher.setTempo(d);
+        //System.out.print(sliderpos);
+        //playr.stop();
     }
 
     /**
@@ -59,47 +103,10 @@ public class SettingsBox extends ModBox
         if (id.equals("Change Note Speed"))
         {
 
-            clear();
-            appear(new Dimension(350,250));
-            addHeader("Change Audio Speed:");
-            try{
-                playr = new MusicHelper(new int[]{1,2,3,4,5});
-                playr.seqSetup();
-            }
-            catch(Exception ed)
-            {
-                System.out.println(ed + "thiserro");
-            }
-            JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
-                    TEMPO_MIN, TEMPO_MAX, tempo_init);
-
-            class SliderListener implements ChangeListener {
-                public void stateChanged(ChangeEvent e) {
-                    JSlider source = (JSlider)e.getSource();
-                    if (source.getValueIsAdjusting()) {
-                        sliderpos = (int)source.getValue();
-                        update();
-                    }    
-                }
-            }
-
-            framesPerSecond.addChangeListener(new SliderListener());
-
-            //Turn on labels at major tick marks.
-            framesPerSecond.setMajorTickSpacing(50);
-            framesPerSecond.setMinorTickSpacing(1);
-            framesPerSecond.setPaintTicks(true);
-            framesPerSecond.setPaintLabels(true);
-            framesPerSecond.setBorder(
-                BorderFactory.createEmptyBorder(0,0,10,0));
-            Font font = new Font("Serif", Font.ITALIC, 15);
-            framesPerSecond.setFont(font);
-
-            add(framesPerSecond);
             
-            //playr.setTempo(sliderpos);
-            addButton("Test",playr);
-
+            
+            appear(new Dimension(350,250));
+            
         }
         else
         {

@@ -10,16 +10,17 @@ public class PlayerWatcher
     // instance variables - replace the example below with your own
     static private MusicHelper curPlayer;
     static private boolean isPlaying = false;
-    static private int tempo;
+    static private float tempo = 140.0f;
     
     public static boolean getStatus()
     {
         return isPlaying;
     }
     
-    public static void setTempo(int t)
+    public static void setTempo(float t)
     {
         tempo = t;
+        System.out.println("PWSET" + t);
     }
     
     public static void updateStatus(boolean isOn)
@@ -29,11 +30,13 @@ public class PlayerWatcher
 
     public static void requestControl(MusicHelper src)
     {
+        //System.out.println("req");
         if (curPlayer != null)
         {
             curPlayer.stop();
         }
         curPlayer = src;
+        System.out.println(src);
         try
         {
             curPlayer.setTempo(tempo);

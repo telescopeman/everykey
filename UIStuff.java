@@ -68,13 +68,8 @@ public class UIStuff
     public void setTempo(int n)
     {
         globalTempo = n;
-        PlayerWatcher.setTempo(n);
-        //KeyPanel[] panels = inner.getComponents();
-        // for (Component panel : inner.getComponents() )
-        // {
-            // panel.resize(globalTempo,0);
-
-        // }
+        //PlayerWatcher.setTempo(n);
+        
     }
 
     public void setupEnableText()
