@@ -29,7 +29,7 @@ public class SettingsBox extends ModBox
         super(uiref);// initialise instance variables
         tempo_init = ui.getTempo();
         //x = 0;
-        sliderpos= 180;
+        sliderpos= tempo_init;
     }
 
     private void update()
@@ -42,6 +42,7 @@ public class SettingsBox extends ModBox
         }
         catch (javax.sound.midi.MidiUnavailableException mue)
         {
+            System.out.println("err");
             mue.printStackTrace();
         }
         playr.stop();
@@ -55,19 +56,27 @@ public class SettingsBox extends ModBox
     public void actionPerformed(ActionEvent e)
     {
         String id = e.getActionCommand();
-        if (id.equals("Audio Speed"))
+        if (id.equals("Change Note Speed"))
         {
 
             clear();
             appear(new Dimension(350,250));
             addHeader("Change Audio Speed:");
+            try{
+                playr = new MusicHelper(new int[]{1,2,3,4,5});
+                playr.seqSetup();
+            }
+            catch(Exception ed)
+            {
+                System.out.println(ed + "thiserro");
+            }
             JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
                     TEMPO_MIN, TEMPO_MAX, tempo_init);
 
             class SliderListener implements ChangeListener {
                 public void stateChanged(ChangeEvent e) {
                     JSlider source = (JSlider)e.getSource();
-                    if (!source.getValueIsAdjusting()) {
+                    if (source.getValueIsAdjusting()) {
                         sliderpos = (int)source.getValue();
                         update();
                     }    
@@ -87,13 +96,7 @@ public class SettingsBox extends ModBox
             framesPerSecond.setFont(font);
 
             add(framesPerSecond);
-            try{
-                playr = new MusicHelper(new int[]{1,2,3,4,5});
-            }
-            catch(Exception ed)
-            {
-                System.out.println(ed);
-            }
+            
             //playr.setTempo(sliderpos);
             addButton("Test",playr);
 

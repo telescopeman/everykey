@@ -19,6 +19,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
     private final int length = 5;
 
     private boolean activated;
+    
     /**
      * Constructor for objects of class MusicHelper
      */
@@ -45,6 +46,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
                     counter++;
                 }
                 addFullNote(myTrack,savedNotes[0] + 12, counter);
+                //myTrack
                 break;
             }
             case "Play Chord":
@@ -55,6 +57,10 @@ public class MusicHelper extends TheoryObj implements ActionListener
                     myTrack.add(toNote(note,20)[1]);
                 }
                 break;
+            }
+            default:
+            {
+                return toMIDI(notes,"Listen");
             }
         }
 
@@ -103,8 +109,9 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     public void setTempo(int newTempo) throws javax.sound.midi.MidiUnavailableException
     {
-        if (tempo < 1)
+        if (newTempo < 1)
         {
+            System.out.println("Invalid tempo!");
             return;
         }
         MidiSystem.getSequencer().setTempoInBPM(newTempo);
@@ -123,15 +130,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
     {
         try
         {
-            mySequence = toMIDI(savedNotes,type);
-        }
-        catch (javax.sound.midi.InvalidMidiDataException imde)
-        {
-            imde.printStackTrace();
-        }
-        try
-        {
-            sequencer = MidiSystem.getSequencer();
+            seqSetup();
         }
         catch (javax.sound.midi.MidiUnavailableException mue)
         {
@@ -140,35 +139,36 @@ public class MusicHelper extends TheoryObj implements ActionListener
         }
         try
         {
+            mySequence = toMIDI(savedNotes,type);
             sequencer.setSequence(mySequence);
-
         }
         catch (javax.sound.midi.InvalidMidiDataException imde)
         {
             imde.printStackTrace();
         }
-
-        try
-        {
-            sequencer.open();
-        }
-        catch (javax.sound.midi.MidiUnavailableException mue2)
-        {
-            mue2.printStackTrace();
-        }
         activated = true;
     }
-
+    
+    public void seqSetup() throws javax.sound.midi.MidiUnavailableException
+    {
+        sequencer = MidiSystem.getSequencer();
+        sequencer.open();
+    }
+    
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
         System.out.println("attempt to play" + id);
+        
         
         if (!activated)
         {
             activate(id);
 
         }
-        sequencer.stop();
+        
+        
+        PlayerWatcher.requestControl(this);
+        sequencer.setTickPosition(0);
         sequencer.start();
         //return;
 

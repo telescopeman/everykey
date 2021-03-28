@@ -4,16 +4,16 @@ import javax.swing.*;
 import java.awt.*; 
 import java.util.Arrays;
 /**
- * Write a description of class ModBox here.
+ * Represents a dialog box that will modify a main class through user input.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/28/21
  */
 public abstract class ModBox extends EasyFrame implements ActionListener
 {
     // instance variables - replace the example below with your own
-    UIStuff ui;
-    public final Dimension STANDARD = new Dimension(350,100);
+    public UIStuff ui;
+    private final Dimension STANDARD = new Dimension(350,100);
     public final Dimension SUPERSTANDARD = new Dimension(550,150);
     ArrayHelper arr;
     

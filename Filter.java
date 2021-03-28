@@ -15,15 +15,13 @@ public class Filter extends TheoryObj
     private String[] tags;
     private String description;
     private boolean hasDescription = false;
-    
-    
-    
+
     
     /** 
-    * If this is turned on, the filter acts opposite to how it usually would.
-    */   
+     * If this is turned on, the filter acts opposite to how it usually would.
+     */   
     private boolean inverted = false;
-    
+
     private KeyNamesHelper namer = new KeyNamesHelper();
 
     /**
@@ -44,9 +42,9 @@ public class Filter extends TheoryObj
     {
         requiredNotes = notes;
         type = "AllNotes";
-        
+
     }
-    
+
     /**
      * Tests for all of specific notes.
      */
@@ -55,9 +53,9 @@ public class Filter extends TheoryObj
         requiredNotes = notes;
         inverted = inv;
         type = "AllNotes";
-        
+
     }
-    
+
     /**
      * Tests for one of specific notes, at a specific point.
      */
@@ -66,11 +64,11 @@ public class Filter extends TheoryObj
         requiredNotes = notes;
         requiredPosition = pos;
         type = "NotePos";
-        
+
     }
-    
+
     /**
-     * Tests for a specific notes, at a specific point.
+     * Tests for specific notes at a specific point.
      * @param inv If this is turned on, the filter acts opposite to how it usually would. 
      */
     public Filter(int[] notes, int pos,boolean inv) 
@@ -90,7 +88,7 @@ public class Filter extends TheoryObj
         requiredNotes = new int[]{note};
         type = "Note";
     }
-    
+
     /**
      * Tests for a specific note.
      * @param note The note to check for.
@@ -102,7 +100,7 @@ public class Filter extends TheoryObj
         type = "Note";
         inverted = inv;
     }
-    
+
     /**
      * Tests for it being named or other qualities.
      * @param spc The tag to search for.
@@ -113,12 +111,12 @@ public class Filter extends TheoryObj
         {
             type = tgs;
         }
-            else{
-        type = "Tag";
-        tags = new String[]{tgs};
+        else{
+            type = "Tag";
+            tags = new String[]{tgs};
+        }
     }
-    }
-    
+
     /**
      * Tests for it being named or other qualities.
      * @param spc The tags to search for.
@@ -128,7 +126,7 @@ public class Filter extends TheoryObj
         type = "Tag";
         tags = tgs;
     }
-    
+
     /**
      * Tests for it being named or other qualities.
      * @param spc The quality to filter by.
@@ -140,21 +138,20 @@ public class Filter extends TheoryObj
         {
             type = tgs;
         }
-            else{
-        type = "Tag";
-        tags = new String[]{tgs};
-    }
+        else{
+            type = "Tag";
+            tags = new String[]{tgs};
+        }
         inverted = inv;
     }
 
-    
     public void setDescription(String desc)
     {
         description = desc;
         hasDescription = true;
-        
+
     }
-    
+
     /**
      * Generates a description of the Filter.
      */
@@ -164,25 +161,29 @@ public class Filter extends TheoryObj
         {
             return description;
         }
-        
+
         String preceder = "";
         if (inverted)
         {
             preceder = "not ";
         }
-        
-        
+
         if (type == "Note")
         {
             return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
         }
         else if (type == "NotePos" && requiredNotes.length == 1)
         {
-            return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
+            return ("Must " + preceder + "contain the note " + 
+                getNoteName(requiredNotes[0]) + " as a " + 
+                coolNames[requiredPosition] + ".");
         }
         else if (type == "NotePos")
         {
-            return ("Must " + preceder + "contain the notes " + getNoteName(requiredNotes[0]) + " or " + getNoteName(requiredNotes[1]));
+            return ("Must " + preceder + "contain either " + 
+                getNoteName(requiredNotes[0]) + " or " + 
+                getNoteName(requiredNotes[1]) + " as a " + 
+                coolNames[requiredPosition] + ".");
         }
         else if (type == "isNamed")
         {
@@ -195,7 +196,7 @@ public class Filter extends TheoryObj
         else if (type == "Tag")
         {
             return ("Only scales " + preceder + "tagged with tag: " + tags[0]);
-            
+
         }
         else
         {
@@ -203,7 +204,6 @@ public class Filter extends TheoryObj
         }
 
     }
-    
 
     /**
      * Generates a description of the Filter.
@@ -214,7 +214,6 @@ public class Filter extends TheoryObj
         return translateToReadable();
     }
 
-    
     /**
      * Analyzes a given scale to see if it matches the Filter.
      * @param key The key to analyze.
@@ -225,75 +224,76 @@ public class Filter extends TheoryObj
         //Arrays.sort(key);
         return !(inverted == checkKeyHelper(key));
     }
-    
+
     private boolean checkKeyHelper(int[] key)
     {
         switch(type)
         {
-        case "isNamed":
-        {
-            return (!namer.get(key).equals(""));
-        }
-        case "Exotic":
-        {
-            return (namer.get(key).indexOf("[") > 0);
-        }
-        case "Tag":
-        {
-            List<String> list = Arrays.asList(namer.getTags(key));
-            boolean isValid = true;
-            for (String tag : tags)
+            case "isNamed":
             {
-                
-                boolean going = false;
-                for (String t : namer.getTags(key))
-                {
-                    //System.out.println("Comparing " + t + " with " + tag +"...");
-                    if (t.equals(tag))
-                    {
-                        going = true;
-                    }
-                    
-                }
-                return going;
-                
+                return (!namer.get(key).equals(""));
             }
-            return isValid;
-        }
-        case "AllNotes":
-        {
-            for (int note : requiredNotes)
+            case "Exotic":
             {
-                if (Arrays.binarySearch(key,note) < 0)
+                return (namer.get(key).indexOf("[") > 0);
+            }
+            case "Tag":
+            {
+                List<String> list = Arrays.asList(namer.getTags(key));
+                boolean isValid = true;
+                for (String tag : tags)
+                {
+
+                    boolean going = false;
+                    for (String t : namer.getTags(key))
+                    {
+                        //System.out.println("Comparing " + t + " with " + tag +"...");
+                        if (t.equals(tag))
+                        {
+                            going = true;
+                        }
+
+                    }
+                    return going;
+
+                }
+                return isValid;
+            }
+            case "AllNotes":
+            {
+                for (int note : requiredNotes)
+                {
+                    if (Arrays.binarySearch(key,note) < 0)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+            default: //note or notepos
+            {
+                for (int note : requiredNotes)
+                {
+                    if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)
+                    {
+                        return false;
+                    }
+                    if (type.equals("NotePos") && key[requiredPosition] == note)
+                    {
+                        return true;
+                    }
+
+                }
+
+                if (type.equals("NotePos"))
                 {
                     return false;
                 }
-            }
-            return true;
-        }
-    }
-
-    //if can select one from large list 
-        for (int note : requiredNotes)
-        {
-            if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)
-            {
-                return false;
-            }
-            if (type.equals("NotePos") && key[requiredPosition] == note)
-            {
                 return true;
             }
-
         }
 
-        if (type.equals("NotePos"))
-        {
-            return false;
-        }
-        return true;
-        
+        //if can select one from large list 
+
     }
-
 }
-

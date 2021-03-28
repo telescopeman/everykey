@@ -1,41 +1,39 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.*;
+import java.awt.*; 
 /**
- * Write a description of class QuickParamHelp here.
+ * A customized ActionListener that does stuff to the main UI.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/28/21
  */
 public class ModActor implements ActionListener
 {
-    // instance variables - replace the example below with your own
     private UIStuff uiref;
     private int index;
     private String setting;
     private String action;
-
+    private Filter[] filters;
+    
     /**
-     * Constructor for objects of class QuickParamHelp
+     * Constructor for objects of class ModActor
      */
     public ModActor(UIStuff ui)
     {
-        // initialise instance variables
         uiref = ui;
         index = -1;
         action = "";
     }
     
     /**
-     * Constructor for objects of class QuickParamHelp
+     * Constructor for objects of class ModActor
      */
     public ModActor(UIStuff ui, String act, int ind)
     {
         uiref = ui;
         index = ind;
         action = act;
-        
-        // initialise instance variables
-        
     }
     
     /**
@@ -46,11 +44,17 @@ public class ModActor implements ActionListener
         uiref = ui;
         setting = set;
         action = act;
-        
-        // initialise instance variables
-        
     }
 
+    /**
+     * Template setter
+     */
+    public ModActor(UIStuff ui, Filter[] template)
+    {
+        uiref = ui;
+        filters = template;
+        action = "setTemplate";
+    }
 
     public void actionPerformed(ActionEvent e)
     {
@@ -67,12 +71,20 @@ public class ModActor implements ActionListener
                 uiref.removeFilter(index);
                 break;
             }
-            
             case "setSortStyle":
             {
                 uiref.setSortStyle(setting);
             }
-            
+            case "setTemplate":
+            {
+                int input = JOptionPane.showConfirmDialog(null, 
+                "Applying a template will erase all current filters. Are you sure you want to do this?", "Confirmation",JOptionPane.YES_NO_OPTION);
+                if (input == 0)
+                {
+                    uiref.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
+                    uiref.setCurFilters(filters);
+                }
+            }
             default:
             
             

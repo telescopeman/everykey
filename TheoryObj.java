@@ -14,6 +14,8 @@ public abstract class TheoryObj
     
     public static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
     
+    public static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
+    
     /**
      * Constructor for objects of class TheoryObj
      */

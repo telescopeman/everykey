@@ -89,7 +89,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         String str = "(";
         for(int i = 0; i < 3; i++)
         {
-            str += TheoryObj.getNoteName(seq[i]);
+            str += Chord.getNoteName(seq[i]);
             str += String.valueOf(5 + ups[i]);
             if (i < 2)
             {

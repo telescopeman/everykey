@@ -145,6 +145,16 @@ public class ArrayHelper
         return newarr;
     }
 
+    public static boolean[] getGroupOf(boolean tog, int num)
+    {
+        boolean[] result = new boolean[num];
+        for(int i = 0; i < num; i++)
+        {
+            result[i] = tog;
+        }
+        return result;
+    }
+    
     public static Filter[] removeOne(Filter[] list, int index)
     {
         if (list.length == 1)

@@ -39,9 +39,9 @@ public class UIStuff
     private int globalTempo = 140;
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
-    
+
     private String sortStyle;
-    
+
     final String SORT1 = "Brightness (Ascending)";
     final String SORT2 = "Brightness (Descending)";
     final String SORT3 = "Strangeness (Ascending)";
@@ -51,6 +51,7 @@ public class UIStuff
     public UIStuff()
     {
         myUtility = new MathHelper();
+        setTempo(globalTempo);
         masterList = myUtility.getAllKeys();
         sortStyle = SORT3;
         setupEnableText();
@@ -67,12 +68,13 @@ public class UIStuff
     public void setTempo(int n)
     {
         globalTempo = n;
+        PlayerWatcher.setTempo(n);
         //KeyPanel[] panels = inner.getComponents();
-        for (Component panel : inner.getComponents() )
-        {
-            panel.resize(globalTempo,0);
+        // for (Component panel : inner.getComponents() )
+        // {
+            // panel.resize(globalTempo,0);
 
-        }
+        // }
     }
 
     public void setupEnableText()
@@ -87,7 +89,7 @@ public class UIStuff
     public void setCurFilters(Filter[] newFilters)
     {
         curFilters = newFilters;
-
+        refresh();
     }
 
     public void setFilterStatuses(boolean[] newThings)
@@ -123,25 +125,25 @@ public class UIStuff
         int[] list = new int[keys.length];
         // for (int[] key : keys)
         // {
-            // counter++;
-            
-            // if (key[0] == 0)
-            // {
-                // //System.out.println("blanked");
-                // //System.out.println(MathHelper.expand(key));
-                // continue;
-            // }
-            // else
-            // {
-                // list[counter] = counter;
-            // }
+        // counter++;
+
+        // if (key[0] == 0)
+        // {
+        // //System.out.println("blanked");
+        // //System.out.println(MathHelper.expand(key));
+        // continue;
+        // }
+        // else
+        // {
+        // list[counter] = counter;
+        // }
         // }
         counter = 0;
         int[] specificList = styleSort(absoluteList);
         for (int ind : specificList)
         {
             counter++;
-            
+
             if (keys[ind][0] == 0)
             {
                 //System.out.println("blanked");
@@ -170,10 +172,12 @@ public class UIStuff
         //outer.setPreferredSize(new Dimension(640,1000));
     }
     
+    
+
     private int[] styleSort(int[] list)
     {
         int[] result = new int[list.length];
-        
+
         switch(sortStyle)
         {
             case SORT1:
@@ -184,7 +188,7 @@ public class UIStuff
             {
                 return ArrayHelper.reverse(list);
             }
-                case SORT3:
+            case SORT3:
             {
                 Integer[] temp = new Integer[]{};
                 for(int c : list)
@@ -253,7 +257,8 @@ public class UIStuff
 
         mainWindow.add(outer);
 
-        JMenu filtermenu,audio,addfilter,viewops,sortops;
+        JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates;
+        //JMenuItem filterctrls = JMenuItem
         JMenuItem i1, i2, i3, i4, i5, i6;
         JMenuItem s1,s2,s3,s4;
         JMenuItem a1, a2;  
@@ -262,10 +267,9 @@ public class UIStuff
         viewops=new JMenu("View Options");
         filtermenu=new JMenu("Filter Options");  
         audio=new JMenu("Audio Options");
-        
+
         sortops=new JMenu("Change Sorting Order");  
-        
-        
+
         
         s1=new JMenuItem(SORT1);  
         s2=new JMenuItem(SORT2);  
@@ -276,10 +280,11 @@ public class UIStuff
         s2.addActionListener(new ModActor(this,"setSortStyle",SORT2));
         s3.addActionListener(new ModActor(this,"setSortStyle",SORT3));
         s4.addActionListener(new ModActor(this,"setSortStyle",SORT4));
-        
-        viewfilters=new JMenu("View Active Filters");  
+
+        viewfilters=new JMenu("View/ToggleActive Filters");  
         addfilter=new JMenu("Add New Filter"); 
         removefilters=new JMenu("Remove Filter"); 
+        ftemplates=new JMenu("Filter Templates"); 
 
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
@@ -288,26 +293,31 @@ public class UIStuff
         i5=new JMenuItem("Filter by Mode");  
         i6=new JMenuItem("Filter by Special");  
 
-        i1.addActionListener(ModBox.buildFilterCreator(this));
-        i2.addActionListener(ModBox.buildFilterCreator(this));
-        i3.addActionListener(ModBox.buildFilterCreator(this));
-        i4.addActionListener(ModBox.buildFilterCreator(this));
-        i5.addActionListener(ModBox.buildFilterCreator(this));
-        i6.addActionListener(ModBox.buildFilterCreator(this));
+        for (JMenuItem item : new JMenuItem[]{i1,i2,i3,i4,i5,i6})
+        {
+            item.addActionListener(ModBox.buildFilterCreator(this));
+        }
+    
+        for (FilterTemplate t : TemplatesHelper.getAll())
+        {
+            JMenuItem t1 = new JMenuItem(t.getName());
+            t1.addActionListener(new ModActor(this, t.getFilters()));
+            ftemplates.add(t1);
+        }
         
         a1=new JMenuItem("Change Note Speed");  
-        //a2=new JMenuItem("deez nuts");  
-        a1.addActionListener(ModBox.buildSettingsBox(this));
-        
+        a1.addActionListener(ModBox.buildSettingsBox(this)); //not working?
+
         viewops.add(sortops);
-        filtermenu.add(viewfilters); filtermenu.add(addfilter); filtermenu.add(removefilters); 
+        filtermenu.add(viewfilters); filtermenu.add(addfilter);
+        filtermenu.add(removefilters); filtermenu.add(ftemplates);
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         addfilter.add(i5); addfilter.add(i6);
-        
+
         s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
         s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
-        
+
         sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
 
         audio.add(a1); //audio.add(a2);
@@ -321,9 +331,8 @@ public class UIStuff
     {
         sortStyle = newStyle;
         refresh();
-        
+
     }
-    
 
     private void updateFilterList(Filter[] flist)
     {
@@ -339,7 +348,7 @@ public class UIStuff
             JMenuItem button = new JMenuItem(f.translateToReadable() + " [" + status + "]" ); //the 
 
             JMenuItem button2 = new JMenuItem(f.translateToReadable() ); //the remove button
-            
+
             button.addActionListener(new ModActor(this,"toggle",counter)); 
             button2.addActionListener(new ModActor(this,"remove",counter));
             viewfilters.add(button); removefilters.add(button2);
@@ -368,7 +377,7 @@ public class UIStuff
 
         int[][] newList = Arrays.copyOf(keyList,keyList.length);
         int num = 0;
-        
+
         absoluteList = new int[]{};
         for (int[] key : keyList)
         {
@@ -381,7 +390,7 @@ public class UIStuff
                 if (!filterStatuses[num2])
                 {
                     valid = true;
-                    
+
                     continue;
                 }
 
@@ -393,7 +402,6 @@ public class UIStuff
 
                 }
 
-
             }
             if (valid)
             {
@@ -403,7 +411,7 @@ public class UIStuff
             {
                 newList[num] = new int[]{0};
             }
-            
+
             num++;
         }
         return newList;

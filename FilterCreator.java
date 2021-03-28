@@ -36,8 +36,7 @@ public class FilterCreator extends ModBox
     public FilterCreator(UIStuff uiref)
     {
         super(uiref);
-        myFilters = uiref.curFilters;
-        setList = uiref.filterStatuses;
+        update();
 
         
         //setLayout(new GridLayout(3,1));
@@ -46,6 +45,12 @@ public class FilterCreator extends ModBox
         //Create the combo box, select item at index 4.
         //Indices start at 0, so 4 specifies the pig.
 
+    }
+    
+    private void update()
+    {
+        myFilters = ui.curFilters;
+        setList = ui.filterStatuses;
     }
 
     private void setUpUniqueFactors(String id)
@@ -86,6 +91,10 @@ public class FilterCreator extends ModBox
             case "Mode":
                 fullTags = TagsManager.getAllTags();
                 options = ArrayHelper.getFiltered(fullTags,"Mode",true);
+                break;
+                
+            case "Special":
+                options = new String[]{"Named Keys"};
                 break;
             
             default:
@@ -177,7 +186,8 @@ public class FilterCreator extends ModBox
                     }
                 }
                 int fifth = root + 7;
-                Filter f = new Filter(new int[]{root % 12 ,third % 12,fifth % 12});
+                Filter f = new Filter(new int[]{littleParse(root),
+                    littleParse(third), littleParse(fifth)});
                 f.setDescription("Must contain a " + opt1 + " " + opt2 + " chord.");
                 return f;
             }
@@ -189,7 +199,20 @@ public class FilterCreator extends ModBox
                 return new Filter((list1.getSelectedItem()).toString());
                 
             case "Special":
-                return new Filter((list1.getSelectedItem()).toString());
+            {
+                switch (opt1)
+                {
+                    case "Named Keys":
+                    {
+                        return new Filter("isNamed",tickBox.isSelected());
+                    }
+                    
+                    default:
+                    {
+                        return new Filter("isNamed",tickBox.isSelected());
+                    }
+                }
+            }
                 
             default:
                 return new Filter("isNamed");
@@ -197,6 +220,12 @@ public class FilterCreator extends ModBox
         }
     }
 
+    private int littleParse(int note)
+    {
+        return (((note - 1) % 12) + 1);
+        
+    }
+    
     private void setCurFilters(Filter[] f)
     {
         ui.setCurFilters(f);
@@ -230,6 +259,7 @@ public class FilterCreator extends ModBox
             
             //System.out.print("New List:" +tempList);
             ui.refresh();
+            update();
             //frame.dispose();
             
             this.dispose();
