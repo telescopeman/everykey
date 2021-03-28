@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class EasyPanel extends JPanel implements EasyVisual
+public class EasyPanel extends JPanel
 {
     // instance variables - replace the example below with your own
     private int x;
