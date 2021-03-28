@@ -4,8 +4,8 @@ import java.awt.event.ActionListener;
 /**
  * Helps with several visual methods for JFrames and JPanels.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/28/21
  */
 public interface EasyVisual
 {
