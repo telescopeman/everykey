@@ -141,8 +141,9 @@ public class ChordViewer extends EasyFrame implements ActionListener
         {
             int[] noteSequence = getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
+            System.out.println(seq);
 
-            JButton jb3 = new JButton("Listen");    
+            JButton jb3 = new JButton("Play Chord");    
             try{
                 MusicHelper playr = new MusicHelper(seq);
                 jb3.addActionListener(playr);
