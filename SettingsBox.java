@@ -36,7 +36,14 @@ public class SettingsBox extends ModBox
     {
         ui.setTempo(sliderpos);
         System.out.print(sliderpos);
-        playr.setTempo(sliderpos);
+        try
+        {
+            playr.setTempo(sliderpos);
+        }
+        catch (javax.sound.midi.MidiUnavailableException mue)
+        {
+            mue.printStackTrace();
+        }
         playr.stop();
     }
 
@@ -50,14 +57,13 @@ public class SettingsBox extends ModBox
         String id = e.getActionCommand();
         if (id.equals("Audio Speed"))
         {
-            
+
             clear();
             appear(new Dimension(350,250));
             addHeader("Change Audio Speed:");
             JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
                     TEMPO_MIN, TEMPO_MAX, tempo_init);
-                    
-                    
+
             class SliderListener implements ChangeListener {
                 public void stateChanged(ChangeEvent e) {
                     JSlider source = (JSlider)e.getSource();
@@ -67,7 +73,7 @@ public class SettingsBox extends ModBox
                     }    
                 }
             }
-                    
+
             framesPerSecond.addChangeListener(new SliderListener());
 
             //Turn on labels at major tick marks.
@@ -77,28 +83,28 @@ public class SettingsBox extends ModBox
             framesPerSecond.setPaintLabels(true);
             framesPerSecond.setBorder(
                 BorderFactory.createEmptyBorder(0,0,10,0));
-        Font font = new Font("Serif", Font.ITALIC, 15);
-        framesPerSecond.setFont(font);
-        
+            Font font = new Font("Serif", Font.ITALIC, 15);
+            framesPerSecond.setFont(font);
+
             add(framesPerSecond);
             try{
-            playr = new MusicHelper(new int[]{1,2,3,4,5});
-        }
-        catch(Exception ed)
-                {
-                    System.out.println(ed);
-                }
+                playr = new MusicHelper(new int[]{1,2,3,4,5});
+            }
+            catch(Exception ed)
+            {
+                System.out.println(ed);
+            }
             //playr.setTempo(sliderpos);
             addButton("Test",playr);
 
         }
         else
         {
-            System.out.println(id);
+            //System.out.println(id);
             ui.setTempo(sliderpos);
 
         }
-        System.out.println(id);
+        //System.out.println(id);
 
     }
 }

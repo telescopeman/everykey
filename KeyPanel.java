@@ -14,9 +14,16 @@
                 
                 
                 
-                public void resize(int num, int dummy) //sets tempo
+                public void resize(int num, int dummy) //sets tempo throws javax.sound.midi.MidiUnavailableException
                 {
-                    playr.setTempo(num);
+                    try
+                    {
+                        playr.setTempo(num);
+                    }
+                    catch (javax.sound.midi.MidiUnavailableException mue)
+                    {
+                        mue.printStackTrace();
+                    }
                 }
                 
                 
