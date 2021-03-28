@@ -8,8 +8,8 @@ import java.awt.*;
 /**
  * Write a description of class SettingsBox here.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/28/21
  */
 public class SettingsBox extends ModBox
 {
@@ -19,7 +19,7 @@ public class SettingsBox extends ModBox
     static final int TEMPO_MIN = 50;
     static final int TEMPO_MAX = 500;
     static int tempo_init;
-    private MusicPlayer playr;
+    private MusicHelper playr;
 
     /**
      * Constructor for objects of class SettingsBox
@@ -81,8 +81,13 @@ public class SettingsBox extends ModBox
         framesPerSecond.setFont(font);
         
             add(framesPerSecond);
-
-            playr = new MusicPlayer(new int[]{1,2,3,4,5});
+            try{
+            playr = new MusicHelper(new int[]{1,2,3,4,5});
+        }
+        catch(Exception ed)
+                {
+                    System.out.println(ed);
+                }
             //playr.setTempo(sliderpos);
             addButton("Test",playr);
 

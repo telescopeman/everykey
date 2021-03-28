@@ -58,7 +58,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E♭, F, G, A, and B♭.", "Dorian ♭2 [Second mode of Melodic Minor]"); 
         addScale("C, D, E, G♭, A♭, A, and B.", "Lydian Augmented [Third mode of Melodic Minor]"); 
         addScale("C, D, E, G♭, G, A, and B♭.", "Lydian Dominant [Fourth mode of Melodic Minor]"); 
-        addScale("C, D♭, E♭, F, G, A♭, and B♭..", "Mixolydian ♭6 [Fifth mode of Melodic Minor]"); 
+        addScale("C, D, E, F, G, A♭, and B♭..", "Mixolydian ♭6 [Fifth mode of Melodic Minor]"); 
         addScale("C, D, E♭, F, G♭, A♭, and B♭.", "Locrian ♯2 [Sixth mode of Melodic Minor]"); 
         addScale("C, D♭, E♭, E, G♭, A♭, and B♭.", "Super Locrian [Seventh mode of Melodic Minor]"); 
         
@@ -133,7 +133,7 @@ public class KeyNamesHelper extends TheoryObj
         group = 9; // ionian flat 2 + world + jazz
         addScale("C, D♭, E, F, G, A, and B.", "Mela Suryakanta / Ionian ♭2");
         addScale("C, E♭, E, G♭, A♭, B♭, and B.", "Leading Wholetone ♯2 [Second Mode of Ionian ♭2]");
-        addScale("C, D♭, E♭, F, G, A♭, and B♭.", "Mela Senavati / Phrygian Diminished [Third Mode of Ionian ♭2] ");
+        addScale("C, D♭, E♭, F, G, A♭, and A.", "Mela Senavati / Phrygian Diminished [Third Mode of Ionian ♭2] ");
         addScale("C, D, E, G♭, G, A♭, and B.", "Harmonic Lydian [Fourth Mode of Ionian ♭2]");
         addScale("C, D, E, F, G♭, A, and B♭.", "Mixolydian ♭5 [Fifth Mode of Ionian ♭2]");
         addScale("C, D, E♭, E, G, A♭, and B♭.", "Super Minor [Sixth mode of Ionian ♭2]");

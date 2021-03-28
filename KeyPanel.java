@@ -10,7 +10,7 @@
             {
                 // instance variables - replace the example below with your own
             
-                MusicPlayer playr;
+                MusicHelper playr;
                 
                 
                 
@@ -100,8 +100,14 @@
                     chrds.myKey = key;
             
                     JButton jb2 = new JButton("Intervals");
+                    try{
+                    playr = new MusicHelper(key);
+                }
+                catch(Exception ed)
+                {
                     
-                    playr = new MusicPlayer(key);
+                    
+                }
                     //jb3.addActionListener(playr);
                     
                     

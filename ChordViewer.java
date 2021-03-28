@@ -23,7 +23,6 @@ public class ChordViewer extends EasyFrame implements ActionListener
         setLayout(new GridLayout(3, 7));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         myKey= k;
-        
 
         
     }
@@ -43,7 +42,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         return new Chord(key[index], key[((index + 2) % 7)],key[((index + 4) % 7)] );
 
     }
-    
+
     public static int[] getRawChordAt(int[] key, int ind)
     {
         int index = ind - 1;
@@ -59,8 +58,8 @@ public class ChordViewer extends EasyFrame implements ActionListener
         return new int[]{key[index], key[(index + 2) % 7],key[(index + 4) % 7]};
 
     }
-    
-    public static String formatAscending(int[] sequence)
+
+    public static int[] makeAscending(int[] sequence)
     {
         int[] seq = sequence;
         int[] ups = new int[]{0,0,0};
@@ -79,6 +78,14 @@ public class ChordViewer extends EasyFrame implements ActionListener
             seq[2] += 12;
             ups[2]++;
         }
+        return seq;
+    }
+
+    public static String formatAscending(int[] sequence)
+    {
+        int[] seq = makeAscending(sequence);
+        int[] ups = new int[]{0,0,0};
+
         String str = "(";
         for(int i = 0; i < 3; i++)
         {
@@ -92,26 +99,23 @@ public class ChordViewer extends EasyFrame implements ActionListener
         str += ")w";
         System.out.println("CHORD=" + str);
         return str;
-        
-        
-    }
 
+    }
     // public String format(int[] seq)
     // {
-        // return 
+    // return 
 
     // }
-    
-    
+
     
     public void actionPerformed(ActionEvent e) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         System.out.print(e);
         clear();
-        
+
         // for(int i = 1; i < 8; i++)
         // {
-            // add(new JLabel(String.valueOf(i), JLabel.CENTER));
+        // add(new JLabel(String.valueOf(i), JLabel.CENTER));
         // }
         for(int i = 1; i < 8; i++)
         {
@@ -121,9 +125,9 @@ public class ChordViewer extends EasyFrame implements ActionListener
             //String third = aChord.getThirdType();
             jLabel1.setBackground(aChord.toColor());
             add(jLabel1);
-            
+
         }
-        
+
         for(int i = 1; i < 8; i++)
         {
             Chord aChord = getChordAt(myKey,i);
@@ -131,21 +135,34 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
             add(new JLabel("(" + aChord.getNotes() + ")", JLabel.CENTER));
         }
-        
+
         for (int i = 1; i < 8; i++)
-        
+
         {
             int[] noteSequence = getRawChordAt(myKey,i);
-            String seq = formatAscending(noteSequence);
-            
+            int[] seq = makeAscending(noteSequence);
+
             JButton jb3 = new JButton("Listen");    
-            MusicPlayer playr = new MusicPlayer(seq);
-            jb3.addActionListener(playr);
-            add(jb3);
+            try{
+                MusicHelper playr = new MusicHelper(seq);
+                jb3.addActionListener(playr);
+            }
+            catch(Exception ed){
+                
+                try
+                {
+                    throw ed;
+                }
+                catch (javax.sound.midi.InvalidMidiDataException imde)
+                {
+                    imde.printStackTrace();
+                }
+            }
             
+            add(jb3);
+
         }
         show();
     }
-    
-    
+
 }

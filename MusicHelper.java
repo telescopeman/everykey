@@ -1,35 +1,59 @@
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.sound.midi.*;
+import javax.sound.midi.Sequence;
 /**
- * Write a description of class MusicHelper here.
+ * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/28/21
  */
 public class MusicHelper extends TheoryObj implements ActionListener
 {
     // instance variables - replace the example below with your own
-    private int x;
-
+    private int tempo;
+    private int[] savedNotes;
+    private Sequence mySequence;
     /**
      * Constructor for objects of class MusicHelper
      */
-    public MusicHelper()
+    public MusicHelper(int[] keyAsInts) throws javax.sound.midi.InvalidMidiDataException
     {
-        // initialise instance variables
-        x = 0;
+        savedNotes = keyAsInts;
+        mySequence = toMIDI(savedNotes);
+        //fafs
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
-     */
-    public int sampleMethod(int y)
+    private Sequence toMIDI(int[] notes) throws javax.sound.midi.InvalidMidiDataException
     {
-        // put your code here
-        return x + y;
+        Sequence seq = new Sequence(Sequence.PPQ,5,1);
+        
+        
+        
+        return seq;
     }
     
+    
+    public void setTempo(int newTempo)
+    {
+        if (tempo < 1)
+        {
+            return;
+        }
+        tempo = newTempo;
+        //refreshSequence(savedKey);
+
+    }
+    
+    public void stop()
+    {
+        System.out.println("UNDECLARED METHOD STOP");
+        
+    }
+    
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("attempt to play");
+        return;
+    }
     
 }
