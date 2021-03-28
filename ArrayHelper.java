@@ -81,7 +81,7 @@ public class ArrayHelper
         String[] result = new String[]{};
         for(String item : list)
         {
-            if ((term.indexOf(term) > -1) == mod)
+            if ((item.indexOf(term) > -1) == mod)
             {
                 result = addX(result,item);
                 

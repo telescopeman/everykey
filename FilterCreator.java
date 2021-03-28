@@ -79,8 +79,8 @@ public class FilterCreator extends ModBox
             
             case "Tags":
                 fullTags = TagsManager.getAllTags();
-                options = ArrayHelper.getFiltered(fullTags,"mode",true);
-                options2 = ArrayHelper.getFiltered(fullTags,"mode",true);
+                options = ArrayHelper.getFiltered(fullTags,"Mode",false);
+                options2 = ArrayHelper.getFiltered(fullTags,"Mode",true);
                 
             
             break;

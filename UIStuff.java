@@ -52,7 +52,7 @@ public class UIStuff
     {
         myUtility = new MathHelper();
         masterList = myUtility.getAllKeys();
-        sortStyle = SORT1;
+        sortStyle = SORT3;
         setupEnableText();
         oneTimeSetup();
         refresh();
