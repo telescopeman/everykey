@@ -19,7 +19,6 @@ import java.awt.Toolkit;
 import javax.swing.JPanel;
 import java.awt.event.*;
 import java.awt.*;
-import javax.swing.JMenuBar;
 //import javax.swing.*;
 //import javax.media.*;
 //import javax.media.Controller;
@@ -27,22 +26,29 @@ import javax.swing.JMenuBar;
 import java.io.*;
 import javax.swing.JPanel;
 import javax.sound.midi.Synthesizer;
-import javax.swing.JComboBox;
+//import javax.swing.JComboBox;
 
 /**
  * @author smitha.r from dreamincode.net, Caleb Copeland
  * @since March 15, 2012
  */
-public class VirtualPiano {
+public class VirtualPiano extends ModBox {
     private final String[] whitemnems = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"};
     private final String[] blackmnems = new String[]{"W","E","T","Y","U","O","P"};
-    private Synthesizer synthesizer = MidiSystem.getSynthesizer();
+    private Synthesizer synthesizer;
     private final MidiChannel channel = synthesizer.getChannels()[1];
     
     private boolean lastSet = false;
     private int lastPitch;
-    public VirtualPiano() throws MidiUnavailableException{
-
+    public VirtualPiano(UIStuff uir) {
+        super(uir);
+        
+        
+    }
+    
+    public void open() throws javax.sound.midi.MidiUnavailableException
+    {
+        synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
         JFrame frame = new JFrame("Live Player"); //makes the JFrame
 
