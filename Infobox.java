@@ -2,6 +2,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.JLabel;
+import java.awt.GridLayout;
 
 /**
  * Write a description of class InfoBox here.
@@ -16,6 +17,7 @@ public class Infobox extends EasyFrame implements ActionListener
     int[] myScale;
     String myName;
     String myType;
+    int[] intervals;
 
     /**
      * Constructor for objects of class InfoBox
@@ -23,6 +25,8 @@ public class Infobox extends EasyFrame implements ActionListener
     public Infobox(int[] scale, String name,String type)
     {
         // initialise instance variables
+        setLayout(new GridLayout(8,1));
+        
         int ind = getEnclosers(name,"()")[0];
         if (ind > -1)
         {
@@ -44,15 +48,93 @@ public class Infobox extends EasyFrame implements ActionListener
             myName = name;
         }
         myType = type;
+        myScale = scale;
+        intervals = getIntervals(myScale);
 }
 
+    private int[] getIntervals(int[] s)
+    {
+        int[] ints = new int[]{0,0,0,0,0,0,0};
+        for(int i = 0; i < 6; i++)
+        {
+            int gap = s[i + 1] - s[i] - 1;
+            ints[gap]++;
+            
+        }
+        int gap = s[0] - s[6] + 12 - 1;
+        ints[gap]++;
+        return ints;
+    }
     
+    private String[] getText(int[] ints)
+    {
+        String[] s = new String[]{};
+        int counter = 1;
+        for (int interval : ints)
+        {
+            if (interval > 0)
+            {
+                s = ArrayHelper.addX(s,getIntervalName(counter) + ": " + interval);
+            }
+            counter++;
+        }
+        return s;
+    }
+    
+    private String getIntervalName(int i)
+    {
+        switch (i)
+        {
+            case 1:
+            {
+                return "Semitones";
+            }
+            case 2:
+            {
+                return "Whole tones";
+            }
+            case 3:
+            {
+                return "Minor thirds";
+            }
+            case 4:
+            {
+                return "Major thirds";
+            }
+            case 5:
+            {
+                return "Perfect fourths";
+            }
+            case 6:
+            {
+                return "Diminished fifths";
+            }
+            case 7:
+            {
+                return "Perfect fifths";
+            }
+            case 8:
+            {
+                return "Augmented fifths";
+            }
+            default:
+            {
+                return "Unhandled intervals";
+            }
+        }
+        
+    }
     
     public void actionPerformed(ActionEvent e)
     {
         clear();
         appear(MYDIM);
         addHeader(myName + " - " + myType);
+        for (String lab : getText(intervals))
+        {
+            add(new JLabel(lab));
+        }
+        
         
     }
 }

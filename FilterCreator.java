@@ -77,7 +77,7 @@ public class FilterCreator extends ModBox
 
             case "Chord":
                 options = CHROMATICSCALE;
-                options2 = new String[]{"Major", "Minor"};
+                options2 = new String[]{"Major", "Minor", "Diminished","Augmented","sus2","sus4","Major ♭5","sus2 ♭5","sus4 ♭5"};
                 setLayout(new GridLayout(3,2));
                 add(new JLabel(""));
                 hasSecondDropDown = true;
@@ -167,25 +167,73 @@ public class FilterCreator extends ModBox
             {
                 int root = list1.getSelectedIndex() + 1;
                 int third;
+                int fifth;
                 switch (opt2)
                 {
                     case "Major":
                     {
                         third = root + 4;
+                        fifth = root + 7;
                         break;
                     }
                     case "Minor":
                     {
                         third = root + 3;
+                        fifth = root + 7;
                         break;
+                    }
+                    case "Diminished":
+                    {
+                        third = root + 3;
+                        fifth = root + 6;
+                        break;
+                    }
+                    case "Augmented":
+                    {
+                        third = root + 4;
+                        fifth = root + 8;
+                        break;
+                    }
+                    case "Major ♭5":
+                    {
+                        third = root + 4;
+                        fifth = root + 6;
+                        break;
+                    }
+                    case "sus2":
+                    {
+                        third = root + 2;
+                        fifth = root + 7;
+                        break;
+                    }
+                    case "sus4":
+                    {
+                        third = root + 5;
+                        fifth = root + 7;
+                        break;
+                        
+                    }
+                    case "sus2 ♭5":
+                    {
+                        third = root + 2;
+                        fifth = root + 6;
+                        break;
+                    }
+                    case "sus4 ♭5":
+                    {
+                        third = root + 5;
+                        fifth = root + 6;
+                        break;
+                        
                     }
                     default:
                     {
                         third = root + 2;
+                        fifth = root + 7;
                         break;
                     }
                 }
-                int fifth = root + 7;
+                
                 Filter f = new Filter(new int[]{littleParse(root),
                     littleParse(third), littleParse(fifth)});
                 f.setDescription("Must contain a " + opt1 + " " + opt2 + " chord.");

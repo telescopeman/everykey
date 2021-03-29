@@ -74,6 +74,7 @@ public class ModActor implements ActionListener
             case "setSortStyle":
             {
                 uiref.setSortStyle(setting);
+                break;
             }
             case "setTemplate":
             {

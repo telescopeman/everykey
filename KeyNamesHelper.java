@@ -64,7 +64,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E♭, F, G, A♭, and B.", "Neapolitan Minor"); // modes of neapolitan minor
         addScale("C, D, E, G♭, G, B♭, and B.", "Lydian ♯6 [Second mode of Neapolitan Minor]");
         addScale("C, D, E, F, A♭, A, and B♭.", "Mixolydian Augmented [Third mode of Neapolitan Minor]");
-        addScale("C, D, E♭, G♭, G, A♭, and B♭.", "Romani Minor [Fourth mode of Neapolitan Minor]");
+        addScale("C, D, E♭, G♭, G, A♭, and B♭.", "Romani Minor / Minor ♯4 [Fourth mode of Neapolitan Minor]");
         addScale("C, D♭, E, F, G♭, A♭, and B♭.", "Locrian Dominant [Fifth mode of Neapolitan Minor]");
         addScale("C, E♭, E, F, G, A, and B.", "Ionian ♯2 [Sixth mode of Neapolitan Minor]");
         addScale("C, D♭, D, E, G♭, A♭, and A.", "Ultra Locrian ♭♭3 [Seventh mode of Neapolitan Minor]");
@@ -141,10 +141,10 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D, E, F, G♭, A, and B.", "Ionian ♭5"); 
         addScale("C, D, E♭, E, G, A, and B♭.", "Super Dorian / Bebop Minor [Second mode of Ionian ♭5]");
         addScale("C, D♭, D, F, G, A♭, and B♭.", "Phrygian ♭♭3 [Third mode of Ionian ♭5]");
-        //lydian flat 2
+        addScale("C, D♭, E, G♭, G, A, and B.", "Lydian ♭2 [Fourth mode of Ionian ♭5]"); 
         //???? insane scale
         addScale("C, D, E♭, F, G, A♭, and A.","Raga Jhankara Bhramavi / Minor Diminished [Sixth mode of Ionian ♭5]");
-        //locrian flat 6
+        addScale("C, D♭, E♭, F, G♭, G, and B♭.", "Locrian ♭♭6 [Seventh mode of Ionian ♭5]");
         group = 11; //more world stuff
 
         addScale("C, D, E♭, F, G, B♭, and B.", "Raga Viravasantham");
