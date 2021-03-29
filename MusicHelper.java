@@ -33,6 +33,17 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
         //fafs
     }
+    
+    /**
+     * Constructor for objects of class MusicHelper
+     */
+    public MusicHelper()
+    {
+        activated = false;
+        
+
+        //fafs
+    }
 
     private Sequence toMIDI(int[] notes, String type) throws javax.sound.midi.InvalidMidiDataException
     {
