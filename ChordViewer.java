@@ -25,9 +25,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         myKey= k;
 
-        
     }
-
     public static Chord getChordAt(int[] key, int ind)
     {
         int index = ind - 1;
@@ -108,7 +106,6 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
     // }
 
-    
     public void actionPerformed(ActionEvent e) {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         System.out.print(e);
@@ -150,19 +147,9 @@ public class ChordViewer extends EasyFrame implements ActionListener
                 jb3.addActionListener(playr);
             }
             catch(Exception ed){
-                
-                try
-                {
-                    throw ed;
-                }
-                catch (javax.sound.midi.InvalidMidiDataException imde)
-                {
-                    imde.printStackTrace();
-                }
+                throw ed;
             }
-            
             add(jb3);
-
         }
         show();
     }

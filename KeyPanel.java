@@ -106,7 +106,9 @@ public class KeyPanel extends EasyPanel implements ActionListener
         ch.addActionListener(chrds);
         JMenuItem intervals = new JMenuItem("Intervals");
         intervals.addActionListener(new Infobox(key,name,"Intervals"));
-        jb5.add(ch); jb5.add(intervals); 
+        JMenuItem sampler = new JMenuItem("Sampler");
+        sampler.addActionListener(new Sampler(key,name));
+        jb5.add(ch); jb5.add(intervals); jb5.add(sampler); 
         //jb5.add(ch); 
 
         class PopupListener extends MouseAdapter {

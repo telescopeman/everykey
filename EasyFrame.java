@@ -59,6 +59,18 @@ public class EasyFrame extends JFrame
         
     }
     
+    public int[] getEnclosers(String str, String special)
+    {
+        if (! (special.length() == 2))
+        {
+            return new int[]{-1,-1};
+
+        }
+        int ind1 = str.indexOf(special.substring(0,1));
+        return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
+
+    }
+    
     public void add(String str)
     {
         add(new JLabel(str));

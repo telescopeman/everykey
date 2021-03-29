@@ -2,6 +2,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.sound.midi.*;
 import javax.sound.midi.Sequence;
+import java.util.Random;
+
 /**
  * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
  *
@@ -20,11 +22,11 @@ public class MusicHelper extends TheoryObj implements ActionListener
     private float tempo;
 
     private boolean activated;
-    
+
     /**
      * Constructor for objects of class MusicHelper
      */
-    public MusicHelper(int[] keyAsInts) throws javax.sound.midi.InvalidMidiDataException
+    public MusicHelper(int[] keyAsInts)
     {
         activated = false;
         savedNotes = keyAsInts;
@@ -52,10 +54,20 @@ public class MusicHelper extends TheoryObj implements ActionListener
             }
             case "Play Chord":
             {
-                for (int note : savedNotes)
+                addClump(myTrack,savedNotes,0);
+                break;
+            }
+            case "Start":
+            {
+                for(int i = 0; i < 4; i++)
                 {
-                    myTrack.add(toNote(note,1)[0]);
-                    myTrack.add(toNote(note,20)[1]);
+                    addClump(myTrack,getRawChordAt(savedNotes,getRandomNumberInRange(1,7)),i*timeMult);
+                    int counter = 0;
+                    for (int j = 0; j < 4; j++)
+                    {
+                        addFullNote(myTrack, savedNotes[getRandomNumberInRange(0,6)] + 12, counter + i * 4);
+                        counter++;
+                    }
                 }
                 break;
             }
@@ -66,6 +78,25 @@ public class MusicHelper extends TheoryObj implements ActionListener
         }
 
         return seq;
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        return r.nextInt((max - min) + 1) + min;
+    }
+
+    private void addClump(Track myTrack, int[] notes, int offset)
+    {
+        for (int note : notes)
+        {
+            myTrack.add(toNote(note,offset     )[0]);
+            myTrack.add(toNote(note,offset + 20)[1]);
+        }
     }
 
     private void addFullNote(Track myTrack, int pitch, int counter)
@@ -117,9 +148,9 @@ public class MusicHelper extends TheoryObj implements ActionListener
             System.out.println("Invalid tempo!");
             return;
         }
-        
+
         sequencer.setTempoInBPM(newTempo);
-        
+
         //refreshSequence(savedKey);
 
     }
@@ -144,18 +175,21 @@ public class MusicHelper extends TheoryObj implements ActionListener
         }
         activated = true;
     }
-    
+
     public void seqSetup() throws javax.sound.midi.MidiUnavailableException
     {
         sequencer = MidiSystem.getSequencer();
         sequencer.open();
     }
-    
+
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
+        if (id.equals("Stop"))
+        {
+            stop();
+        }
         //System.out.println(sequencer.getTempoInBPM());
-        
-        
+
         if (!activated)
         {
             try
@@ -167,13 +201,11 @@ public class MusicHelper extends TheoryObj implements ActionListener
             {
                 mue.printStackTrace();
             }
-            
+
             activate(id);
-            
+
         }
-        
-        
-        
+
         sequencer.setTickPosition(0);
         PlayerWatcher.requestControl(this); // DO NOT CHANGE ORDER HERE
         //System.out.println(sequencer.getTempoInBPM());
