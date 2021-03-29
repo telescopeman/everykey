@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.awt.event.ActionEvent;
 
 /**
- * Write a description of class UIStuff here.
+ * Controls the UI and most other high-level functions.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/29/21
  */
 public class UIStuff
 {
@@ -266,6 +266,7 @@ public class UIStuff
         ftemplates=new JMenu("Filter Templates"); 
         livemaker=new JMenuItem("Live Player");
 
+
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
@@ -287,6 +288,8 @@ public class UIStuff
         
         a1=new JMenuItem("Change Note Speed");  
         a1.addActionListener(ModBox.buildSettingsBox(this)); //not working?
+
+        livemaker.addActionListener(new VirtualPiano); //not working?
 
         viewops.add(sortops);
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
