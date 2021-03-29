@@ -1,18 +1,24 @@
 import javax.swing.*;
 import java.awt.*; 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 /**
- * Write a description of class KeyPanel here.
+ * Displays a scale's name and info.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
-public class KeyPanel extends EasyPanel
+public class KeyPanel extends EasyPanel implements ActionListener
 {
     // instance variables - replace the example below with your own
 
     MusicHelper playr;
+    Popup p;
 
-                
     public void resize(int num, int dummy) //sets tempo throws javax.sound.midi.MidiUnavailableException
     {
         try
@@ -67,8 +73,6 @@ public class KeyPanel extends EasyPanel
 
     }
 
-                    
-
     private static String quickSubstring(String name, int[] pts)
     {
         String newName =  name.substring(0,pts[0]-1) + name.substring(pts[1]+1);
@@ -83,14 +87,8 @@ public class KeyPanel extends EasyPanel
     {
 
         super();
-
         String lbl = "#" + String.format("%03d",num) + ": " + parse(name);
-
         ChordViewer chrds = new ChordViewer(key,name);
-
-        
-                    
-        chrds.myKey = key;
 
         JButton jb2 = new JButton("Intervals");
         try{
@@ -101,11 +99,37 @@ public class KeyPanel extends EasyPanel
 
         }
         //jb3.addActionListener(playr);
+        JButton b = new JButton("Info");
+        JPopupMenu jb5 = new JPopupMenu();
+        //JMenu jb5 = new JMenu("Info");
+        JMenuItem ch = new JMenuItem("Chords");
+        ch.addActionListener(chrds);
+        JMenuItem intervals = new JMenuItem("Intervals");
+        intervals.addActionListener(new Infobox(key,name,"Intervals"));
+        jb5.add(ch); jb5.add(intervals); 
+        //jb5.add(ch); 
 
-        JButton jb5 = new JButton("Button 5");
-                    
-                    
-            
+        class PopupListener extends MouseAdapter {
+            public void mousePressed(MouseEvent e) {
+                maybeShowPopup(e);
+            }
+
+            public void mouseReleased(MouseEvent e) {
+                maybeShowPopup(e);
+            }
+
+            private void maybeShowPopup(MouseEvent e) {
+                jb5.show(e.getComponent(),
+                        e.getX(), e.getY());
+                
+            }
+        }
+        //jb5.addActionListener(new Infobox(key,name));
+        MouseListener popupListener = new PopupListener();
+        //output.addMouseListener(popupListener);
+        b.addMouseListener(popupListener);
+
+        //Popup p = infoPanel();
         JLabel label = new JLabel(lbl);
         int[] pt = getEnclosers(name,"[]");
         if (pt[0] > -1 && pt[1] > -1)
@@ -118,8 +142,25 @@ public class KeyPanel extends EasyPanel
         {
             label.setFont(new Font(label.getFont().getFontName(),Font.ITALIC,12));
         }
-        add(label);//add(jb3);
-        addButton("Chords",chrds); addButton("Listen",playr); 
+        add(label);
+        add(b); 
+        addButton("Listen",playr); 
     }
 
+    public Popup infoPanel()
+    {
+        EasyPanel submenu = new EasyPanel("Info");
+        PopupFactory pf = new PopupFactory();
+        p = pf.getPopup(this, submenu,0,0);
+        return p;
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        String d = e.getActionCommand();
+        if (d.equals("Info"))
+        {
+            p.show();
+        }
+    }
 }

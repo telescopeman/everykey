@@ -20,13 +20,13 @@ public class UIStuff
     int[][] masterList;
     EasyFrame mainWindow;
 
-    static boolean debugMode = true;
+    static boolean debugMode = false;
 
     JPanel inner;
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
     Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    boolean[] filterStatuses = new boolean[]{true,true};
+    boolean[] filterStatuses = new boolean[]{true};
 
     private HashMap<Boolean,String> enableText;
 
@@ -118,21 +118,7 @@ public class UIStuff
         int counter = -1;
         int num = 0;
         int[] list = new int[keys.length];
-        // for (int[] key : keys)
-        // {
-        // counter++;
-
-        // if (key[0] == 0)
-        // {
-        // //System.out.println("blanked");
-        // //System.out.println(MathHelper.expand(key));
-        // continue;
-        // }
-        // else
-        // {
-        // list[counter] = counter;
-        // }
-        // }
+        
         counter = 0;
         int[] specificList = styleSort(absoluteList);
         for (int ind : specificList)
@@ -141,8 +127,6 @@ public class UIStuff
 
             if (keys[ind][0] == 0)
             {
-                //System.out.println("blanked");
-                //System.out.println(MathHelper.expand(key));
                 continue;
             }
             else

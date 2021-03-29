@@ -3,12 +3,11 @@
  * Converts numbers to Roman numerals.
  *
  * @author User1752197 on StackOverflow, Caleb Copeland
- * @version October 19, 2012
+ * @version 3/28/21
+ * @since October 19, 2012
  */
 public class RomanHelper
 {
-    // instance variables - replace the example below with your own
-    
     /**
      * Converts a whole number to its equivalent in Roman numerals.
      * @author User1752197 on StackOverflow, Caleb Copeland

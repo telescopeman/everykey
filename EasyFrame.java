@@ -21,6 +21,13 @@ public class EasyFrame extends JFrame
         
     }
     
+    public void addHeader(String text)
+    {
+        JLabel title = new JLabel(text,JLabel.CENTER);
+        title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
+        add(title);
+        
+    }
     
     public EasyFrame(String name)
     {
@@ -52,6 +59,11 @@ public class EasyFrame extends JFrame
         
     }
     
+    public void add(String str)
+    {
+        add(new JLabel(str));
+        
+    }
     
     public void clear()
     {

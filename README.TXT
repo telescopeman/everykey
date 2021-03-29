@@ -1,6 +1,5 @@
 ------------------------------------------------------------------------
 A procedurally generated database of all musical scales.
-Currently, there is no support for scales that don't have seven notes. Eventually, that might be added, though.
 ------------------------------------------------------------------------
 
 PROJECT TITLE: Skeleton Key

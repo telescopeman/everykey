@@ -17,12 +17,26 @@ public class EasyPanel extends JPanel
         // initialise instance variables
         //setTitle(name);
     }
+    
+    public EasyPanel(String name)
+    {
+        // initialise instance variables
+        addHeader(name);
+    }
 
     public void addButton(String name, ActionListener trig)
     {
         JButton jb3 = new JButton(name);    
         jb3.addActionListener(trig);
         add(jb3);
+    }
+    
+    public void addHeader(String text)
+    {
+        JLabel title = new JLabel(text,JLabel.CENTER);
+        title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
+        add(title);
+        
     }
 
     public void appear()

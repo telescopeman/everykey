@@ -250,13 +250,13 @@ public class FilterCreator extends ModBox
             String o2 = list2.getSelectedItem().toString();
             Filter[] tempList = arr.addX(myFilters,constructFilter(o1,o2));
             
-            
-            //System.out.println("SUPER: " + super.toString());
-            ui.setCurFilters(tempList);
-            
             boolean[] tempList2 = arr.addX(setList,true);
             
             ui.setFilterStatuses(tempList2);
+            //System.out.println("SUPER: " + super.toString());
+            ui.setCurFilters(tempList);
+            
+            
             
             //System.out.print("New List:" +tempList);
             ui.refresh();

@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*; 
 import java.util.Arrays;
 /**
- * Represents a dialog box that will modify a main class through user input.
+ * Represents a dialog box that will modify the main class through user input.
  *
  * @author Caleb Copeland
  * @version 3/28/21
@@ -58,13 +58,7 @@ public abstract class ModBox extends EasyFrame implements ActionListener
         // }
     // }
 
-    public void addHeader(String text)
-    {
-        JLabel title = new JLabel(text,JLabel.CENTER);
-        title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
-        add(title);
-        
-    }
+    
     
     
     public void actionPerformed(ActionEvent e)
