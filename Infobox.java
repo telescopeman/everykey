@@ -30,7 +30,7 @@ public class Infobox extends EasyFrame implements ActionListener
         int ind = getEnclosers(name,"()")[0];
         if (ind > -1)
         {
-            myName =name.substring(0, ind);
+            myName = name.substring(0, ind);
 
         }
         else
@@ -40,12 +40,32 @@ public class Infobox extends EasyFrame implements ActionListener
         ind = getEnclosers(name,"{}")[0];
         if (ind > -1)
         {
-            myName =name.substring(0, ind);
+            myName = myName.substring(0, ind);
 
         }
         else
         {
-            myName = name;
+            myName = myName;
+        }
+        ind = getEnclosers(name,"[]")[0];
+        if (ind > -1)
+        {
+            myName = myName.substring(0, ind);
+
+        }
+        else
+        {
+            myName = myName;
+        }
+        ind = getEnclosers(name,"/|")[0];
+        if (ind > -1)
+        {
+            myName = myName.substring(0, ind);
+
+        }
+        else
+        {
+            myName = myName;
         }
         myType = type;
         myScale = scale;
