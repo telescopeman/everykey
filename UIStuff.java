@@ -276,7 +276,7 @@ public class UIStuff
         s3.addActionListener(new ModActor(this,"setSortStyle",SORT3));
         s4.addActionListener(new ModActor(this,"setSortStyle",SORT4));
 
-        viewfilters=new JMenu("View/ToggleActive Filters");  
+        viewfilters=new JMenu("View/Toggle Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
         removefilters=new JMenu("Remove Filter"); 
         ftemplates=new JMenu("Filter Templates"); 

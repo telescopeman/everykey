@@ -18,6 +18,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
      */
     public ChordViewer(int[] k, String name)
     {
+        super("Chords of " + KeyPanel.parse(name));
         setSize(new Dimension(900, 150));
         setResizable(false);
         setLayout(new GridLayout(3, 7));

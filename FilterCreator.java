@@ -238,6 +238,7 @@ public class FilterCreator extends ModBox
     
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
+        update();
         //System.out.print(id);
         if (id.equals("comboBoxChanged"))
         {
