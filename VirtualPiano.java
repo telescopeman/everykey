@@ -30,14 +30,17 @@ import javax.sound.midi.Synthesizer;
 import javax.swing.JComboBox;
 
 /**
- * @author smitha.r from dreamincode.net
+ * @author smitha.r from dreamincode.net, Caleb Copeland
  * @since March 15, 2012
  */
-public class VirtualPiano implements KeyListener {
+public class VirtualPiano {
     private final String[] whitemnems = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"};
     private final String[] blackmnems = new String[]{"W","E","T","Y","U","O","P"};
     private Synthesizer synthesizer = MidiSystem.getSynthesizer();
     private final MidiChannel channel = synthesizer.getChannels()[1];
+    
+    private boolean lastSet = false;
+    private int lastPitch;
     public VirtualPiano() throws MidiUnavailableException{
 
         synthesizer.open();
@@ -54,30 +57,33 @@ public class VirtualPiano implements KeyListener {
         int height = 240;
         int width2 = width * 16 / 20;
         int height2 = height * 80 / 120;
-
+        
+        
         class PlayAction extends AbstractAction {
+            
             private int pitch;
             private JButton bu;
-            private boolean on;
-            private boolean last;
-
-            public PlayAction(int i, JButton b, boolean tog) {
-                //super(text);
+            private boolean type = false;
+            public PlayAction(int i, JButton b,boolean kind)
+            {
                 pitch = i;
                 bu = b;
-                on = tog;
-                //putValue(SHORT_DESCRIPTION, desc);
-                //putValue(MNEMONIC_KEY, mnemonic);
+                type = kind;
             }
 
             public void actionPerformed(ActionEvent e) {
-                if (!bu.isSelected())
-                {
-                    playNote(pitch,bu,on);
-                }
+                go(type);
                 System.out.println("Action for first button/menu item: " + e);
             }
+            
+            public void go(boolean s)
+            {
+                playNote(pitch,bu,s);
+                
+            }
         }
+        
+        
 
         int numWhite = 0;
         int numBlack = 0;
@@ -91,12 +97,36 @@ public class VirtualPiano implements KeyListener {
             int j = i % 12;
             boolean isWhite = (j == 0 || j == 2|| j == 4|| j == 5|| j == 7|| j ==9|| j == 11);
 
-            b.addActionListener( new ActionListener() {
-                    public void actionPerformed(ActionEvent e)
-                    { 
-                        System.out.println(e);
-
-                    }	 
+            final String pr = "typed";
+            final String rl = "released";
+            b.addMouseListener( new MouseListener() 
+            {
+                    public void mouseExited(MouseEvent e)
+                    {
+                    }
+                    
+                    public void mouseEntered(MouseEvent e)
+                    {
+                    }
+                    
+                    public void mouseReleased(MouseEvent e)
+                    {
+                        JButton b = (JButton) e.getSource();
+                        PlayAction th = (PlayAction) b.getActionMap().get(pr);
+                        th.go(false);
+                    }
+                    public void mousePressed(MouseEvent e)
+                    {
+                        JButton b = (JButton) e.getSource();
+                        PlayAction th = (PlayAction) b.getActionMap().get(pr);
+                        th.go(true);
+                    }
+                    public void mouseClicked(MouseEvent e)
+                    {
+                        // JButton b = (JButton) e.getSource();
+                        // PlayAction th = (PlayAction) b.getActionMap().get(pr);
+                        // th.go(true);
+                    }
                 }
             );
             String mnem;
@@ -108,12 +138,14 @@ public class VirtualPiano implements KeyListener {
             {
                 mnem = blackmnems[numBlack];
             }
-            final String pr = "go";
-            final String rl = "stop";
+            
             b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + mnem), pr);
             b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + mnem),rl);
-            b.getActionMap().put(pr, new PlayAction(ja,b,true));
-            b.getActionMap().put(rl,new PlayAction(ja,b,false));
+            //OscillationPreventor osc = new OscillationP
+            Action ac = new PlayAction(ja,b,true);
+            Action ac2 = new PlayAction(ja,b,false);
+            b.getActionMap().put(pr, ac);
+            b.getActionMap().put(rl, ac2);
             if (isWhite)
             {
 
@@ -143,9 +175,18 @@ public class VirtualPiano implements KeyListener {
         frame.setSize(14*width,height);
         frame.setVisible(true);
     }
+    
+    
 
     public void playNote(int pitch, JButton b,boolean pl)
     {
+        System.out.println(pl);
+        if (pl == lastSet && pitch == lastPitch)
+        {
+            return;
+        }
+        lastPitch = pitch;
+        lastSet = pl;
         if (pl)
         {
             channel.noteOn(pitch, 64);
@@ -164,18 +205,5 @@ public class VirtualPiano implements KeyListener {
         System.out.println("Action for first button/menu item" + e);
     }
 
-    public void keyPressed(KeyEvent e)
-    {
-        System.out.println("got " + e);
-    }
-
-    public void keyReleased(KeyEvent e)
-    {
-        System.out.println("got " + e);
-    }
-
-    public void keyTyped(KeyEvent e)
-    {
-        System.out.println("got " + e);
-    }
+    
 }
