@@ -57,11 +57,11 @@ public class MusicHelper extends TheoryObj implements ActionListener
                 addClump(myTrack,savedNotes,0);
                 break;
             }
-            case "Start":
+            case "Start": //sampler player
             {
-                for(int i = 0; i < 4; i++)
+                for(int i = 0; i < 7; i++)
                 {
-                    addClump(myTrack,getRawChordAt(savedNotes,getRandomNumberInRange(1,7)),i*timeMult);
+                    addClump(myTrack,getRawChordAt(savedNotes,i+1),i*timeMult);
                     int counter = 0;
                     for (int j = 0; j < 4; j++)
                     {
@@ -182,6 +182,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
         sequencer.open();
     }
 
+    
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
         if (id.equals("Stop"))

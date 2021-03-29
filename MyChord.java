@@ -6,7 +6,7 @@ import java.awt.Color;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Chord extends TheoryObj
+public class MyChord extends TheoryObj
 {
     // instance variables - replace the example below with your own
     private int root;
@@ -20,7 +20,7 @@ public class Chord extends TheoryObj
     /**
      * Constructor for objects of class Chord
      */
-    public Chord(int one, int two, int three)
+    public MyChord(int one, int two, int three)
     {
         // initialise instance variables
         root = one;
@@ -35,7 +35,7 @@ public class Chord extends TheoryObj
     /**
      * Constructor for objects of class Chord
      */
-    public Chord(int one, int two, int three,int[] others)
+    public MyChord(int one, int two, int three,int[] others)
     {
         // initialise instance variables
         root = one;

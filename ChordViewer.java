@@ -26,19 +26,19 @@ public class ChordViewer extends EasyFrame implements ActionListener
         myKey= k;
 
     }
-    public static Chord getChordAt(int[] key, int ind)
+    public static MyChord getChordAt(int[] key, int ind)
     {
         int index = ind - 1;
         final int LOOP = 7;
         System.out.print(ind + "-->");
         if (index > LOOP)
         {
-            return(new Chord(0,0,0));
+            return(new MyChord(0,0,0));
         }
 
         //return "Test Chord";
         //System.out.println(String.valueOf(index) + String.valueOf((index + 2) % LOOP) + String.valueOf((index + 4) % LOOP) + "-->" + key[index] + key[(index + 2) % LOOP] + key[(index + 4) % LOOP]);
-        return new Chord(key[index], key[((index + 2) % 7)],key[((index + 4) % 7)] );
+        return new MyChord(key[index], key[((index + 2) % 7)],key[((index + 4) % 7)] );
 
     }
 
@@ -88,7 +88,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         String str = "(";
         for(int i = 0; i < 3; i++)
         {
-            str += Chord.getNoteName(seq[i]);
+            str += MyChord.getNoteName(seq[i]);
             str += String.valueOf(5 + ups[i]);
             if (i < 2)
             {
@@ -117,7 +117,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         // }
         for(int i = 1; i < 8; i++)
         {
-            Chord aChord = getChordAt(myKey,i);
+            MyChord aChord = getChordAt(myKey,i);
             JLabel jLabel1 = new JLabel(RomanHelper.convert(i) + ": " + aChord.toString(), JLabel.CENTER);
             jLabel1.setOpaque(true);
             //String third = aChord.getThirdType();
@@ -128,7 +128,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
         for(int i = 1; i < 8; i++)
         {
-            Chord aChord = getChordAt(myKey,i);
+            MyChord aChord = getChordAt(myKey,i);
             //int[] noteSequence2 = makeAscending(noteSequence);
 
             add(new JLabel("(" + aChord.getNotes() + ")", JLabel.CENTER));

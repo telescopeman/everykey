@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+import javax.swing.JPanel;
 
 /**
  * Write a description of class InfoBox here.
@@ -13,7 +14,7 @@ import java.awt.GridLayout;
 public class Infobox extends EasyFrame implements ActionListener
 {
     // instance variables - replace the example below with your own
-    private final Dimension MYDIM = new Dimension(200,300);
+    private final Dimension MYDIM = new Dimension(200,200);
     int[] myScale;
     String myName;
     String myType;
@@ -25,7 +26,7 @@ public class Infobox extends EasyFrame implements ActionListener
     public Infobox(int[] scale, String name,String type)
     {
         // initialise instance variables
-        setLayout(new GridLayout(8,1));
+        
         
         int ind = getEnclosers(name,"()")[0];
         if (ind > -1)
@@ -149,10 +150,13 @@ public class Infobox extends EasyFrame implements ActionListener
     {
         clear();
         appear(MYDIM);
-        addHeader(myName + " - " + myType);
+        addHeader(myName + ": " + myType);
+        setLayout(new GridLayout(getText(intervals).length + 1,1));
         for (String lab : getText(intervals))
         {
-            add(new JLabel(lab));
+            JLabel l = new JLabel(lab);
+            l.setHorizontalAlignment(JLabel.CENTER);
+            add(l);
         }
         
         

@@ -238,7 +238,7 @@ public class UIStuff
 
         JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates;
         //JMenuItem filterctrls = JMenuItem
-        JMenuItem i1, i2, i3, i4, i5, i6;
+        JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
         JMenuItem s1,s2,s3,s4;
         JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
@@ -264,6 +264,7 @@ public class UIStuff
         addfilter=new JMenu("Add New Filter"); 
         removefilters=new JMenu("Remove Filter"); 
         ftemplates=new JMenu("Filter Templates"); 
+        livemaker=new JMenuItem("Live Player");
 
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
@@ -290,9 +291,11 @@ public class UIStuff
         viewops.add(sortops);
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
         filtermenu.add(removefilters); filtermenu.add(ftemplates);
+        filtermenu.add(livemaker);
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         addfilter.add(i5); addfilter.add(i6);
+        //f.add(livemaker);
 
         s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
         s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
