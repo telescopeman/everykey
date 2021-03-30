@@ -29,6 +29,17 @@ public abstract class ModBox extends EasyFrame implements ActionListener
         setLayout(new GridLayout(3,1));
     }
     
+    /**
+     * Constructor for objects of class ModBox
+     */
+    public ModBox(UIStuff uiref, boolean t)
+    {
+        // initialise instance variables
+        ui = uiref;
+        arr = new ArrayHelper();
+        
+    }
+    
     
     public static FilterCreator buildFilterCreator(UIStuff uiref)
     {

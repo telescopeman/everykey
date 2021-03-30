@@ -46,7 +46,7 @@ public abstract class TheoryObj
     {
         String name = "";
         int count = 0;
-        String lastNote = "I";
+        String lastNote = "III";
         while (count < key.length)
         {
             int i = key[count];

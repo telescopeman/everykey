@@ -1,4 +1,4 @@
-
+import java.util.Arrays;
 /**
  * Write a description of class ArrayHelper here.
  *
@@ -74,6 +74,10 @@ public class ArrayHelper
         newarr[list.length] = x;
 
         return newarr;
+    }
+    
+    public static boolean contains(final int[] arr, final int key) {
+        return Arrays.stream(arr).anyMatch(i -> i == key);
     }
     
     public static String[] getFiltered(String[] list, String term, boolean mod)

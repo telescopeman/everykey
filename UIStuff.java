@@ -32,7 +32,10 @@ public class UIStuff
 
     JMenu viewfilters, removefilters;
 
-    Filter[] curFilters = defaultFilters;
+    public Filter[] curFilters = defaultFilters;
+    
+    Filter[] storedFilters;
+    boolean[] storedFilterStatuses;
 
     MathHelper myUtility;
 
@@ -86,6 +89,25 @@ public class UIStuff
         curFilters = newFilters;
         refresh();
     }
+    
+    public void storeFilters()
+    {
+        storedFilters = Arrays.copyOf(curFilters,curFilters.length);
+        //curFilters = new Filter[]{};
+        storedFilterStatuses = filterStatuses;
+        refresh();
+    }
+    
+    public Filter[] getStoredFilters()
+    {
+        return storedFilters;
+        
+    }
+    
+    public boolean[] getStoredStatuses()
+    {
+        return storedFilterStatuses;
+    }
 
     public void setFilterStatuses(boolean[] newThings)
     {
@@ -136,9 +158,10 @@ public class UIStuff
                 KeyPanel keyPanel = new KeyPanel(ind, keys[ind], getKeyName(keys[ind]));
 
                 inner.add(keyPanel,BorderLayout.WEST); 
-                inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+                
             }
         }
+        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         //outer.setLayout(new ScrollPaneLayout());
         JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
@@ -264,7 +287,7 @@ public class UIStuff
         addfilter=new JMenu("Add New Filter"); 
         removefilters=new JMenu("Remove Filter"); 
         ftemplates=new JMenu("Filter Templates"); 
-        livemaker=new JMenuItem("Live Player");
+        livemaker=new JMenuItem("Open Musical Typing");
 
 
         i1=new JMenuItem("Filter by Tonality");  
