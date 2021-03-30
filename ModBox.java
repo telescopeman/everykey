@@ -42,6 +42,12 @@ public abstract class ModBox extends EasyFrame implements ActionListener
         
     }
     
+    public static VirtualPiano buildVirtualPiano(UIStuff uiref)
+    {
+        return new VirtualPiano(uiref);
+        
+    }
+    
     // /**
      // * Gets a child of ModBox.
      // */

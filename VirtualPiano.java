@@ -35,38 +35,42 @@ import javax.sound.midi.Synthesizer;
 public class VirtualPiano extends ModBox {
     private final String[] whitemnems = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"};
     private final String[] blackmnems = new String[]{"W","E","T","Y","U","O","P"};
-    private Synthesizer synthesizer;
-    private final MidiChannel channel = synthesizer.getChannels()[1];
-    
+
+    private String startrec = "Start Recording";
+    private String stoprec = "Stop Recording";
+    private String toFilter = "Apply New Filter Set";
+
+    JLayeredPane panel;
+    private boolean isRecording = false;
     private boolean lastSet = false;
     private int lastPitch;
+    final int width = 40;
+    final int height = 240;
     public VirtualPiano(UIStuff uir) {
         super(uir);
-        
-        
+
     }
-    
+
     public void open() throws javax.sound.midi.MidiUnavailableException
     {
-        synthesizer = MidiSystem.getSynthesizer();
+        appear();
+        isRecording = false;
+        Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
+        MidiChannel channel = synthesizer.getChannels()[1];
         JFrame frame = new JFrame("Live Player"); //makes the JFrame
 
         final int velocity = 64; 
 
-        JLayeredPane panel = new JLayeredPane();
+        panel = new JLayeredPane();
         frame.add(panel);
 
         int maxKeys = 17;
 
-        int width = 40;
-        int height = 240;
         int width2 = width * 16 / 20;
         int height2 = height * 80 / 120;
-        
-        
+
         class PlayAction extends AbstractAction {
-            
             private int pitch;
             private JButton bu;
             private boolean type = false;
@@ -79,22 +83,20 @@ public class VirtualPiano extends ModBox {
 
             public void actionPerformed(ActionEvent e) {
                 go(type);
-                System.out.println("Action for first button/menu item: " + e);
+                //System.out.println("Action for first button/menu item: " + e);
             }
-            
+
             public void go(boolean s)
             {
                 playNote(pitch,bu,s);
-                
+
             }
         }
-        
-        
 
         int numWhite = 0;
         int numBlack = 0;
         for ( int i = 0; i < maxKeys; i++) {
-            
+
             final int ja =i+50;
 
             JButton b = new JButton();
@@ -106,27 +108,29 @@ public class VirtualPiano extends ModBox {
             final String pr = "typed";
             final String rl = "released";
             b.addMouseListener( new MouseListener() 
-            {
+                {
                     public void mouseExited(MouseEvent e)
                     {
                     }
-                    
+
                     public void mouseEntered(MouseEvent e)
                     {
                     }
-                    
+
                     public void mouseReleased(MouseEvent e)
                     {
                         JButton b = (JButton) e.getSource();
                         PlayAction th = (PlayAction) b.getActionMap().get(pr);
                         th.go(false);
                     }
+
                     public void mousePressed(MouseEvent e)
                     {
                         JButton b = (JButton) e.getSource();
                         PlayAction th = (PlayAction) b.getActionMap().get(pr);
                         th.go(true);
                     }
+
                     public void mouseClicked(MouseEvent e)
                     {
                         // JButton b = (JButton) e.getSource();
@@ -144,7 +148,7 @@ public class VirtualPiano extends ModBox {
             {
                 mnem = blackmnems[numBlack];
             }
-            
+
             b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + mnem), pr);
             b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + mnem),rl);
             //OscillationPreventor osc = new OscillationP
@@ -171,22 +175,34 @@ public class VirtualPiano extends ModBox {
                 b.setLocation((numWhite-1)*(width) + (width2*3/4), 0);
                 b.setSize(width2, height2);
 
-                b.setForeground(Color.BLACK);
+                b.setBackground(Color.WHITE);
                 panel.add(b, 1, -1);
                 numBlack++;
             }
         }
 
+        addButtons();
+
         //frame.pack();
-        frame.setSize(14*width,height);
+        frame.setSize(13*width,height);
         frame.setVisible(true);
+        frame.requestFocusInWindow();
+
     }
-    
-    
+
+    private void addButtons()
+    {
+        JButton b1 = new JButton("Start Recording");
+        b1.addActionListener(this);
+        b1.setLocation(10 * width, 20);
+        b1.setSize(height/2, width);
+        panel.add(b1, 2);
+        
+    }
 
     public void playNote(int pitch, JButton b,boolean pl)
     {
-        System.out.println(pl);
+        //System.out.println(pl);
         if (pl == lastSet && pitch == lastPitch)
         {
             return;
@@ -201,15 +217,44 @@ public class VirtualPiano extends ModBox {
         else
         {
             channel.noteOff(pitch, 64);
-            b.setBackground(Color.WHITE);
+            if (isRecording)
+            {
+                b.setBackground(Color.GREEN);
+            }
+            else
+            {
+                b.setBackground(Color.WHITE);
+            }
 
         }
     }
 
-
     public void actionPerformed(ActionEvent e) {
-        System.out.println("Action for first button/menu item" + e);
-    }
 
-    
-}
+        switch (e.getActionCommand())
+        {
+            case startrec:
+            {
+                isRecording = true;
+                break;
+            }
+
+            case stoprec:
+            {
+                isRecording = false;
+                break;
+            }
+            case toFilter:
+            {
+                isRecording = false;
+                break;
+                }
+                
+            default:
+            {
+                isRecording = false;
+                break;
+            }
+        }
+        
+    }

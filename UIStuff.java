@@ -289,7 +289,7 @@ public class UIStuff
         a1=new JMenuItem("Change Note Speed");  
         a1.addActionListener(ModBox.buildSettingsBox(this)); //not working?
 
-        livemaker.addActionListener(new VirtualPiano(this)); //not working?
+        livemaker.addActionListener(ModBox.buildVirtualPiano(this)); //not working?
 
         viewops.add(sortops);
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
