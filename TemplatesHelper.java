@@ -9,6 +9,7 @@ public class TemplatesHelper
 {
     // instance variables - replace the example below with your own
     private static FilterTemplate[] templates = new FilterTemplate[]{
+        new FilterTemplate("All Blank", new Filter[]{}),
         new FilterTemplate("Useful Scales", new Filter[]{
             new Filter("isNamed"),  //named
             new Filter(8,4), // has perfect fifth

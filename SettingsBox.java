@@ -34,7 +34,7 @@ public class SettingsBox extends ModBox
         addHeader("Change Note Speed:");
             //System.out.println("cns");
             try{
-                playr = new MusicHelper(new int[]{1,2,3,4,5});
+                playr = new MusicHelper(new int[]{1,3,5,6,8,10,12});
                 playr.seqSetup();
             }
             catch(Exception ed)

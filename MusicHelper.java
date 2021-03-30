@@ -33,14 +33,13 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
         //fafs
     }
-    
+
     /**
      * Constructor for objects of class MusicHelper
      */
     public MusicHelper()
     {
         activated = false;
-        
 
         //fafs
     }
@@ -84,12 +83,14 @@ public class MusicHelper extends TheoryObj implements ActionListener
             }
             default:
             {
-                if (Integer.valueOf(type) > 0)
+                try 
                 {
+                    Integer.valueOf(type);
                     return toMIDI(notes,"Play Chord");
                 }
-                else
+                catch (java.lang.NumberFormatException e)
                 {
+
                     return toMIDI(notes,"Listen");
                 }
             }
@@ -200,7 +201,6 @@ public class MusicHelper extends TheoryObj implements ActionListener
         sequencer.open();
     }
 
-    
     public void actionPerformed(ActionEvent e) {
         String id = e.getActionCommand();
         if (id.equals("Stop"))

@@ -365,6 +365,13 @@ public class UIStuff
         {
             filterStatuses = ArrayHelper.addX(filterStatuses,true);
         }
+        
+        if (flist.length == 0)
+        {
+            viewfilters.add(new JMenuItem("(None)"));
+            removefilters.add(new JMenuItem("(None)"));
+            
+        }
 
         for (Filter f : flist)
         {
