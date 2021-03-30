@@ -20,7 +20,7 @@ public class PlayerWatcher
     public static void setTempo(float t)
     {
         tempo = t;
-        System.out.println("PWSET" + t);
+        //System.out.println("PWSET" + t);
     }
     
     public static void updateStatus(boolean isOn)

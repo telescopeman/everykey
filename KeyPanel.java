@@ -29,6 +29,10 @@ public class KeyPanel extends EasyPanel implements ActionListener
         {
             mue.printStackTrace();
         }
+        catch (java.lang.NullPointerException mue)
+        {
+            //mue.printStackTrace(); ignore
+        }
     }
 
     public static int[] getEnclosers(String str, String special)
