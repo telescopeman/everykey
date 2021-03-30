@@ -36,10 +36,12 @@ public class VirtualPiano extends ModBox {
     private final String[] whitemnems = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"};
     private final String[] blackmnems = new String[]{"W","E","T","Y","U","O","P"};
 
-    private String startrec = "Start Recording";
-    private String stoprec = "Stop Recording";
-    private String toFilter = "Apply New Filter Set";
+    private final String startrec = "Start Recording";
+    private final String stoprec = "Stop Recording";
+    private final String toFilter = "Apply New Filter Set";
 
+    
+    MidiChannel channel;
     JLayeredPane panel;
     private boolean isRecording = false;
     private boolean lastSet = false;
@@ -57,7 +59,7 @@ public class VirtualPiano extends ModBox {
         isRecording = false;
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
-        MidiChannel channel = synthesizer.getChannels()[1];
+        channel = synthesizer.getChannels()[1];
         JFrame frame = new JFrame("Live Player"); //makes the JFrame
 
         final int velocity = 64; 
