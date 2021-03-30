@@ -13,12 +13,16 @@ public class ChordViewer extends EasyFrame implements ActionListener
     // instance variables - replace the example below with your own
     public int[] myKey;
 
+
+
     /**
      * Constructor for objects of class ChordViewer
      */
     public ChordViewer(int[] k, String name)
     {
+
         super("Chords of " + KeyPanel.parse(name));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(new Dimension(900, 150));
         setResizable(false);
         setLayout(new GridLayout(3, 7));
@@ -26,6 +30,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         myKey= k;
 
     }
+
     public static MyChord getChordAt(int[] key, int ind)
     {
         int index = ind - 1;
@@ -107,8 +112,8 @@ public class ChordViewer extends EasyFrame implements ActionListener
     // }
 
     public void actionPerformed(ActionEvent e) {
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        System.out.print(e);
+
+        //System.out.print(e);
         clear();
 
         // for(int i = 1; i < 8; i++)
@@ -135,16 +140,41 @@ public class ChordViewer extends EasyFrame implements ActionListener
         }
 
         for (int i = 1; i < 8; i++)
-
         {
             int[] noteSequence = getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
             System.out.println(seq);
 
             JButton jb3 = new JButton("Play Chord");    
+            
+
             try{
                 MusicHelper playr = new MusicHelper(seq);
                 jb3.addActionListener(playr);
+                
+                class ButtonAction extends AbstractAction
+                {
+                    public ButtonAction(String text, String desc)
+                    {
+                        super(text);
+                        putValue(SHORT_DESCRIPTION, desc);
+                    }
+
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        System.out.println(ae.getActionCommand());
+                        playr.actionPerformed(ae);
+                    }
+                }
+                
+                Action buttonAction = new ButtonAction("Play Chord"
+                , "Play Chord");
+
+                jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), "Play Chord");
+                jb3.getActionMap().put("Play Chord", buttonAction);
+
+                
             }
             catch(Exception ed){
                 throw ed;

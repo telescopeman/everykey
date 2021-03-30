@@ -84,7 +84,14 @@ public class MusicHelper extends TheoryObj implements ActionListener
             }
             default:
             {
-                return toMIDI(notes,"Listen");
+                if (Integer.valueOf(type) > 0)
+                {
+                    return toMIDI(notes,"Play Chord");
+                }
+                else
+                {
+                    return toMIDI(notes,"Listen");
+                }
             }
         }
 
