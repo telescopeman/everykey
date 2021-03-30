@@ -354,6 +354,7 @@ public class VirtualPiano extends ModBox {
         apply();
         hide();
         ui.storeFilters();
+        //ui.storeStatuses();
 
     }
 

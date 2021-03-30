@@ -26,7 +26,7 @@ public class UIStuff
     JScrollPane outer;
     //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
     Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    boolean[] filterStatuses = new boolean[]{true};
+    boolean[] filterStatuses = new boolean[]{};
 
     private HashMap<Boolean,String> enableText;
 
@@ -40,6 +40,8 @@ public class UIStuff
     MathHelper myUtility;
 
     private int globalTempo = 140;
+    
+    private int neutralpoint = 300; //dorian
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
 
@@ -90,11 +92,21 @@ public class UIStuff
         refresh();
     }
     
+    public int getNeutral()
+    {
+        return neutralpoint;
+    }
+    
+    public void setNeutral(int i)
+    {
+        neutralpoint = i;
+    }
+    
     public void storeFilters()
     {
         storedFilters = Arrays.copyOf(curFilters,curFilters.length);
         //curFilters = new Filter[]{};
-        storedFilterStatuses = filterStatuses;
+        storedFilterStatuses = Arrays.copyOf(filterStatuses,filterStatuses.length);
         refresh();
     }
     
@@ -197,7 +209,7 @@ public class UIStuff
                 {
                     temp = ArrayHelper.addX(temp,c);
                 }
-                Arrays.sort(temp, new StrangeCompare());
+                Arrays.sort(temp, new StrangeCompare(neutralpoint));
                 int i = 0;
                 //result = list
                 for(int d : temp)
@@ -262,7 +274,7 @@ public class UIStuff
         JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates;
         //JMenuItem filterctrls = JMenuItem
         JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
-        JMenuItem s1,s2,s3,s4;
+        JMenuItem s1,s2,s3,s4,neu;
         JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
@@ -271,7 +283,7 @@ public class UIStuff
         audio=new JMenu("Audio Options");
 
         sortops=new JMenu("Change Sorting Order");  
-
+        neu=new JMenuItem("Change Neutral Point");  
         
         s1=new JMenuItem(SORT1);  
         s2=new JMenuItem(SORT2);  
@@ -282,6 +294,7 @@ public class UIStuff
         s2.addActionListener(new ModActor(this,"setSortStyle",SORT2));
         s3.addActionListener(new ModActor(this,"setSortStyle",SORT3));
         s4.addActionListener(new ModActor(this,"setSortStyle",SORT4));
+        neu.addActionListener(new StrangeBox(this));
 
         viewfilters=new JMenu("View/Toggle Active Filters");  
         addfilter=new JMenu("Add New Filter"); 
@@ -315,6 +328,7 @@ public class UIStuff
         livemaker.addActionListener(ModBox.buildVirtualPiano(this)); //not working?
 
         viewops.add(sortops);
+        viewops.add(neu);
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
         filtermenu.add(removefilters); filtermenu.add(ftemplates);
         filtermenu.add(livemaker);
@@ -347,6 +361,10 @@ public class UIStuff
         viewfilters.removeAll();
         removefilters.removeAll();
         int counter = 0;
+        while (filterStatuses.length < flist.length)
+        {
+            filterStatuses = ArrayHelper.addX(filterStatuses,true);
+        }
 
         for (Filter f : flist)
         {

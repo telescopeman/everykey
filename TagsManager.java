@@ -22,7 +22,8 @@ public class TagsManager
         {"Modes of the Harmonic Major","Deeper Jazz Scales"},
         {"Modes of Major ♭2","Deeper Jazz Scales","World Scales"},
         {"Modes of Major ♭5","Deeper Jazz Scales","World Scales"},
-        {"World Scales"}
+        {"World Scales"},
+        {"Modes of Altered Harmonic Major","Deeper Jazz Scales"}
         
     };
 

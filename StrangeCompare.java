@@ -8,9 +8,8 @@ import java.util.Comparator;
 public class StrangeCompare implements Comparator<Integer>
 {
     // instance variables - replace the example below with your own
-    private int x;
 
-    final int DORIAN = 300;
+    int neutralpoint = 300;
     
     /**
      * Constructor for objects of class StrangeCompare
@@ -18,7 +17,16 @@ public class StrangeCompare implements Comparator<Integer>
     public StrangeCompare()
     {
         // initialise instance variables
-        x = 0;
+        neutralpoint = 300;
+    }
+    
+    /**
+     * Constructor for objects of class StrangeCompare
+     */
+    public StrangeCompare(int pt)
+    {
+        // initialise instance variables
+        neutralpoint = pt;
     }
 
     /**
@@ -36,7 +44,7 @@ public class StrangeCompare implements Comparator<Integer>
 
     private int getStrangeness(Integer i)
     {
-        return Math.abs(i-DORIAN);
+        return Math.abs(i-neutralpoint);
         
     }
 }

@@ -124,7 +124,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D♭, E♭, E, G, A♭, and B.", "Phrygian ♭4 [Third mode of Harmonic Major]"); 
         addScale("C, D, E♭, G♭, G, A, and B.", "Lydian ♭3 [Fourth mode of Harmonic Major]"); 
         addScale("C, D♭, E, F, G, A, and B♭.", "Mixolydian ♭2 [Fifth mode of Harmonic Major]"); 
-        addScale("C, E♭, E, G♭, A♭, A, and B.", "Lydian Augmented ♯6 [Sixth mode of Harmonic Major]"); 
+        addScale("C, E♭, E, G♭, A♭, A♭, and B.", "Lydian Augmented ♯6 [Sixth mode of Harmonic Major]"); 
         addScale("C, D♭, E♭, F, G♭, A♭, and A.", "Locrian ♭♭7 [Seventh mode of Harmonic Major]");
 
         group = 9; // ionian flat 2 + world + jazz
@@ -154,9 +154,14 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D, E♭, G♭, G, B♭, and B.", "Lydian ♭3, ♯6");
         //addScale("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
 
-        
-        
-        
+        group = 12; //deep jazz, altered hmajor
+        addScale("C, D♭, E♭, E, G♭, G, and B♭.", "Altered Harmonic Major"); // the modes of harmonic major
+        addScale("C, D, E♭, F, G♭, A, and B.", "Jeths's Mode / Melodic Minor ♭5 [Second mode of Altered Harmonic Major]"); // the modes of melodic minor
+        addScale("C, D♭, E♭, E, G, A, and B♭.", "Super Dorian ♭2 [Third mode of Altered Harmonic Major]");
+        addScale("C, D, E♭, G♭, A♭, A, and B.", "Lydian Augmented-Diminished [Fourth mode of Altered Harmonic Major]");
+        addScale("C, D♭, E, G♭, G, A, and B♭.", "Lydian Dominant ♭2 [Fifth mode of Altered Harmonic Major]"); 
+        addScale("C, E♭, F, G♭, A♭, A, and B.", "Super Lydian [Sixth mode of Altered Harmonic Major]"); 
+        addScale("C, D, E♭, E, G♭, A♭, and A.", "Moravian Pistalkova / Hungarian Major Inverse [Seventh mode of Altered Harmonic Major]"); 
         //addScale("C, D♭, E♭, G♭, G, A♭, and B♭.", "Black Keys + Perfect Fifth"); //Fun keys I made up
         //addScale("C, D♭, E, F, G♭, G, and B♭.", "\"The Becoming\" Scale");
 
@@ -178,7 +183,7 @@ public class KeyNamesHelper extends TheoryObj
         }
         if (!(stringKeys.get(notes) == null))
         {
-            System.out.println("Error! Dupes @" + notes);
+            System.out.println("Error! Dupes @" + notes + name);
         }
         stringKeys.put(notes,name + getTags(group));
     }
