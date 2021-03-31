@@ -5,8 +5,8 @@ import java.awt.*;
 /**
  * Provides a view of the chords of a scale.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
+ * @version 3/31/21
  */
 public class ChordViewer extends EasyFrame
 {
@@ -85,34 +85,14 @@ public class ChordViewer extends EasyFrame
         return seq;
     }
 
-    private static String formatAscending(int[] sequence)
-    {
-        int[] seq = makeAscending(sequence);
-        int[] ups = new int[]{0,0,0};
-
-        String str = "(";
-        for(int i = 0; i < 3; i++)
-        {
-            str += MyChord.getNoteName(seq[i]);
-            str += String.valueOf(5 + ups[i]);
-            if (i < 2)
-            {
-                str += "+";
-            }
-        }
-        str += ")w";
-        System.out.println("CHORD=" + str);
-        return str;
-
-    }
+    
     
     
     /**
      * Converts a whole number to its equivalent in Roman numerals.
-     * @author User1752197 on StackOverflow, Caleb Copeland
+     * 
      * @param input The number to be converted.
      * @since October 19, 2012
-     * @version 3/28/21
      * @returns The Roman numeral in text.
      */
     public static String convertToRoman(int input) {
