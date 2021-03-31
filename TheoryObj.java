@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class TheoryObj here.
+ * An object capable of using music theory.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/31/21
  */
 public abstract class TheoryObj
 {

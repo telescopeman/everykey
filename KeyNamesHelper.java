@@ -14,7 +14,6 @@ public class KeyNamesHelper extends TheoryObj
 
     private int group;
 
-    static HashMap<int[],String> commonKeys;
     static HashMap<String,String> stringKeys;
     String lastKey;
     /**

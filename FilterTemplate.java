@@ -1,9 +1,9 @@
 
 /**
- * Write a description of class FilterTemplate here.
+ * Represents a template of a filter list with a name and a group of filters.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/31/21
  */
 public class FilterTemplate
 {
@@ -11,8 +11,9 @@ public class FilterTemplate
     private Filter[] filters;
     private String name;
     
+    
     /**
-     * Constructor for objects of class FilterTemplate
+     * Creates a FilterTemplate with a name and a filterbank.
      */
     public FilterTemplate(String n, Filter[] f)
     {
@@ -22,13 +23,19 @@ public class FilterTemplate
     }
 
     
-
+    /**
+     * Gets the filters from the template.
+     */
     public Filter[] getFilters()
     {
         // put your code here
         return filters;
     }
     
+    
+    /**
+     * Gets the name of the template.
+     */
     public String getName()
     {
         // put your code here

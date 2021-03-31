@@ -18,7 +18,7 @@ public class MyChord extends TheoryObj
     private final int LOOP = 7;
     private int keyOffset;
     /**
-     * Constructor for objects of class Chord
+     * Creates a chord with the given notes.
      */
     public MyChord(int one, int two, int three)
     {
@@ -32,20 +32,20 @@ public class MyChord extends TheoryObj
         sort();
     }
 
-    /**
-     * Constructor for objects of class Chord
-     */
-    public MyChord(int one, int two, int three,int[] others)
-    {
-        // initialise instance variables
-        root = one;
-        third = two;
-        fifth = three;
-        permRoot = root;
-        extensions = others;
-        keyOffset = 0;
-        sort();
-    }
+    // /**
+     // * Constructor for objects of class Chord
+     // */
+    // public MyChord(int one, int two, int three,int[] others)
+    // {
+        // // initialise instance variables
+        // root = one;
+        // third = two;
+        // fifth = three;
+        // permRoot = root;
+        // extensions = others;
+        // keyOffset = 0;
+        // sort();
+    // }
     
     
 
@@ -63,6 +63,8 @@ public class MyChord extends TheoryObj
 
     }
 
+    
+    
     private void invert()
     {
         int temp = root;
@@ -71,6 +73,9 @@ public class MyChord extends TheoryObj
         fifth = temp;
     }
 
+    /**
+     * Returns the name of the chord.
+     */
     public String toString()
     {
 
@@ -103,7 +108,7 @@ public class MyChord extends TheoryObj
         //return "Test";
     }
 
-    public String getFifthType()
+    private String getFifthType()
     {
         String fifthname = "";
         int fifthint = fifth - root;
@@ -136,7 +141,7 @@ public class MyChord extends TheoryObj
 
     }
 
-    public String getThirdType()
+    private String getThirdType()
     {
         String thirdname = "";
         int thirdinterval = third - root;
@@ -166,6 +171,9 @@ public class MyChord extends TheoryObj
         return thirdname;
     }
 
+    /**
+     * Gets the color that represents the chord.
+     */
     public Color toColor()
     {
         System.out.println(getFifthType() + " " + getThirdType());
@@ -213,6 +221,10 @@ public class MyChord extends TheoryObj
        
     }
 
+    
+    /**
+     * Makes a color slightly less vibrant.
+     */
     public Color soften(Color c)
     {
         float r = c.getRed()/255;
@@ -223,6 +235,9 @@ public class MyChord extends TheoryObj
         return new Color(m*r,m*g,m*b);
     }
 
+    /**
+     * Returns the notes of the chord, formatted.
+     */
     public String getNotes()
     {
         return getNoteName(root) + " + " + getNoteName(third) + " + " + getNoteName(fifth);

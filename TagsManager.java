@@ -1,16 +1,18 @@
 
 /**
- * Write a description of class Tag here.
+ * Manages the tags of scales.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class TagsManager
 {
     // instance variables - replace the example below with your own
     
-    
-    public static String[][] tagsOrdered = new String[][]{
+    /**
+     * The tags.
+     */
+    public static final String[][] tagsOrdered = new String[][]{
         {"Modes of Major"},
         {"Modes of Harmonic Minor","Jazz Scales"},
         {"Modes of Melodic Minor","Jazz Scales"},
@@ -28,20 +30,17 @@ public class TagsManager
     };
 
     /**
-     * Constructor for objects of class Tag
+     * Gets the tags of a group of scales at a certain index.
      */
-    public TagsManager()
-    {
-        // initialise instance variables
-        
-    }
-    
     public static String[] getTagGroup(int index)
     {
         return tagsOrdered[index];
         
     }
     
+    /**
+     * Gets a list of every unique tag.
+     */
     public static String[] getAllTags()
     {
         String[] result = new String[]{};
@@ -68,6 +67,9 @@ public class TagsManager
         return result;
     }
     
+    /**
+     * Formats a tag to have curly brackets around it so that it can be properly parsed by other parts of the program.
+     */
     public static String curl(String[] tagGroup)
     {
         String f = "";

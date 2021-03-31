@@ -1,6 +1,6 @@
 import java.util.HashMap;
 /**
- * Write a description of class EnharmonicsHelper here.
+ * Class that helps with enharmonics.
  *
  * @author (your name)
  * @version (a version number or a date)
@@ -10,9 +10,9 @@ public class EnharmonicsHelper
     // instance variables - replace the example below with your own
     private int x;
     
-    static HashMap<String,String> enharmonics;
+    private static HashMap<String,String> enharmonics;
     /**
-     * Constructor for objects of class EnharmonicsHelper
+     * Sets up the class.
      */
     public EnharmonicsHelper()
     {
@@ -36,6 +36,10 @@ public class EnharmonicsHelper
         
     }
 
+    
+    /**
+     * Gets the enharmonic equivalent of a given note.
+     */
     public String getEnharmonic(String note)
     {
         String name = enharmonics.get(note);
