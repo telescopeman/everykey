@@ -1,23 +1,19 @@
-import java.util.HashMap;
 
 /**
- * Handles creation of the huge list of scales,
+ * Handles creation of the huge list of scales.
  *
  * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class MathHelper extends TheoryObj
 {
-    // instance variables - replace the example below with your own
+    
     private static int[][] abstractList;
     
-    private static int[][] trysomething;
     
-    //private static int[] lastKey;
     private static final int[] initKey = new int[]{1,1,1,1,1,1,1};
     private static int counter;
 
-    //private static HashMap<Integer,String> noteNames;
 
     private final static boolean debugMode = false;
     
@@ -31,23 +27,13 @@ public class MathHelper extends TheoryObj
      */
     public static int[][] getAllKeys()
     {
-        // if (counter > 3)
-        // {
-            // return abstractList;
-        // }
+        
         abstractList = new int[462][7];
-        //trysomething = new int[210][7];
-        // initialise instance variables
+        
         counter = 0;
 
-        int n = 0;
-        //lastKey = new int[]{0,0,0,0,0,0,0}; //creates prime key
-
-        //sanityCheck();
-        
         makeKey(initKey,1);
         
-        //sanityCheck();
         
         return abstractList;
 
@@ -58,7 +44,6 @@ public class MathHelper extends TheoryObj
         if (debugMode)
         {
             System.out.println(str);
-
         }
     }
 
@@ -68,8 +53,6 @@ public class MathHelper extends TheoryObj
     {
         abstractList[i] = k;
 
-        //printlnDebug("Key #" + i + " set to " + expand(abstractList[i],false));
-        
     }
 
       

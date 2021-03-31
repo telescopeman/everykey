@@ -1,9 +1,8 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.*;
-import java.awt.*; 
+import javax.swing.JSlider;
+import javax.swing.BorderFactory;
+import java.awt.Font;
 
 /**
  * Box that allows for change of the tempo.
@@ -53,17 +52,7 @@ public class SliderBox extends ModBox
     public SliderBox(UIStuff uiref)
     {
         super(uiref);// initialise instance variables
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        //x = 0;
         
-        //addHeader("Change Note Speed:");
-        //System.out.println("cns");
-        
-        //setUpSlider(PlayerWatcher.getTempo(),50f,500f);
-        //add(slider);
-
-        //addButton("Test",playr);
     }
 
     public void setUpSlider(float init, float mn, float mx)
@@ -97,17 +86,6 @@ public class SliderBox extends ModBox
     public void softUpdate(float d)
     {
         //PlayerWatcher.setTempo(d);
-    }
-
-    /**
-     * Appear.
-     */
-    public void actionPerformed(ActionEvent e)
-    {
-        String id = e.getActionCommand();
-        act(id);
-        
-
     }
     
     public void act(String id)

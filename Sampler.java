@@ -1,19 +1,14 @@
-import java.awt.event.ActionListener;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-
 /**
- * Write a description of class Sampler here.
+ * Samples random notes and all chords from a scale to give a feel for its sound.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 3/31/21
  */
 public class Sampler extends EasyFrame
 {
-    // instance variables - replace the example below with your own
+    
     private int[] myScale;
     private String name;
-    private final Dimension STANDARD = new Dimension(350,100);
     MusicHelper mus;
     
     /**
@@ -21,7 +16,7 @@ public class Sampler extends EasyFrame
      */
     public Sampler(int[] scale, String n)
     {
-        // initialise instance variables
+        
         setTitle("Random Sampler");
         int ind = getEnclosers(n,"()")[0];
         
@@ -49,7 +44,7 @@ public class Sampler extends EasyFrame
         myScale = scale;
     }
 
-    public void actionPerformed(ActionEvent e)
+    public void act(String id)
     {
         clear();
         appear(STANDARD);

@@ -1,8 +1,3 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.*;
-import java.awt.*; 
-import java.util.Arrays;
 /**
  * Represents a dialog box that will modify the main class through user input.
  *
@@ -17,8 +12,6 @@ public abstract class ModBox extends EasyFrame
      */
     public UIStuff ui;
     
-    private final Dimension STANDARD = new Dimension(350,100);
-    public final Dimension SUPERSTANDARD = new Dimension(550,150);
     ArrayHelper arr;
     
     public final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
@@ -30,7 +23,7 @@ public abstract class ModBox extends EasyFrame
         // initialise instance variables
         ui = uiref;
         arr = new ArrayHelper();
-        setLayout(new GridLayout(3,1));
+        setGrid(3,1);
     }
     
     /**
@@ -63,30 +56,6 @@ public abstract class ModBox extends EasyFrame
         
     }
     
-    // /**
-     // * Gets a child of ModBox.
-     // */
-    // private ModBox makeModBox(String type)
-    // {
-        // switch (type)
-        // {
-            // case "FilterCreator":
-                // return new FilterCreator(this);
-            // case "AudioSpeed":
-                // return new SettingsBox(this);
-            // default:
-                // return new FilterCreator(this);
-        // }
-    // }
-
-    
-    
-    
-    public void actionPerformed(ActionEvent e)
-    {
-        clear();
-        appear(STANDARD);
-    }
     
     
     

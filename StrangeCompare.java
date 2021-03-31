@@ -1,39 +1,32 @@
 import java.util.Comparator;
 /**
- * Compares two scale indexes by their distances to Dorian.
+ * Compares two scale indexes by their distances to a neutral point.
  *
  * @author Caleb Copeland
  * @version 3/28/21
  */
 public class StrangeCompare implements Comparator<Integer>
 {
-    // instance variables - replace the example below with your own
-
-    int neutralpoint = 300;
+    private int neutralpoint = 300;
     
     /**
-     * Constructor for objects of class StrangeCompare
+     * Constructs a comparator that compares keys based on their distance to Dorian.
      */
     public StrangeCompare()
     {
-        // initialise instance variables
-        neutralpoint = 300;
+        neutralpoint = 300; // 300 = Dorian
     }
     
     /**
-     * Constructor for objects of class StrangeCompare
+     * Constructs a comparator that compares keys based on their distance to a chosen key index.
      */
     public StrangeCompare(int pt)
     {
-        // initialise instance variables
         neutralpoint = pt;
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * Compares two key indexes.
      */
     public int compare(Integer o1, Integer o2)
     {

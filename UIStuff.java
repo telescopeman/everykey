@@ -1,12 +1,9 @@
 import java.util.Arrays;
-import java.util.ArrayList;
 import javax.swing.*;
 import java.awt.*; 
 import javax.swing.BoxLayout;
-import java.awt.event.ActionListener;
 
 import java.util.HashMap;
-import java.awt.event.ActionEvent;
 
 /**
  * Controls the UI and most other high-level functions.
@@ -16,48 +13,51 @@ import java.awt.event.ActionEvent;
  */
 public class UIStuff
 {
-    // instance variables - replace the example below with your own
-    int[][] masterList;
-    EasyFrame mainWindow;
+    private int[][] masterList;
+    private EasyFrame mainWindow;
 
-    static boolean debugMode = false;
+    private static boolean debugMode = false;
 
-    JPanel inner;
-    JScrollPane outer;
-    //Filter[] defaultFilters = new Filter[]{new Filter(8,4),new Filter(new int[]{4,5},2)}; //perfect fifth to the root
-    Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    boolean[] filterStatuses = new boolean[]{};
+    private JPanel inner;
+    private JScrollPane outer;
+    
 
     private HashMap<Boolean,String> enableText;
 
-    JMenu viewfilters, removefilters;
+    private JMenu viewfilters, removefilters;
 
+    private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
+    private boolean[] filterStatuses = new boolean[]{};
     public Filter[] curFilters = defaultFilters;
+    private Filter[] storedFilters;
+    private boolean[] storedFilterStatuses;
     
-    Filter[] storedFilters;
-    boolean[] storedFilterStatuses;
-
-    MathHelper myUtility;
-
-    //private int globalTempo = 140;
-    
-    private int neutralpoint = 300; //dorian
+    private int neutralpoint = 300; // 300 =dorian
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
 
     private String sortStyle;
-
-    final String SORT1 = "Brightness (Ascending)";
-    final String SORT2 = "Brightness (Descending)";
-    final String SORT3 = "Strangeness (Ascending)";
-    final String SORT4 = "Strangeness (Descending)";
-    int[][] curList;
-    int[] absoluteList;
+    private final String SORT1 = "Brightness (Ascending)";
+    private final String SORT2 = "Brightness (Descending)";
+    private final String SORT3 = "Strangeness (Ascending)";
+    private final String SORT4 = "Strangeness (Descending)";
+    
+    private int[][] curList;
+    private int[] absoluteList;
+    
+    /**
+     * Runs the main program.
+     */
+    public static void main(String[] args)
+    {
+        UIStuff ui = new UIStuff();
+    }
+    
     public UIStuff()
     {
-        myUtility = new MathHelper();
+        //MathHelper myUtility = new MathHelper();
         //setTempo(globalTempo);
-        masterList = myUtility.getAllKeys();
+        masterList = MathHelper.getAllKeys();
         sortStyle = SORT3;
         setupEnableText();
         oneTimeSetup();
@@ -136,6 +136,13 @@ public class UIStuff
         filterStatuses = newThings;
     }
 
+    /**
+     * Sets the statuses of the filters.
+     */
+    public boolean[] getFilterStatuses()
+    {
+        return filterStatuses;
+    }
     
     /**
      * Refreshes the view with any updated information about filters and sorting.

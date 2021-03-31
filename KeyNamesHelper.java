@@ -3,14 +3,10 @@ import java.util.HashMap;
  * Class that helps access names of common keys.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 3/31/21
  */
 public class KeyNamesHelper extends TheoryObj
 {
-    // instance varia♭les - replace the example ♭elow with your own
-    private final int[] majorKey = {1,3,5,6,8,10,12};
-    private final int[] minorKey = {1,3,4,6,8,9,11};
-    private final int[] lydian = {1,3,5,7,8,10,12};
 
     private int group;
 

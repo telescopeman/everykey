@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import java.awt.GridLayout; 
 import java.awt.Dimension;
 
 /**
@@ -26,7 +25,7 @@ public class ChordViewer extends EasyFrame
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(new Dimension(900, 150));
         setResizable(false);
-        setLayout(new GridLayout(3, 7));
+        setGrid(3, 7);
         myKey= k;
 
     }
@@ -35,7 +34,7 @@ public class ChordViewer extends EasyFrame
     {
         int index = ind - 1;
         final int LOOP = 7;
-        System.out.print(ind + "-->");
+        //System.out.print(ind + "-->");
         if (index > LOOP)
         {
             return(new MyChord(0,0,0));
@@ -137,7 +136,7 @@ public class ChordViewer extends EasyFrame
         return s;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void act(String id) {
         clear();
 
         
@@ -164,7 +163,7 @@ public class ChordViewer extends EasyFrame
             //MyChord aChord = getChordAt(myKey,i);
             int[] noteSequence = MyChord.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
-            System.out.println(seq);
+            //System.out.println(seq);
 
             JButton jb3 = new JButton("Play Chord");    
             

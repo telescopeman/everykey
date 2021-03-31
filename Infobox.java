@@ -1,9 +1,5 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import javax.swing.JLabel;
-import java.awt.GridLayout;
-import javax.swing.JPanel;
 
 /**
  * Displays info about the intervals of a scale.
@@ -146,19 +142,18 @@ public class Infobox extends EasyFrame
         
     }
     
-    public void actionPerformed(ActionEvent e)
+    public void act(String id)
     {
         clear();
         appear(MYDIM);
         addHeader(myName + ": " + myType);
-        setLayout(new GridLayout(getText(intervals).length + 1,1));
+        setGrid(getText(intervals).length + 1,1);
         for (String lab : getText(intervals))
         {
             JLabel l = new JLabel(lab);
             l.setHorizontalAlignment(JLabel.CENTER);
             add(l);
         }
-        
         
     }
 }

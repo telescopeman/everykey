@@ -12,13 +12,8 @@ import java.awt.event.ActionEvent;
 public class EasyFrame extends JFrame implements ActionListener
 {
     // instance variables - replace the example below with your own
-    private int x;
-    
-    public void actionPerformed(ActionEvent e)
-    {
-        
-        
-    }
+    public final Dimension STANDARD = new Dimension(350,100);
+    public final Dimension SUPERSTANDARD = new Dimension(550,150);
 
     /**
      * Constructor for objects of class EasyFrame
@@ -26,17 +21,17 @@ public class EasyFrame extends JFrame implements ActionListener
     public EasyFrame()
     {
         // initialise instance variables
-        
+
     }
-    
+
     public void addHeader(String text)
     {
         JLabel title = new JLabel(text,JLabel.CENTER);
         title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
         add(title);
-        
+
     }
-    
+
     public EasyFrame(String name)
     {
         // initialise instance variables
@@ -49,30 +44,39 @@ public class EasyFrame extends JFrame implements ActionListener
         jb3.addActionListener(trig);
         add(jb3);
     }
-    
+
     /**
      * Generates a Dimension with the given size.
      */
     public Dimension getDim(int x, int y)
     {
         return new Dimension(x,y);
-        
+
     }
-    
+
+    // public GridLayout getGrid(int x, int y)
+    // {
+    // return new GridLayout(x,y);
+    // }
+
+    public void setGrid(int x, int y)
+    {
+        setLayout(new GridLayout(x,y));
+    }
+
     public void appear()
     {
         show();
         requestFocusInWindow();
     }
-    
+
     public void appear(Dimension dim)
     {
         show();
         requestFocusInWindow();
         setSize(dim);
     }
-    
-    
+
     
     public int[] getEnclosers(String str, String special)
     {
@@ -85,24 +89,34 @@ public class EasyFrame extends JFrame implements ActionListener
         return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
 
     }
-    
+
     // /**
-     // * Sets the size of the frame.
-     // */
+    // * Sets the size of the frame.
+    // */
     // public void setSize(int x, int y)
     // {
-        // setSize(new Dimension(x,y));    
+    // setSize(new Dimension(x,y));    
     // }
-    
+
     public void add(String str)
     {
         add(new JLabel(str));
-        
+
     }
-    
+
     public void clear()
     {
         // put your code here
         getContentPane().removeAll();
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        act(e.getActionCommand());
+    }
+
+    public void act(String id)
+    {
+
     }
 }

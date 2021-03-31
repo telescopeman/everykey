@@ -1,7 +1,12 @@
-import javax.swing.*;
+
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.event.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+
+import javax.swing.*;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -54,7 +59,7 @@ public class VirtualPiano extends ModBox {
         pressedKeys = new int[7];
         index = 0;
         setResizable(false);
-        setSize(new Dimension(14*width,3 * height / 2));
+        setSize(getDim(14*width,3 * height / 2));
         isRecording = false;
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
@@ -77,6 +82,8 @@ public class VirtualPiano extends ModBox {
         int width2 = width * 16 / 20;
         int height2 = height * 80 / 120;
 
+        
+        
         class PlayAction extends AbstractAction {
             private int pitch;
             private JButton bu;
@@ -389,8 +396,8 @@ public class VirtualPiano extends ModBox {
         return new Filter(keys);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand())
+    public void act(String id) {
+        switch (id)
         {
             case startrec:
             {
