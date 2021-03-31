@@ -1,6 +1,7 @@
 
 /**
- * Assures consistency between audio clips: Makes sure two audio clips don't play at once, keeps tempo, etc.
+ * Assures consistency between audio clips.
+ * Makes sure two audio clips don't play at once, keeps tempo, etc.
  *
  * @author Caleb Copeland
  * @version 3/31/21
@@ -13,18 +14,12 @@ public class PlayerWatcher
     static private float tempo = 140.0f;
     
     
-    // public static boolean getStatus()
-    // {
-        // return isPlaying;
-    // }
-    
     /**
      * Sets the tempo.
      */
     public static void setTempo(float t)
     {
         tempo = t;
-        //System.out.println("PWSET" + t);
     }
     
     /**
@@ -40,27 +35,19 @@ public class PlayerWatcher
         isPlaying = isOn;
     }
 
-    public static void requestControl(MusicHelper src)
+    public static void requestControl(MusicHelper src) throws javax.sound.midi.MidiUnavailableException
     {
-        //System.out.println("req");
         if (curPlayer != null)
         {
             curPlayer.stop();
         }
-        curPlayer = src;
-        System.out.println(src);
-        try
-        {
-            curPlayer.setTempo(tempo);
-        }
-        catch (javax.sound.midi.MidiUnavailableException mue)
-        {
-            mue.printStackTrace();
-            System.out.println("Err");
-        }
+        updatePlayer(src);
+        //System.out.println(src);
+        curPlayer.setTempo(tempo);
+        
     }
     
-    public static void updatePlayer(MusicHelper m)
+    private static void updatePlayer(MusicHelper m)
     {
         curPlayer = m;
     }

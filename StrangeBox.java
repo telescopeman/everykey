@@ -5,7 +5,7 @@ import javax.swing.JLabel;
  * Allows for changing the neutral point for strangeness measurements.
  *
  * @author Caleb Copeland
- * @version 3/28/21
+ * @version 3/31/21
  */
 public class StrangeBox extends SliderBox
 {
@@ -24,6 +24,15 @@ public class StrangeBox extends SliderBox
         addHeader("Change Neutral Point for Strangeness Sorting:");
         setUpSlider(ui.getNeutral(),MIN,MAX);
             
+        addLabels();
+        
+        add(slider);
+
+        addButton("Apply",this);
+    }
+    
+    private void addLabels()
+    {
         Hashtable labelTable = new Hashtable();
         labelTable.put( new Integer(041), new JLabel("Aerygian") );
         labelTable.put( new Integer(111), new JLabel("Ultra Phrygian ♭♭3") );
@@ -31,34 +40,20 @@ public class StrangeBox extends SliderBox
         labelTable.put( new Integer(224), new JLabel("Enigmatic Scale") );
         labelTable.put( new Integer(300), new JLabel("Dorian") );
         labelTable.put( new Integer(336), new JLabel("Major") );
-
         labelTable.put( new Integer(364), new JLabel("Nohkan") );
         labelTable.put( new Integer(420), new JLabel("Super Lydian") );
-        //labelTable.put( new Integer( FPS_MAX ), new JLabel("Fast") );
         slider.setLabelTable( labelTable );
-
-    
-        
-
-        add(slider);
-
-        addButton("Apply",this);
     }
 
     public void update(float d)
     {
         ui.setNeutral((int)d);
-        //System.out.println("GO" + d);
     }
-
-    
     
     public void act(String id)
     {
         if (id.equals("Change Neutral Point"))
         {
-
-            
             appear(getDim(900,250));
 
         }

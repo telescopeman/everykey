@@ -2,12 +2,11 @@ import java.util.Arrays;
 /**
  * Array methods.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class ArrayHelper
 {
-    // instance variables - replace the example below with your own
     
 
     public static String[] addX(String[] list, String x)

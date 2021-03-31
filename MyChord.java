@@ -1,9 +1,8 @@
-
 import java.awt.Color;
 /**
  * Represents a chord.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class MyChord extends TheoryObj
@@ -32,20 +31,7 @@ public class MyChord extends TheoryObj
         sort();
     }
 
-    // /**
-     // * Constructor for objects of class Chord
-     // */
-    // public MyChord(int one, int two, int three,int[] others)
-    // {
-        // // initialise instance variables
-        // root = one;
-        // third = two;
-        // fifth = three;
-        // permRoot = root;
-        // extensions = others;
-        // keyOffset = 0;
-        // sort();
-    // }
+    
     
     
 
@@ -172,7 +158,7 @@ public class MyChord extends TheoryObj
     }
 
     /**
-     * Gets the color that represents the chord.
+     * Gets a color representing the chord.
      */
     public Color toColor()
     {
@@ -225,7 +211,7 @@ public class MyChord extends TheoryObj
     /**
      * Makes a color slightly less vibrant.
      */
-    public Color soften(Color c)
+    public static Color soften(Color c)
     {
         float r = c.getRed()/255;
         float g = c.getGreen()/255;

@@ -3,7 +3,7 @@
  * Box that allows for change of the global tempo.
  *
  * @author Caleb Copeland
- * @version 3/28/21
+ * @version 3/31/21
  */
 public class TempoBox extends SliderBox
 {
@@ -13,7 +13,7 @@ public class TempoBox extends SliderBox
     private MusicHelper playr;
 
     /**
-     * Creates a box bound to a certain UI.
+     * Creates the TempoBox.
      */
     public TempoBox(UIStuff uiref)
     {

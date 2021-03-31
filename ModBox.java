@@ -12,9 +12,9 @@ public abstract class ModBox extends EasyFrame
      */
     public UIStuff ui;
     
-    ArrayHelper arr;
     
-    public final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
+    
+    
     /**
      * Constructor for objects of class ModBox
      */
@@ -22,7 +22,7 @@ public abstract class ModBox extends EasyFrame
     {
         // initialise instance variables
         ui = uiref;
-        arr = new ArrayHelper();
+        //arr = new ArrayHelper();
         setGrid(3,1);
     }
     
@@ -33,7 +33,7 @@ public abstract class ModBox extends EasyFrame
     {
         // initialise instance variables
         ui = uiref;
-        arr = new ArrayHelper();
+        //arr = new ArrayHelper();
         
     }
     

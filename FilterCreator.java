@@ -11,14 +11,16 @@ import javax.swing.JLabel;
 public class FilterCreator extends ModBox
 {
     // instance variables - replace the example below with your own
-    String type;
-    JComboBox list1;
-    JComboBox list2;
-    JMenu listSub;
-    JCheckBox tickBox;
+    private String type;
+    private JComboBox list1;
+    private JComboBox list2;
+    private JMenu listSub;
+    private JCheckBox tickBox;
 
-    Filter[] myFilters;
-    boolean[] setList;
+    private Filter[] myFilters;
+    private boolean[] setList;
+    
+    private final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
 
     /**
      * Constructor for objects of class FilterCreator
@@ -279,9 +281,9 @@ public class FilterCreator extends ModBox
             {
                 String o1 = list1.getSelectedItem().toString();
                 String o2 = list2.getSelectedItem().toString();
-                Filter[] tempList = arr.addX(myFilters,constructFilter(o1,o2));
+                Filter[] tempList = ArrayHelper.addX(myFilters,constructFilter(o1,o2));
 
-                boolean[] tempList2 = arr.addX(setList,true);
+                boolean[] tempList2 = ArrayHelper.addX(setList,true);
 
                 ui.setFilterStatuses(tempList2);
                 //System.out.println("SUPER: " + super.toString());
