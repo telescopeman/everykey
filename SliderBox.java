@@ -26,12 +26,19 @@ public class SliderBox extends ModBox
      */
     class SliderListener implements ChangeListener {
         private JSlider sl;
+        /**
+         * Creates a new SliderListener assigned to a JSlider.
+         * @param s The slider that will be watched for change.
+         */
         public SliderListener(JSlider s)
         {
             sl = s;
 
         }
 
+        /**
+         * Updates a variable and calls a method indicating a change has taken place.
+         */
         public void stateChanged(ChangeEvent e) {
             sliderpos = (int)sl.getValue();
             softUpdate(sl.getValue());
