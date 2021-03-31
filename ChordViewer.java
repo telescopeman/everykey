@@ -46,22 +46,6 @@ public class ChordViewer extends EasyFrame
 
     }
 
-    private static int[] getRawChordAt(int[] key, int ind)
-    {
-        int index = ind - 1;
-        final int LOOP = 7;
-        System.out.print(ind + "-->");
-        if (index > LOOP)
-        {
-            return new int[]{};
-        }
-
-        //return "Test Chord";
-        //System.out.println(String.valueOf(index) + String.valueOf((index + 2) % LOOP) + String.valueOf((index + 4) % LOOP) + "-->" + key[index] + key[(index + 2) % LOOP] + key[(index + 4) % LOOP]);
-        return new int[]{key[index], key[(index + 2) % 7],key[(index + 4) % 7]};
-
-    }
-
     private static int[] makeAscending(int[] sequence)
     {
         int[] seq = sequence;
@@ -179,7 +163,8 @@ public class ChordViewer extends EasyFrame
 
         for (int i = 1; i < 8; i++) //listen button
         {
-            int[] noteSequence = getRawChordAt(myKey,i);
+            //MyChord aChord = getChordAt(myKey,i);
+            int[] noteSequence = MyChord.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
             System.out.println(seq);
 

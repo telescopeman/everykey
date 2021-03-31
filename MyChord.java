@@ -243,5 +243,7 @@ public class MyChord extends TheoryObj
         return getNoteName(root) + " + " + getNoteName(third) + " + " + getNoteName(fifth);
 
     }
+    
+    
 
 }

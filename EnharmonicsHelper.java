@@ -2,15 +2,15 @@ import java.util.HashMap;
 /**
  * Class that helps with enharmonics.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class EnharmonicsHelper
 {
-    // instance variables - replace the example below with your own
-    private int x;
     
     private static HashMap<String,String> enharmonics;
+    
+    
     /**
      * Sets up the class.
      */

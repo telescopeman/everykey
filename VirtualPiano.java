@@ -35,13 +35,9 @@ public class VirtualPiano extends ModBox {
 
     int[] pressedKeys;
 
-    Filter[] storedFilters;
-    boolean storedStatuses;
-
     MidiChannel channel;
     JLayeredPane panel;
     private boolean isRecording = false;
-    private boolean everRecorded = false;
     private boolean lastSet = false;
     private int lastPitch;
     final int width = 60;
@@ -49,14 +45,14 @@ public class VirtualPiano extends ModBox {
 
     public VirtualPiano(UIStuff uir) {
         super(uir,false);
-        pressedKeys = new int[7];
-        index = 0;
+        
     }
 
     public void open() throws javax.sound.midi.MidiUnavailableException
     {
         clear();
-        everRecorded = false;
+        pressedKeys = new int[7];
+        index = 0;
         setResizable(false);
         setSize(14*width,3 * height / 2);
         isRecording = false;
@@ -309,7 +305,6 @@ public class VirtualPiano extends ModBox {
     {
         isRecording = true;
         ui.storeFilters();
-        everRecorded = true;
         b2.setEnabled(true);
         b3.setEnabled(true);
         for(JButton key : list)
