@@ -21,6 +21,9 @@ public class SliderBox extends ModBox
 
     JSlider slider;
 
+    /**
+     * Listens for changes
+     */
     class SliderListener implements ChangeListener {
         private JSlider sl;
         public SliderListener(JSlider s)
@@ -31,7 +34,7 @@ public class SliderBox extends ModBox
 
         public void stateChanged(ChangeEvent e) {
             sliderpos = (int)sl.getValue();
-            //update(sl.getValue());
+            softUpdate(sl.getValue());
 
             //System.out.println("upd" + slider.getValue());
         }
@@ -80,6 +83,11 @@ public class SliderBox extends ModBox
     }
 
     public void update(float d)
+    {
+        //PlayerWatcher.setTempo(d);
+    }
+    
+    public void softUpdate(float d)
     {
         //PlayerWatcher.setTempo(d);
     }

@@ -61,7 +61,7 @@ public class TempoBox extends SliderBox
     }
 
     //@Override
-    public void update(float d)
+    public void softUpdate(float d)
     {
         PlayerWatcher.setTempo(d);
     }
