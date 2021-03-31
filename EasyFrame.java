@@ -1,16 +1,24 @@
 import javax.swing.*;
 import java.awt.*; 
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 /**
  * Inherited class that has a few methods I like to have handy in frames.
  *
  * @author Caleb Copeland
  * @version (a version number or a date)
  */
-public class EasyFrame extends JFrame
+public class EasyFrame extends JFrame implements ActionListener
 {
     // instance variables - replace the example below with your own
     private int x;
+    
+    public void actionPerformed(ActionEvent e)
+    {
+        
+        
+    }
 
     /**
      * Constructor for objects of class EasyFrame

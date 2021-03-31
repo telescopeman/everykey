@@ -1,13 +1,13 @@
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.*;
-import java.awt.*; 
+import java.awt.Font;
+import java.awt.Dimension;
 import java.util.Hashtable;
 
 /**
- * Write a description of class StrangeBox here.
+ * Allows for changing the neutral point for strangeness measurements.
  *
  * @author Caleb Copeland
  * @version 3/28/21

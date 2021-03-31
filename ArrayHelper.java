@@ -1,6 +1,6 @@
 import java.util.Arrays;
 /**
- * Write a description of class ArrayHelper here.
+ * Array methods.
  *
  * @author (your name)
  * @version (a version number or a date)
@@ -8,16 +8,7 @@ import java.util.Arrays;
 public class ArrayHelper
 {
     // instance variables - replace the example below with your own
-    private int x;
-
-    /**
-     * Constructor for objects of class ArrayHelper
-     */
-    public ArrayHelper()
-    {
-        // initialise instance variables
-        x = 0;
-    }
+    
 
     public static String[] addX(String[] list, String x)
     {

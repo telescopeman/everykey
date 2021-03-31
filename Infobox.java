@@ -6,12 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 
 /**
- * Write a description of class InfoBox here.
+ * Displays info about the intervals of a scale.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Infobox extends EasyFrame implements ActionListener
+public class Infobox extends EasyFrame
 {
     // instance variables - replace the example below with your own
     private final Dimension MYDIM = new Dimension(200,200);

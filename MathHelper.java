@@ -1,9 +1,9 @@
 import java.util.HashMap;
 
 /**
- * Write a description of class MainThing here.
+ * Handles creation of the huge list of scales,
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class MathHelper extends TheoryObj
@@ -17,23 +17,18 @@ public class MathHelper extends TheoryObj
     private static final int[] initKey = new int[]{1,1,1,1,1,1,1};
     private static int counter;
 
-    private static HashMap<Integer,String> noteNames;
+    //private static HashMap<Integer,String> noteNames;
 
     private final static boolean debugMode = false;
     
     
 
-    //private static String offset;
-    // /**
-    // * Constructor for objects of class MainThing
-    // */
-    // public MainThing()
-    // {
-
-    // }
+    
     public static String[] notesArr = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","Null"};
 
-        
+    /**
+     * Generates the list of all possible seven-note scales.
+     */
     public static int[][] getAllKeys()
     {
         // if (counter > 3)
@@ -67,21 +62,13 @@ public class MathHelper extends TheoryObj
         }
     }
 
-    public static void sanityCheck()
-    {
-        for(int g = 0; g < abstractList.length;g++)
-        {
-            System.out.println("Key #" + g + " has pitches: " + expand(abstractList[g],false));
-            
-        }
-        
-    }
+    
     
     private static void setKey(int[] k, int i)
     {
         abstractList[i] = k;
 
-        printlnDebug("Key #" + i + " set to " + expand(abstractList[i],false));
+        //printlnDebug("Key #" + i + " set to " + expand(abstractList[i],false));
         
     }
 

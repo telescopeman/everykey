@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
  * @author (your name)
  * @version (a version number or a date)
  */
-public class Sampler extends EasyFrame implements ActionListener
+public class Sampler extends EasyFrame
 {
     // instance variables - replace the example below with your own
     private int[] myScale;

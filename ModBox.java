@@ -9,7 +9,7 @@ import java.util.Arrays;
  * @author Caleb Copeland
  * @version 3/28/21
  */
-public abstract class ModBox extends EasyFrame implements ActionListener
+public abstract class ModBox extends EasyFrame
 {
     // instance variables - replace the example below with your own
     public UIStuff ui;

@@ -3,20 +3,20 @@ import java.awt.event.ActionEvent;
 import javax.swing.*;
 import java.awt.*; 
 /**
- * Write a description of class ChordViewer here.
+ * Provides a view of the chords of a scale.
  *
  * @author (your name)
  * @version (a version number or a date)
  */
-public class ChordViewer extends EasyFrame implements ActionListener
+public class ChordViewer extends EasyFrame
 {
     // instance variables - replace the example below with your own
-    public int[] myKey;
+    private int[] myKey;
 
 
 
     /**
-     * Constructor for objects of class ChordViewer
+     * Creates a ChordViewer of a specified scale with a specified name.
      */
     public ChordViewer(int[] k, String name)
     {
@@ -31,7 +31,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
     }
 
-    public static MyChord getChordAt(int[] key, int ind)
+    private static MyChord getChordAt(int[] key, int ind)
     {
         int index = ind - 1;
         final int LOOP = 7;
@@ -47,7 +47,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
     }
 
-    public static int[] getRawChordAt(int[] key, int ind)
+    private static int[] getRawChordAt(int[] key, int ind)
     {
         int index = ind - 1;
         final int LOOP = 7;
@@ -63,7 +63,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
     }
 
-    public static int[] makeAscending(int[] sequence)
+    private static int[] makeAscending(int[] sequence)
     {
         int[] seq = sequence;
         int[] ups = new int[]{0,0,0};
@@ -85,7 +85,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
         return seq;
     }
 
-    public static String formatAscending(int[] sequence)
+    private static String formatAscending(int[] sequence)
     {
         int[] seq = makeAscending(sequence);
         int[] ups = new int[]{0,0,0};
@@ -105,25 +105,84 @@ public class ChordViewer extends EasyFrame implements ActionListener
         return str;
 
     }
-    // public String format(int[] seq)
-    // {
-    // return 
-
-    // }
+    
+    
+    /**
+     * Converts a whole number to its equivalent in Roman numerals.
+     * @author User1752197 on StackOverflow, Caleb Copeland
+     * @param input The number to be converted.
+     * @since October 19, 2012
+     * @version 3/28/21
+     * @returns The Roman numeral in text.
+     */
+    public static String convertToRoman(int input) {
+        if (input < 1 || input > 3999)
+            return "Invalid Roman Number Value";
+        String s = "";
+        while (input >= 1000) {
+            s += "M";
+            input -= 1000;        }
+        while (input >= 900) {
+            s += "CM";
+            input -= 900;
+        }
+        while (input >= 500) {
+            s += "D";
+            input -= 500;
+        }
+        while (input >= 400) {
+            s += "CD";
+            input -= 400;
+        }
+        while (input >= 100) {
+            s += "C";
+            input -= 100;
+        }
+        while (input >= 90) {
+            s += "XC";
+            input -= 90;
+        }
+        while (input >= 50) {
+            s += "L";
+            input -= 50;
+        }
+        while (input >= 40) {
+            s += "XL";
+            input -= 40;
+        }
+        while (input >= 10) {
+            s += "X";
+            input -= 10;
+        }
+        while (input >= 9) {
+            s += "IX";
+            input -= 9;
+        }
+        while (input >= 5) {
+            s += "V";
+            input -= 5;
+        }
+        while (input >= 4) {
+            s += "IV";
+            input -= 4;
+        }
+        while (input >= 1) {
+            s += "I";
+            input -= 1;
+        }    
+        return s;
+    }
 
     public void actionPerformed(ActionEvent e) {
 
         //System.out.print(e);
         clear();
 
-        // for(int i = 1; i < 8; i++)
-        // {
-        // add(new JLabel(String.valueOf(i), JLabel.CENTER));
-        // }
-        for(int i = 1; i < 8; i++)
+        
+        for(int i = 1; i < 8; i++) //names of chords
         {
             MyChord aChord = getChordAt(myKey,i);
-            JLabel jLabel1 = new JLabel(RomanHelper.convert(i) + ": " + aChord.toString(), JLabel.CENTER);
+            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(), JLabel.CENTER);
             jLabel1.setOpaque(true);
             //String third = aChord.getThirdType();
             jLabel1.setBackground(aChord.toColor());
@@ -131,7 +190,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
 
         }
 
-        for(int i = 1; i < 8; i++)
+        for(int i = 1; i < 8; i++) // note names
         {
             MyChord aChord = getChordAt(myKey,i);
             //int[] noteSequence2 = makeAscending(noteSequence);
@@ -139,7 +198,7 @@ public class ChordViewer extends EasyFrame implements ActionListener
             add(new JLabel("(" + aChord.getNotes() + ")", JLabel.CENTER));
         }
 
-        for (int i = 1; i < 8; i++)
+        for (int i = 1; i < 8; i++) //listen button
         {
             int[] noteSequence = getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);

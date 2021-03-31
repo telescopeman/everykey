@@ -19,21 +19,7 @@ public class KeyPanel extends EasyPanel implements ActionListener
     MusicHelper playr;
     Popup p;
 
-    public void resize(int num, int dummy) //sets tempo throws javax.sound.midi.MidiUnavailableException
-    {
-        try
-        {
-            playr.setTempo(num);
-        }
-        catch (javax.sound.midi.MidiUnavailableException mue)
-        {
-            mue.printStackTrace();
-        }
-        catch (java.lang.NullPointerException mue)
-        {
-            //mue.printStackTrace(); ignore
-        }
-    }
+    
 
     public static int[] getEnclosers(String str, String special)
     {
@@ -47,7 +33,7 @@ public class KeyPanel extends EasyPanel implements ActionListener
     }
 
     /**
-     * Filters out tags
+     * Filters out tags.
      */
     public static String parse(String name)
     {
@@ -138,12 +124,11 @@ public class KeyPanel extends EasyPanel implements ActionListener
         //Popup p = infoPanel();
         JLabel label = new JLabel(lbl);
         int[] pt = getEnclosers(name,"[]");
-        if (pt[0] > -1 && pt[1] > -1)
+        if (pt[0] > -1 && pt[1] > -1) // makes it so you can hover for modal info.
         {
             label.setToolTipText(name.substring(pt[0]+1,pt[1]));
         }
-        //System.out.println(key.toString());
-        //System.out.println(parse(name).substring(0,11));
+        
         if (parse(name).substring(0,11).equals("Unnamed Key"))
         {
             label.setFont(new Font(label.getFont().getFontName(),Font.ITALIC,12));
@@ -153,7 +138,7 @@ public class KeyPanel extends EasyPanel implements ActionListener
         addButton("Listen",playr); 
     }
 
-    public Popup infoPanel()
+    private Popup infoPanel()
     {
         EasyPanel submenu = new EasyPanel("Info");
         PopupFactory pf = new PopupFactory();

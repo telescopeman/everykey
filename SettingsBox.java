@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*; 
 
 /**
- * Write a description of class SettingsBox here.
+ * Box that allows for change of the tempo.
  *
  * @author Caleb Copeland
  * @version 3/28/21

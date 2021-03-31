@@ -24,7 +24,9 @@ public class TemplatesHelper
         })
     };
 
-    
+    /**
+     * Gets list of all templates.
+     */
     public static FilterTemplate[] getAll()
     {
         // put your code here

@@ -158,6 +158,10 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     }
 
+    
+    /**
+     * Sets this MusicPlayer's tempo to a given amount.
+     */
     public void setTempo(float newTempo) throws javax.sound.midi.MidiUnavailableException
     {
         tempo = newTempo;
