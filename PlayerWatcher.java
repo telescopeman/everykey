@@ -1,9 +1,9 @@
 
 /**
- * Makes sure two audio clips don't play at once.
+ * Assures consistency between audio clips: Makes sure two audio clips don't play at once, keeps tempo, etc.
  *
  * @author Caleb Copeland
- * @version 3/28/21
+ * @version 3/31/21
    */
 public class PlayerWatcher
 {
@@ -12,15 +12,27 @@ public class PlayerWatcher
     static private boolean isPlaying = false;
     static private float tempo = 140.0f;
     
-    public static boolean getStatus()
-    {
-        return isPlaying;
-    }
     
+    // public static boolean getStatus()
+    // {
+        // return isPlaying;
+    // }
+    
+    /**
+     * Sets the tempo.
+     */
     public static void setTempo(float t)
     {
         tempo = t;
         //System.out.println("PWSET" + t);
+    }
+    
+    /**
+     * Returns the current global tempo.
+     */
+    public static float getTempo()
+    {
+        return tempo;
     }
     
     public static void updateStatus(boolean isOn)

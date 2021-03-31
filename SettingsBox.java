@@ -14,11 +14,11 @@ import java.awt.*;
 public class SettingsBox extends ModBox
 {
     // instance variables - replace the example below with your own
-    private int sliderpos;
+    private float sliderpos;
 
     static final int TEMPO_MIN = 50;
     static final int TEMPO_MAX = 500;
-    static int tempo_init;
+    static float tempo_init;
     private MusicHelper playr;
 
     /**
@@ -28,7 +28,7 @@ public class SettingsBox extends ModBox
     {
         super(uiref);// initialise instance variables
         //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tempo_init = ui.getTempo();
+        tempo_init = PlayerWatcher.getTempo();
         //x = 0;
         sliderpos = tempo_init;
         addHeader("Change Note Speed:");
@@ -42,7 +42,7 @@ public class SettingsBox extends ModBox
                 System.out.println(ed + "thiserro");
             }
             JSlider framesPerSecond = new JSlider(JSlider.HORIZONTAL,
-                    TEMPO_MIN, TEMPO_MAX, tempo_init);
+                    TEMPO_MIN, TEMPO_MAX, (int) tempo_init);
 
             class SliderListener implements ChangeListener {
                 private JSlider slider;
@@ -111,7 +111,7 @@ public class SettingsBox extends ModBox
         else
         {
             //System.out.println(id);
-            ui.setTempo(sliderpos);
+            //ui.setTempo(sliderpos);
 
         }
         //System.out.println(id);

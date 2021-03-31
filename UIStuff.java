@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
  * Controls the UI and most other high-level functions.
  *
  * @author Caleb Copeland
- * @version 3/29/21
+ * @version 3/31/21
  */
 public class UIStuff
 {
@@ -39,7 +39,7 @@ public class UIStuff
 
     MathHelper myUtility;
 
-    private int globalTempo = 140;
+    //private int globalTempo = 140;
     
     private int neutralpoint = 300; //dorian
 
@@ -56,7 +56,7 @@ public class UIStuff
     public UIStuff()
     {
         myUtility = new MathHelper();
-        setTempo(globalTempo);
+        //setTempo(globalTempo);
         masterList = myUtility.getAllKeys();
         sortStyle = SORT3;
         setupEnableText();
@@ -65,17 +65,21 @@ public class UIStuff
 
     }
 
-    public int getTempo()
-    {
-        return globalTempo;
-    }
+    
+    // /**
+     // * Gets the current tempo.
+     // */
+    // public int getTempo()
+    // {
+        // return globalTempo;
+    // }
 
-    public void setTempo(int n)
-    {
-        globalTempo = n;
-        //PlayerWatcher.setTempo(n);
+    // public void setTempo(int n)
+    // {
+        // globalTempo = n;
+        // //PlayerWatcher.setTempo(n);
         
-    }
+    // }
 
     public void setupEnableText()
     {
