@@ -63,8 +63,6 @@ public class EasyFrame extends JFrame implements ActionListener
     {
         show();
         requestFocusInWindow();
-        
-        
     }
     
     public void appear(Dimension dim)
@@ -72,9 +70,9 @@ public class EasyFrame extends JFrame implements ActionListener
         show();
         requestFocusInWindow();
         setSize(dim);
-        
-        
     }
+    
+    
     
     public int[] getEnclosers(String str, String special)
     {
@@ -88,13 +86,13 @@ public class EasyFrame extends JFrame implements ActionListener
 
     }
     
-    /**
-     * Sets the size of the frame.
-     */
-    public void setSize(int x, int y)
-    {
-        setSize(new Dimension(x,y));    
-    }
+    // /**
+     // * Sets the size of the frame.
+     // */
+    // public void setSize(int x, int y)
+    // {
+        // setSize(new Dimension(x,y));    
+    // }
     
     public void add(String str)
     {

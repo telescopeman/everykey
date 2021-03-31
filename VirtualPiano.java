@@ -54,7 +54,7 @@ public class VirtualPiano extends ModBox {
         pressedKeys = new int[7];
         index = 0;
         setResizable(false);
-        setSize(14*width,3 * height / 2);
+        setSize(new Dimension(14*width,3 * height / 2));
         isRecording = false;
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();

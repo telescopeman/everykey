@@ -2,20 +2,17 @@ import javax.swing.*;
 import java.awt.*; 
 import java.awt.event.ActionListener;
 /**
- * Write a description of class EasyPanel here.
+ * Basically just a JPanel with a few extra methods.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class EasyPanel extends JPanel
 {
-    // instance variables - replace the example below with your own
-    private int x;
 
     public EasyPanel()
     {
-        // initialise instance variables
-        //setTitle(name);
+        //do nothing
     }
     
     public EasyPanel(String name)

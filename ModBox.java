@@ -47,9 +47,9 @@ public abstract class ModBox extends EasyFrame
         
     }
     
-    public static SettingsBox buildSettingsBox(UIStuff uiref)
+    public static TempoBox buildTempoBox(UIStuff uiref)
     {
-        return new SettingsBox(uiref);
+        return new TempoBox(uiref);
         
     }
     

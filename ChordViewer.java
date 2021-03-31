@@ -1,7 +1,8 @@
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 import java.awt.GridLayout; 
+import java.awt.Dimension;
+
 /**
  * Provides a view of the chords of a scale.
  *
@@ -23,7 +24,7 @@ public class ChordViewer extends EasyFrame
 
         super("Chords of " + KeyPanel.parse(name));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(900, 150);
+        setSize(new Dimension(900, 150));
         setResizable(false);
         setLayout(new GridLayout(3, 7));
         myKey= k;
@@ -137,8 +138,6 @@ public class ChordViewer extends EasyFrame
     }
 
     public void actionPerformed(ActionEvent e) {
-
-        //System.out.print(e);
         clear();
 
         
@@ -147,7 +146,6 @@ public class ChordViewer extends EasyFrame
             MyChord aChord = getChordAt(myKey,i);
             JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(), JLabel.CENTER);
             jLabel1.setOpaque(true);
-            //String third = aChord.getThirdType();
             jLabel1.setBackground(aChord.toColor());
             add(jLabel1);
 
@@ -186,13 +184,11 @@ public class ChordViewer extends EasyFrame
                     @Override
                     public void actionPerformed(ActionEvent ae)
                     {
-                        System.out.println(ae.getActionCommand());
                         playr.actionPerformed(ae);
                     }
                 }
                 
-                Action buttonAction = new ButtonAction("Play Chord"
-                , "Play Chord");
+                Action buttonAction = new ButtonAction("Play Chord", "Play Chord");
 
                 jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), "Play Chord");
                 jb3.getActionMap().put("Play Chord", buttonAction);
