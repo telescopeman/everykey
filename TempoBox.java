@@ -23,21 +23,7 @@ public class TempoBox extends SliderBox
 
     //JSlider slider;
 
-    class SliderListener implements ChangeListener {
-        private JSlider sl;
-        public SliderListener(JSlider s)
-        {
-            sl = s;
-
-        }
-
-        public void stateChanged(ChangeEvent e) {
-            sliderpos = (int)sl.getValue();
-            update(sl.getValue());
-
-            //System.out.println("upd" + slider.getValue());
-        }
-    }
+    
 
     /**
      * Constructor for objects of class SettingsBox
