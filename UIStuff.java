@@ -332,7 +332,7 @@ public class UIStuff
         viewops.add(neu);
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
         filtermenu.add(removefilters); filtermenu.add(ftemplates);
-        other.add(livemaker);
+        filtermenu.add(livemaker);
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         addfilter.add(i5); addfilter.add(i6);
@@ -344,7 +344,7 @@ public class UIStuff
         sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
 
         audio.add(a1); //audio.add(a2);
-        mb.add(viewops); mb.add(filtermenu); mb.add(audio); mb.add(other);
+        mb.add(viewops); mb.add(filtermenu); mb.add(audio); //mb.add(other);
         mainWindow.setJMenuBar(mb);  
 
         mainWindow.appear(new Dimension(600, 1000));
