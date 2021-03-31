@@ -77,6 +77,7 @@ public class VirtualPiano extends ModBox {
     {
         clear();
         everRecorded = false;
+        setResizable(false);
         setSize(14*width,3 * height / 2);
         isRecording = false;
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
@@ -361,6 +362,8 @@ public class VirtualPiano extends ModBox {
     private void discard()
     {
         ui.setCurFilters(ui.getStoredFilters());
+        b2.setEnabled(false);
+        b3.setEnabled(false);
         for(JButton key : list)
         {
             key.setBackground(Color.WHITE);

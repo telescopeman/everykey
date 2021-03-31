@@ -271,16 +271,17 @@ public class UIStuff
 
         mainWindow.add(outer);
 
-        JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates;
+        JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates,other;
         //JMenuItem filterctrls = JMenuItem
         JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
         JMenuItem s1,s2,s3,s4,neu;
         JMenuItem a1, a2;  
         JFrame f= new JFrame("Menu and MenuItem Example");  
         JMenuBar mb=new JMenuBar();  
-        viewops=new JMenu("View Options");
+        viewops=new JMenu("Sorting Options");
         filtermenu=new JMenu("Filter Options");  
         audio=new JMenu("Audio Options");
+        other=new JMenu("Viewing Options");
 
         sortops=new JMenu("Change Sorting Order");  
         neu=new JMenuItem("Change Neutral Point");  
@@ -331,7 +332,7 @@ public class UIStuff
         viewops.add(neu);
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
         filtermenu.add(removefilters); filtermenu.add(ftemplates);
-        filtermenu.add(livemaker);
+        other.add(livemaker);
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         addfilter.add(i5); addfilter.add(i6);
@@ -343,7 +344,7 @@ public class UIStuff
         sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
 
         audio.add(a1); //audio.add(a2);
-        mb.add(viewops); mb.add(filtermenu); mb.add(audio);
+        mb.add(viewops); mb.add(filtermenu); mb.add(audio); mb.add(other);
         mainWindow.setJMenuBar(mb);  
 
         mainWindow.appear(new Dimension(600, 1000));
