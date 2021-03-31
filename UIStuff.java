@@ -65,23 +65,8 @@ public class UIStuff
 
     }
 
-    
-    // /**
-     // * Gets the current tempo.
-     // */
-    // public int getTempo()
-    // {
-        // return globalTempo;
-    // }
 
-    // public void setTempo(int n)
-    // {
-        // globalTempo = n;
-        // //PlayerWatcher.setTempo(n);
-        
-    // }
-
-    public void setupEnableText()
+    private void setupEnableText()
     {
         enableText = new HashMap<Boolean,String>();
         enableText.put(true,"on");
@@ -90,22 +75,34 @@ public class UIStuff
 
     }
 
+    /**
+     * Sets the list of filters.
+     */
     public void setCurFilters(Filter[] newFilters)
     {
         curFilters = newFilters;
         refresh();
     }
     
+    /**
+     * Returns the index of the scale used for strangeness measurements.
+     */
     public int getNeutral()
     {
         return neutralpoint;
     }
     
+    /**
+     * Sets the index of the scale used for strangeness measurements.
+     */
     public void setNeutral(int i)
     {
         neutralpoint = i;
     }
     
+    /**
+     * Stores the current filter list in a variable.
+     */
     public void storeFilters()
     {
         storedFilters = Arrays.copyOf(curFilters,curFilters.length);
@@ -114,22 +111,35 @@ public class UIStuff
         refresh();
     }
     
+    /**
+     * Returns any temporarily stored filters.
+     */
     public Filter[] getStoredFilters()
     {
         return storedFilters;
         
     }
     
+    /**
+     * Returns any temporarily stored filter statuses.
+     */
     public boolean[] getStoredStatuses()
     {
         return storedFilterStatuses;
     }
-
+    
+    /**
+     * Sets the statuses of the filters.
+     */
     public void setFilterStatuses(boolean[] newThings)
     {
         filterStatuses = newThings;
     }
 
+    
+    /**
+     * Refreshes the view with any updated information about filters and sorting.
+     */
     public void refresh()
     {
         //printlnDebug("Refreshing...");
@@ -140,6 +150,7 @@ public class UIStuff
 
     }
 
+    
     private static void printlnDebug(String str)
     {
         if (debugMode)
@@ -149,6 +160,7 @@ public class UIStuff
         }
     }
 
+    
     private void updateKeys(int[][] keys)
     {
         inner.removeAll();
@@ -354,6 +366,9 @@ public class UIStuff
         mainWindow.appear(new Dimension(600, 1000));
     }
 
+    /**
+     * Changes the setting for sorting of scales.
+     */
     public void setSortStyle(String newStyle)
     {
         sortStyle = newStyle;
@@ -393,7 +408,10 @@ public class UIStuff
             counter++;
         }
     }
-
+    
+    /**
+     * Toggles a filter's activeness.
+     */
     public void toggleFilter(int index)
     {
         boolean newSet = !filterStatuses[index];
@@ -402,6 +420,9 @@ public class UIStuff
         refresh();
     }
 
+    /**
+     * Removes a filter.
+     */
     public void removeFilter(int index)
     {
         curFilters = ArrayHelper.removeOne(curFilters,index);
