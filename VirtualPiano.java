@@ -1,32 +1,12 @@
 import javax.swing.*;
 import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.Dimension;
+import java.awt.event.*;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
-import javax.swing.JFrame;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
-
-import javax.swing.JPanel;
-import java.awt.event.*;
-import java.awt.*;
-//import javax.swing.*;
-//import javax.media.*;
-//import javax.media.Controller;
-//import javax.media.Player;
-import java.io.*;
-import javax.swing.JPanel;
-import javax.sound.midi.Synthesizer;
-//import javax.swing.JComboBox;
 
 /**
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
@@ -88,7 +68,7 @@ public class VirtualPiano extends ModBox {
         final int velocity = 64; 
 
         panel = new JLayeredPane();
-        panel.setPreferredSize(new Dimension(14*width,height));
+        panel.setPreferredSize(getDim(14*width,height));
         add(panel);
 
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -237,7 +217,7 @@ public class VirtualPiano extends ModBox {
 
     private void addButtons()
     {
-        Dimension myDim = new Dimension(9*height/16, width);
+        Dimension myDim = getDim(9*height/16, width);
 
         b1 = new JButton(startrec);
         b1.addActionListener(this);
