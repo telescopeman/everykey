@@ -1,7 +1,7 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import java.awt.*; 
+import java.awt.GridLayout; 
 /**
  * Provides a view of the chords of a scale.
  *
@@ -22,11 +22,10 @@ public class ChordViewer extends EasyFrame
     {
 
         super("Chords of " + KeyPanel.parse(name));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(new Dimension(900, 150));
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setSize(900, 150);
         setResizable(false);
         setLayout(new GridLayout(3, 7));
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         myKey= k;
 
     }

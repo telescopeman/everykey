@@ -38,6 +38,12 @@ public class EasyPanel extends JPanel
         add(title);
         
     }
+    
+    private Dimension getDim(int x, int y)
+    {
+        return new Dimension(x,y);
+        
+    }
 
     public void appear()
     {

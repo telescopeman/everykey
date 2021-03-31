@@ -50,6 +50,15 @@ public class EasyFrame extends JFrame implements ActionListener
         add(jb3);
     }
     
+    /**
+     * Generates a Dimension with the given size.
+     */
+    public Dimension getDim(int x, int y)
+    {
+        return new Dimension(x,y);
+        
+    }
+    
     public void appear()
     {
         show();
@@ -77,6 +86,14 @@ public class EasyFrame extends JFrame implements ActionListener
         int ind1 = str.indexOf(special.substring(0,1));
         return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
 
+    }
+    
+    /**
+     * Sets the size of the frame.
+     */
+    public void setSize(int x, int y)
+    {
+        setSize(new Dimension(x,y));    
     }
     
     public void add(String str)
