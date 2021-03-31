@@ -1,42 +1,26 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.*;
-import java.awt.*; 
 
 /**
- * Box that allows for change of the tempo.
+ * Box that allows for change of the global tempo.
  *
  * @author Caleb Copeland
  * @version 3/28/21
  */
 public class TempoBox extends SliderBox
 {
-    // instance variables - replace the example below with your own
-    public float sliderpos;
-
-    static final int TEMPO_MIN = 50;
-    static final int TEMPO_MAX = 500;
-    //static float tempo_init;
+    private final int TEMPO_MIN = 50;
+    private final int TEMPO_MAX = 500;
+    
     private MusicHelper playr;
 
-    //JSlider slider;
-
-    
-
     /**
-     * Constructor for objects of class SettingsBox
+     * Creates a box bound to a certain UI.
      */
     public TempoBox(UIStuff uiref)
     {
         super(uiref);// initialise instance variables
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        //x = 0;
-        //sliderpos = PlayerWatcher.getTempo();
+        
         addHeader("Change Note Speed:");
-        //System.out.println("cns");
+        
         try{
             playr = new MusicHelper(new int[]{1,3,5,6,8,10,12});
             playr.seqSetup();
@@ -54,27 +38,18 @@ public class TempoBox extends SliderBox
         addButton("Test",playr);
     }
 
-    //@Override
-    public void update()
-    {
-        PlayerWatcher.setTempo((int)sliderpos);
-    }
-
-    //@Override
+    
     public void softUpdate(float d)
     {
         PlayerWatcher.setTempo(d);
     }
 
-    /**
-     * Appear.
-     */
-    public void actionPerformed(ActionEvent e)
+
+    public void act(String id)
     {
-        String id = e.getActionCommand();
         if (id.equals("Change Note Speed"))
         {
-            appear(new Dimension(350,250));
+            appear(getDim(350,250));
         }
         else
         {

@@ -12,7 +12,11 @@ import java.util.Arrays;
 public abstract class ModBox extends EasyFrame
 {
     // instance variables - replace the example below with your own
+    /**
+     * The ModBox's link back to the UI controller.
+     */
     public UIStuff ui;
+    
     private final Dimension STANDARD = new Dimension(350,100);
     public final Dimension SUPERSTANDARD = new Dimension(550,150);
     ArrayHelper arr;

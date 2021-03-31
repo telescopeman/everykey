@@ -1,7 +1,5 @@
-import java.awt.event.ActionEvent;
-import javax.swing.*;
-import java.awt.Dimension;
 import java.util.Hashtable;
+import javax.swing.JLabel;
 
 /**
  * Allows for changing the neutral point for strangeness measurements.
@@ -53,19 +51,15 @@ public class StrangeBox extends SliderBox
         //System.out.println("GO" + d);
     }
 
-    /**
-     * Various things.
-     *
-     * @param e The button pressed to activate this method.
-     */
-    public void actionPerformed(ActionEvent e)
+    
+    
+    public void act(String id)
     {
-        String id = e.getActionCommand();
         if (id.equals("Change Neutral Point"))
         {
 
             
-            appear(new Dimension(900,250));
+            appear(getDim(900,250));
 
         }
         else
@@ -75,7 +69,5 @@ public class StrangeBox extends SliderBox
             hide();
 
         }
-        //System.out.println(id);
-
     }
 }

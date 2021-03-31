@@ -10,6 +10,7 @@ import java.awt.*;
  */
 public class ModActor implements ActionListener
 {
+    
     private UIStuff uiref;
     private int index;
     private String setting;

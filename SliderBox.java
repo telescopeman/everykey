@@ -105,10 +105,13 @@ public class SliderBox extends ModBox
     public void actionPerformed(ActionEvent e)
     {
         String id = e.getActionCommand();
-        if (id.equals("Change Note Speed"))
-        {
-            appear(new Dimension(350,250));
-        }
+        act(id);
+        
 
+    }
+    
+    public void act(String id)
+    {
+        
     }
 }

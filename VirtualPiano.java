@@ -10,10 +10,10 @@ import javax.sound.midi.Synthesizer;
 
 /**
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
- * played into a filter.
+ * played into a custom filter.
  * 
  * @author smitha.r from dreamincode.net, Caleb Copeland
- * @since March 15, 2012
+ * 
  */
 public class VirtualPiano extends ModBox {
     private final String[] whitemnems = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"};
