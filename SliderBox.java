@@ -19,10 +19,10 @@ public class SliderBox extends ModBox
     
     //static float tempo_init;
 
-    JSlider slider;
+    public JSlider slider;
 
     /**
-     * Listens for changes
+     * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
      */
     class SliderListener implements ChangeListener {
         private JSlider sl;
