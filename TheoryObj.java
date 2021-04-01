@@ -38,10 +38,13 @@ public abstract class TheoryObj
                 put("D♭", "E♭♭♭");
                 put("D", "E♭♭");
                 put("D♯", "E♭");
+                put("D♯♯", "E");
                 put("E♭", "F♭♭");
                 put("E", "F♭");
                 put("E♯", "F");
+                put("E♯♯", "F♯");
                 put("F", "G♭♭");
+                put("F♯", "G♭");
                 put("F♯♯", "G");
                 put("G♭", "A♭♭♭");
                 put("G", "A♭♭");
@@ -119,11 +122,11 @@ public abstract class TheoryObj
         {
             int i = key[count];
             String newNote = getNoteName(i);
-            if (enharmonicsOn && count < key.length -1 )
-            {
-                newNote = enharmonicCheck1(key,count,newNote,lastNote); 
-                // this is a cursory check to make sure obvious style errors are removed.
-            } 
+            // if (enharmonicsOn && count < key.length -1 )
+            // {
+                // newNote = enharmonicCheck1(key,count,newNote,lastNote); 
+                // // this is a cursory check to make sure obvious style errors are removed.
+            // } 
             rawNotes[count] = newNote;
             lastNote = newNote;
         }
@@ -134,7 +137,7 @@ public abstract class TheoryObj
 
         if (enharmonicsOn)
         {
-            final int maxAttempts = 10;
+            final int maxAttempts = 20;
             int attempts = 0;
             int dupes = 1;
             //String[][] log = new String[5][8];

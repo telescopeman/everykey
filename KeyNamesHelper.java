@@ -160,6 +160,22 @@ public class KeyNamesHelper extends TheoryObj
         //addScale("C, D♭, E♭, G♭, G, A♭, and B♭.", "Black Keys + Perfect Fifth"); //Fun keys I made up
         //addScale("C, D♭, E, F, G♭, G, and B♭.", "\"The Becoming\" Scale");
 
+        group = 13; //the modes of altered minor
+        //altered minor
+        //harmonic locrian
+        addScale("C, D, E, F, G, B♭, and B.", "Ionian ♯6 [Third mode of Altered Minor]");
+
+        
+        group = 14;
+        
+        addScale("C, D♭, D, E, F, A♭, and B♭.", "The Elephant Scale");
+        //elephant 2
+        //elephant 3
+        //elephant 4
+        addScale("C, E♭, F, G, A♭, A, and B.", "Persichetti Scale [Fifth mode of the Elephant Scale]");  
+        //elephant 6
+        addScale("C, D, E♭, E, G♭, G, and B♭.", "Lathian [Seventh mode of the Elephant Scale]");        
+        
         //the modes of major but with flatted fifths
         // addScale("C, D, E♭, F, G♭, A♭, and B♭.", "Aeolian ♭5");
         // addScale("C, D, E♭, F, G♭, A, and B♭.", "Dorian ♭5");

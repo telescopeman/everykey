@@ -171,6 +171,7 @@ public class UIStuff
     private void updateKeys(int[][] keys)
     {
         inner.removeAll();
+        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         int[] lastKey = keys[6];
         int counter = -1;
         int num = 0;
@@ -196,7 +197,7 @@ public class UIStuff
                 
             }
         }
-        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+        
         //outer.setLayout(new ScrollPaneLayout());
         JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
