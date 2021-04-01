@@ -169,8 +169,8 @@ public class KeyNamesHelper extends TheoryObj
         group = 14;
         
         addScale("C, D♭, D, E, F, A♭, and B♭.", "The Elephant Scale");
-        //elephant 2
-        //elephant 3
+        addScale("C, D♭, E♭, E, G, A, and B.", "Kynian");
+        addScale("C, D, E♭, G♭, A♭, B♭, and B.", "Stynian");
         //elephant 4
         addScale("C, E♭, F, G, A♭, A, and B.", "Persichetti Scale [Fifth mode of the Elephant Scale]");  
         //elephant 6
