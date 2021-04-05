@@ -13,8 +13,6 @@ public class ChordViewer extends EasyFrame
     // instance variables - replace the example below with your own
     private int[] myKey;
 
-
-
     /**
      * Creates a ChordViewer of a specified scale with a specified name.
      */
@@ -68,9 +66,6 @@ public class ChordViewer extends EasyFrame
         return seq;
     }
 
-    
-    
-    
     /**
      * Converts a whole number to its equivalent in Roman numerals.
      * 
@@ -139,11 +134,10 @@ public class ChordViewer extends EasyFrame
     public void act(String id) {
         clear();
 
-        
         for(int i = 1; i < 8; i++) //names of chords
         {
             MyChord aChord = getChordAt(myKey,i);
-            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(), JLabel.CENTER);
+            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(),  JLabel.CENTER);
             jLabel1.setOpaque(true);
             jLabel1.setBackground(aChord.toColor());
             add(jLabel1);
@@ -153,50 +147,45 @@ public class ChordViewer extends EasyFrame
         for(int i = 1; i < 8; i++) // note names
         {
             MyChord aChord = getChordAt(myKey,i);
-            //int[] noteSequence2 = makeAscending(noteSequence);
-
             add(new JLabel("(" + aChord.getNotes() + ")", JLabel.CENTER));
         }
 
         for (int i = 1; i < 8; i++) //listen button
         {
-            //MyChord aChord = getChordAt(myKey,i);
             int[] noteSequence = MyChord.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
             //System.out.println(seq);
 
             JButton jb3 = new JButton("Play Chord");    
-            
-
+            MusicHelper playr;
             try{
-                MusicHelper playr = new MusicHelper(seq);
-                jb3.addActionListener(playr);
-                
-                class ButtonAction extends AbstractAction
-                {
-                    public ButtonAction(String text, String desc)
-                    {
-                        super(text);
-                        putValue(SHORT_DESCRIPTION, desc);
-                    }
-
-                    @Override
-                    public void actionPerformed(ActionEvent ae)
-                    {
-                        playr.actionPerformed(ae);
-                    }
-                }
-                
-                Action buttonAction = new ButtonAction("Play Chord", "Play Chord");
-
-                jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), "Play Chord");
-                jb3.getActionMap().put("Play Chord", buttonAction);
-
-                
+                playr = new MusicHelper(seq);
             }
             catch(Exception ed){
                 throw ed;
             }
+            jb3.addActionListener(playr);
+
+            class ButtonAction extends AbstractAction
+            {
+                public ButtonAction(String text, String desc)
+                {
+                    super(text);
+                    putValue(SHORT_DESCRIPTION, desc);
+                }
+
+                @Override
+                public void actionPerformed(ActionEvent ae)
+                {
+                    playr.actionPerformed(ae);
+                }
+            }
+
+            Action buttonAction = new ButtonAction("Play Chord", "Play Chord");
+
+            jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), "Play Chord");
+            jb3.getActionMap().put("Play Chord", buttonAction);
+
             add(jb3);
         }
         show();

@@ -35,7 +35,8 @@ public class PlayerWatcher
         isPlaying = isOn;
     }
 
-    public static void requestControl(MusicHelper src) throws javax.sound.midi.MidiUnavailableException
+    public static void requestControl(MusicHelper src) 
+        throws javax.sound.midi.MidiUnavailableException
     {
         if (curPlayer != null)
         {

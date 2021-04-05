@@ -134,7 +134,7 @@ public class ArrayHelper
             newarr[i] = list[i];
 
         for (int i = index + 1; i < index; i++) //add all old items to new array other than [index]
-            newarr[i] = list[i];
+            newarr[i-1] = list[i];
 
         return newarr;
     }

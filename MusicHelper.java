@@ -34,16 +34,9 @@ public class MusicHelper extends TheoryObj implements ActionListener
         savedNotes = keyAsInts;
 
     }
-
-    /**
-     * Constructor for objects of class MusicHelper
-     */
-    public MusicHelper()
-    {
-
-    }
-
-    private Sequence toMIDI(int[] notes, String type) throws javax.sound.midi.InvalidMidiDataException
+    
+    private Sequence toMIDI(int[] notes, String type) 
+        throws javax.sound.midi.InvalidMidiDataException
     {
         Sequence seq = new Sequence(Sequence.PPQ,5,20);
         Track myTrack = seq.getTracks()[0];
@@ -107,7 +100,8 @@ public class MusicHelper extends TheoryObj implements ActionListener
         return r.nextInt((max - min) + 1) + min;
     }
 
-    private void addClump(Track myTrack, int[] notes, int offset) throws javax.sound.midi.InvalidMidiDataException
+    private void addClump(Track myTrack, int[] notes, int offset)
+        throws javax.sound.midi.InvalidMidiDataException
     {
         for (int note : notes)
         {
@@ -116,7 +110,8 @@ public class MusicHelper extends TheoryObj implements ActionListener
         }
     }
 
-    private void addFullNote(Track myTrack, int pitch, int counter) throws javax.sound.midi.InvalidMidiDataException
+    private void addFullNote(Track myTrack, int pitch, int counter)
+        throws javax.sound.midi.InvalidMidiDataException
     {
         for (MidiEvent event : toNote(pitch,counter))
         {
@@ -124,7 +119,8 @@ public class MusicHelper extends TheoryObj implements ActionListener
         }
     }
 
-    private MidiEvent[] toNote(int pitch, int index) throws javax.sound.midi.InvalidMidiDataException
+    private MidiEvent[] toNote(int pitch, int index)
+        throws javax.sound.midi.InvalidMidiDataException
     {
         MidiEvent[] events = new MidiEvent[2];
         events[0] = new MidiEvent(makeMessage(pitch,true),index*timeMult);
@@ -133,7 +129,8 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     }
 
-    private MidiMessage makeMessage(int note,boolean isOn) throws javax.sound.midi.InvalidMidiDataException
+    private MidiMessage makeMessage(int note,boolean isOn)
+        throws javax.sound.midi.InvalidMidiDataException
     {
         int active = ShortMessage.NOTE_ON;
         if (!isOn)
@@ -151,11 +148,12 @@ public class MusicHelper extends TheoryObj implements ActionListener
     /**
      * Sets this MusicPlayer's tempo to a given number.
      */
-    public void setTempo(float newTempo) throws javax.sound.midi.MidiUnavailableException
+    public void setTempo(float newTempo)
+        throws javax.sound.midi.MidiUnavailableException
     {
         if (newTempo < 1)
         {
-            throw new IllegalArgumentException("Tempo must be greater than zero");
+            throw new IllegalArgumentException("Tempo must be greater than zero!");
         }
 
         sequencer.setTempoInBPM(newTempo);
@@ -179,6 +177,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
     {
         sequencer = MidiSystem.getSequencer();
         sequencer.open();
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -186,6 +185,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
         if (id.equals("Stop"))
         {
             stop();
+            return;
         }
         
         try

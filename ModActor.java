@@ -1,7 +1,6 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
-import java.awt.*; 
 /**
  * A customized ActionListener that does stuff to the main UI.
  *
@@ -59,7 +58,6 @@ public class ModActor implements ActionListener
 
     public void actionPerformed(ActionEvent e)
     {
-        // put your code here
         switch(action)
         {
             case "toggle":
@@ -88,9 +86,7 @@ public class ModActor implements ActionListener
                 }
             }
             default:
-            
-            
-            
+                throw new IllegalArgumentException("Illegal ModActor action in constructor!");
         }
     }
 }

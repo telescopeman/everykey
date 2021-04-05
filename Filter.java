@@ -1,14 +1,12 @@
-import java.util.List;
 import java.util.Arrays;
 /**
  * Filters keys by certain attributes.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Caleb Copeland
+ * @version 4/5/21
  */
 public class Filter extends TheoryObj
 {
-    // instance variables - replace the example below with your own
     private int[] requiredNotes;
     private int requiredPosition;
     private String type = "";
@@ -239,7 +237,6 @@ public class Filter extends TheoryObj
             }
             case "Tag":
             {
-                List<String> list = Arrays.asList(namer.getTags(key));
                 boolean isValid = true;
                 for (String tag : tags)
                 {
@@ -257,7 +254,7 @@ public class Filter extends TheoryObj
                     return going;
 
                 }
-                return isValid;
+                return true;
             }
             case "AllNotes":
             {

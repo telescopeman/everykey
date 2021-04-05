@@ -283,4 +283,32 @@ public class KeyNamesHelper extends TheoryObj
         }
     }
 
+    
+    public static String smartGet(int[] key, int ind)
+    {
+        var name = stringKeys.get(expandSmart(key,ind,false));
+        //System.out.println(MathHelper.expand(key) + ": " + name);
+        if (name == null)
+        {
+            return "";
+        }
+        else
+        {
+            return name;
+        }
+    }
+    
+    public static String quickGet(String str)
+    {
+        var name = stringKeys.get(str);
+        //System.out.println(MathHelper.expand(key) + ": " + name);
+        if (name == null)
+        {
+            return "";
+        }
+        else
+        {
+            return name;
+        }
+    }
 }

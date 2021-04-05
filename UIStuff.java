@@ -28,7 +28,7 @@ public class UIStuff
 
     private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
     private boolean[] filterStatuses = new boolean[]{};
-    public Filter[] curFilters = defaultFilters;
+    private Filter[] curFilters = defaultFilters;
     private Filter[] storedFilters;
     private boolean[] storedFilterStatuses;
     
@@ -45,6 +45,8 @@ public class UIStuff
     private int[][] curList;
     private int[] absoluteList;
     
+    private String[] nameCache;
+    
     /**
      * Runs the main program.
      */
@@ -55,8 +57,6 @@ public class UIStuff
     
     public UIStuff()
     {
-        //MathHelper myUtility = new MathHelper();
-        //setTempo(globalTempo);
         masterList = MathHelper.getAllKeys();
         sortStyle = SORT3;
         setupEnableText();
@@ -71,7 +71,7 @@ public class UIStuff
         enableText = new HashMap<Boolean,String>();
         enableText.put(true,"on");
         enableText.put(false,"off");
-        //System.out.print(enableText);
+        
 
     }
 
@@ -106,7 +106,6 @@ public class UIStuff
     public void storeFilters()
     {
         storedFilters = Arrays.copyOf(curFilters,curFilters.length);
-        //curFilters = new Filter[]{};
         storedFilterStatuses = Arrays.copyOf(filterStatuses,filterStatuses.length);
         refresh();
     }
@@ -117,7 +116,14 @@ public class UIStuff
     public Filter[] getStoredFilters()
     {
         return storedFilters;
-        
+    }
+    
+    /**
+     * Returns all currently created filters, even the ones that aren't active.
+     */
+    public Filter[] getCurrentFilters()
+    {
+        return curFilters;
     }
     
     /**
@@ -137,7 +143,7 @@ public class UIStuff
     }
 
     /**
-     * Sets the statuses of the filters.
+     * Gets the statuses of the filters.
      */
     public boolean[] getFilterStatuses()
     {
@@ -163,7 +169,6 @@ public class UIStuff
         if (debugMode)
         {
             System.out.println(str);
-
         }
     }
 
@@ -172,18 +177,14 @@ public class UIStuff
     {
         inner.removeAll();
         inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
-        int[] lastKey = keys[6];
-        int counter = -1;
+        int counter = 0;
         int num = 0;
-        int[] list = new int[keys.length];
-        
-        counter = 0;
         int[] specificList = styleSort(absoluteList);
         for (int ind : specificList)
         {
             counter++;
 
-            if (keys[ind][0] == 0)
+            if (keys[ind][0] == 0) //if the first note is nonexistent
             {
                 continue;
             }
@@ -191,7 +192,9 @@ public class UIStuff
             {
                 num++;
 
-                KeyPanel keyPanel = new KeyPanel(ind, keys[ind], getKeyName(keys[ind]));
+                KeyPanel keyPanel = 
+                    new KeyPanel(ind, keys[ind], 
+                    getKeyName(keys[ind],ind));
 
                 inner.add(keyPanel,BorderLayout.WEST); 
                 
@@ -268,19 +271,21 @@ public class UIStuff
         return result;
     }
 
-    private String getKeyName(int[] key)
+    private String getKeyName(int[] key, int ind)
     {
-        String name =namer.get(key);
+        String name = namer.smartGet(key,ind); 
+        //this is inefficient. not sure how to fix this.
         if (name == "")
         {
-            return "Unnamed Key (" + MathHelper.expand(key,true) + ")";
+            return "Unnamed Key (" + MathHelper.expandSmart(key,ind,true) + ")";
         }
         else
         {
-            return name + " (" + MathHelper.expand(key,true) + ")";
+            return name + " (" + MathHelper.expandSmart(key,ind,true) + ")";
         }
 
     }
+    
 
     private void oneTimeSetup()
     {
@@ -381,7 +386,6 @@ public class UIStuff
     {
         sortStyle = newStyle;
         refresh();
-
     }
 
     private void updateFilterList(Filter[] flist)

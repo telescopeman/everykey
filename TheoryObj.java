@@ -76,6 +76,9 @@ public abstract class TheoryObj
      */
     public static String expand(int[] key, boolean enharmonicsOn)
     {
+        
+        
+        
         String name = "";
         String[] rawNotes = expandRaw(key,enharmonicsOn);
         
@@ -100,6 +103,26 @@ public abstract class TheoryObj
         }
         return name;
     }
+    
+    
+    
+    public static String expandSmart(int[] key, int ind, boolean enh)
+    {
+        if (SpeedCache.needsCache(ind,enh))
+        {
+            String str = expand(key, enh);
+            SpeedCache.smartCache(str,ind,enh);
+            return str;
+        }
+        else
+        {
+            return SpeedCache.smartCheck(ind,enh);
+        }
+    
+    
+    }
+    
+    
 
     private static String[] expandRaw(int[] key, boolean enharmonicsOn)
     {

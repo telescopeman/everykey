@@ -40,7 +40,7 @@ public class FilterCreator extends ModBox
 
     private void update()
     {
-        myFilters = ui.curFilters;
+        myFilters = ui.getCurrentFilters();
         setList = ui.getFilterStatuses();
     }
 
@@ -271,11 +271,12 @@ public class FilterCreator extends ModBox
     public void act(String id)
     {
         update();
+        System.out.println(id);
         switch (id)
         {
             case "comboBoxChanged":
             {
-
+                break;
             }
             case "Add Filter":
             {
@@ -296,7 +297,7 @@ public class FilterCreator extends ModBox
                 //frame.dispose();
 
                 this.dispose();
-
+                break;
             }
             default:
             {

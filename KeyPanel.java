@@ -77,7 +77,9 @@ public class KeyPanel extends EasyPanel implements ActionListener
     {
 
         super();
-        String lbl = "#" + String.format("%03d",num) + ": " + parse(name);
+        String lbl = "#" + String.format("%03d",num)  //this just means to make sure it has three digits
+            + ": " + parse(name);
+            
         ChordViewer chrds = new ChordViewer(key,name);
 
         JButton jb2 = new JButton("Intervals");
