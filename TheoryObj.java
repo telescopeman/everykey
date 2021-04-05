@@ -8,11 +8,7 @@ import java.util.HashMap;
  */
 public abstract class TheoryObj
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
-    //private static EnharmonicsHelper enh = new EnharmonicsHelper();
-
+    
     public static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
 
     public static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
@@ -55,14 +51,7 @@ public abstract class TheoryObj
                 //put("B", "A♯♯");
             }};
 
-    /**
-     * Constructor for objects of class TheoryObj
-     */
-    public TheoryObj()
-    {
-        // initialise instance variables
-        x = 0;
-    }
+    
 
     public static String getNoteName(int index) //Assumes root note is C.
     {
@@ -167,7 +156,7 @@ public abstract class TheoryObj
                         nextNote = "dummy";
                     }
                     cur[count2] = curNote;
-                    System.out.println("notes p" + prevNote + " and c" + curNote);
+                    //System.out.println("notes p" + prevNote + " and c" + curNote);
                     if (testIfDupe(curNote,prevNote))
                     {
 
