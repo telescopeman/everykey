@@ -1,5 +1,7 @@
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.Random;
+
 import javax.sound.midi.Sequencer;
 import javax.sound.midi.Track;
 import javax.sound.midi.Sequence;
@@ -7,7 +9,6 @@ import javax.sound.midi.MidiEvent;
 import javax.sound.midi.MidiMessage;
 import javax.sound.midi.ShortMessage;
 import javax.sound.midi.MidiSystem;
-import java.util.Random;
 
 /**
  * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.

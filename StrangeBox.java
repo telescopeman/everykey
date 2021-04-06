@@ -9,8 +9,6 @@ import javax.swing.JLabel;
  */
 public class StrangeBox extends SliderBox
 {
-
-
     static final int MIN = 20;
     static final int MAX = 440;
 
@@ -47,7 +45,7 @@ public class StrangeBox extends SliderBox
 
     public void update(float d)
     {
-        ui.setNeutral((int)d);
+        ui.setNeutral( (int) d );
     }
     
     public void act(String id)
