@@ -171,7 +171,7 @@ public class UIStuff
     {
         JPanel temp = new JPanel();
         //inner.removeAll();
-        temp.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         int counter = -1;
         int num = 0;
         int[] specificList = styleSort(absoluteList);
@@ -190,18 +190,24 @@ public class UIStuff
                 KeyPanel keyPanel = 
                     new KeyPanel(ind, keys[ind],getKeyName(keys[ind],ind));
 
-                temp.add(keyPanel,BorderLayout.WEST); 
+                inner.add(keyPanel,BorderLayout.WEST); 
 
             }
         }
 
-        //outer.setLayout(new ScrollPaneLayout());
+        
+        
         JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length 
                 + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
         header.add(lab);
-        temp.add(header,0);
+        inner.add(header,0);
         inner = temp;
+        //temp.dispose();
+        
+        outer = new JScrollPane(inner);
+        //outer.getVerticalScrollBar().setUnitIncrement(16);
+        outer.setLayout(new ScrollPaneLayout());
 
         mainWindow.pack();
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
