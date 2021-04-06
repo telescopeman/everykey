@@ -21,27 +21,17 @@ public class KeyPanel extends EasyPanel implements ActionListener
 
     
 
-    public static int[] getEnclosers(String str, String special)
-    {
-        if (! (special.length() == 2))
-        {
-            return new int[]{-1,-1};
-
-        }
-        return new int[]{str.indexOf(special.substring(0,1)),str.indexOf(special.substring(1,2))};
-
-    }
 
     /**
      * Filters out tags.
      */
     public static String parse(String name)
     {
-        int[] pt = getEnclosers(name,"[]");
+        int[] pt = StringHelper.getEnclosers(name,"[]");
         String dispName;
         if (pt[0] > -1)
         {
-            dispName =  quickSubstring(name,pt);
+            dispName =  StringHelper.quickSubstring(name,pt);
         }
         else
         {
@@ -49,26 +39,18 @@ public class KeyPanel extends EasyPanel implements ActionListener
         }
         for(boolean i = true; i == true;)
         {
-            pt = getEnclosers(dispName,"{}");
+            pt = StringHelper.getEnclosers(dispName,"{}");
             i = false;
             if (pt[0] > -1 && pt[1] > -1)
             {
-                dispName = dispName.substring(0,pt[0]) 
-                + dispName.substring(pt[1]+1); //name + notes
+                dispName = StringHelper.quickSubstring(dispName,pt); 
                 i = true;
             }
-
         }
         return dispName;
-
     }
 
-    private static String quickSubstring(String name, int[] pts)
-    {
-        String newName =  name.substring(0,pts[0]-1) + name.substring(pts[1]+1);
-        return newName;
-
-    }
+    
 
     /**
      * Constructor for objects of class KeyPanel
@@ -125,7 +107,7 @@ public class KeyPanel extends EasyPanel implements ActionListener
 
         //Popup p = infoPanel();
         JLabel label = new JLabel(lbl);
-        int[] pt = getEnclosers(name,"[]");
+        int[] pt = StringHelper.getEnclosers(name,"[]");
         if (pt[0] > -1 && pt[1] > -1) // makes it so you can hover for modal info.
         {
             label.setToolTipText(name.substring(pt[0]+1,pt[1]));

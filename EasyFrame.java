@@ -17,6 +17,7 @@ public class EasyFrame extends JFrame implements ActionListener
     public final Dimension SMALL = new Dimension(200,200);
     public final Dimension ROUNDISH = new Dimension(350,250);
     public final Dimension LONG = new Dimension(900,250);
+    public final Dimension LONG2 = new Dimension(900,150);
 
     /**
      * Constructor for objects of class EasyFrame
@@ -33,6 +34,12 @@ public class EasyFrame extends JFrame implements ActionListener
         title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
         add(title);
 
+    }
+    
+    public void addCenteredText(String text)
+    {
+        JLabel title = new JLabel(text,JLabel.CENTER);
+        add(title);
     }
 
     public EasyFrame(String name)
@@ -80,27 +87,10 @@ public class EasyFrame extends JFrame implements ActionListener
         setSize(dim);
     }
 
-    
-    // public int[] getEnclosers(String str, String special)
-    // {
-        // if (! (special.length() == 2))
-        // {
-            // return new int[]{-1,-1};
 
-        // }
-        // int ind1 = str.indexOf(special.substring(0,1));
-        // return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
-
-    // }
-
-    // /**
-    // * Sets the size of the frame.
-    // */
-    // public void setSize(int x, int y)
-    // {
-    // setSize(new Dimension(x,y));    
-    // }
-
+    /**
+     * Adds a label with the specified String.
+     */
     public void add(String str)
     {
         add(new JLabel(str));

@@ -41,9 +41,17 @@ public abstract class StringHelper
         {
             return str;
         }
-        return special.charAt(0) + str + special.charAt(1);
+        return enclose(str,special.charAt(0),special.charAt(1));
+    }
+    
+    public static String enclose(String str, char special1, char special2)
+    {
+        return special1 + str + special2;
     }
 
+    /**
+     * Gets a String excluding the parts between indexes
+     */
     public static String quickSubstring(String name, int[] pts)
     {
         String newName =  name.substring(0,pts[0]) + name.substring(pts[1]+1);

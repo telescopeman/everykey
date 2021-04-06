@@ -48,6 +48,7 @@ public class EasyPanel extends JPanel
         requestFocusInWindow();
 
     }
+    
     public void appear(Dimension dim)
     {
         show();
