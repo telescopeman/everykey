@@ -169,8 +169,9 @@ public class UIStuff
 
     private void updateKeys(int[][] keys)
     {
-        inner.removeAll();
-        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+        JPanel temp = new JPanel();
+        //inner.removeAll();
+        temp.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         int counter = -1;
         int num = 0;
         int[] specificList = styleSort(absoluteList);
@@ -189,7 +190,7 @@ public class UIStuff
                 KeyPanel keyPanel = 
                     new KeyPanel(ind, keys[ind],getKeyName(keys[ind],ind));
 
-                inner.add(keyPanel,BorderLayout.WEST); 
+                temp.add(keyPanel,BorderLayout.WEST); 
 
             }
         }
@@ -199,7 +200,8 @@ public class UIStuff
                 + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
         header.add(lab);
-        inner.add(header,0);
+        temp.add(header,0);
+        inner = temp;
 
         mainWindow.pack();
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
