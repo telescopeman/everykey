@@ -54,7 +54,7 @@ public class StrangeBox extends SliderBox
     {
         if (id.equals("Change Neutral Point"))
         {
-            appear(getDim(900,250));
+            appear(LONG);
 
         }
         else

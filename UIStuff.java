@@ -170,7 +170,7 @@ public class UIStuff
     private void updateKeys(int[][] keys)
     {
         JPanel temp = new JPanel();
-        //inner.removeAll();
+        inner.removeAll();
         inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         int counter = -1;
         int num = 0;
@@ -211,7 +211,7 @@ public class UIStuff
 
         mainWindow.pack();
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(new Dimension(800, 1000));
+        mainWindow.setSize(new Dimension(750, 1000));
         //outer.setPreferredSize(new Dimension(640,1000));
     }
 

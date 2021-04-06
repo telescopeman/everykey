@@ -173,14 +173,14 @@ public class Filter extends TheoryObj
         {
             return ("Must " + preceder + "contain the note " + 
                 getNoteName(requiredNotes[0]) + " as a " + 
-                coolNames[requiredPosition] + ".");
+                getIntervalName(requiredPosition) + ".");
         }
         else if (type == "NotePos")
         {
             return ("Must " + preceder + "contain either " + 
                 getNoteName(requiredNotes[0]) + " or " + 
                 getNoteName(requiredNotes[1]) + " as a " + 
-                coolNames[requiredPosition] + ".");
+                getIntervalName(requiredPosition) + ".");
         }
         else if (type == "isNamed")
         {

@@ -14,6 +14,8 @@ public class EasyFrame extends JFrame implements ActionListener
     // instance variables - replace the example below with your own
     public final Dimension STANDARD = new Dimension(350,100);
     public final Dimension SUPERSTANDARD = new Dimension(550,150);
+    public final Dimension ROUNDISH = new Dimension(350,250);
+    public final Dimension LONG = new Dimension(900,250);
 
     /**
      * Constructor for objects of class EasyFrame

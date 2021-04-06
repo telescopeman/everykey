@@ -9,9 +9,9 @@ import java.util.HashMap;
 public abstract class TheoryObj
 {
     
-    public static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
+    private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
 
-    public static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
+    private static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
 
     private static final HashMap<String,String> ENHARMONICSBELOW = new HashMap<String,String>()
         {{
@@ -68,6 +68,12 @@ public abstract class TheoryObj
         {
             return noteNames[index];
         }
+    }
+    
+    public static String getIntervalName(int index)
+    {
+        return coolNames[index];
+        
     }
 
     /**

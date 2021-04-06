@@ -3,7 +3,7 @@ import java.util.Arrays;
  * Array methods.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
 public class ArrayHelper
 {
@@ -94,7 +94,7 @@ public class ArrayHelper
         
         for(int i = list.length-1; i >= 0; i--)
         {
-            result = ArrayHelper.addX(result,list[i]);
+            result = addX(result,list[i]);
 
         }
 

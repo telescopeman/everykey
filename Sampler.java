@@ -9,7 +9,7 @@ public class Sampler extends EasyFrame
     
     private int[] myScale;
     private String name;
-    MusicHelper mus;
+    private MusicHelper mus;
     
     /**
      * Plays random notes.

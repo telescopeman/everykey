@@ -49,7 +49,7 @@ public class TempoBox extends SliderBox
     {
         if (id.equals("Change Note Speed"))
         {
-            appear(getDim(350,250));
+            appear(ROUNDISH);
         }
         else
         {
