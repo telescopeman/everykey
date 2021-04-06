@@ -11,17 +11,12 @@ public class KeyNamesHelper extends TheoryObj
     private int group;
 
     static HashMap<String,String> stringKeys;
-    String lastKey;
+    //String lastKey;
     /**
      * Most of these are from Wikipedia.
      */
     public KeyNamesHelper()
     {
-        // commonKeys = new HashMap<int[],String>();
-        // commonKeys.put(majorKey, "Major");
-        // commonKeys.put(minorKey, "Minor");
-        // commonKeys.put(lydian, "Lydian");
-
         stringKeys = new HashMap<String,String>();
 
         group = 0; // major
@@ -145,7 +140,7 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, D, E♭, F, G, B♭, and B.", "Raga Viravasantham");
 
         addScale("C, D, E♭, G♭, G, A♭, and A.","Mela Syamalangi / Raga Shyamalam");
-        
+
         addScale("C, D, E♭, G♭, G, B♭, and B.", "Lydian ♭3, ♯6");
         //addScale("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
 
@@ -165,9 +160,7 @@ public class KeyNamesHelper extends TheoryObj
         //harmonic locrian
         addScale("C, D, E, F, G, B♭, and B.", "Ionian ♯6 [Third mode of Altered Minor]");
 
-        
         group = 14;
-        
         addScale("C, D♭, D, E, F, A♭, and B♭.", "The Elephant Scale");
         addScale("C, D♭, E♭, E, G, A, and B.", "Kynian");
         addScale("C, D, E♭, G♭, A♭, B♭, and B.", "Stynian");
@@ -175,11 +168,10 @@ public class KeyNamesHelper extends TheoryObj
         addScale("C, E♭, F, G, A♭, A, and B.", "Persichetti Scale [Fifth mode of the Elephant Scale]");  
         //elephant 6
         addScale("C, D, E♭, E, G♭, G, and B♭.", "Lathian [Seventh mode of the Elephant Scale]");        
-        
+
         //the modes of major but with flatted fifths
         // addScale("C, D, E♭, F, G♭, A♭, and B♭.", "Aeolian ♭5");
         // addScale("C, D, E♭, F, G♭, A, and B♭.", "Dorian ♭5");
-        // //addScale("C, D, E, G♭, G, A, and B.", "Lydian"); not possible
         // //addScale("C, D♭, E♭, F, G♭, A♭, and B♭.", "Phrygian");
         // //addScale("C, D♭, E♭, F, G♭, A♭, and B♭.", "Locrian");
         // addScale("C, D, E, F, G♭, A, and B♭.", "Mixolydian ♭5");
@@ -187,7 +179,7 @@ public class KeyNamesHelper extends TheoryObj
 
     private void addScale(String notes, String name)
     {
-        lastKey = notes;
+        //lastKey = notes;
         if (!(group > -1))
         {
             return;
@@ -198,11 +190,10 @@ public class KeyNamesHelper extends TheoryObj
         }
         stringKeys.put(notes,name + getTags(group));
     }
-    
+
     private String getTags(int group)
     {
         return TagsManager.curl(TagsManager.getTagGroup(group));
-        
     }
 
     public int[] getEnclosers(String str, String special)
@@ -217,10 +208,14 @@ public class KeyNamesHelper extends TheoryObj
 
     }
 
-    public String[] getTags(int[] scale)
-    {
-        return getTags(get(scale));
+    // public String[] getTags(int[] scale)
+    // {
+        // return getTags(get(scale));
+    // }
 
+    public String[] getTags(int[] scale, int ind)
+    {
+        return getTags(smartGet(scale,ind));
     }
 
     public String[] getTags(String name)
@@ -269,10 +264,9 @@ public class KeyNamesHelper extends TheoryObj
 
     }
 
-    public static String get(int[] key)
+    private static String get(int[] key)
     {
         var name = stringKeys.get(expand(key,false));
-        //System.out.println(MathHelper.expand(key) + ": " + name);
         if (name == null)
         {
             return "";
@@ -283,11 +277,14 @@ public class KeyNamesHelper extends TheoryObj
         }
     }
 
-    
     public static String smartGet(int[] key, int ind)
     {
+        if (ind < 0)
+        {
+            //System.out.println("ind below zero");
+            return get(key);
+        }
         var name = stringKeys.get(expandSmart(key,ind,false));
-        //System.out.println(MathHelper.expand(key) + ": " + name);
         if (name == null)
         {
             return "";
@@ -297,11 +294,10 @@ public class KeyNamesHelper extends TheoryObj
             return name;
         }
     }
-    
+
     public static String quickGet(String str)
     {
         var name = stringKeys.get(str);
-        //System.out.println(MathHelper.expand(key) + ": " + name);
         if (name == null)
         {
             return "";

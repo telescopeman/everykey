@@ -20,18 +20,15 @@ public class UIStuff
 
     private JPanel inner;
     private JScrollPane outer;
-    
 
     private HashMap<Boolean,String> enableText;
-
     private JMenu viewfilters, removefilters;
-
     private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
     private boolean[] filterStatuses = new boolean[]{};
     private Filter[] curFilters = defaultFilters;
     private Filter[] storedFilters;
     private boolean[] storedFilterStatuses;
-    
+
     private int neutralpoint = 300; // 300 =dorian
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
@@ -41,12 +38,12 @@ public class UIStuff
     private final String SORT2 = "Brightness (Descending)";
     private final String SORT3 = "Strangeness (Ascending)";
     private final String SORT4 = "Strangeness (Descending)";
-    
+
     private int[][] curList;
     private int[] absoluteList;
-    
+
     private String[] nameCache;
-    
+
     /**
      * Runs the main program.
      */
@@ -54,7 +51,10 @@ public class UIStuff
     {
         UIStuff ui = new UIStuff();
     }
-    
+
+    /**
+     * Runs the main program.
+     */
     public UIStuff()
     {
         masterList = MathHelper.getAllKeys();
@@ -65,16 +65,13 @@ public class UIStuff
 
     }
 
-
     private void setupEnableText()
     {
         enableText = new HashMap<Boolean,String>();
         enableText.put(true,"on");
         enableText.put(false,"off");
-        
 
     }
-
     /**
      * Sets the list of filters.
      */
@@ -83,7 +80,7 @@ public class UIStuff
         curFilters = newFilters;
         refresh();
     }
-    
+
     /**
      * Returns the index of the scale used for strangeness measurements.
      */
@@ -91,7 +88,7 @@ public class UIStuff
     {
         return neutralpoint;
     }
-    
+
     /**
      * Sets the index of the scale used for strangeness measurements.
      */
@@ -99,7 +96,7 @@ public class UIStuff
     {
         neutralpoint = i;
     }
-    
+
     /**
      * Stores the current filter list in a variable.
      */
@@ -109,7 +106,7 @@ public class UIStuff
         storedFilterStatuses = Arrays.copyOf(filterStatuses,filterStatuses.length);
         refresh();
     }
-    
+
     /**
      * Returns any temporarily stored filters.
      */
@@ -117,7 +114,7 @@ public class UIStuff
     {
         return storedFilters;
     }
-    
+
     /**
      * Returns all currently created filters, even the ones that aren't active.
      */
@@ -125,7 +122,7 @@ public class UIStuff
     {
         return curFilters;
     }
-    
+
     /**
      * Returns any temporarily stored filter statuses.
      */
@@ -133,7 +130,7 @@ public class UIStuff
     {
         return storedFilterStatuses;
     }
-    
+
     /**
      * Sets the statuses of the filters.
      */
@@ -149,7 +146,7 @@ public class UIStuff
     {
         return filterStatuses;
     }
-    
+
     /**
      * Refreshes the view with any updated information about filters and sorting.
      */
@@ -158,12 +155,10 @@ public class UIStuff
         //printlnDebug("Refreshing...");
         updateFilterList(curFilters);
         curList = filterKeys(masterList, curFilters);
-
         updateKeys(curList);
 
     }
 
-    
     private static void printlnDebug(String str)
     {
         if (debugMode)
@@ -172,12 +167,11 @@ public class UIStuff
         }
     }
 
-    
     private void updateKeys(int[][] keys)
     {
         inner.removeAll();
         inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
-        int counter = 0;
+        int counter = -1;
         int num = 0;
         int[] specificList = styleSort(absoluteList);
         for (int ind : specificList)
@@ -191,18 +185,18 @@ public class UIStuff
             else
             {
                 num++;
-
+                //System.out.println(ind);
                 KeyPanel keyPanel = 
-                    new KeyPanel(ind, keys[ind], 
-                    getKeyName(keys[ind],ind));
+                    new KeyPanel(ind, keys[ind],getKeyName(keys[ind],ind));
 
                 inner.add(keyPanel,BorderLayout.WEST); 
-                
+
             }
         }
-        
+
         //outer.setLayout(new ScrollPaneLayout());
-        JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length + " keys. Hover over a key to see its modal relationships, if applicable.");
+        JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length 
+                + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
         header.add(lab);
         inner.add(header,0);
@@ -212,8 +206,7 @@ public class UIStuff
         mainWindow.setSize(new Dimension(800, 1000));
         //outer.setPreferredSize(new Dimension(640,1000));
     }
-    
-    
+
 
     private int[] styleSort(int[] list)
     {
@@ -221,15 +214,15 @@ public class UIStuff
 
         switch(sortStyle)
         {
-            case SORT1:
+            case SORT1: //ascending brightness
             {
                 return list;
             }
-            case SORT2:
+            case SORT2: //descending brightness
             {
                 return ArrayHelper.reverse(list);
             }
-            case SORT3:
+            case SORT3: //ascending "strangeness"
             {
                 Integer[] temp = new Integer[]{};
                 for(int c : list)
@@ -246,7 +239,7 @@ public class UIStuff
                 }
                 return result;
             }
-            case SORT4:
+            case SORT4: //descending "strangeness"
             {
                 Integer[] temp = new Integer[]{};
                 for(int c : list)
@@ -271,21 +264,36 @@ public class UIStuff
         return result;
     }
 
+    // private String getKeyName(int[] key)
+    // {
+        // String name = namer.smartGet(key,ind); 
+        // //this is inefficient. not sure how to fix this.
+        // if (name == "")
+        // {
+            // return "Unnamed Key (" + MathHelper.expandSmart(key,ind,true) + ")";
+        // }
+        // else
+        // {
+            // return name + " (" + MathHelper.expandSmart(key,ind,true) + ")";
+        // }
+
+    // }
+
     private String getKeyName(int[] key, int ind)
     {
         String name = namer.smartGet(key,ind); 
+        String dispName = namer.expandSmart(key,ind,true);
         //this is inefficient. not sure how to fix this.
         if (name == "")
         {
-            return "Unnamed Key (" + MathHelper.expandSmart(key,ind,true) + ")";
+            return "Unnamed Key (" + dispName + ")";
         }
         else
         {
-            return name + " (" + MathHelper.expandSmart(key,ind,true) + ")";
+            return name + " (" + dispName + ")";
         }
 
     }
-    
 
     private void oneTimeSetup()
     {
@@ -314,12 +322,12 @@ public class UIStuff
 
         sortops=new JMenu("Change Sorting Order");  
         neu=new JMenuItem("Change Neutral Point");  
-        
+
         s1=new JMenuItem(SORT1);  
         s2=new JMenuItem(SORT2);  
         s3=new JMenuItem(SORT3);  
         s4=new JMenuItem(SORT4);  
-        
+
         s1.addActionListener(new ModActor(this,"setSortStyle",SORT1));
         s2.addActionListener(new ModActor(this,"setSortStyle",SORT2));
         s3.addActionListener(new ModActor(this,"setSortStyle",SORT3));
@@ -332,7 +340,6 @@ public class UIStuff
         ftemplates=new JMenu("Filter Templates"); 
         livemaker=new JMenuItem("Open Musical Typing");
 
-
         i1=new JMenuItem("Filter by Tonality");  
         i2=new JMenuItem("Filter by Note");  
         i3=new JMenuItem("Filter by Chord");  
@@ -344,14 +351,14 @@ public class UIStuff
         {
             item.addActionListener(ModBox.buildFilterCreator(this));
         }
-    
+
         for (FilterTemplate t : TemplatesHelper.getAll())
         {
             JMenuItem t1 = new JMenuItem(t.getName());
             t1.addActionListener(new ModActor(this, t.getFilters()));
             ftemplates.add(t1);
         }
-        
+
         a1=new JMenuItem("Change Note Speed");  
         a1.addActionListener(ModBox.buildTempoBox(this)); //not working?
 
@@ -397,12 +404,12 @@ public class UIStuff
         {
             filterStatuses = ArrayHelper.addX(filterStatuses,true);
         }
-        
+
         if (flist.length == 0)
         {
             viewfilters.add(new JMenuItem("(None)"));
             removefilters.add(new JMenuItem("(None)"));
-            
+
         }
 
         for (Filter f : flist)
@@ -420,7 +427,7 @@ public class UIStuff
             counter++;
         }
     }
-    
+
     /**
      * Toggles a filter's activeness.
      */
@@ -457,15 +464,14 @@ public class UIStuff
             for (Filter f : filterList)
             {
                 num2++;
-                //printlnDebug(String.valueOf(num2) + f);
+
                 if (!filterStatuses[num2])
                 {
                     valid = true;
-
                     continue;
                 }
 
-                if (!f.checkKey(key))
+                if (!f.checkKey(key,num))
                 {
                     //System.out.println("Failed filter test" + num);
                     valid = false;

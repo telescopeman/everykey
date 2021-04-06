@@ -86,7 +86,7 @@ public class ModActor implements ActionListener
                 }
             }
             default:
-                throw new IllegalArgumentException("Illegal ModActor action in constructor!");
+                //throw new IllegalArgumentException("Illegal ModActor action in constructor!");
         }
     }
 }

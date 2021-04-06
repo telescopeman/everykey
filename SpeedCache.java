@@ -5,47 +5,32 @@
  * @author Caleb Copeland
  * @version 4/5/21
  */
-public class SpeedCache extends TheoryObj
+public class SpeedCache
 {
     // instance variables - replace the example below with your own
-    private static String[] cache = new String[462];
-    
-    private static String[] cache2 = new String[462];
+    private static String[] cache = new String[462]; // enharmonics on
+    private static String[] cache2 = new String[462]; //enharmonics off
 
     private static int num = 0;
     private static int num2= 0;
-    // public static void cache(String str, int ind)
-    // {
-        // cache[ind] = str;
-        // //log();
-    // }
     
-    // public static void cache2(String str, int ind)
-    // {
-        // cache2[ind] = str;
-        // //log();
-    // }
     
     public static void smartCache(String str, int ind, boolean enh)
     {
-        
         if (enh)
         {
             cache[ind] = str;
-            log();
+            //log();
         }
         else
         {
             cache2[ind] = str;
-            log2();
+            //log2();
         }
     }
-
-    
     
     public static String smartCheck(int ind, boolean enh)
     {
-        
         if (enh)
         {
             return cache[ind];
@@ -54,10 +39,9 @@ public class SpeedCache extends TheoryObj
         {
             return cache2[ind];
         }
-        
     }
 
-    public static boolean needsCache(int ind,boolean enh)
+    public static boolean needsCache(int ind, boolean enh)
     {
         if (enh)
         {
@@ -68,10 +52,6 @@ public class SpeedCache extends TheoryObj
             return (cache2[ind]==null);
         }
     }
-    
-    
-    
-    
     
     private static void log()
     {

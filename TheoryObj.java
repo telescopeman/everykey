@@ -76,9 +76,7 @@ public abstract class TheoryObj
      */
     public static String expand(int[] key, boolean enharmonicsOn)
     {
-        
-        
-        
+        //System.out.println("Exp");
         String name = "";
         String[] rawNotes = expandRaw(key,enharmonicsOn);
         
@@ -120,6 +118,11 @@ public abstract class TheoryObj
         }
     
     
+    }
+    
+    public static String expandSmart(int[] key, boolean enh, int ind)
+    {
+        return expandSmart(key,ind,enh);
     }
     
     
@@ -258,7 +261,7 @@ public abstract class TheoryObj
     {
         int index = ind - 1;
         final int LOOP = 7;
-        System.out.print(ind + "-->");
+        //System.out.print(ind + "-->");
         if (index > LOOP)
         {
             return new int[]{};

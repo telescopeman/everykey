@@ -78,7 +78,7 @@ public class MathHelper extends TheoryObj
                     passAlong[i] = curArr[i];
                 //int[] passAlong = curArr;
                 passAlong[index] = branch;
-                //System.out.println(expand(passAlong));
+                
                 makeKey(passAlong,index+1);
             }
         }

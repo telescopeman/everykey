@@ -14,7 +14,6 @@ public class Filter extends TheoryObj
     private String description;
     private boolean hasDescription = false;
 
-    
     /** 
      * If this is turned on, the filter acts opposite to how it usually would.
      */   
@@ -189,7 +188,7 @@ public class Filter extends TheoryObj
         }
         else if (type == "AllNotes")
         {
-            return ("Must " + preceder + "contain notes " + expand(requiredNotes,false));
+            return ("Must " + preceder + "contain notes " + expand(requiredNotes,true));
         }
         else if (type == "Tag")
         {
@@ -220,20 +219,30 @@ public class Filter extends TheoryObj
     public boolean checkKey(int[] key)
     {
         //Arrays.sort(key);
-        return !(inverted == checkKeyHelper(key));
+        return !(inverted == checkKeyHelper(key,-1));
+    }
+    
+    /**
+     * Analyzes a given scale to see if it matches the Filter.
+     * @param key The key to analyze.
+     * @return A boolean noting if the scale matched the Filter or not.
+     */
+    public boolean checkKey(int[] key, int ind)
+    {
+        return !(inverted == checkKeyHelper(key,ind));
     }
 
-    private boolean checkKeyHelper(int[] key)
+    private boolean checkKeyHelper(int[] key,int ind)
     {
         switch(type)
         {
             case "isNamed":
             {
-                return (!namer.get(key).equals(""));
+                return (!namer.smartGet(key,ind).equals(""));
             }
             case "Exotic":
             {
-                return (namer.get(key).indexOf("[") > 0);
+                return (namer.smartGet(key,ind).indexOf("[") > 0);
             }
             case "Tag":
             {
@@ -242,9 +251,9 @@ public class Filter extends TheoryObj
                 {
 
                     boolean going = false;
-                    for (String t : namer.getTags(key))
+                    for (String t : namer.getTags(key,ind))
                     {
-                        //System.out.println("Comparing " + t + " with " + tag +"...");
+                        
                         if (t.equals(tag))
                         {
                             going = true;
@@ -256,9 +265,22 @@ public class Filter extends TheoryObj
                 }
                 return true;
             }
+            //everything below this is the same for indexed and nonindexed check
             case "AllNotes":
             {
-                for (int note : requiredNotes)
+                return massCheck(key);
+            }
+            default: //note or notepos
+            {
+                return defCheck(key);
+            }
+        }
+
+    }
+    
+    private boolean massCheck(int[] key)
+    {
+        for (int note : requiredNotes)
                 {
                     if (Arrays.binarySearch(key,note) < 0)
                     {
@@ -266,31 +288,28 @@ public class Filter extends TheoryObj
                     }
                 }
                 return true;
-            }
-            default: //note or notepos
+    }
+
+    private boolean defCheck(int[] key)
+    {
+        for (int note : requiredNotes)
+        {
+            if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)
             {
-                for (int note : requiredNotes)
-                {
-                    if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)
-                    {
-                        return false;
-                    }
-                    if (type.equals("NotePos") && key[requiredPosition] == note)
-                    {
-                        return true;
-                    }
-
-                }
-
-                if (type.equals("NotePos"))
-                {
-                    return false;
-                }
+                return false;
+            }
+            if (type.equals("NotePos") && key[requiredPosition] == note)
+            {
                 return true;
             }
+
         }
 
-        //if can select one from large list 
+        if (type.equals("NotePos"))
+        {
+            return false;
+        }
+        return true;
 
     }
 }

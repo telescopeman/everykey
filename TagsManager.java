@@ -3,7 +3,7 @@
  * Manages the tags of scales.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/5/21
  */
 public class TagsManager
 {
