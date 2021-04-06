@@ -188,7 +188,7 @@ public class Filter extends TheoryObj
         }
         else if (type == "AllNotes")
         {
-            return ("Must " + preceder + "contain notes " + expand(requiredNotes,true));
+            return ("Must " + preceder + "contain notes " + expand(requiredNotes,false));
         }
         else if (type == "Tag")
         {

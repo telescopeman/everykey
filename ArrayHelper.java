@@ -105,7 +105,7 @@ public abstract class ArrayHelper
         int counter = 0;
         for(String item : list)
         {
-            if ((item.indexOf(term) > -1))
+            if ((item.equals(term)))
             {
                 return counter;
                 

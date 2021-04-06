@@ -26,9 +26,11 @@ public class UIStuff
     
     private int keyOffset;
 
+   
     private EasyPanel inner;
 
     private JMenu viewfilters, removefilters;
+    private static JMenu filtermenu;
     private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
     private boolean[] filterStatuses, storedFilterStatuses;
     private Filter[] curFilters, storedFilters;
@@ -70,6 +72,12 @@ public class UIStuff
 
     }
     
+    
+    public static void setFilterControlsDisabled(boolean d)
+    {
+        filtermenu.setEnabled(!d);
+        //refresh();
+    }
     
     /**
      * Sets the list of filters.
@@ -302,7 +310,7 @@ public class UIStuff
         
         mainWindow.add(outer);
 
-        JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates,other;
+        JMenu audio,addfilter,viewops,sortops,ftemplates,other;
         //JMenuItem filterctrls = JMenuItem
         JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
         JMenuItem s1,s2,s3,s4,neu;

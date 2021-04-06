@@ -54,7 +54,7 @@ public class VirtualPiano extends ModBox {
         index = 0;
         setResizable(false);
         setSize(getDim(14*width,3 * height / 2));
-        isRecording = false;
+        setRecState(false);
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
         channel = synthesizer.getChannels()[1];
@@ -244,11 +244,11 @@ public class VirtualPiano extends ModBox {
             b.setBackground(Color.RED);
             if (isRecording)
             {
-                if (!addKey(pitch))
+                if (addKey(pitch))
                 {
-                    return;
+                    apply();
                 }
-                apply();
+                
             }
 
         }
@@ -280,7 +280,7 @@ public class VirtualPiano extends ModBox {
             list[pressedKeys[index]-1].setBackground(Color.WHITE);
         }
         //System.out.print(pressedKeys[index]);
-        pressedKeys[index] = (pitch - 49) % 12;
+        pressedKeys[index] = converted;
         //System.out.print(pressedKeys[index]);
         advance();
         return true;
@@ -288,7 +288,7 @@ public class VirtualPiano extends ModBox {
 
     private void startRecording()
     {
-        isRecording = true;
+        setRecState(true);
         getUI().storeFilters();
         b2.setEnabled(true);
         b3.setEnabled(true);
@@ -349,9 +349,16 @@ public class VirtualPiano extends ModBox {
 
     private void stopRecording()
     {
-        isRecording = false;
+        setRecState(false);
         b1.setText(startrec);
 
+    }
+    
+    private void setRecState(boolean d)
+    {
+        StateWatcher.isPianoOpen = d;
+        isRecording = d;
+        StateWatcher.togglePiano();
     }
 
     private Filter toFilter()

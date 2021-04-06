@@ -8,11 +8,11 @@ import java.util.HashMap;
  */
 public abstract class TheoryObj
 {
-    
+
     private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
 
     public static final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
-    
+
     private static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
 
     private static final HashMap<String,String> ENHARMONICSBELOW = new HashMap<String,String>()
@@ -20,11 +20,23 @@ public abstract class TheoryObj
                 //put("D♭", "C♯");
 
                 //put("D", "");
+
+                //put("C", "B♯");
+                put("C♯", "B♯♯");
+                put("D♭", "C♯");
+                put("D", "C♯♯");
+                put("E♭♭", "D");
                 put("E♭", "D♯");
                 put("E", "D♯♯");
+                put("F♭♭", "E♭");
+                put("F♭", "E");
                 put("F", "E♯");
+                put("F♯", "F♯");
+                put("G♭♭", "F");
                 put("G♭", "F♯");
                 put("G", "F♯♯");
+                //put("G♯", "F♯♯♯");
+                put("A♭♭", "G");
                 put("A♭", "G♯");
                 put("A", "G♯♯");
                 put("B♭", "A♯");
@@ -33,6 +45,10 @@ public abstract class TheoryObj
 
     private static final HashMap<String,String> ENHARMONICSABOVE = new HashMap<String,String>()
         {{
+                put("C", "D♭♭");
+                put("C♯", "D♭");
+                put("C♯♯", "D");
+                put("C♯♯", "D");
                 put("D♭", "E♭♭♭");
                 put("D", "E♭♭");
                 put("D♯", "E♭");
@@ -47,36 +63,58 @@ public abstract class TheoryObj
                 put("G♭", "A♭♭♭");
                 put("G", "A♭♭");
                 put("G♯", "A♭");
+                put("G♯♯", "A");
                 put("A♭", "B♭♭♭");
                 put("A", "B♭♭");
                 put("A♯", "B♭");
-                //put("B", "A♯♯");
-            }};
+                put("A♯♯", "B");
+                put("B♭", "C♭♭");
+                put("B", "C♭");
+                put("B♯♯", "C♯");
+                put("C♭", "D♭♭♭");
 
-    
+            }};
 
     public static String getNoteName(int ind) //Assumes root note is C.
     {
-        int index = ind + OffsetWatcher.getOffset();
+        int index = ind + StateWatcher.getOffset();
         if (index > 13)
         {
-            return getNoteName(index-12);
+            return getNoteNameHelper(index-12);
 
         }
         else if (index <= 0)
         {
-            return getNoteName(index+12);
+            return getNoteNameHelper(index+12);
         }
         else
         {
             return noteNames[index];
         }
     }
-    
+
+    private static String getNoteNameHelper(int ind) //Assumes root note is C.
+    {
+
+        if (ind > 13)
+        {
+            return getNoteNameHelper(ind-12);
+
+        }
+        else if (ind <= 0)
+        {
+            return getNoteNameHelper(ind+12);
+        }
+        else
+        {
+            return noteNames[ind];
+        }
+    }
+
     public static String getIntervalName(int index)
     {
         return coolNames[index];
-        
+
     }
 
     /**
@@ -86,9 +124,16 @@ public abstract class TheoryObj
     public static String expand(int[] key, boolean enharmonicsOn)
     {
         //System.out.println("Exp");
+        int[] key2 = new int[key.length];
+        int c = 0;
+        for(int i : key)
+        {
+            key2[c] = ((i-1)%12)+1 ;
+            c++;
+        }
         String name = "";
-        String[] rawNotes = expandRaw(key,enharmonicsOn);
-        
+        String[] rawNotes = expandRaw(key2,enharmonicsOn);
+
         int count3 = 0;
         for (String newNote : rawNotes)
         {
@@ -110,9 +155,7 @@ public abstract class TheoryObj
         }
         return name;
     }
-    
-    
-    
+
     public static String expandSmart(int[] key, int ind, boolean enh)
     {
         if (SpeedCache.needsCache(ind,enh))
@@ -125,20 +168,17 @@ public abstract class TheoryObj
         {
             return SpeedCache.smartCheck(ind,enh);
         }
-    
-    
+
     }
-    
+
     public static String expandSmart(int[] key, boolean enh, int ind)
     {
         return expandSmart(key,ind,enh);
     }
-    
-    
 
     private static String[] expandRaw(int[] key, boolean enharmonicsOn)
     {
-        
+
         //int count = 0;
         String lastNote = "III";
         String[] rawNotes = new String[7];
@@ -148,8 +188,8 @@ public abstract class TheoryObj
             String newNote = getNoteName(i);
             // if (enharmonicsOn && count < key.length -1 )
             // {
-                // newNote = enharmonicCheck1(key,count,newNote,lastNote); 
-                // // this is a cursory check to make sure obvious style errors are removed.
+            // newNote = enharmonicCheck1(key,count,newNote,lastNote); 
+            // // this is a cursory check to make sure obvious style errors are removed.
             // } 
             rawNotes[count] = newNote;
             lastNote = newNote;
@@ -204,17 +244,16 @@ public abstract class TheoryObj
                     {
                         //String nextNote = cur[count2+1];
                         String rpl = getEnharmonicBelow(cur[count2]);
-                        
+
                         cur[count2] = rpl;
-                        
+
                         dupes++;
                     }
 
                     // cursory check to make sure obvious style errors are removed.
                     //log[attempts][count2+1] = curNote;
                 } 
-                
-                
+
                 //log[attempts][0] = String.valueOf(dupes);
                 //log[attempts][1] = getNoteName(1);
                 attempts++;
@@ -229,12 +268,13 @@ public abstract class TheoryObj
             }
         }
         return rawNotes;
-        
+
     }
-    
+
     private static String enharmonicCheck1(int[] key, int count, String newNote,String lastNote)
     {
         String sameNote = getEnharmonicBelow(newNote);
+
         if (testIfDupe(newNote,getNoteName(key[count+1])))
         {
             if (!testIfDupe(newNote,lastNote))
@@ -245,13 +285,15 @@ public abstract class TheoryObj
         return newNote;
     }
 
-    private static boolean testIfDupe(String str1, String str2)
+    private static boolean testIfDupe(String str1, String str2) 
     {
+
         if (str2.equals(""))
         {
             return false;
         }
         return getLetter(str1).equals(getLetter(str2));
+
     }
 
     private static String getLetter(String str)
@@ -288,10 +330,16 @@ public abstract class TheoryObj
     public static String getEnharmonicBelow(String note)
     {
         String name = ENHARMONICSBELOW.get(note);
-
+        // if (name == null)
+        // {
+        // System.out.println("Unhandled below note: " + note);
+        // throw new IllegalArgumentException("Unhandled below note: " + note);
+        // }
         if (name == null)
         {
             return note;
+            // System.out.println("Unhandled below note: " + note);
+            // throw new IllegalArgumentException("Unhandled below note: " + note);
         }
         else
         {
@@ -305,10 +353,10 @@ public abstract class TheoryObj
     public static String getEnharmonicAbove(String note)
     {
         String name = ENHARMONICSABOVE.get(note);
-
         if (name == null)
         {
-            return note;
+            System.out.println("Unhandled above note: " + note);
+            throw new IllegalArgumentException("Unhandled above note: " + note);
         }
         else
         {

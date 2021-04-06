@@ -29,7 +29,7 @@ public class TempoBox extends SliderBox
         {
             System.out.println(ed);
         }
-        setUpSlider(PlayerWatcher.getTempo(),TEMPO_MIN,TEMPO_MAX);
+        setUpSlider(StateWatcher.getTempo(),TEMPO_MIN,TEMPO_MAX);
 
         getSlider().setMajorTickSpacing(50);
         add(getSlider());
@@ -41,7 +41,7 @@ public class TempoBox extends SliderBox
     
     public void softUpdate(float d)
     {
-        PlayerWatcher.setTempo(d);
+        StateWatcher.setTempo(d);
     }
     
     public void update(float d)

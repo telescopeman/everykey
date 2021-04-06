@@ -48,7 +48,8 @@ public class OffsetEditor extends EasyPanel
                     else
                     {
                         offset = n;
-                        OffsetWatcher.setOffset(n);
+                        StateWatcher.setOffset(n);
+                        SpeedCache.setOffset(n);
                         ui.setOffset(n);
                     }
                 }

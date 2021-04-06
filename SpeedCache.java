@@ -7,11 +7,18 @@
  */
 public abstract class SpeedCache
 {
-    private static String[] cache = new String[462]; // enharmonics on
+    private static String[][] cache = new String[12][462]; // enharmonics on
     private static String[] cache2 = new String[462]; //enharmonics off
 
     private static int num = 0;
-    private static int num2= 0;
+    private static int num2 = 0;
+    private static int ofs = 0;
+    
+    public static void setOffset(int n)
+    {
+        ofs = n;
+        
+    }
     
     /**
      * Caches a description. Each index should only be used once if all goes well.
@@ -21,7 +28,7 @@ public abstract class SpeedCache
     {
         if (enh)
         {
-            cache[ind] = str;
+            cache[ofs][ind] = str;
             //log();
         }
         else
@@ -31,6 +38,8 @@ public abstract class SpeedCache
         }
     }
     
+    
+    
     /**
      * Reads the cache at a certain index.
      * @param enh Whether the description being cached is taking enharmonics into account.
@@ -39,13 +48,15 @@ public abstract class SpeedCache
     {
         if (enh)
         {
-            return cache[ind];
+            return cache[ofs][ind];
         }
         else
         {
             return cache2[ind];
         }
     }
+    
+    
 
     /**
      * Checks to see if a certain index of the cache is used or not.
@@ -55,7 +66,7 @@ public abstract class SpeedCache
     {
         if (enh)
         {
-            return (cache[ind]==null); 
+            return (cache[ofs][ind]==null); 
         }
         else
         {

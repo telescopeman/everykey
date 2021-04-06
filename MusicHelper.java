@@ -122,8 +122,8 @@
     throws javax.sound.midi.InvalidMidiDataException
     {
         MidiEvent[] events = new MidiEvent[2];
-        events[0] = new MidiEvent(makeMessage(pitch,true),index*timeMult);
-        events[1] = new MidiEvent(makeMessage(pitch,false),(index+1)*timeMult);
+        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true),index*timeMult);
+        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false),(index+1)*timeMult);
         return events;
 
     }
@@ -204,7 +204,7 @@
                     activate(id);
                 }
                 sequencer.setTickPosition(0);
-                PlayerWatcher.requestControl(this);
+                StateWatcher.requestControl(this);
             }
 
             catch (javax.sound.midi.MidiUnavailableException mue)
