@@ -6,7 +6,7 @@
  * @author Caleb Copeland
  * @version 4/6/21
    */
-public class PlayerWatcher
+public abstract class PlayerWatcher
 {
     // instance variables - replace the example below with your own
     static private MusicHelper curPlayer;

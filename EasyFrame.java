@@ -18,6 +18,8 @@ public class EasyFrame extends JFrame implements ActionListener
     public final Dimension ROUNDISH = new Dimension(350,250);
     public final Dimension LONG = new Dimension(900,250);
     public final Dimension LONG2 = new Dimension(900,150);
+    public final Dimension MAIN = new Dimension(850,1000);
+
 
     /**
      * Constructor for objects of class EasyFrame
@@ -62,6 +64,16 @@ public class EasyFrame extends JFrame implements ActionListener
     {
         return new Dimension(x,y);
 
+    }
+    
+    public void setWidth(int x)
+    {
+         setSize(new Dimension(x,getSize().height));
+    }
+    
+    public void setHeight(int x)
+    {
+         setSize(new Dimension(getSize().width,x));
     }
 
     // public GridLayout getGrid(int x, int y)
