@@ -20,7 +20,7 @@ public class StrangeBox extends SliderBox
         super(uiref);// initialise instance variables
         
         addHeader("Change Neutral Point for Strangeness Sorting:");
-        setUpSlider(ui.getNeutral(),MIN,MAX);
+        setUpSlider(getUI().getNeutral(),MIN,MAX);
             
         addLabels();
         
@@ -45,12 +45,12 @@ public class StrangeBox extends SliderBox
 
     public void update(float d)
     {
-        ui.setNeutral( (int) d );
+        getUI().setNeutral( (int) d );
     }
     
     public void softUpdate(float d)
     {
-        ui.setNeutral( (int) d );
+        getUI().setNeutral( (int) d );
     }
     
     public void act(String id)
@@ -62,7 +62,7 @@ public class StrangeBox extends SliderBox
         else
         {
             update(getPos());
-            ui.refresh();
+            getUI().refresh();
             hide();
 
         }

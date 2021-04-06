@@ -193,7 +193,7 @@ public class VirtualPiano extends ModBox {
         pack();
 
         setVisible(true);
-        ui.storeFilters();
+        getUI().storeFilters();
         requestFocusInWindow();
 
     }
@@ -289,7 +289,7 @@ public class VirtualPiano extends ModBox {
     private void startRecording()
     {
         isRecording = true;
-        ui.storeFilters();
+        getUI().storeFilters();
         b2.setEnabled(true);
         b3.setEnabled(true);
         for(JButton key : list)
@@ -305,8 +305,8 @@ public class VirtualPiano extends ModBox {
 
     private void apply()
     {
-        ui.setFilterStatuses(ArrayHelper.addX(ui.getStoredStatuses(),true));
-        ui.setCurFilters(ArrayHelper.addX(ui.getStoredFilters(),toFilter()));
+        getUI().setFilterStatuses(ArrayHelper.addX(getUI().getStoredStatuses(),true));
+        getUI().setCurFilters(ArrayHelper.addX(getUI().getStoredFilters(),toFilter()));
 
     }
 
@@ -314,12 +314,12 @@ public class VirtualPiano extends ModBox {
     {
         apply();
         hide();
-        ui.storeFilters();
+        getUI().storeFilters();
     }
 
     private void discard()
     {
-        ui.setCurFilters(ui.getStoredFilters());
+        getUI().setCurFilters(getUI().getStoredFilters());
         b2.setEnabled(false);
         b3.setEnabled(false);
         for(JButton key : list)

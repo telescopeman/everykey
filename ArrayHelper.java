@@ -7,8 +7,6 @@ import java.util.Arrays;
  */
 public abstract class ArrayHelper
 {
-    
-
     /**
      * Creates an Array equal to the array passed as parameter plus a new item.
      */

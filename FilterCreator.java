@@ -35,8 +35,8 @@ public class FilterCreator extends ModBox
 
     private void update()
     {
-        myFilters = ui.getCurrentFilters();
-        setList = ui.getFilterStatuses();
+        myFilters = getUI().getCurrentFilters();
+        setList = getUI().getFilterStatuses();
     }
 
     private void setUpUniqueFactors(String id)
@@ -274,7 +274,7 @@ public class FilterCreator extends ModBox
 
     private void setCurFilters(Filter[] f)
     {
-        ui.setCurFilters(f);
+        getUI().setCurFilters(f);
     }
 
     public void act(String id)
@@ -295,12 +295,12 @@ public class FilterCreator extends ModBox
 
                 boolean[] tempList2 = ArrayHelper.addX(setList,true);
 
-                ui.setFilterStatuses(tempList2);
+                getUI().setFilterStatuses(tempList2);
                 //System.out.println("SUPER: " + super.toString());
-                ui.setCurFilters(tempList);
+                getUI().setCurFilters(tempList);
 
                 //System.out.print("New List:" +tempList);
-                ui.refresh();
+                getUI().refresh();
                 update();
                 //frame.dispose();
 

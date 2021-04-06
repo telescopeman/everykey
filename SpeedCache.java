@@ -5,7 +5,7 @@
  * @author Caleb Copeland
  * @version 4/5/21
  */
-public class SpeedCache
+public abstract class SpeedCache
 {
     private static String[] cache = new String[462]; // enharmonics on
     private static String[] cache2 = new String[462]; //enharmonics off

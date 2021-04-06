@@ -349,7 +349,7 @@ public class UIStuff
 
         for (JMenuItem item : new JMenuItem[]{i1,i2,i3,i4,i5,i6})
         {
-            item.addActionListener(ModBox.buildFilterCreator(this));
+            item.addActionListener(new FilterCreator(this));
         }
 
         for (FilterTemplate t : TemplatesHelper.getAll())
@@ -360,9 +360,9 @@ public class UIStuff
         }
 
         a1=new JMenuItem("Change Note Speed");  
-        a1.addActionListener(ModBox.buildTempoBox(this)); //not working?
+        a1.addActionListener(new TempoBox(this)); //not working?
 
-        livemaker.addActionListener(ModBox.buildVirtualPiano(this)); //not working?
+        livemaker.addActionListener(new VirtualPiano(this)); //not working?
 
         viewops.add(sortops);
         viewops.add(neu);

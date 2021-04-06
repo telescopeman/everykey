@@ -1,37 +1,38 @@
-import java.util.Random;
-
-import javax.sound.midi.Sequencer;
-import javax.sound.midi.Track;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.MidiSystem;
-
-/**
- * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
- *
- * @author Caleb Copeland
- * @version 4/6/21
- */
-public class MusicHelper extends QuickListener
-{
-
-    private int[] savedNotes;
-    private Sequence mySequence;
-    private Sequencer sequencer;
-    private final int timeMult = 5;
-    private final int length = 5;
-
-    private boolean activated = false;
-
+    import java.util.Random;
+    
+    import javax.sound.midi.Sequencer;
+    import javax.sound.midi.Track;
+    import javax.sound.midi.Sequence;
+    import javax.sound.midi.MidiEvent;
+    import javax.sound.midi.MidiMessage;
+    import javax.sound.midi.ShortMessage;
+    import javax.sound.midi.MidiSystem;
+    
     /**
-     * Constructor for objects of class MusicHelper
+     * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
+     *
+     * @author Caleb Copeland
+     * @version 4/6/21
      */
-    public MusicHelper(int[] keyAsInts)
+    public class MusicHelper extends QuickListener
     {
+    
+        private int[] savedNotes;
+        private Sequence mySequence;
+        private Sequencer sequencer;
+        private final int timeMult = 5;
+        private final int length = 5;
+    
+        private boolean activated = false;
+        static private Random r;
+    
+        /**
+         * Constructor for objects of class MusicHelper
+         */
+        public MusicHelper(int[] keyAsInts)
+        {
         savedNotes = keyAsInts;
-
+        r = new Random();
     }
 
     private Sequence toMIDI(int[] notes, String type) 
@@ -94,8 +95,7 @@ public class MusicHelper extends QuickListener
         if (min >= max) {
             throw new IllegalArgumentException("Max must be greater than min");
         }
-
-        Random r = new Random();
+        
         return r.nextInt((max - min) + 1) + min;
     }
 
