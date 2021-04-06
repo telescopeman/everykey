@@ -1,5 +1,6 @@
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
+import javax.swing.JComponent;
 
 /**
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
@@ -30,6 +31,10 @@ import javax.swing.SpinnerModel;
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * 
+ * @author Oracle
+ * @since 4/6/21
+ * 
  **/ 
 public class CyclingSpinnerListModel extends SpinnerListModel {
     Object firstValue, lastValue;
@@ -66,4 +71,7 @@ public class CyclingSpinnerListModel extends SpinnerListModel {
         }
         return value;
     }
+    
+    
+    
 }

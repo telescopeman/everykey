@@ -9,15 +9,25 @@ import java.util.HashMap;
 public class KeyNamesHelper extends TheoryObj
 {
 
-    private int group;
+    static private int group;
 
     static HashMap<String,String> stringKeys;
+    static private boolean active = false;
     //String lastKey;
     /**
      * Most of these are from Wikipedia.
      */
-    public KeyNamesHelper()
+    public static void initialize()
     {
+        
+        if (active)
+        {
+            return;
+        }
+        else
+        {
+            active = true;
+        }
         stringKeys = new HashMap<String,String>();
 
         group = 0; // major
@@ -177,8 +187,10 @@ public class KeyNamesHelper extends TheoryObj
         // //addScale("C, D♭, E♭, F, G♭, A♭, and B♭.", "Locrian");
         // addScale("C, D, E, F, G♭, A, and B♭.", "Mixolydian ♭5");
     }
+    
+    
 
-    private void addScale(String notes, String name)
+    private static void addScale(String notes, String name)
     {
         //lastKey = notes;
         if (group < 0)
@@ -193,7 +205,7 @@ public class KeyNamesHelper extends TheoryObj
         stringKeys.put(notes,name + getTags(group));
     }
 
-    private String getTags(int group)
+    private static String getTags(int group)
     {
         return TagsManager.curlAll(TagsManager.getTagGroup(group));
     }
@@ -201,7 +213,7 @@ public class KeyNamesHelper extends TheoryObj
     /**
      * Gets the tags attached to a scale.
      */
-    public String[] getTags(int[] scale, int ind)
+    public static String[] getTags(int[] scale, int ind)
     {
         return getTags(smartGet(scale,ind));
     }
@@ -209,7 +221,7 @@ public class KeyNamesHelper extends TheoryObj
     /**
      * Gets the tags attached to a scale.
      */
-    public String[] getTags(String name)
+    public static String[] getTags(String name)
     {
         String dispName = name;
         String[] result = new String[]{};

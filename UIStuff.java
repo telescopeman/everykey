@@ -59,6 +59,7 @@ public class UIStuff
     public UIStuff()
     {
         keyOffset = 0;
+        KeyNamesHelper.initialize();
         curFilters = defaultFilters;
         filterStatuses = new boolean[]{};
         masterList = MathHelper.getAllKeys();
@@ -260,6 +261,12 @@ public class UIStuff
         return result;
     }
 
+    public void setOffset(int n)
+    {
+        keyOffset = n;
+        refresh();
+    }
+
 
     private String getKeyName(int[] key, int ind)
     {
@@ -289,7 +296,7 @@ public class UIStuff
         JScrollPane outer = new JScrollPane(inner);
         outer.getVerticalScrollBar().setUnitIncrement(16);
 
-        OffsetEditor ofs = new OffsetEditor();
+        OffsetEditor ofs = new OffsetEditor(this);
         
         //.add(pan);
         

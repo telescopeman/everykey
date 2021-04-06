@@ -2,6 +2,7 @@ import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Component;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -11,9 +12,9 @@ import javax.swing.JLabel;
  * Basically just a JPanel with a few extra methods.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
-public class EasyPanel extends JPanel
+public class EasyPanel extends JPanel implements ActionListener
 {
 
     public EasyPanel()
@@ -74,5 +75,24 @@ public class EasyPanel extends JPanel
         {
             remove(child);
         }
+    }
+    
+    public void actionPerformed(ActionEvent e)
+    {
+        act(e.getActionCommand());
+    }
+
+    /**
+     * If not overridden, assumes no-arg method should be used.
+     */
+    public void act(String id)
+    {
+        act();
+    }
+    
+    
+    public void act()
+    {
+        
     }
 }

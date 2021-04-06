@@ -100,6 +100,20 @@ public abstract class ArrayHelper
         
     }
 
+    public static int search(String[] list, String term)
+    {
+        int counter = 0;
+        for(String item : list)
+        {
+            if ((item.indexOf(term) > -1))
+            {
+                return counter;
+                
+            }
+            counter++;
+        }
+        return -1;
+    }
     
     /**
      * Returns an array equal to the reverse of the passed one.

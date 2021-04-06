@@ -55,8 +55,9 @@ public abstract class TheoryObj
 
     
 
-    public static String getNoteName(int index) //Assumes root note is C.
+    public static String getNoteName(int ind) //Assumes root note is C.
     {
+        int index = ind + OffsetWatcher.getOffset();
         if (index > 13)
         {
             return getNoteName(index-12);

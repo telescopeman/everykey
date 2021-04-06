@@ -6,8 +6,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JLabel;
 import java.awt.Font; 
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -18,7 +16,7 @@ import java.awt.event.MouseEvent;
  * @author Caleb Copeland
  * @version 4/6/21
  */
-public class KeyPanel extends EasyPanel implements ActionListener
+public class KeyPanel extends EasyPanel
 {
     
     private MusicHelper playr;
@@ -135,9 +133,10 @@ public class KeyPanel extends EasyPanel implements ActionListener
         return p;
     }
 
-    public void actionPerformed(ActionEvent e)
+    
+    
+    public void act(String d)
     {
-        String d = e.getActionCommand();
         if (d.equals("Info"))
         {
             p.show();
