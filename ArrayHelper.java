@@ -5,7 +5,7 @@ import java.util.Arrays;
  * @author Caleb Copeland
  * @version 4/6/21
  */
-public class ArrayHelper
+public abstract class ArrayHelper
 {
     
 
