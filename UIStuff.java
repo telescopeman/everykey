@@ -169,7 +169,6 @@ public class UIStuff
 
     private void updateKeys(int[][] keys)
     {
-        JPanel temp = new JPanel();
         inner.removeAll();
         inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         int counter = -1;
@@ -195,23 +194,16 @@ public class UIStuff
             }
         }
 
-        
-        
+        //outer.setLayout(new ScrollPaneLayout());
         JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length 
                 + " keys. Hover over a key to see its modal relationships, if applicable.");
         JPanel header = new JPanel();
         header.add(lab);
         inner.add(header,0);
-        inner = temp;
-        //temp.dispose();
-        
-        outer = new JScrollPane(inner);
-        //outer.getVerticalScrollBar().setUnitIncrement(16);
-        outer.setLayout(new ScrollPaneLayout());
 
         mainWindow.pack();
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(new Dimension(750, 1000));
+        mainWindow.setSize(new Dimension(800, 1000));
         //outer.setPreferredSize(new Dimension(640,1000));
     }
 
