@@ -6,7 +6,6 @@ import javax.swing.BoxLayout;
 import java.awt.BorderLayout; 
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 /**
  * Controls the UI and most other high-level functions.
@@ -24,7 +23,6 @@ public class UIStuff
 
     private EasyPanel inner;
 
-    private HashMap<Boolean,String> enableText;
     private JMenu viewfilters, removefilters;
     private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
     private boolean[] filterStatuses, storedFilterStatuses;
@@ -59,19 +57,13 @@ public class UIStuff
         filterStatuses = new boolean[]{};
         masterList = MathHelper.getAllKeys();
         sortStyle = SORT3;
-        setupEnableText();
+        
         oneTimeSetup();
         refresh();
 
     }
     
-    private void setupEnableText()
-    {
-        enableText = new HashMap<Boolean,String>();
-        enableText.put(true,"on");
-        enableText.put(false,"off");
-
-    }
+    
     /**
      * Sets the list of filters.
      */
@@ -400,8 +392,16 @@ public class UIStuff
 
         for (Filter f : flist)
         {
-
-            String status = enableText.get(filterStatuses[counter]);
+            String status;
+            if (filterStatuses[counter])
+            {
+                status = "on";
+            }
+            else
+            {
+                status = "off";
+            }
+            //String status = enableText.get(filterStatuses[counter]);
             //System.out.println(filterStatuses[0]);
             JMenuItem button = new JMenuItem(f.translateToReadable() + " [" + status + "]" ); //the 
 
