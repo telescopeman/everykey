@@ -24,7 +24,7 @@ public class StrangeBox extends SliderBox
             
         addLabels();
         
-        add(slider);
+        add(getSlider());
 
         addButton("Apply",this);
     }
@@ -40,10 +40,15 @@ public class StrangeBox extends SliderBox
         labelTable.put( new Integer(336), new JLabel("Major") );
         labelTable.put( new Integer(364), new JLabel("Nohkan") );
         labelTable.put( new Integer(420), new JLabel("Super Lydian") );
-        slider.setLabelTable( labelTable );
+        getSlider().setLabelTable( labelTable );
     }
 
     public void update(float d)
+    {
+        ui.setNeutral( (int) d );
+    }
+    
+    public void softUpdate(float d)
     {
         ui.setNeutral( (int) d );
     }
@@ -53,11 +58,10 @@ public class StrangeBox extends SliderBox
         if (id.equals("Change Neutral Point"))
         {
             appear(LONG);
-
         }
         else
         {
-            update(sliderpos);
+            update(getPos());
             ui.refresh();
             hide();
 

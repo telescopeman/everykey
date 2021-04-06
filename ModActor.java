@@ -55,7 +55,7 @@ public class ModActor extends QuickListener
         action = "setTemplate";
     }
 
-    public void act(String id)
+    public void act()
     {
         switch(action)
         {

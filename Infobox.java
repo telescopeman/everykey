@@ -4,7 +4,7 @@ import javax.swing.JLabel;
  * Displays info about the intervals of a scale.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
 public class Infobox extends EasyFrame
 {
@@ -137,7 +137,7 @@ public class Infobox extends EasyFrame
 
     }
 
-    public void act(String id)
+    public void act()
     {
         clear();
         appear(SMALL);

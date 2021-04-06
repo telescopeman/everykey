@@ -31,18 +31,24 @@ public class TempoBox extends SliderBox
         }
         setUpSlider(PlayerWatcher.getTempo(),TEMPO_MIN,TEMPO_MAX);
 
-        slider.setMajorTickSpacing(50);
-
-        add(slider);
+        getSlider().setMajorTickSpacing(50);
+        add(getSlider());
 
         addButton("Test",playr);
     }
 
     
+    
     public void softUpdate(float d)
     {
         PlayerWatcher.setTempo(d);
     }
+    
+    public void update(float d)
+    {
+        //PlayerWatcher.setTempo(d);
+    }
+
 
 
     public void act(String id)
@@ -53,7 +59,7 @@ public class TempoBox extends SliderBox
         }
         else
         {
-            update(sliderpos);
+            update(getPos());
         }
         
     }

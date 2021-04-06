@@ -1,5 +1,11 @@
-import javax.swing.*;
-import java.awt.*; 
+import javax.swing.Popup;
+import javax.swing.PopupFactory;
+import javax.swing.JButton;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
+import javax.swing.JLabel;
+import java.awt.Font; 
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
@@ -10,14 +16,13 @@ import java.awt.event.MouseEvent;
  * Displays a scale's name and info.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
 public class KeyPanel extends EasyPanel implements ActionListener
 {
-    // instance variables - replace the example below with your own
-
-    MusicHelper playr;
-    Popup p;
+    
+    private MusicHelper playr;
+    private Popup p;
 
     
 

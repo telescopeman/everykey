@@ -108,8 +108,17 @@ public class EasyFrame extends JFrame implements ActionListener
         act(e.getActionCommand());
     }
 
+    /**
+     * If not overridden, assumes no-arg method should be used.
+     */
     public void act(String id)
     {
-
+        act();
+    }
+    
+    
+    public void act()
+    {
+        
     }
 }
