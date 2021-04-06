@@ -1,17 +1,14 @@
-
 import java.awt.Color;
 import java.awt.Dimension;
+import javax.swing.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
-
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
-
 
 /**
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
@@ -30,27 +27,24 @@ public class VirtualPiano extends ModBox {
     private final String exit = "Discard";
     private final String info = "About Musical Typing";
 
-    private final int maxKeys = 12;
+    private int index;
+    private int[] pressedKeys;
 
-    int index;
+    private JButton[] list;
+    private JButton b1,b2,b3;
 
-    JButton[] list;
-
-    JButton b1,b2,b3;
-
-    int[] pressedKeys;
-
-    MidiChannel channel;
-    JLayeredPane panel;
+    private MidiChannel channel;
+    private JLayeredPane panel;
     private boolean isRecording = false;
     private boolean lastSet = false;
     private int lastPitch;
-    final int width = 60;
-    int height = width * 240 / 40;
+
+    private final int width = 60;
+    private int height = width * 240 / 40;
+    private final int maxKeys = 12;
 
     public VirtualPiano(UIStuff uir) {
         super(uir,false);
-        
     }
 
     public void open() throws javax.sound.midi.MidiUnavailableException
@@ -64,15 +58,13 @@ public class VirtualPiano extends ModBox {
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
         channel = synthesizer.getChannels()[1];
-        //EasyFrame frame = new EasyFrame("Live Player"); //makes the JFrame
-        //appear();
-        final int velocity = 64; 
 
         panel = new JLayeredPane();
         panel.setPreferredSize(getDim(14*width,height));
         add(panel);
 
-        addWindowListener(new java.awt.event.WindowAdapter() {
+        addWindowListener(new java.awt.event.WindowAdapter()
+            {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                     discard();
@@ -82,7 +74,6 @@ public class VirtualPiano extends ModBox {
         int width2 = width * 16 / 20;
         int height2 = height * 80 / 120;
 
-        
         
         class PlayAction extends AbstractAction {
             private int pitch;
@@ -149,9 +140,7 @@ public class VirtualPiano extends ModBox {
 
                     public void mouseClicked(MouseEvent e)
                     {
-                        // JButton b = (JButton) e.getSource();
-                        // PlayAction th = (PlayAction) b.getActionMap().get(pr);
-                        // th.go(true);
+
                     }
                 }
             );
@@ -176,30 +165,22 @@ public class VirtualPiano extends ModBox {
 
             b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + mnem), pr);
             b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + mnem),rl);
-            //OscillationPreventor osc = new OscillationP
             Action ac = new PlayAction(ja,b,true);
             Action ac2 = new PlayAction(ja,b,false);
             b.getActionMap().put(pr, ac);
             b.getActionMap().put(rl, ac2);
             if (isWhite)
             {
-
                 b.setBackground(Color.WHITE);
-                //b.setMnemonic(whitemnems[numWhite].charAt(0));
-                //System.out.println(KeyStroke.getKeyStroke("pressed " + mnem));
-
                 b.setLocation(numWhite * width, 0);
                 b.setSize(width, height);
-
                 panel.add(b, 0, -1);
                 numWhite++;
             }
             else
             {
-
                 b.setLocation((numWhite-1)*(width) + (width2*3/4), 0);
                 b.setSize(width2, height2);
-
                 b.setBackground(Color.WHITE);
                 panel.add(b, 1, -1);
                 numBlack++;
@@ -209,7 +190,6 @@ public class VirtualPiano extends ModBox {
         }
 
         addButtons();
-
         pack();
 
         setVisible(true);
@@ -250,9 +230,8 @@ public class VirtualPiano extends ModBox {
 
     }
 
-    public void playNote(int pitch, JButton b,boolean pl)
+    private void playNote(int pitch, JButton b,boolean pl)
     {
-        //System.out.println(pl);
         if (pl == lastSet && pitch == lastPitch)
         {
             return;
@@ -271,8 +250,7 @@ public class VirtualPiano extends ModBox {
                 }
                 apply();
             }
-            
-            
+
         }
         else
         {
@@ -337,8 +315,6 @@ public class VirtualPiano extends ModBox {
         apply();
         hide();
         ui.storeFilters();
-        //ui.storeStatuses();
-
     }
 
     private void discard()
@@ -349,9 +325,7 @@ public class VirtualPiano extends ModBox {
         for(JButton key : list)
         {
             key.setBackground(Color.WHITE);
-
         }
-        //hide();
     }
 
     private void clearKeys()
@@ -371,7 +345,6 @@ public class VirtualPiano extends ModBox {
         {
             index = index % 7;
         }
-
     }
 
     private void stopRecording()
@@ -420,7 +393,6 @@ public class VirtualPiano extends ModBox {
             case exit:
             {
                 stopRecording();
-                //apply();
                 discard();
                 break;
             }
@@ -428,7 +400,9 @@ public class VirtualPiano extends ModBox {
             case info:
             {
                 JOptionPane.showMessageDialog(null, 
-                    "Musical Typing mode allows for creation of filters \nby way of inputting notes. Simply start recording, \ninput the desired notes, then click Save as New Filter \nto create a new filter.");
+                    "Musical Typing mode allows for creation of filters" +
+                        "\nby way of inputting notes. Simply start recording, " +
+                        "\ninput the desired notes, then click Save as New Filter \nto create a new filter.");
                 break;
             }
 
