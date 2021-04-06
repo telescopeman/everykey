@@ -1,5 +1,7 @@
 import javax.swing.SpinnerListModel;
-import javax.swing.JComponent;
+import javax.swing.JSpinner;
+
+//import javax.swing.JComponent;
 
 /**
  * Manages root note.
@@ -8,22 +10,22 @@ import javax.swing.JComponent;
  * @version 4/6/21
  * @since 4/6/21
  */
-public class OffsetEditor extends CyclingSpinnerListModel
+public class OffsetEditor extends EasyPanel
 {
     // instance variables - replace the example below with your own
     private int offset;
-
-    
     //public final 
     /**
      * Constructor for objects of class OffsetEditor
      */
     public OffsetEditor()
     {
-        //final String[] CHROMATICSCALE = ;
-        // initialise instance variables
-        super(TheoryObj.CHROMATICSCALE);
-        //offset = 0;
+        
+        super("Change Key");
+        offset = 0;
+        CyclingSpinnerListModel mdl = new CyclingSpinnerListModel(TheoryObj.CHROMATICSCALE);
+        JSpinner spinner = new JSpinner((mdl));
+        add(spinner);
         
     }
 

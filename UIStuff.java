@@ -289,10 +289,9 @@ public class UIStuff
         JScrollPane outer = new JScrollPane(inner);
         outer.getVerticalScrollBar().setUnitIncrement(16);
 
-        EasyPanel pan = new EasyPanel();
-        JSpinner ofs = new JSpinner(new OffsetEditor());
-        pan.add(ofs);
-        mainWindow.add(pan);
+        OffsetEditor ofs = new OffsetEditor();
+        
+        //.add(pan);
         
         mainWindow.add(outer);
 
@@ -308,7 +307,7 @@ public class UIStuff
         filtermenu=new JMenu("Filter Options");  
         audio=new JMenu("Audio Options");
         other=new JMenu("Viewing Options");
-        mb.add(pan);
+        
 
         sortops=new JMenu("Change Sorting Order");  
         neu=new JMenuItem("Change Neutral Point");  
@@ -371,7 +370,7 @@ public class UIStuff
         sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
 
         audio.add(a1); //audio.add(a2);
-        mb.add(viewops); mb.add(filtermenu); mb.add(audio); 
+        mb.add(viewops); mb.add(filtermenu); mb.add(audio); mb.add(ofs);
         mainWindow.setJMenuBar(mb);  
         
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
