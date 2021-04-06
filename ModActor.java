@@ -1,13 +1,12 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+
 /**
  * A customized ActionListener that does stuff to the main UI.
  *
  * @author Caleb Copeland
- * @version 3/28/21
+ * @version 4/6/21
  */
-public class ModActor implements ActionListener
+public class ModActor extends QuickListener
 {
     
     private UIStuff uiref;
@@ -56,7 +55,7 @@ public class ModActor implements ActionListener
         action = "setTemplate";
     }
 
-    public void actionPerformed(ActionEvent e)
+    public void act()
     {
         switch(action)
         {

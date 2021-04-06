@@ -11,6 +11,8 @@ public abstract class TheoryObj
     
     private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
 
+    public static final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
+    
     private static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
 
     private static final HashMap<String,String> ENHARMONICSBELOW = new HashMap<String,String>()

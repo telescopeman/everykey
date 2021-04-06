@@ -1,42 +1,42 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.sound.midi.Sequencer;
-import javax.sound.midi.Track;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.MidiSystem;
-import java.util.Random;
-
-/**
- * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
- *
- * @author Caleb Copeland
- * @version 3/28/21
- */
-public class MusicHelper extends TheoryObj implements ActionListener
-{
+    import java.util.Random;
     
-    private int[] savedNotes;
-    private Sequence mySequence;
-    private Sequencer sequencer;
-    private final int timeMult = 5;
-    private final int length = 5;
-
-    private boolean activated = false;
-
+    import javax.sound.midi.Sequencer;
+    import javax.sound.midi.Track;
+    import javax.sound.midi.Sequence;
+    import javax.sound.midi.MidiEvent;
+    import javax.sound.midi.MidiMessage;
+    import javax.sound.midi.ShortMessage;
+    import javax.sound.midi.MidiSystem;
+    
     /**
-     * Constructor for objects of class MusicHelper
+     * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
+     *
+     * @author Caleb Copeland
+     * @version 4/6/21
      */
-    public MusicHelper(int[] keyAsInts)
+    public class MusicHelper extends QuickListener
     {
-        savedNotes = keyAsInts;
-
-    }
     
+        private int[] savedNotes;
+        private Sequence mySequence;
+        private Sequencer sequencer;
+        private final int timeMult = 5;
+        private final int length = 5;
+    
+        private boolean activated = false;
+        static private Random r;
+    
+        /**
+         * Constructor for objects of class MusicHelper
+         */
+        public MusicHelper(int[] keyAsInts)
+        {
+        savedNotes = keyAsInts;
+        r = new Random();
+    }
+
     private Sequence toMIDI(int[] notes, String type) 
-        throws javax.sound.midi.InvalidMidiDataException
+    throws javax.sound.midi.InvalidMidiDataException
     {
         Sequence seq = new Sequence(Sequence.PPQ,5,20);
         Track myTrack = seq.getTracks()[0];
@@ -51,7 +51,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
                     counter++;
                 }
                 addFullNote(myTrack,savedNotes[0] + 12, counter);
-                
+
                 break;
             }
             case "Play Chord":
@@ -63,7 +63,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
             {
                 for(int i = 0; i < 7; i++)
                 {
-                    addClump(myTrack,getRawChordAt(savedNotes,i+1),i*timeMult);
+                    addClump(myTrack,TheoryObj.getRawChordAt(savedNotes,i+1),i*timeMult);
                     int counter = 0;
                     for (int j = 0; j < 4; j++)
                     {
@@ -95,13 +95,12 @@ public class MusicHelper extends TheoryObj implements ActionListener
         if (min >= max) {
             throw new IllegalArgumentException("Max must be greater than min");
         }
-
-        Random r = new Random();
+        
         return r.nextInt((max - min) + 1) + min;
     }
 
     private void addClump(Track myTrack, int[] notes, int offset)
-        throws javax.sound.midi.InvalidMidiDataException
+    throws javax.sound.midi.InvalidMidiDataException
     {
         for (int note : notes)
         {
@@ -111,7 +110,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
     }
 
     private void addFullNote(Track myTrack, int pitch, int counter)
-        throws javax.sound.midi.InvalidMidiDataException
+    throws javax.sound.midi.InvalidMidiDataException
     {
         for (MidiEvent event : toNote(pitch,counter))
         {
@@ -120,7 +119,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
     }
 
     private MidiEvent[] toNote(int pitch, int index)
-        throws javax.sound.midi.InvalidMidiDataException
+    throws javax.sound.midi.InvalidMidiDataException
     {
         MidiEvent[] events = new MidiEvent[2];
         events[0] = new MidiEvent(makeMessage(pitch,true),index*timeMult);
@@ -130,7 +129,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
     }
 
     private MidiMessage makeMessage(int note,boolean isOn)
-        throws javax.sound.midi.InvalidMidiDataException
+    throws javax.sound.midi.InvalidMidiDataException
     {
         int active = ShortMessage.NOTE_ON;
         if (!isOn)
@@ -139,7 +138,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
         }
         ShortMessage myMsg = new ShortMessage();
         myMsg.setMessage(active, 0, 60 + (note - 1), 93); //middle c plus note value
-        
+
         long timeStamp = -1;
         return myMsg;
 
@@ -149,7 +148,7 @@ public class MusicHelper extends TheoryObj implements ActionListener
      * Sets this MusicPlayer's tempo to a given number.
      */
     public void setTempo(float newTempo)
-        throws javax.sound.midi.MidiUnavailableException
+    throws javax.sound.midi.MidiUnavailableException
     {
         if (newTempo < 1)
         {
@@ -160,6 +159,9 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     }
 
+    /**
+     * Stops the sequencer.
+     */
     public void stop()
     {
         sequencer.stop();
@@ -173,6 +175,9 @@ public class MusicHelper extends TheoryObj implements ActionListener
         activated = true;
     }
 
+    /**
+     * Sets up the sequencer.
+     */
     public void seqSetup() throws javax.sound.midi.MidiUnavailableException
     {
         sequencer = MidiSystem.getSequencer();
@@ -180,37 +185,39 @@ public class MusicHelper extends TheoryObj implements ActionListener
 
     }
 
-    public void actionPerformed(ActionEvent e) {
-        String id = e.getActionCommand();
+    /**
+     * Either stops or starts the player.
+     */
+    public void act(String id)
+    {
         if (id.equals("Stop"))
         {
             stop();
-            return;
         }
-        
-        try
+        else
         {
-            if (!activated)
+            try
             {
-                seqSetup();
-                activate(id);
+                if (!activated)
+                {
+                    seqSetup();
+                    activate(id);
+                }
+                sequencer.setTickPosition(0);
+                PlayerWatcher.requestControl(this);
             }
-            sequencer.setTickPosition(0);
-            PlayerWatcher.requestControl(this);
-        }
 
-        catch (javax.sound.midi.MidiUnavailableException mue)
-        {
-            mue.printStackTrace();
-        }
-        catch (javax.sound.midi.InvalidMidiDataException imde)
-        {
-            imde.printStackTrace();
-        }
-        
-        sequencer.start();
-        
+            catch (javax.sound.midi.MidiUnavailableException mue)
+            {
+                mue.printStackTrace();
+            }
+            catch (javax.sound.midi.InvalidMidiDataException imde)
+            {
+                imde.printStackTrace();
+            }
 
+            sequencer.start();
+        }
     }
 
 }

@@ -1,6 +1,12 @@
-import javax.swing.*;
-import java.awt.*; 
+import java.awt.Font;
+import java.awt.Dimension;
+import java.awt.Component;
 import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 /**
  * Basically just a JPanel with a few extra methods.
  *
@@ -17,8 +23,13 @@ public class EasyPanel extends JPanel
     
     public EasyPanel(String name)
     {
-        // initialise instance variables
         addHeader(name);
+    }
+    
+    public void makeCenteredList()
+    {
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        
     }
 
     public void addButton(String name, ActionListener trig)
@@ -48,6 +59,7 @@ public class EasyPanel extends JPanel
         requestFocusInWindow();
 
     }
+    
     public void appear(Dimension dim)
     {
         show();

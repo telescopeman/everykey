@@ -4,9 +4,9 @@
  * Makes sure two audio clips don't play at once, keeps tempo, etc.
  *
  * @author Caleb Copeland
- * @version 3/31/21
+ * @version 4/6/21
    */
-public class PlayerWatcher
+public abstract class PlayerWatcher
 {
     // instance variables - replace the example below with your own
     static private MusicHelper curPlayer;
@@ -28,11 +28,6 @@ public class PlayerWatcher
     public static float getTempo()
     {
         return tempo;
-    }
-    
-    public static void updateStatus(boolean isOn)
-    {
-        isPlaying = isOn;
     }
 
     public static void requestControl(MusicHelper src) 

@@ -3,9 +3,9 @@
  * Handles creation of the huge list of scales.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
-public class MathHelper extends TheoryObj
+public abstract class MathHelper extends TheoryObj
 {
     
     private static int[][] abstractList;

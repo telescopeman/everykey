@@ -9,8 +9,6 @@ import javax.swing.JLabel;
  */
 public class StrangeBox extends SliderBox
 {
-
-
     static final int MIN = 20;
     static final int MAX = 440;
 
@@ -22,11 +20,11 @@ public class StrangeBox extends SliderBox
         super(uiref);// initialise instance variables
         
         addHeader("Change Neutral Point for Strangeness Sorting:");
-        setUpSlider(ui.getNeutral(),MIN,MAX);
+        setUpSlider(getUI().getNeutral(),MIN,MAX);
             
         addLabels();
         
-        add(slider);
+        add(getSlider());
 
         addButton("Apply",this);
     }
@@ -42,12 +40,17 @@ public class StrangeBox extends SliderBox
         labelTable.put( new Integer(336), new JLabel("Major") );
         labelTable.put( new Integer(364), new JLabel("Nohkan") );
         labelTable.put( new Integer(420), new JLabel("Super Lydian") );
-        slider.setLabelTable( labelTable );
+        getSlider().setLabelTable( labelTable );
     }
 
     public void update(float d)
     {
-        ui.setNeutral((int)d);
+        getUI().setNeutral( (int) d );
+    }
+    
+    public void softUpdate(float d)
+    {
+        getUI().setNeutral( (int) d );
     }
     
     public void act(String id)
@@ -55,12 +58,11 @@ public class StrangeBox extends SliderBox
         if (id.equals("Change Neutral Point"))
         {
             appear(LONG);
-
         }
         else
         {
-            update(sliderpos);
-            ui.refresh();
+            update(getPos());
+            getUI().refresh();
             hide();
 
         }

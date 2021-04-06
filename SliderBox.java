@@ -10,16 +10,13 @@ import java.awt.Font;
  * @author Caleb Copeland
  * @version 3/28/21
  */
-public class SliderBox extends ModBox
+public abstract class SliderBox extends ModBox
 {
     // instance variables - replace the example below with your own
-    public float sliderpos;
+    private float sliderpos;
 
-    
     //static float tempo_init;
-
-    public JSlider slider;
-
+    private JSlider slider;
     /**
      * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
      */
@@ -50,7 +47,6 @@ public class SliderBox extends ModBox
     public SliderBox(UIStuff uiref)
     {
         super(uiref);// initialise instance variables
-        
     }
 
     public void setUpSlider(float init, float mn, float mx)
@@ -60,7 +56,7 @@ public class SliderBox extends ModBox
             (int) mn, (int) mx, (int) sliderpos);
         slider.addChangeListener(new SliderListener(slider));
         //Turn on labels at major tick marks.
-        
+
         slider.setMinorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
@@ -68,26 +64,33 @@ public class SliderBox extends ModBox
             BorderFactory.createEmptyBorder(0,0,10,0));
         Font font = new Font("Serif", Font.ITALIC, 15);
         slider.setFont(font);
-        
+
     }
     
+    
+    
+    public float getPos()
+    {
+        return sliderpos;
+    }
+    
+    public void setPos(float d)
+    {
+        sliderpos = d;
+    }
+    
+    public JSlider getSlider()
+    {
+        return slider;
+    }
+
     public void update()
     {
         //PlayerWatcher.setTempo((int)sliderpos);
     }
 
-    public void update(float d)
-    {
-        //PlayerWatcher.setTempo(d);
-    }
-    
-    public void softUpdate(float d)
-    {
-        //PlayerWatcher.setTempo(d);
-    }
-    
-    public void act(String id)
-    {
-        
-    }
+    public abstract void update(float d);
+
+    public abstract void softUpdate(float d);
+
 }

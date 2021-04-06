@@ -5,7 +5,7 @@
  * @author Caleb Copeland
  * @version 4/5/21
  */
-public class TagsManager
+public abstract class TagsManager
 {
     // instance variables - replace the example below with your own
     

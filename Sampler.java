@@ -44,7 +44,7 @@ public class Sampler extends EasyFrame
         myScale = scale;
     }
 
-    public void act(String id)
+    public void act()
     {
         clear();
         appear(STANDARD);

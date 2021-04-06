@@ -5,10 +5,8 @@ import java.util.Arrays;
  * @author Caleb Copeland
  * @version 4/6/21
  */
-public class ArrayHelper
+public abstract class ArrayHelper
 {
-    
-
     /**
      * Creates an Array equal to the array passed as parameter plus a new item.
      */

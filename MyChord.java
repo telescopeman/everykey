@@ -3,11 +3,10 @@ import java.awt.Color;
  * Represents a chord.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
 public class MyChord extends TheoryObj
 {
-    // instance variables - replace the example below with your own
     private int root;
     private int third;
     private int fifth;
@@ -32,9 +31,6 @@ public class MyChord extends TheoryObj
     }
 
     
-    
-    
-
     private void sort()
     {
         while (root >= third)
@@ -50,7 +46,6 @@ public class MyChord extends TheoryObj
     }
 
     
-    
     private void invert()
     {
         int temp = root;
@@ -64,8 +59,6 @@ public class MyChord extends TheoryObj
      */
     public String toString()
     {
-
-        //System.out.println(root + ",");
         String rootname = getNoteName(root);
         String thirdname = getThirdType();
         String fifthname  = getFifthType();
@@ -162,7 +155,6 @@ public class MyChord extends TheoryObj
      */
     public Color toColor()
     {
-        //System.out.println(getFifthType() + " " + getThirdType());
         switch (getFifthType())
         {
             case "Augmented":
@@ -217,7 +209,6 @@ public class MyChord extends TheoryObj
         float g = c.getGreen()/255;
         float b = c.getBlue()/255;
         float m = new Double(0.9).floatValue();
-        //System.out.println(m);
         return new Color(m*r,m*g,m*b);
     }
 

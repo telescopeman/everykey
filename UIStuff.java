@@ -1,33 +1,37 @@
-import java.util.Arrays;
-import javax.swing.*;
-import java.awt.*; 
-import javax.swing.BoxLayout;
+import javax.swing.JMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JMenuItem;
+import javax.swing.JMenuBar;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JComponent;
+import javax.swing.SpinnerListModel;
+import javax.swing.JSpinner;
 
-import java.util.HashMap;
+import java.awt.BorderLayout; 
+import java.util.Arrays;
 
 /**
  * Controls the UI and most other high-level functions.
  *
  * @author Caleb Copeland
- * @version 3/31/21
+ * @version 4/6/21
  */
 public class UIStuff
 {
-    private int[][] masterList;
+    private int[][] masterList,curList;
+    
     private EasyFrame mainWindow;
 
     private static boolean debugMode = false;
+    
+    private int keyOffset;
 
-    private JPanel inner;
-    private JScrollPane outer;
+    private EasyPanel inner;
 
-    private HashMap<Boolean,String> enableText;
     private JMenu viewfilters, removefilters;
     private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    private boolean[] filterStatuses = new boolean[]{};
-    private Filter[] curFilters = defaultFilters;
-    private Filter[] storedFilters;
-    private boolean[] storedFilterStatuses;
+    private boolean[] filterStatuses, storedFilterStatuses;
+    private Filter[] curFilters, storedFilters;
 
     private int neutralpoint = 300; // 300 =dorian
 
@@ -39,10 +43,7 @@ public class UIStuff
     private final String SORT3 = "Strangeness (Ascending)";
     private final String SORT4 = "Strangeness (Descending)";
 
-    private int[][] curList;
     private int[] absoluteList;
-
-    private String[] nameCache;
 
     /**
      * Runs the main program.
@@ -57,21 +58,18 @@ public class UIStuff
      */
     public UIStuff()
     {
+        keyOffset = 0;
+        curFilters = defaultFilters;
+        filterStatuses = new boolean[]{};
         masterList = MathHelper.getAllKeys();
         sortStyle = SORT3;
-        setupEnableText();
+        
         oneTimeSetup();
         refresh();
 
     }
-
-    private void setupEnableText()
-    {
-        enableText = new HashMap<Boolean,String>();
-        enableText.put(true,"on");
-        enableText.put(false,"off");
-
-    }
+    
+    
     /**
      * Sets the list of filters.
      */
@@ -170,7 +168,7 @@ public class UIStuff
     private void updateKeys(int[][] keys)
     {
         inner.removeAll();
-        inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
+        inner.makeCenteredList();
         int counter = -1;
         int num = 0;
         int[] specificList = styleSort(absoluteList);
@@ -195,16 +193,14 @@ public class UIStuff
         }
 
         //outer.setLayout(new ScrollPaneLayout());
-        JLabel lab = new JLabel("Showing " + num + " out of " + masterList.length 
+        EasyPanel top = new EasyPanel();
+        top.addHeader("Showing " + num + " out of " + masterList.length 
                 + " keys. Hover over a key to see its modal relationships, if applicable.");
-        JPanel header = new JPanel();
-        header.add(lab);
-        inner.add(header,0);
+        inner.add(top,0);
 
         mainWindow.pack();
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setSize(new Dimension(800, 1000));
-        //outer.setPreferredSize(new Dimension(640,1000));
+        mainWindow.setWidth(800);
+        
     }
 
 
@@ -264,20 +260,6 @@ public class UIStuff
         return result;
     }
 
-    // private String getKeyName(int[] key)
-    // {
-        // String name = namer.smartGet(key,ind); 
-        // //this is inefficient. not sure how to fix this.
-        // if (name == "")
-        // {
-            // return "Unnamed Key (" + MathHelper.expandSmart(key,ind,true) + ")";
-        // }
-        // else
-        // {
-            // return name + " (" + MathHelper.expandSmart(key,ind,true) + ")";
-        // }
-
-    // }
 
     private String getKeyName(int[] key, int ind)
     {
@@ -297,15 +279,21 @@ public class UIStuff
 
     private void oneTimeSetup()
     {
+        
         mainWindow = new EasyFrame("Skeleton Key");
         //myWindow.pack();
         //mainWindow.setSize();
         //myWindow.setVisible(true);
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        inner = new JPanel();
-        outer = new JScrollPane(inner);
+        mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
+        inner = new EasyPanel();
+        JScrollPane outer = new JScrollPane(inner);
         outer.getVerticalScrollBar().setUnitIncrement(16);
 
+        EasyPanel pan = new EasyPanel();
+        JSpinner ofs = new JSpinner(new OffsetEditor());
+        pan.add(ofs);
+        mainWindow.add(pan);
+        
         mainWindow.add(outer);
 
         JMenu filtermenu,audio,addfilter,viewops,sortops,ftemplates,other;
@@ -313,12 +301,14 @@ public class UIStuff
         JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
         JMenuItem s1,s2,s3,s4,neu;
         JMenuItem a1, a2;  
-        JFrame f= new JFrame("Menu and MenuItem Example");  
+        
+        
         JMenuBar mb=new JMenuBar();  
         viewops=new JMenu("Sorting Options");
         filtermenu=new JMenu("Filter Options");  
         audio=new JMenu("Audio Options");
         other=new JMenu("Viewing Options");
+        mb.add(pan);
 
         sortops=new JMenu("Change Sorting Order");  
         neu=new JMenuItem("Change Neutral Point");  
@@ -349,7 +339,7 @@ public class UIStuff
 
         for (JMenuItem item : new JMenuItem[]{i1,i2,i3,i4,i5,i6})
         {
-            item.addActionListener(ModBox.buildFilterCreator(this));
+            item.addActionListener(new FilterCreator(this));
         }
 
         for (FilterTemplate t : TemplatesHelper.getAll())
@@ -360,12 +350,13 @@ public class UIStuff
         }
 
         a1=new JMenuItem("Change Note Speed");  
-        a1.addActionListener(ModBox.buildTempoBox(this)); //not working?
+        a1.addActionListener(new TempoBox(this)); //not working?
 
-        livemaker.addActionListener(ModBox.buildVirtualPiano(this)); //not working?
+        livemaker.addActionListener(new VirtualPiano(this)); //not working?
 
         viewops.add(sortops);
         viewops.add(neu);
+        
         filtermenu.add(viewfilters); filtermenu.add(addfilter);
         filtermenu.add(removefilters); filtermenu.add(ftemplates);
         filtermenu.add(livemaker);
@@ -380,10 +371,11 @@ public class UIStuff
         sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
 
         audio.add(a1); //audio.add(a2);
-        mb.add(viewops); mb.add(filtermenu); mb.add(audio); //mb.add(other);
+        mb.add(viewops); mb.add(filtermenu); mb.add(audio); 
         mainWindow.setJMenuBar(mb);  
-
-        mainWindow.appear(new Dimension(600, 1000));
+        
+        mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
+        mainWindow.appear(mainWindow.MAIN);
     }
 
     /**
@@ -414,8 +406,16 @@ public class UIStuff
 
         for (Filter f : flist)
         {
-
-            String status = enableText.get(filterStatuses[counter]);
+            String status;
+            if (filterStatuses[counter])
+            {
+                status = "on";
+            }
+            else
+            {
+                status = "off";
+            }
+            //String status = enableText.get(filterStatuses[counter]);
             //System.out.println(filterStatuses[0]);
             JMenuItem button = new JMenuItem(f.translateToReadable() + " [" + status + "]" ); //the 
 
@@ -426,6 +426,7 @@ public class UIStuff
             viewfilters.add(button); removefilters.add(button2);
             counter++;
         }
+        
     }
 
     /**

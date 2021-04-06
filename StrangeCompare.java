@@ -1,6 +1,6 @@
 import java.util.Comparator;
 /**
- * Compares two scale indexes by their distances to a neutral point.
+ * Compares two scale indexes by their distances to a given neutral point.
  *
  * @author Caleb Copeland
  * @version 3/28/21
@@ -30,14 +30,11 @@ public class StrangeCompare implements Comparator<Integer>
      */
     public int compare(Integer o1, Integer o2)
     {
-        return getStrangeness(o1) - getStrangeness(o2);
-        
-        
+        return getStrangeness(o1) - getStrangeness(o2); 
     }
 
     private int getStrangeness(Integer i)
     {
-        return Math.abs(i-neutralpoint);
-        
+        return Math.abs(i - neutralpoint);
     }
 }

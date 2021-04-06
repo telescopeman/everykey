@@ -5,7 +5,7 @@
  * @author Caleb Copeland
  * @version 3/28/21
  */
-public class TemplatesHelper
+public abstract class TemplatesHelper
 {
     // instance variables - replace the example below with your own
     private static FilterTemplate[] templates = new FilterTemplate[]{

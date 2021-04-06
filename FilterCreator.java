@@ -2,11 +2,12 @@ import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JMenu;
 import javax.swing.JLabel;
+
 /**
  * Dialogue popup that lets the user create a filter.
  *
  * @author Caleb Copeland
- * @version (a version number or a date)
+ * @version 4/6/21
  */
 public class FilterCreator extends ModBox
 {
@@ -20,7 +21,7 @@ public class FilterCreator extends ModBox
     private Filter[] myFilters;
     private boolean[] setList;
 
-    private final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
+    private static final String[] CHROMATICSCALE = TheoryObj.CHROMATICSCALE;
 
     /**
      * Constructor for objects of class FilterCreator
@@ -35,8 +36,8 @@ public class FilterCreator extends ModBox
 
     private void update()
     {
-        myFilters = ui.getCurrentFilters();
-        setList = ui.getFilterStatuses();
+        myFilters = getUI().getCurrentFilters();
+        setList = getUI().getFilterStatuses();
     }
 
     private void setUpUniqueFactors(String id)
@@ -274,7 +275,7 @@ public class FilterCreator extends ModBox
 
     private void setCurFilters(Filter[] f)
     {
-        ui.setCurFilters(f);
+        getUI().setCurFilters(f);
     }
 
     public void act(String id)
@@ -295,12 +296,12 @@ public class FilterCreator extends ModBox
 
                 boolean[] tempList2 = ArrayHelper.addX(setList,true);
 
-                ui.setFilterStatuses(tempList2);
+                getUI().setFilterStatuses(tempList2);
                 //System.out.println("SUPER: " + super.toString());
-                ui.setCurFilters(tempList);
+                getUI().setCurFilters(tempList);
 
                 //System.out.print("New List:" +tempList);
-                ui.refresh();
+                getUI().refresh();
                 update();
                 //frame.dispose();
 

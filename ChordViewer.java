@@ -1,17 +1,21 @@
 import java.awt.event.ActionEvent;
-import javax.swing.*;
-import java.awt.Dimension;
+import javax.swing.AbstractAction;
+import javax.swing.KeyStroke;
+
+import javax.swing.JLabel;
+import javax.swing.JButton;
 
 /**
  * Provides a view of the chords of a scale.
  *
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
- * @version 3/31/21
+ * @version 4/6/21
  */
 public class ChordViewer extends EasyFrame
 {
     // instance variables - replace the example below with your own
     private int[] myKey;
+    private final String PLAYTEXT = "Play Chord";
 
     /**
      * Creates a ChordViewer of a specified scale with a specified name.
@@ -21,7 +25,7 @@ public class ChordViewer extends EasyFrame
 
         super("Chords of " + KeyPanel.parse(name));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(new Dimension(900, 150));
+        setSize(LONG2);
         setResizable(false);
         setGrid(3, 7);
         myKey= k;
@@ -137,7 +141,7 @@ public class ChordViewer extends EasyFrame
         for(int i = 1; i < 8; i++) //names of chords
         {
             MyChord aChord = getChordAt(myKey,i);
-            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(),  JLabel.CENTER);
+            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(), JLabel.CENTER);
             jLabel1.setOpaque(true);
             jLabel1.setBackground(aChord.toColor());
             add(jLabel1);
@@ -147,44 +151,36 @@ public class ChordViewer extends EasyFrame
         for(int i = 1; i < 8; i++) // note names
         {
             MyChord aChord = getChordAt(myKey,i);
-            add(new JLabel("(" + aChord.getNotes() + ")", JLabel.CENTER));
+            addCenteredText("(" + aChord.getNotes() + ")");
         }
 
         for (int i = 1; i < 8; i++) //listen button
         {
-            int[] noteSequence = MyChord.getRawChordAt(myKey,i);
+            int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
-            //System.out.println(seq);
 
-            JButton jb3 = new JButton("Play Chord");    
-            MusicHelper playr;
-            try{
-                playr = new MusicHelper(seq);
-            }
-            catch(Exception ed){
-                throw ed;
-            }
+            JButton jb3 = new JButton(PLAYTEXT);    
+            MusicHelper playr = new MusicHelper(seq);
             jb3.addActionListener(playr);
 
             class ButtonAction extends AbstractAction
             {
-                public ButtonAction(String text, String desc)
+                public ButtonAction(String text)
                 {
                     super(text);
-                    putValue(SHORT_DESCRIPTION, desc);
+                    putValue(SHORT_DESCRIPTION, text);
                 }
 
-                @Override
                 public void actionPerformed(ActionEvent ae)
                 {
                     playr.actionPerformed(ae);
                 }
             }
 
-            Action buttonAction = new ButtonAction("Play Chord", "Play Chord");
+            ButtonAction buttonAction = new ButtonAction(PLAYTEXT);
 
-            jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), "Play Chord");
-            jb3.getActionMap().put("Play Chord", buttonAction);
+            jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), PLAYTEXT);
+            jb3.getActionMap().put(PLAYTEXT, buttonAction);
 
             add(jb3);
         }
