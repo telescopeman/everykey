@@ -72,16 +72,16 @@ public class TagsManager
     /**
      * Formats a tag to have curly brackets around it so that it can be properly parsed by other parts of the program.
      */
-    public static String curl(String[] tagGroup)
+    public static String curlAll(String[] tagGroup)
     {
         String f = "";
         for (String str : tagGroup)
         {
-            f += ("{" + str + "}");
+            f += StringHelper.enclose(str,"{}");
+            //("{" + str + "}");
             
         }
         return f;
-        
     }
     
     

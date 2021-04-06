@@ -193,42 +193,32 @@ public class KeyNamesHelper extends TheoryObj
 
     private String getTags(int group)
     {
-        return TagsManager.curl(TagsManager.getTagGroup(group));
+        return TagsManager.curlAll(TagsManager.getTagGroup(group));
     }
+    
 
-    public int[] getEnclosers(String str, String special)
-    {
-        if (! (special.length() == 2))
-        {
-            return new int[]{-1,-1};
-
-        }
-        int ind1 = str.indexOf(special.substring(0,1));
-        return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
-
-    }
-
-    // public String[] getTags(int[] scale)
-    // {
-        // return getTags(get(scale));
-    // }
-
+    /**
+     * Gets the tags attached to a scale.
+     */
     public String[] getTags(int[] scale, int ind)
     {
         return getTags(smartGet(scale,ind));
     }
 
+    /**
+     * Gets the tags attached to a scale.
+     */
     public String[] getTags(String name)
     {
         String dispName = name;
         String[] result = new String[]{};
         for(boolean i = true; i == true;)
         {
-            int[] pt = getEnclosers(dispName,"{}");
+            int[] pt = StringHelper.getEnclosers(dispName,"{}");
             i = false;
             if (pt[0] > -1 && pt[1] > -1)
             {
-                result = addX(result,dispName.substring(pt[0]+1,pt[1]));
+                result = ArrayHelper.addX(result,dispName.substring(pt[0]+1,pt[1]));
                 dispName = dispName.substring(pt[1]+1);
 
                 i = true;
@@ -238,31 +228,8 @@ public class KeyNamesHelper extends TheoryObj
         return result;
     }
 
-    public static String[] addX(String[] list, String x)
-    {
-        int i;
 
-        // create a new array of size n+1
-        String[] newarr = new String[list.length + 1];
-
-        // insert the elements from
-        // the old array into the new array
-        // insert all elements till n
-        // then insert x at n+1
-        for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
-
-        newarr[list.length] = x;
-
-        return newarr;
-    }
-
-    private String quickSubstring(String name, int[] pts)
-    {
-        String newName =  name.substring(0,pts[0]) + name.substring(pts[1]+1);
-        return newName;
-
-    }
+    
 
     private static String get(int[] key)
     {
@@ -277,27 +244,18 @@ public class KeyNamesHelper extends TheoryObj
         }
     }
 
+    /**
+     * Gets the name of a certain key.
+     */
     public static String smartGet(int[] key, int ind)
     {
         if (ind < 0)
         {
-            //System.out.println("ind below zero");
             return get(key);
         }
-        var name = stringKeys.get(expandSmart(key,ind,false));
-        if (name == null)
-        {
-            return "";
-        }
-        else
-        {
-            return name;
-        }
-    }
-
-    public static String quickGet(String str)
-    {
-        var name = stringKeys.get(str);
+        String name = stringKeys.get(expandSmart(key,ind,false));
+        // enharmonics are turned off due to my shit coding.
+        // if they were on everything would break.
         if (name == null)
         {
             return "";

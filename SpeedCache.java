@@ -7,14 +7,16 @@
  */
 public class SpeedCache
 {
-    // instance variables - replace the example below with your own
     private static String[] cache = new String[462]; // enharmonics on
     private static String[] cache2 = new String[462]; //enharmonics off
 
     private static int num = 0;
     private static int num2= 0;
     
-    
+    /**
+     * Caches a description. Each index should only be used once if all goes well.
+     * @param enh Whether the description being cached is taking enharmonics into account.
+     */
     public static void smartCache(String str, int ind, boolean enh)
     {
         if (enh)
@@ -29,6 +31,10 @@ public class SpeedCache
         }
     }
     
+    /**
+     * Reads the cache at a certain index.
+     * @param enh Whether the description being cached is taking enharmonics into account.
+     */
     public static String smartCheck(int ind, boolean enh)
     {
         if (enh)
@@ -41,6 +47,10 @@ public class SpeedCache
         }
     }
 
+    /**
+     * Checks to see if a certain index of the cache is used or not.
+     * @param enh Whether the description being cached is taking enharmonics into account.
+     */
     public static boolean needsCache(int ind, boolean enh)
     {
         if (enh)
