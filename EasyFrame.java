@@ -11,9 +11,10 @@ import java.awt.event.ActionEvent;
  */
 public class EasyFrame extends JFrame implements ActionListener
 {
-    // instance variables - replace the example below with your own
+    // size presets
     public final Dimension STANDARD = new Dimension(350,100);
     public final Dimension SUPERSTANDARD = new Dimension(550,150);
+    public final Dimension SMALL = new Dimension(200,200);
     public final Dimension ROUNDISH = new Dimension(350,250);
     public final Dimension LONG = new Dimension(900,250);
 
@@ -80,17 +81,17 @@ public class EasyFrame extends JFrame implements ActionListener
     }
 
     
-    public int[] getEnclosers(String str, String special)
-    {
-        if (! (special.length() == 2))
-        {
-            return new int[]{-1,-1};
+    // public int[] getEnclosers(String str, String special)
+    // {
+        // if (! (special.length() == 2))
+        // {
+            // return new int[]{-1,-1};
 
-        }
-        int ind1 = str.indexOf(special.substring(0,1));
-        return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
+        // }
+        // int ind1 = str.indexOf(special.substring(0,1));
+        // return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
 
-    }
+    // }
 
     // /**
     // * Sets the size of the frame.

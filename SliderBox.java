@@ -32,7 +32,6 @@ public class SliderBox extends ModBox
         public SliderListener(JSlider s)
         {
             sl = s;
-
         }
 
         /**
@@ -42,7 +41,6 @@ public class SliderBox extends ModBox
             sliderpos = (int)sl.getValue();
             softUpdate(sl.getValue());
 
-            //System.out.println("upd" + slider.getValue());
         }
     }
 

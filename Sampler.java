@@ -18,7 +18,7 @@ public class Sampler extends EasyFrame
     {
         
         setTitle("Random Sampler");
-        int ind = getEnclosers(n,"()")[0];
+        int ind = n.indexOf('(');
         
         mus = new MusicHelper(scale);
         if (ind > -1)
@@ -30,10 +30,10 @@ public class Sampler extends EasyFrame
         {
             name = n;
         }
-        ind = getEnclosers(n,"{}")[0];
+        ind = n.indexOf('{');
         if (ind > -1)
         {
-            name =n.substring(0, ind);
+            name = n.substring(0, ind);
 
         }
         else

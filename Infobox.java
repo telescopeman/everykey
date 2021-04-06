@@ -1,30 +1,25 @@
-import java.awt.Dimension;
 import javax.swing.JLabel;
 
 /**
  * Displays info about the intervals of a scale.
  *
- * @author (your name)
+ * @author Caleb Copeland
  * @version (a version number or a date)
  */
 public class Infobox extends EasyFrame
 {
     // instance variables - replace the example below with your own
-    private final Dimension MYDIM = new Dimension(200,200);
-    int[] myScale;
-    String myName;
-    String myType;
-    int[] intervals;
+    private int[] myScale;
+    private String myName;
+    private String myType;
+    private int[] intervals;
 
     /**
      * Constructor for objects of class InfoBox
      */
     public Infobox(int[] scale, String name,String type)
     {
-        // initialise instance variables
-        
-        
-        int ind = getEnclosers(name,"()")[0];
+        int ind = StringHelper.getEnclosers(name,"()")[0];
         if (ind > -1)
         {
             myName = name.substring(0, ind);
@@ -34,7 +29,7 @@ public class Infobox extends EasyFrame
         {
             myName = name;
         }
-        ind = getEnclosers(name,"{}")[0];
+        ind = StringHelper.getEnclosers(name,"{}")[0];
         if (ind > -1)
         {
             myName = myName.substring(0, ind);
@@ -44,7 +39,7 @@ public class Infobox extends EasyFrame
         {
             myName = myName;
         }
-        ind = getEnclosers(name,"[]")[0];
+        ind = StringHelper.getEnclosers(name,"[]")[0];
         if (ind > -1)
         {
             myName = myName.substring(0, ind);
@@ -54,7 +49,7 @@ public class Infobox extends EasyFrame
         {
             myName = myName;
         }
-        ind = getEnclosers(name,"/|")[0];
+        ind = StringHelper.getEnclosers(name,"/|")[0];
         if (ind > -1)
         {
             myName = myName.substring(0, ind);
@@ -67,7 +62,7 @@ public class Infobox extends EasyFrame
         myType = type;
         myScale = scale;
         intervals = getIntervals(myScale);
-}
+    }
 
     private int[] getIntervals(int[] s)
     {
@@ -76,13 +71,13 @@ public class Infobox extends EasyFrame
         {
             int gap = s[i + 1] - s[i] - 1;
             ints[gap]++;
-            
+
         }
         int gap = s[0] - s[6] + 12 - 1;
         ints[gap]++;
         return ints;
     }
-    
+
     private String[] getText(int[] ints)
     {
         String[] s = new String[]{};
@@ -97,7 +92,7 @@ public class Infobox extends EasyFrame
         }
         return s;
     }
-    
+
     private String getIntervalName(int i)
     {
         switch (i)
@@ -139,13 +134,13 @@ public class Infobox extends EasyFrame
                 return "Unhandled intervals";
             }
         }
-        
+
     }
-    
+
     public void act(String id)
     {
         clear();
-        appear(MYDIM);
+        appear(SMALL);
         addHeader(myName + ": " + myType);
         setGrid(getText(intervals).length + 1,1);
         for (String lab : getText(intervals))
@@ -154,6 +149,6 @@ public class Infobox extends EasyFrame
             l.setHorizontalAlignment(JLabel.CENTER);
             add(l);
         }
-        
+
     }
 }
