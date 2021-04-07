@@ -50,7 +50,7 @@ public abstract class StateWatcher
     
     public static void togglePiano()
     {
-        UIStuff.setFilterControlsDisabled(isPianoOpen);
+        //UIStuff.setFilterControlsDisabled(isPianoOpen);
     }
     
     private static int keyOffset = 0;
