@@ -171,6 +171,7 @@ public class KeyNamesHelper extends TheoryObj
         //harmonic locrian
         addScale("C, D, E, F, G, B♭, and B.", "Ionian ♯6 [Third mode of Altered Minor]");
 
+        addScale("C, D♭, E♭, G♭, G, A♭, and B♭.", "Kalamurti / Sub Phrygian [Fifth mode of Altered Minor]");
         group = 14;
         addScale("C, D♭, D, E, F, A♭, and B♭.", "The Elephant Scale");
         addScale("C, D♭, E♭, E, G, A, and B.", "Kynian");
