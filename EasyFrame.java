@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
  * Inherited class that has a few methods I like to have handy in frames.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/22/21
  */
 public class EasyFrame extends JFrame implements ActionListener
 {

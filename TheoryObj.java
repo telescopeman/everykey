@@ -4,24 +4,18 @@ import java.util.HashMap;
  * An object capable of using music theory.
  *
  * @author Caleb Copeland
- * @version 3/31/21
+ * @version 5/22/21
  */
 public abstract class TheoryObj
 {
 
-    private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
+    private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"},
+            coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
 
     public static final String[] CHROMATICSCALE = new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
 
-    private static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
-
     private static final HashMap<String,String> ENHARMONICSBELOW = new HashMap<String,String>()
         {{
-                //put("D♭", "C♯");
-
-                //put("D", "");
-
-                //put("C", "B♯");
                 put("C♯", "B♯♯");
                 put("D♭", "C♯");
                 put("D", "C♯♯");
@@ -35,7 +29,6 @@ public abstract class TheoryObj
                 put("G♭♭", "F");
                 put("G♭", "F♯");
                 put("G", "F♯♯");
-                //put("G♯", "F♯♯♯");
                 put("A♭♭", "G");
                 put("A♭", "G♯");
                 put("A", "G♯♯");
@@ -72,7 +65,6 @@ public abstract class TheoryObj
                 put("B", "C♭");
                 put("B♯♯", "C♯");
                 put("C♭", "D♭♭♭");
-
             }};
 
     public static String getNoteName(int ind) //Assumes root note is C.
@@ -178,116 +170,95 @@ public abstract class TheoryObj
 
     private static String[] expandRaw(int[] key, boolean enharmonicsOn)
     {
-
-        //int count = 0;
-        String lastNote = "III";
         String[] rawNotes = new String[7];
         for(int count = 0; count < key.length; count++)
         {
             int i = key[count];
             String newNote = getNoteName(i);
-            // if (enharmonicsOn && count < key.length -1 )
-            // {
-            // newNote = enharmonicCheck1(key,count,newNote,lastNote); 
-            // // this is a cursory check to make sure obvious style errors are removed.
-            // } 
             rawNotes[count] = newNote;
-            lastNote = newNote;
         }
-        /**
-         * there should now be an array of all the note names. 
-         * next comes the formatting into an actual string.
-         */
+
 
         if (enharmonicsOn)
         {
-            final int maxAttempts = 20;
-            int attempts = 0;
-            int dupes = 1;
-            //String[][] log = new String[5][8];
-            String[] cur = rawNotes;
-            cur[0] = getNoteName(1);
-            // this is akin to a sorting algorithm. it will iterate thru until no more dupes, or gives up.
-            while (dupes > 0 && attempts < maxAttempts)
-            {
-                /** 
-                 * the first note is always gonna be C. 
-                 * unless i implement a way to change root note, we can just skip it.
-                 * also gonna skip the last note for now. that's a special case.
-                 **/
-                //System.out.println(attempts);
-                dupes = 0;
-                for(int count2 = 1; count2 < rawNotes.length; count2++)
-                {
-                    String curNote = cur[count2];
-                    String prevNote = cur[count2-1];
-                    String nextNote;
-                    if (count2 < rawNotes.length -1 )
-                    {
-                        nextNote = cur[count2+1];
-                    }
-                    else
-                    {
-                        nextNote = "dummy";
-                    }
-                    cur[count2] = curNote;
-                    //System.out.println("notes p" + prevNote + " and c" + curNote);
-                    if (testIfDupe(curNote,prevNote))
-                    {
-
-                        cur[count2] = getEnharmonicAbove(curNote); 
-                        dupes++;
-                        continue;
-                        //continue;
-                    }
-                    if (count2 < rawNotes.length -1  && testIfDupe(cur[count2],nextNote))
-                    {
-                        //String nextNote = cur[count2+1];
-                        String rpl = getEnharmonicBelow(cur[count2]);
-
-                        cur[count2] = rpl;
-
-                        dupes++;
-                    }
-
-                    // cursory check to make sure obvious style errors are removed.
-                    //log[attempts][count2+1] = curNote;
-                } 
-
-                //log[attempts][0] = String.valueOf(dupes);
-                //log[attempts][1] = getNoteName(1);
-                attempts++;
-            }
-            if (attempts < maxAttempts)
-            {
-                rawNotes = cur;
-            }
-            else // filtering has (somehow) failed. now it tries to find the least bad one.
-            {
-                //actually no i dont feel like programming this.
-            }
+            return doEnharmonics(rawNotes);
         }
-        return rawNotes;
-
+        else {
+            return rawNotes;
+        }
     }
 
-    private static String enharmonicCheck1(int[] key, int count, String newNote,String lastNote)
+    private static String[] doEnharmonics(String[] notes)
     {
-        String sameNote = getEnharmonicBelow(newNote);
+        /**
+         * if this method is called,
+         * there should now be an array of all the note names.
+         * next comes the formatting into an actual string.
+         */
 
-        if (testIfDupe(newNote,getNoteName(key[count+1])))
+        String[] rawNotes = notes;
+        final int maxAttempts = 20;
+        int attempts = 0;
+        int dupes = 1;
+        String[] cur = rawNotes;
+        cur[0] = getNoteName(1);
+        // this is akin to a sorting algorithm. it will iterate thru until no more dupes, or gives up.
+        while (dupes > 0 && attempts < maxAttempts)
         {
-            if (!testIfDupe(newNote,lastNote))
+            /**
+             * the first note is always gonna be C.
+             * unless i implement a way to change root note, we can just skip it.
+             * also gonna skip the last note for now. that's a special case.
+             **/
+            //System.out.println(attempts);
+            dupes = 0;
+            for(int count2 = 1; count2 < rawNotes.length; count2++)
             {
-                return sameNote;
+                String curNote = cur[count2];
+                String prevNote = cur[count2-1];
+                String nextNote;
+                if (count2 < rawNotes.length -1 )
+                {
+                    nextNote = cur[count2+1];
+                }
+                else
+                {
+                    nextNote = "dummy";
+                }
+                cur[count2] = curNote;
+
+                if (testIfDupe(curNote,prevNote))
+                {
+
+                    cur[count2] = getEnharmonicAbove(curNote);
+                    dupes++;
+                    continue;
+                }
+                if (count2 < rawNotes.length -1  && testIfDupe(cur[count2],nextNote))
+                {
+                    String rpl = getEnharmonicBelow(cur[count2]);
+
+                    cur[count2] = rpl;
+
+                    dupes++;
+                }
+                // cursory check to make sure obvious style errors are removed.
             }
+            attempts++;
         }
-        return newNote;
+        if (attempts < maxAttempts)
+        {
+            return cur;
+        }
+        else // filtering has (somehow) failed
+        {
+            throw new IllegalStateException("enharmonics failure!");
+        }
     }
 
-    private static boolean testIfDupe(String str1, String str2) 
-    {
 
+    private static boolean testIfDupe(String str1, String str2)
+    {
         if (str2.equals(""))
         {
             return false;
@@ -312,14 +283,10 @@ public abstract class TheoryObj
     {
         int index = ind - 1;
         final int LOOP = 7;
-        //System.out.print(ind + "-->");
         if (index > LOOP)
         {
             return new int[]{};
         }
-
-        //return "Test Chord";
-        //System.out.println(String.valueOf(index) + String.valueOf((index + 2) % LOOP) + String.valueOf((index + 4) % LOOP) + "-->" + key[index] + key[(index + 2) % LOOP] + key[(index + 4) % LOOP]);
         return new int[]{key[index], key[(index + 2) % 7],key[(index + 4) % 7]};
 
     }
@@ -330,16 +297,10 @@ public abstract class TheoryObj
     public static String getEnharmonicBelow(String note)
     {
         String name = ENHARMONICSBELOW.get(note);
-        // if (name == null)
-        // {
-        // System.out.println("Unhandled below note: " + note);
-        // throw new IllegalArgumentException("Unhandled below note: " + note);
-        // }
+
         if (name == null)
         {
             return note;
-            // System.out.println("Unhandled below note: " + note);
-            // throw new IllegalArgumentException("Unhandled below note: " + note);
         }
         else
         {

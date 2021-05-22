@@ -70,6 +70,6 @@ public class OffsetEditor extends EasyPanel
 
     public void act()
     {
-       System.out.println("nice");
+       //System.out.println("nice");
     }
 }

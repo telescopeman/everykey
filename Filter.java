@@ -9,7 +9,7 @@ public class Filter extends TheoryObj
 {
     private int[] requiredNotes;
     private int requiredPosition;
-    private FilterType type = FilterType.DO_NOTHING;
+    private final FilterType type;
     private String[] tags;
     private String description;
     private boolean hasDescription = false;
@@ -18,8 +18,6 @@ public class Filter extends TheoryObj
      * If this is turned on, the filter acts opposite to how it usually would.
      */   
     private boolean inverted = false;
-
-    private final KeyNamesHelper namer = new KeyNamesHelper();
 
     /**
      * Tests for a specific note, at a specific point.
@@ -156,7 +154,8 @@ public class Filter extends TheoryObj
     /**
      * Generates a description of the Filter.
      */
-    public String translateToReadable()
+    @Override
+    public String toString()
     {
         if (hasDescription)
         {
@@ -214,22 +213,12 @@ public class Filter extends TheoryObj
     }
 
     /**
-     * Generates a description of the Filter.
-     */
-    public String toString()
-    {
-
-        return translateToReadable();
-    }
-
-    /**
      * Analyzes a given scale to see if it matches the Filter.
      * @param key The key to analyze.
      * @return A boolean noting if the scale matched the Filter or not.
      */
     public boolean checkKey(int[] key)
     {
-        //Arrays.sort(key);
         return !(inverted == checkKeyHelper(key,-1));
     }
     
@@ -249,11 +238,11 @@ public class Filter extends TheoryObj
         {
             case IS_NAMED:
             {
-                return (!namer.smartGet(key,ind).equals(""));
+                return (!KeyNamesHelper.smartGet(key,ind).equals(""));
             }
             case IS_EXOTIC:
             {
-                return (namer.smartGet(key,ind).indexOf("[") > 0);
+                return (KeyNamesHelper.smartGet(key,ind).indexOf("[") > 0);
             }
             case HAS_TAG:
             {
@@ -262,7 +251,7 @@ public class Filter extends TheoryObj
                 {
 
                     boolean going = false;
-                    for (String t : namer.getTags(key,ind))
+                    for (String t : KeyNamesHelper.getTags(key,ind))
                     {
                         
                         if (t.equals(tag))

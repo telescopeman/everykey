@@ -11,7 +11,6 @@ public abstract class TemplatesHelper
     private static FilterTemplate[] templates = new FilterTemplate[]{
         new FilterTemplate("Blank", new Filter[]{}),
         new FilterTemplate("Useful Scales", new Filter[]{
-            //new Filter("isNamed"),  //named
             new Filter(8,4), // has perfect fifth
             new Filter(new int[]{4,5},2) //major or minor tonality
         }),

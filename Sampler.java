@@ -2,12 +2,12 @@
  * Samples random notes and all chords from a scale to give a feel for its sound.
  *
  * @author Caleb Copeland
- * @version 3/31/21
+ * @version 5/22/21
  */
 public class Sampler extends EasyFrame
 {
     
-    private int[] myScale;
+    private final int[] myScale;
     private String name;
     private MusicHelper mus;
     

@@ -9,11 +9,10 @@ import javax.swing.JButton;
  * Provides a view of the chords of a scale.
  *
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
- * @version 4/6/21
+ * @version 5/22/21
  */
 public class ChordViewer extends EasyFrame
 {
-    // instance variables - replace the example below with your own
     private int[] myKey;
     private final String PLAYTEXT = "Play Chord";
 
@@ -141,7 +140,7 @@ public class ChordViewer extends EasyFrame
         for(int i = 1; i < 8; i++) //names of chords
         {
             MyChord aChord = getChordAt(myKey,i);
-            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord.toString(), JLabel.CENTER);
+            JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord, JLabel.CENTER);
             jLabel1.setOpaque(true);
             jLabel1.setBackground(aChord.toColor());
             add(jLabel1);
@@ -179,6 +178,7 @@ public class ChordViewer extends EasyFrame
 
             ButtonAction buttonAction = new ButtonAction(PLAYTEXT);
 
+            // when the user types the number of the chord, it plays
             jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), PLAYTEXT);
             jb3.getActionMap().put(PLAYTEXT, buttonAction);
 

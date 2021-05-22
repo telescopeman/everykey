@@ -62,7 +62,6 @@ public abstract class TagsManager
                 {
                     result = ArrayHelper.addX(result,tag);
                 }
-                //System.out.println(tag);
             }
         }
         
@@ -78,7 +77,6 @@ public abstract class TagsManager
         for (String str : tagGroup)
         {
             f += StringHelper.enclose(str,"{}");
-            //("{" + str + "}");
             
         }
         return f;

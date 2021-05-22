@@ -2,10 +2,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 /**
- * Write a description of class QuickListener here.
+ * A fast version of ActionListener I like.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/22/21
  */
 public abstract class QuickListener implements ActionListener
 {

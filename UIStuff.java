@@ -410,9 +410,9 @@ public class UIStuff
             }
             //String status = enableText.get(filterStatuses[counter]);
             //System.out.println(filterStatuses[0]);
-            JMenuItem button = new JMenuItem(f.translateToReadable() + " [" + status + "]" ); //the 
+            JMenuItem button = new JMenuItem(f.toString() + " [" + status + "]" ); //the
 
-            JMenuItem button2 = new JMenuItem(f.translateToReadable() ); //the remove button
+            JMenuItem button2 = new JMenuItem(f.toString() ); //the remove button
 
             button.addActionListener(new ModActor(ModAction.TOGGLE_FILTER,counter));
             button2.addActionListener(new ModActor(ModAction.REMOVE_FILTER,counter));

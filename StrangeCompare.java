@@ -3,18 +3,18 @@ import java.util.Comparator;
  * Compares two scale indexes by their distances to a given neutral point.
  *
  * @author Caleb Copeland
- * @version 3/28/21
+ * @version 5/22/21
  */
 public class StrangeCompare implements Comparator<Integer>
 {
-    private int neutralpoint = 300;
+    private final int neutral_point;
     
     /**
      * Constructs a comparator that compares keys based on their distance to Dorian.
      */
     public StrangeCompare()
     {
-        neutralpoint = 300; // 300 = Dorian
+        neutral_point = 300; // 300 = Dorian
     }
     
     /**
@@ -22,7 +22,7 @@ public class StrangeCompare implements Comparator<Integer>
      */
     public StrangeCompare(int pt)
     {
-        neutralpoint = pt;
+        neutral_point = pt;
     }
 
     /**
@@ -35,6 +35,6 @@ public class StrangeCompare implements Comparator<Integer>
 
     private int getStrangeness(Integer i)
     {
-        return Math.abs(i - neutralpoint);
+        return Math.abs(i - neutral_point);
     }
 }
