@@ -22,8 +22,6 @@ public class UIStuff
 
     private static final boolean debugMode = false;
 
-
-
     private static JMenu view_filters,
             remove_filters,
             filter_menu;
@@ -36,13 +34,11 @@ public class UIStuff
 
     private static int neutral_point = 300; // 300 =dorian
 
-    private static KeyNamesHelper namer = new KeyNamesHelper();
-
     private static SortOption sortStyle;
-    private static final String SORT1 = "Brightness (Ascending)";
-    private static final String SORT2 = "Brightness (Descending)";
-    private static final String SORT3 = "Strangeness (Ascending)";
-    private static final String SORT4 = "Strangeness (Descending)";
+    private static final String SORT1 = "Brightness (Ascending)",
+            SORT2 = "Brightness (Descending)",
+            SORT3 = "Strangeness (Ascending)",
+            SORT4 = "Strangeness (Descending)";
 
     private static int[] absoluteList;
     private int keyOffset;
@@ -75,7 +71,6 @@ public class UIStuff
     public static void setFilterControlsDisabled(boolean d)
     {
         filter_menu.setEnabled(!d);
-        //refresh();
     }
     
     /**
@@ -275,8 +270,8 @@ public class UIStuff
 
     private static String getKeyName(int[] key, int ind)
     {
-        String name = namer.smartGet(key,ind); 
-        String dispName = namer.expandSmart(key,ind,true);
+        String name = KeyNamesHelper.smartGet(key,ind);
+        String dispName = TheoryObj.expandSmart(key,ind,true);
         //this is inefficient. not sure how to fix this.
         if (name == "")
         {
@@ -291,7 +286,6 @@ public class UIStuff
 
     private void oneTimeSetup()
     {
-        
         mainWindow = new EasyFrame("Skeleton Key");
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
         innerPanel = new EasyPanel();
@@ -335,17 +329,12 @@ public class UIStuff
         ftemplates=new JMenu("Filter Templates"); 
         livemaker=new JMenuItem("Open Musical Typing");
 
-        i1=new JMenuItem("Filter by Tonality");  
-        i2=new JMenuItem("Filter by Note");  
-        i3=new JMenuItem("Filter by Chord");  
-        i4=new JMenuItem("Filter by Tags");  
-        i5=new JMenuItem("Filter by Mode");  
-        i6=new JMenuItem("Filter by Special");  
-
-        for (JMenuItem item : new JMenuItem[]{i1,i2,i3,i4,i5,i6})
-        {
-            item.addActionListener(new FilterCreator());
-        }
+        i1=new ActionItem(FilterCreationSetting.TONALITY,"Filter by Tonality");
+        i2=new ActionItem(FilterCreationSetting.NOTE,"Filter by Note");
+        i3=new ActionItem(FilterCreationSetting.CHORD,"Filter by Chord");
+        i4=new ActionItem(FilterCreationSetting.TAGS,"Filter by Tags");
+        i5=new ActionItem(FilterCreationSetting.MODE,"Filter by Mode");
+        i6=new ActionItem(FilterCreationSetting.SPECIAL, "Filter by Special");
 
         for (FilterTemplate t : TemplatesHelper.getAll())
         {
@@ -368,7 +357,6 @@ public class UIStuff
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         addfilter.add(i5); addfilter.add(i6);
-        //f.add(livemaker);
 
         s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
         s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");

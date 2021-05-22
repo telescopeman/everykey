@@ -1,14 +1,22 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import javax.swing.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
+import javax.swing.JLayeredPane;
+import javax.swing.AbstractAction;
+import javax.swing.SwingConstants;
+import javax.swing.KeyStroke;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
+import javax.swing.JComponent;
+
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
+
 
 /**
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
@@ -18,14 +26,16 @@ import javax.sound.midi.Synthesizer;
  * 
  */
 public class VirtualPiano extends ModBox {
-    private final String[] whitemnems = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"};
-    private final String[] blackmnems = new String[]{"W","E","T","Y","U","O","P"};
+    private final String[]
+            WHITE_KEY_BUTTONS = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"},
+            BLACK_KEY_BUTTONS = new String[]{"W","E","T","Y","U","O","P"};
 
-    private final String startrec = "Start Recording Filter";
-    private final String stoprec = "Stop Recording Filter";
-    private final String toFilter = "Save as New Filter";
-    private final String exit = "Discard";
-    private final String info = "About Musical Typing";
+    private final String
+            START_RECORDING = "Start Recording Filter",
+            STOP_RECORDING = "Stop Recording Filter",
+            toFilter = "Save as New Filter",
+            exit = "Discard",
+            info = "About Musical Typing";
 
     private int index;
     private int[] pressedKeys;
@@ -88,7 +98,6 @@ public class VirtualPiano extends ModBox {
 
             public void actionPerformed(ActionEvent e) {
                 go(type);
-                //System.out.println("Action for first button/menu item: " + e);
             }
 
             public void go(boolean s)
@@ -147,11 +156,11 @@ public class VirtualPiano extends ModBox {
             String mnem;
             if (isWhite)
             {
-                mnem = whitemnems[numWhite];
+                mnem = WHITE_KEY_BUTTONS[numWhite];
             }
             else
             {
-                mnem = blackmnems[numBlack];
+                mnem = BLACK_KEY_BUTTONS[numBlack];
             }
             b.setVerticalAlignment( SwingConstants.BOTTOM );
             if (mnem.equals("SEMICOLON"))
@@ -163,8 +172,8 @@ public class VirtualPiano extends ModBox {
                 b.setText(mnem);
             }
 
-            b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + mnem), pr);
-            b.getInputMap(b.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + mnem),rl);
+            b.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + mnem), pr);
+            b.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + mnem),rl);
             Action ac = new PlayAction(ja,b,true);
             Action ac2 = new PlayAction(ja,b,false);
             b.getActionMap().put(pr, ac);
@@ -202,7 +211,7 @@ public class VirtualPiano extends ModBox {
     {
         Dimension myDim = getDim(9*height/16, width);
 
-        b1 = new JButton(startrec);
+        b1 = new JButton(START_RECORDING);
         b1.addActionListener(this);
         b1.setLocation(10 * width + 6, 20);
         b1.setSize(myDim);
@@ -258,7 +267,6 @@ public class VirtualPiano extends ModBox {
             if (isRecording)
             {
                 b.setBackground(Color.GREEN);
-
             }
             else
             {
@@ -279,9 +287,7 @@ public class VirtualPiano extends ModBox {
         {
             list[pressedKeys[index]-1].setBackground(Color.WHITE);
         }
-        //System.out.print(pressedKeys[index]);
         pressedKeys[index] = converted;
-        //System.out.print(pressedKeys[index]);
         advance();
         return true;
     }
@@ -299,7 +305,7 @@ public class VirtualPiano extends ModBox {
         }
         pressedKeys = new int[7];
         clearKeys();
-        b1.setText(stoprec);
+        b1.setText(STOP_RECORDING);
 
     }
 
@@ -350,7 +356,7 @@ public class VirtualPiano extends ModBox {
     private void stopRecording()
     {
         setRecState(false);
-        b1.setText(startrec);
+        b1.setText(START_RECORDING);
 
     }
     
@@ -379,12 +385,12 @@ public class VirtualPiano extends ModBox {
     public void act(String id) {
         switch (id)
         {
-            case startrec:
+            case START_RECORDING:
             {
                 startRecording();
                 break;
             }
-            case stoprec:
+            case STOP_RECORDING:
             {
                 stopRecording();
                 break;

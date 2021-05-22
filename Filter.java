@@ -141,6 +141,12 @@ public class Filter extends TheoryObj
         this.type = type;
     }
 
+    public Filter(FilterType type, boolean inv)
+    {
+        this.type = type;
+        inverted = inv;
+    }
+
     public void setDescription(String desc)
     {
         description = desc;
