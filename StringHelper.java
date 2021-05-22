@@ -3,7 +3,7 @@
  * Helps with common String methods
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/22/21
  * @since 4/6/21
  */
 public abstract class StringHelper
@@ -18,8 +18,6 @@ public abstract class StringHelper
             return new int[]{-1,-1};
         }
         return getEnclosers(str,special.charAt(0),special.charAt(1));
-        // int ind1 = str.indexOf(special.substring(0,1));
-        // return new int[]{ind1,str.indexOf(special.substring(1,2),ind1)};
     }
 
     /**

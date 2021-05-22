@@ -1,5 +1,9 @@
-import javax.swing.*;
-import java.awt.*; 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -13,7 +17,7 @@ public class EasyFrame extends JFrame implements ActionListener
 {
     // size presets
     public final Dimension STANDARD = new Dimension(350,100);
-    public final Dimension SUPERSTANDARD = new Dimension(550,150);
+    public final Dimension SUPER_STANDARD = new Dimension(550,150);
     public final Dimension SMALL = new Dimension(200,200);
     public final Dimension ROUNDISH = new Dimension(350,250);
     public final Dimension LONG = new Dimension(900,250);
@@ -52,8 +56,7 @@ public class EasyFrame extends JFrame implements ActionListener
 
     public void addButton(String name, ActionListener trig)
     {
-        JButton jb3 = new JButton(name);    
-        jb3.addActionListener(trig);
+        ActionItem jb3 = new ActionItem(trig,name);
         add(jb3);
     }
 
@@ -75,11 +78,6 @@ public class EasyFrame extends JFrame implements ActionListener
     {
          setSize(new Dimension(getSize().width,x));
     }
-
-    // public GridLayout getGrid(int x, int y)
-    // {
-    // return new GridLayout(x,y);
-    // }
 
     public void setGrid(int x, int y)
     {

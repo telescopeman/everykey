@@ -38,7 +38,6 @@ public abstract class StateWatcher
             curPlayer.stop();
         }
         updatePlayer(src);
-        //System.out.println(src);
         curPlayer.setTempo(tempo);
         
     }

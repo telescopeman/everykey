@@ -300,7 +300,7 @@ public class FilterCreator extends ModBox
             {
 
                 setUpUniqueFactors();
-                appear(SUPERSTANDARD);
+                appear(SUPER_STANDARD);
 
             }
         }
