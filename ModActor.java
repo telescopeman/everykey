@@ -4,33 +4,29 @@ import javax.swing.JOptionPane;
  * A customized ActionListener that does stuff to the main UI.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/22/21
  */
 public class ModActor extends QuickListener
 {
-    
-    private UIStuff uiref;
     private int index;
-    private String setting;
-    private String action;
+    private SortOption setting;
+    private final ModAction action;
     private Filter[] filters;
     
     /**
      * Constructor for objects of class ModActor
      */
-    public ModActor(UIStuff ui)
+    public ModActor()
     {
-        uiref = ui;
         index = -1;
-        action = "";
+        action = ModAction.DO_NOTHING;
     }
     
     /**
      * Constructor for objects of class ModActor
      */
-    public ModActor(UIStuff ui, String act, int ind)
+    public ModActor(ModAction act, int ind)
     {
-        uiref = ui;
         index = ind;
         action = act;
     }
@@ -38,54 +34,52 @@ public class ModActor extends QuickListener
     /**
      * Constructor for objects of class QuickParamHelp
      */
-    public ModActor(UIStuff ui, String act, String set)
+    public ModActor(SortOption sortOption)
     {
-        uiref = ui;
-        setting = set;
-        action = act;
+        setting = sortOption;
+        action = ModAction.SET_SORT_STYLE;
     }
 
     /**
      * Template setter
      */
-    public ModActor(UIStuff ui, Filter[] template)
+    public ModActor(Filter[] template)
     {
-        uiref = ui;
         filters = template;
-        action = "setTemplate";
+        action = ModAction.SET_FILTER_TEMPLATE;
     }
 
     public void act()
     {
         switch(action)
         {
-            case "toggle":
+            case TOGGLE_FILTER:
             {
-                uiref.toggleFilter(index);
+                UIStuff.toggleFilter(index);
                 break;
             }
-            case "remove":
+            case REMOVE_FILTER:
             {
-                uiref.removeFilter(index);
+                UIStuff.removeFilter(index);
                 break;
             }
-            case "setSortStyle":
+            case SET_SORT_STYLE:
             {
-                uiref.setSortStyle(setting);
+                UIStuff.setSortStyle(setting);
                 break;
             }
-            case "setTemplate":
+            case SET_FILTER_TEMPLATE:
             {
                 int input = JOptionPane.showConfirmDialog(null, 
                 "Applying a template will erase all current filters. Are you sure you want to do this?", "Confirmation",JOptionPane.YES_NO_OPTION);
                 if (input == 0)
                 {
-                    uiref.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
-                    uiref.setCurFilters(filters);
+                    UIStuff.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
+                    UIStuff.setCurFilters(filters);
                 }
             }
             default:
-                //throw new IllegalArgumentException("Illegal ModActor action in constructor!");
+                throw new IllegalArgumentException("Illegal ModActor action in constructor!");
         }
     }
 }

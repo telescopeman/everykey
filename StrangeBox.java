@@ -15,12 +15,12 @@ public class StrangeBox extends SliderBox
     /**
      * Constructor for objects of class StrangeBox
      */
-    public StrangeBox(UIStuff uiref)
+    public StrangeBox()
     {
-        super(uiref);// initialise instance variables
+        super();// initialise instance variables
         
         addHeader("Change Neutral Point for Strangeness Sorting:");
-        setUpSlider(getUI().getNeutral(),MIN,MAX);
+        setUpSlider(UIStuff.getNeutral(),MIN,MAX);
             
         addLabels();
         
@@ -45,12 +45,12 @@ public class StrangeBox extends SliderBox
 
     public void update(float d)
     {
-        getUI().setNeutral( (int) d );
+        UIStuff.setNeutral( (int) d );
     }
     
     public void softUpdate(float d)
     {
-        getUI().setNeutral( (int) d );
+        UIStuff.setNeutral( (int) d );
     }
     
     public void act(String id)
@@ -62,7 +62,7 @@ public class StrangeBox extends SliderBox
         else
         {
             update(getPos());
-            getUI().refresh();
+            UIStuff.refresh();
             hide();
 
         }

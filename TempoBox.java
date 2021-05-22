@@ -15,9 +15,9 @@ public class TempoBox extends SliderBox
     /**
      * Creates the TempoBox.
      */
-    public TempoBox(UIStuff uiref)
+    public TempoBox()
     {
-        super(uiref);// initialise instance variables
+        super();// initialise instance variables
         
         addHeader("Change Note Speed:");
         

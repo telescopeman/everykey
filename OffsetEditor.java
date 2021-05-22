@@ -1,4 +1,3 @@
-import javax.swing.SpinnerListModel;
 import javax.swing.JSpinner;
 import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
@@ -15,7 +14,6 @@ import javax.swing.event.ChangeListener;
  */
 public class OffsetEditor extends EasyPanel
 {
-    // instance variables - replace the example below with your own
     private int offset;
     private JSpinner spinner;
     private final int WIDTH = 3;

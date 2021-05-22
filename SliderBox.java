@@ -8,14 +8,12 @@ import java.awt.Font;
  * Box that allows for change of the tempo.
  *
  * @author Caleb Copeland
- * @version 3/28/21
+ * @version 5/22/21
  */
 public abstract class SliderBox extends ModBox
 {
-    // instance variables - replace the example below with your own
-    private float sliderpos;
+    private float slider_position;
 
-    //static float tempo_init;
     private JSlider slider;
     /**
      * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
@@ -35,7 +33,7 @@ public abstract class SliderBox extends ModBox
          * Updates a variable and calls a method indicating a change has taken place.
          */
         public void stateChanged(ChangeEvent e) {
-            sliderpos = (int)sl.getValue();
+            slider_position = (int)sl.getValue();
             softUpdate(sl.getValue());
 
         }
@@ -44,16 +42,16 @@ public abstract class SliderBox extends ModBox
     /**
      * Constructor for objects of class SettingsBox
      */
-    public SliderBox(UIStuff uiref)
+    public SliderBox()
     {
-        super(uiref);// initialise instance variables
+        super();// initialise instance variables
     }
 
     public void setUpSlider(float init, float mn, float mx)
     {
-        sliderpos = init;
+        slider_position = init;
         slider = new JSlider(JSlider.HORIZONTAL,
-            (int) mn, (int) mx, (int) sliderpos);
+            (int) mn, (int) mx, (int) slider_position);
         slider.addChangeListener(new SliderListener(slider));
         //Turn on labels at major tick marks.
 
@@ -71,12 +69,12 @@ public abstract class SliderBox extends ModBox
     
     public float getPos()
     {
-        return sliderpos;
+        return slider_position;
     }
     
     public void setPos(float d)
     {
-        sliderpos = d;
+        slider_position = d;
     }
     
     public JSlider getSlider()
@@ -86,7 +84,7 @@ public abstract class SliderBox extends ModBox
 
     public void update()
     {
-        //PlayerWatcher.setTempo((int)sliderpos);
+        //PlayerWatcher.setTempo((int)slider_position);
     }
 
     public abstract void update(float d);

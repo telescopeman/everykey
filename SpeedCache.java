@@ -17,7 +17,6 @@ public abstract class SpeedCache
     public static void setOffset(int n)
     {
         ofs = n;
-        
     }
     
     /**

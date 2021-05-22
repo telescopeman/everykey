@@ -40,7 +40,7 @@ public class KeyPanel extends EasyPanel
         {
             dispName =  name;
         }
-        for(boolean i = true; i == true;)
+        for(boolean i = true; i;)
         {
             pt = StringHelper.getEnclosers(dispName,"{}");
             i = false;
@@ -71,11 +71,9 @@ public class KeyPanel extends EasyPanel
         try{
             playr = new MusicHelper(key);
         }
-        catch(Exception ed)
-        {
-
+        catch(Exception ed) {
+            ed.printStackTrace();
         }
-        //jb3.addActionListener(playr);
         JButton b = new JButton("Info");
         JPopupMenu jb5 = new JPopupMenu();
         //JMenu jb5 = new JMenu("Info");

@@ -1,13 +1,7 @@
     import java.util.Random;
-    
-    import javax.sound.midi.Sequencer;
-    import javax.sound.midi.Track;
-    import javax.sound.midi.Sequence;
-    import javax.sound.midi.MidiEvent;
-    import javax.sound.midi.MidiMessage;
-    import javax.sound.midi.ShortMessage;
-    import javax.sound.midi.MidiSystem;
-    
+
+    import javax.sound.midi.*;
+
     /**
      * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
      *
@@ -148,7 +142,6 @@
      * Sets this MusicPlayer's tempo to a given number.
      */
     public void setTempo(float newTempo)
-    throws javax.sound.midi.MidiUnavailableException
     {
         if (newTempo < 1)
         {
@@ -207,13 +200,9 @@
                 StateWatcher.requestControl(this);
             }
 
-            catch (javax.sound.midi.MidiUnavailableException mue)
+            catch (MidiUnavailableException | InvalidMidiDataException mue)
             {
                 mue.printStackTrace();
-            }
-            catch (javax.sound.midi.InvalidMidiDataException imde)
-            {
-                imde.printStackTrace();
             }
 
             sequencer.start();

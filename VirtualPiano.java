@@ -43,8 +43,8 @@ public class VirtualPiano extends ModBox {
     private int height = width * 240 / 40;
     private final int maxKeys = 12;
 
-    public VirtualPiano(UIStuff uir) {
-        super(uir,false);
+    public VirtualPiano() {
+        super(false);
     }
 
     public void open() throws javax.sound.midi.MidiUnavailableException
@@ -193,7 +193,7 @@ public class VirtualPiano extends ModBox {
         pack();
 
         setVisible(true);
-        getUI().storeFilters();
+        UIStuff.storeFilters();
         requestFocusInWindow();
 
     }
@@ -289,7 +289,7 @@ public class VirtualPiano extends ModBox {
     private void startRecording()
     {
         setRecState(true);
-        getUI().storeFilters();
+        UIStuff.storeFilters();
         b2.setEnabled(true);
         b3.setEnabled(true);
         for(JButton key : list)
@@ -305,8 +305,8 @@ public class VirtualPiano extends ModBox {
 
     private void apply()
     {
-        getUI().setFilterStatuses(ArrayHelper.addX(getUI().getStoredStatuses(),true));
-        getUI().setCurFilters(ArrayHelper.addX(getUI().getStoredFilters(),toFilter()));
+        UIStuff.setFilterStatuses(ArrayHelper.addX(UIStuff.getStoredStatuses(),true));
+        UIStuff.setCurFilters(ArrayHelper.addX(UIStuff.getStoredFilters(),toFilter()));
 
     }
 
@@ -314,12 +314,12 @@ public class VirtualPiano extends ModBox {
     {
         apply();
         hide();
-        getUI().storeFilters();
+        UIStuff.storeFilters();
     }
 
     private void discard()
     {
-        getUI().setCurFilters(getUI().getStoredFilters());
+        UIStuff.setCurFilters(UIStuff.getStoredFilters());
         b2.setEnabled(false);
         b3.setEnabled(false);
         for(JButton key : list)

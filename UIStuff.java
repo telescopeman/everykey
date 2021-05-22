@@ -2,10 +2,7 @@ import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JComponent;
-import javax.swing.SpinnerListModel;
-import javax.swing.JSpinner;
+
 
 import java.awt.BorderLayout; 
 import java.util.Arrays;
@@ -14,38 +11,41 @@ import java.util.Arrays;
  * Controls the UI and most other high-level functions.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/22/21
  */
 public class UIStuff
 {
-    private int[][] masterList,curList;
-    
-    private EasyFrame mainWindow;
+    private static int[][] masterList, curList;
 
-    private static boolean debugMode = false;
-    
-    private int keyOffset;
+    private static EasyFrame mainWindow;
+    private static EasyPanel innerPanel;
 
-   
-    private EasyPanel inner;
+    private static final boolean debugMode = false;
 
-    private JMenu viewfilters, removefilters;
-    private static JMenu filtermenu;
+
+
+    private static JMenu view_filters,
+            remove_filters,
+            filter_menu;
+
+
     private final Filter[] defaultFilters = new Filter[]{new Filter("isNamed")};
-    private boolean[] filterStatuses, storedFilterStatuses;
-    private Filter[] curFilters, storedFilters;
 
-    private int neutralpoint = 300; // 300 =dorian
+    private static boolean[] filterStatuses, storedFilterStatuses;
+    private static Filter[] curFilters, storedFilters;
+
+    private static int neutral_point = 300; // 300 =dorian
 
     private static KeyNamesHelper namer = new KeyNamesHelper();
 
-    private String sortStyle;
-    private final String SORT1 = "Brightness (Ascending)";
-    private final String SORT2 = "Brightness (Descending)";
-    private final String SORT3 = "Strangeness (Ascending)";
-    private final String SORT4 = "Strangeness (Descending)";
+    private static SortOption sortStyle;
+    private static final String SORT1 = "Brightness (Ascending)";
+    private static final String SORT2 = "Brightness (Descending)";
+    private static final String SORT3 = "Strangeness (Ascending)";
+    private static final String SORT4 = "Strangeness (Descending)";
 
-    private int[] absoluteList;
+    private static int[] absoluteList;
+    private int keyOffset;
 
     /**
      * Runs the main program.
@@ -60,12 +60,11 @@ public class UIStuff
      */
     public UIStuff()
     {
-        keyOffset = 0;
         KeyNamesHelper.initialize();
         curFilters = defaultFilters;
         filterStatuses = new boolean[]{};
         masterList = MathHelper.getAllKeys();
-        sortStyle = SORT3;
+        sortStyle = SortOption.Strangeness_Ascending;
         
         oneTimeSetup();
         refresh();
@@ -75,14 +74,14 @@ public class UIStuff
     
     public static void setFilterControlsDisabled(boolean d)
     {
-        filtermenu.setEnabled(!d);
+        filter_menu.setEnabled(!d);
         //refresh();
     }
     
     /**
      * Sets the list of filters.
      */
-    public void setCurFilters(Filter[] newFilters)
+    public static void setCurFilters(Filter[] newFilters)
     {
         curFilters = newFilters;
         refresh();
@@ -91,23 +90,23 @@ public class UIStuff
     /**
      * Returns the index of the scale used for strangeness measurements.
      */
-    public int getNeutral()
+    public static int getNeutral()
     {
-        return neutralpoint;
+        return neutral_point;
     }
 
     /**
      * Sets the index of the scale used for strangeness measurements.
      */
-    public void setNeutral(int i)
+    public static void setNeutral(int i)
     {
-        neutralpoint = i;
+        neutral_point = i;
     }
 
     /**
      * Stores the current filter list in a variable.
      */
-    public void storeFilters()
+    public static void storeFilters()
     {
         storedFilters = Arrays.copyOf(curFilters,curFilters.length);
         storedFilterStatuses = Arrays.copyOf(filterStatuses,filterStatuses.length);
@@ -117,7 +116,7 @@ public class UIStuff
     /**
      * Returns any temporarily stored filters.
      */
-    public Filter[] getStoredFilters()
+    public static Filter[] getStoredFilters()
     {
         return storedFilters;
     }
@@ -125,7 +124,7 @@ public class UIStuff
     /**
      * Returns all currently created filters, even the ones that aren't active.
      */
-    public Filter[] getCurrentFilters()
+    public static Filter[] getCurrentFilters()
     {
         return curFilters;
     }
@@ -133,7 +132,7 @@ public class UIStuff
     /**
      * Returns any temporarily stored filter statuses.
      */
-    public boolean[] getStoredStatuses()
+    public static boolean[] getStoredStatuses()
     {
         return storedFilterStatuses;
     }
@@ -141,7 +140,7 @@ public class UIStuff
     /**
      * Sets the statuses of the filters.
      */
-    public void setFilterStatuses(boolean[] newThings)
+    public static void setFilterStatuses(boolean[] newThings)
     {
         filterStatuses = newThings;
     }
@@ -149,7 +148,7 @@ public class UIStuff
     /**
      * Gets the statuses of the filters.
      */
-    public boolean[] getFilterStatuses()
+    public static boolean[] getFilterStatuses()
     {
         return filterStatuses;
     }
@@ -157,13 +156,11 @@ public class UIStuff
     /**
      * Refreshes the view with any updated information about filters and sorting.
      */
-    public void refresh()
+    public static void refresh()
     {
-        //printlnDebug("Refreshing...");
         updateFilterList(curFilters);
         curList = filterKeys(masterList, curFilters);
         updateKeys(curList);
-
     }
 
     private static void printlnDebug(String str)
@@ -174,10 +171,10 @@ public class UIStuff
         }
     }
 
-    private void updateKeys(int[][] keys)
+    private static void updateKeys(int[][] keys)
     {
-        inner.removeAll();
-        inner.makeCenteredList();
+        innerPanel.removeAll();
+        innerPanel.makeCenteredList();
         int counter = -1;
         int num = 0;
         int[] specificList = styleSort(absoluteList);
@@ -196,7 +193,7 @@ public class UIStuff
                 KeyPanel keyPanel = 
                     new KeyPanel(ind, keys[ind],getKeyName(keys[ind],ind));
 
-                inner.add(keyPanel,BorderLayout.WEST); 
+                innerPanel.add(keyPanel,BorderLayout.WEST);
 
             }
         }
@@ -205,7 +202,7 @@ public class UIStuff
         EasyPanel top = new EasyPanel();
         top.addHeader("Showing " + num + " out of " + masterList.length 
                 + " keys. Hover over a key to see its modal relationships, if applicable.");
-        inner.add(top,0);
+        innerPanel.add(top,0);
 
         mainWindow.pack();
         mainWindow.setWidth(800);
@@ -213,28 +210,28 @@ public class UIStuff
     }
 
 
-    private int[] styleSort(int[] list)
+    private static int[] styleSort(int[] list)
     {
         int[] result = new int[list.length];
 
         switch(sortStyle)
         {
-            case SORT1: //ascending brightness
+            case Brightness_Ascending:
             {
                 return list;
             }
-            case SORT2: //descending brightness
+            case Brightness_Descending:
             {
                 return ArrayHelper.reverse(list);
             }
-            case SORT3: //ascending "strangeness"
+            case Strangeness_Ascending:
             {
                 Integer[] temp = new Integer[]{};
                 for(int c : list)
                 {
                     temp = ArrayHelper.addX(temp,c);
                 }
-                Arrays.sort(temp, new StrangeCompare(neutralpoint));
+                Arrays.sort(temp, new StrangeCompare(neutral_point));
                 int i = 0;
                 //result = list
                 for(int d : temp)
@@ -244,7 +241,7 @@ public class UIStuff
                 }
                 return result;
             }
-            case SORT4: //descending "strangeness"
+            case Strangeness_Descending: //descending "strangeness"
             {
                 Integer[] temp = new Integer[]{};
                 for(int c : list)
@@ -276,7 +273,7 @@ public class UIStuff
     }
 
 
-    private String getKeyName(int[] key, int ind)
+    private static String getKeyName(int[] key, int ind)
     {
         String name = namer.smartGet(key,ind); 
         String dispName = namer.expandSmart(key,ind,true);
@@ -296,22 +293,16 @@ public class UIStuff
     {
         
         mainWindow = new EasyFrame("Skeleton Key");
-        //myWindow.pack();
-        //mainWindow.setSize();
-        //myWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
-        inner = new EasyPanel();
-        JScrollPane outer = new JScrollPane(inner);
+        innerPanel = new EasyPanel();
+        JScrollPane outer = new JScrollPane(innerPanel);
         outer.getVerticalScrollBar().setUnitIncrement(16);
 
         OffsetEditor ofs = new OffsetEditor(this);
         
-        //.add(pan);
-        
         mainWindow.add(outer);
 
         JMenu audio,addfilter,viewops,sortops,ftemplates,other;
-        //JMenuItem filterctrls = JMenuItem
         JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
         JMenuItem s1,s2,s3,s4,neu;
         JMenuItem a1, a2;  
@@ -319,7 +310,7 @@ public class UIStuff
         
         JMenuBar mb=new JMenuBar();  
         viewops=new JMenu("Sorting Options");
-        filtermenu=new JMenu("Filter Options");  
+        filter_menu =new JMenu("Filter Options");
         audio=new JMenu("Audio Options");
         other=new JMenu("Viewing Options");
         
@@ -332,15 +323,15 @@ public class UIStuff
         s3=new JMenuItem(SORT3);  
         s4=new JMenuItem(SORT4);  
 
-        s1.addActionListener(new ModActor(this,"setSortStyle",SORT1));
-        s2.addActionListener(new ModActor(this,"setSortStyle",SORT2));
-        s3.addActionListener(new ModActor(this,"setSortStyle",SORT3));
-        s4.addActionListener(new ModActor(this,"setSortStyle",SORT4));
-        neu.addActionListener(new StrangeBox(this));
+        s1.addActionListener(new ModActor(SortOption.Brightness_Ascending));
+        s2.addActionListener(new ModActor(SortOption.Brightness_Descending));
+        s3.addActionListener(new ModActor(SortOption.Strangeness_Ascending));
+        s4.addActionListener(new ModActor(SortOption.Strangeness_Descending));
+        neu.addActionListener(new StrangeBox());
 
-        viewfilters=new JMenu("View/Toggle Active Filters");  
+        view_filters =new JMenu("View/Toggle Active Filters");
         addfilter=new JMenu("Add New Filter"); 
-        removefilters=new JMenu("Remove Filter"); 
+        remove_filters =new JMenu("Remove Filter");
         ftemplates=new JMenu("Filter Templates"); 
         livemaker=new JMenuItem("Open Musical Typing");
 
@@ -353,27 +344,27 @@ public class UIStuff
 
         for (JMenuItem item : new JMenuItem[]{i1,i2,i3,i4,i5,i6})
         {
-            item.addActionListener(new FilterCreator(this));
+            item.addActionListener(new FilterCreator());
         }
 
         for (FilterTemplate t : TemplatesHelper.getAll())
         {
             JMenuItem t1 = new JMenuItem(t.getName());
-            t1.addActionListener(new ModActor(this, t.getFilters()));
+            t1.addActionListener(new ModActor( t.getFilters()));
             ftemplates.add(t1);
         }
 
         a1=new JMenuItem("Change Note Speed");  
-        a1.addActionListener(new TempoBox(this)); //not working?
+        a1.addActionListener(new TempoBox()); //not working?
 
-        livemaker.addActionListener(new VirtualPiano(this)); //not working?
+        livemaker.addActionListener(new VirtualPiano()); //not working?
 
         viewops.add(sortops);
         viewops.add(neu);
         
-        filtermenu.add(viewfilters); filtermenu.add(addfilter);
-        filtermenu.add(removefilters); filtermenu.add(ftemplates);
-        filtermenu.add(livemaker);
+        filter_menu.add(view_filters); filter_menu.add(addfilter);
+        filter_menu.add(remove_filters); filter_menu.add(ftemplates);
+        filter_menu.add(livemaker);
         addfilter.add(i1); addfilter.add(i2); 
         addfilter.add(i3); addfilter.add(i4);  
         addfilter.add(i5); addfilter.add(i6);
@@ -385,7 +376,7 @@ public class UIStuff
         sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
 
         audio.add(a1); //audio.add(a2);
-        mb.add(viewops); mb.add(filtermenu); mb.add(audio); mb.add(ofs);
+        mb.add(viewops); mb.add(filter_menu); mb.add(audio); mb.add(ofs);
         mainWindow.setJMenuBar(mb);  
         
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
@@ -395,16 +386,16 @@ public class UIStuff
     /**
      * Changes the setting for sorting of scales.
      */
-    public void setSortStyle(String newStyle)
+    public static void setSortStyle(SortOption newStyle)
     {
         sortStyle = newStyle;
         refresh();
     }
 
-    private void updateFilterList(Filter[] flist)
+    private static void updateFilterList(Filter[] flist)
     {
-        viewfilters.removeAll();
-        removefilters.removeAll();
+        view_filters.removeAll();
+        remove_filters.removeAll();
         int counter = 0;
         while (filterStatuses.length < flist.length)
         {
@@ -413,8 +404,8 @@ public class UIStuff
 
         if (flist.length == 0)
         {
-            viewfilters.add(new JMenuItem("(None)"));
-            removefilters.add(new JMenuItem("(None)"));
+            view_filters.add(new JMenuItem("(None)"));
+            remove_filters.add(new JMenuItem("(None)"));
 
         }
 
@@ -435,9 +426,9 @@ public class UIStuff
 
             JMenuItem button2 = new JMenuItem(f.translateToReadable() ); //the remove button
 
-            button.addActionListener(new ModActor(this,"toggle",counter)); 
-            button2.addActionListener(new ModActor(this,"remove",counter));
-            viewfilters.add(button); removefilters.add(button2);
+            button.addActionListener(new ModActor(ModAction.TOGGLE_FILTER,counter));
+            button2.addActionListener(new ModActor(ModAction.REMOVE_FILTER,counter));
+            view_filters.add(button); remove_filters.add(button2);
             counter++;
         }
         
@@ -446,7 +437,7 @@ public class UIStuff
     /**
      * Toggles a filter's activeness.
      */
-    public void toggleFilter(int index)
+    public static void toggleFilter(int index)
     {
         boolean newSet = !filterStatuses[index];
         printlnDebug(String.valueOf(index) + newSet);
@@ -457,7 +448,7 @@ public class UIStuff
     /**
      * Removes a filter.
      */
-    public void removeFilter(int index)
+    public static void removeFilter(int index)
     {
         curFilters = ArrayHelper.removeOne(curFilters,index);
         filterStatuses = ArrayHelper.removeOne(filterStatuses,index);
@@ -465,7 +456,7 @@ public class UIStuff
 
     }
 
-    private int[][] filterKeys(int[][] keyList, Filter[] filterList)
+    private static int[][] filterKeys(int[][] keyList, Filter[] filterList)
     {
 
         int[][] newList = Arrays.copyOf(keyList,keyList.length);

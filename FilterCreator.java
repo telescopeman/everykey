@@ -26,9 +26,9 @@ public class FilterCreator extends ModBox
     /**
      * Constructor for objects of class FilterCreator
      */
-    public FilterCreator(UIStuff uiref)
+    public FilterCreator()
     {
-        super(uiref);
+        super();
         update();
 
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -36,8 +36,8 @@ public class FilterCreator extends ModBox
 
     private void update()
     {
-        myFilters = getUI().getCurrentFilters();
-        setList = getUI().getFilterStatuses();
+        myFilters = UIStuff.getCurrentFilters();
+        setList = UIStuff.getFilterStatuses();
     }
 
     private void setUpUniqueFactors(String id)
@@ -129,10 +129,9 @@ public class FilterCreator extends ModBox
             }
 
             case "Tags":
-            return new Filter((list1.getSelectedItem()).toString());
 
             case "Mode":
-            return new Filter((list1.getSelectedItem()).toString());
+                return new Filter((list1.getSelectedItem()).toString());
 
             case "Special":
             {
@@ -145,7 +144,7 @@ public class FilterCreator extends ModBox
 
                     default:
                     {
-                        return new Filter("isNamed",tickBox.isSelected());
+                        return new Filter("e");
                     }
                 }
             }
@@ -273,11 +272,6 @@ public class FilterCreator extends ModBox
 
     }
 
-    private void setCurFilters(Filter[] f)
-    {
-        getUI().setCurFilters(f);
-    }
-
     public void act(String id)
     {
         update();
@@ -296,12 +290,12 @@ public class FilterCreator extends ModBox
 
                 boolean[] tempList2 = ArrayHelper.addX(setList,true);
 
-                getUI().setFilterStatuses(tempList2);
+                UIStuff.setFilterStatuses(tempList2);
                 //System.out.println("SUPER: " + super.toString());
-                getUI().setCurFilters(tempList);
+                UIStuff.setCurFilters(tempList);
 
                 //System.out.print("New List:" +tempList);
-                getUI().refresh();
+                UIStuff.refresh();
                 update();
                 //frame.dispose();
 

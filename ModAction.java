@@ -1,0 +1,7 @@
+public enum ModAction {
+    TOGGLE_FILTER,
+    REMOVE_FILTER,
+    SET_SORT_STYLE,
+    SET_FILTER_TEMPLATE,
+    DO_NOTHING
+}

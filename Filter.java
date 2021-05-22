@@ -3,13 +3,13 @@ import java.util.Arrays;
  * Filters keys by certain attributes.
  *
  * @author Caleb Copeland
- * @version 4/5/21
+ * @version 5/22/21
  */
 public class Filter extends TheoryObj
 {
     private int[] requiredNotes;
     private int requiredPosition;
-    private String type = "";
+    private FilterType type = FilterType.DO_NOTHING;
     private String[] tags;
     private String description;
     private boolean hasDescription = false;
@@ -19,7 +19,7 @@ public class Filter extends TheoryObj
      */   
     private boolean inverted = false;
 
-    private KeyNamesHelper namer = new KeyNamesHelper();
+    private final KeyNamesHelper namer = new KeyNamesHelper();
 
     /**
      * Tests for a specific note, at a specific point.
@@ -29,7 +29,7 @@ public class Filter extends TheoryObj
     {
         requiredNotes = new int[]{note};
         requiredPosition = pos;
-        type = "NotePos";
+        type = FilterType.HAS_NOTE_AT_POSITION;
     }
 
     /**
@@ -38,7 +38,7 @@ public class Filter extends TheoryObj
     public Filter(int[] notes) 
     {
         requiredNotes = notes;
-        type = "AllNotes";
+        type = FilterType.HAS_ALL_NOTES;
 
     }
 
@@ -49,7 +49,7 @@ public class Filter extends TheoryObj
     {
         requiredNotes = notes;
         inverted = inv;
-        type = "AllNotes";
+        type = FilterType.HAS_ALL_NOTES;
 
     }
 
@@ -60,7 +60,7 @@ public class Filter extends TheoryObj
     {
         requiredNotes = notes;
         requiredPosition = pos;
-        type = "NotePos";
+        type = FilterType.HAS_NOTE_AT_POSITION;
 
     }
 
@@ -72,7 +72,7 @@ public class Filter extends TheoryObj
     {
         requiredNotes = notes;
         requiredPosition = pos;
-        type = "NotePos";
+        type = FilterType.HAS_NOTE_AT_POSITION;
         inverted = inv;
     }
 
@@ -83,7 +83,7 @@ public class Filter extends TheoryObj
     public Filter(int note) 
     {
         requiredNotes = new int[]{note};
-        type = "Note";
+        type = FilterType.HAS_NOTE;
     }
 
     /**
@@ -94,59 +94,57 @@ public class Filter extends TheoryObj
     public Filter(int note, boolean inv) 
     {
         requiredNotes = new int[]{note};
-        type = "Note";
+        type = FilterType.HAS_NOTE;
         inverted = inv;
     }
 
     /**
      * Tests for it being named or other qualities.
-     * @param spc The tag to search for.
+     * @param tgs The tag to search for.
      */
     public Filter(String tgs) 
     {
         if (tgs.equals("isNamed"))
         {
-            type = tgs;
+            type = FilterType.IS_NAMED;
         }
         else{
-            type = "Tag";
+            type = FilterType.HAS_TAG;
             tags = new String[]{tgs};
         }
     }
 
     /**
      * Tests for it being named or other qualities.
-     * @param spc The tags to search for.
+     * @param tgs The tags to search for.
      */
     public Filter(String[] tgs) 
     {
-        type = "Tag";
+        type = FilterType.HAS_TAG;
         tags = tgs;
     }
 
     /**
      * Tests for it being named or other qualities.
-     * @param spc The quality to filter by.
+     * @param tgs The quality to filter by.
      * @param inv If this is turned on, the filter acts opposite to how it usually would. 
      */
     public Filter(String tgs, boolean inv) 
     {
-        if (tgs.equals("isNamed"))
-        {
-            type = tgs;
-        }
-        else{
-            type = "Tag";
-            tags = new String[]{tgs};
-        }
+        type = FilterType.HAS_TAG;
+        tags = new String[]{tgs};
         inverted = inv;
+    }
+
+    public Filter(FilterType type)
+    {
+        this.type = type;
     }
 
     public void setDescription(String desc)
     {
         description = desc;
         hasDescription = true;
-
     }
 
     /**
@@ -165,39 +163,46 @@ public class Filter extends TheoryObj
             preceder = "not ";
         }
 
-        if (type == "Note")
+        switch (type)
         {
-            return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
-        }
-        else if (type == "NotePos" && requiredNotes.length == 1)
-        {
-            return ("Must " + preceder + "contain the note " + 
-                getNoteName(requiredNotes[0]) + " as a " + 
-                getIntervalName(requiredPosition) + ".");
-        }
-        else if (type == "NotePos")
-        {
-            return ("Must " + preceder + "contain either " + 
-                getNoteName(requiredNotes[0]) + " or " + 
-                getNoteName(requiredNotes[1]) + " as a " + 
-                getIntervalName(requiredPosition) + ".");
-        }
-        else if (type == "isNamed")
-        {
-            return ("Must " + preceder + "be a named key.");
-        }
-        else if (type == "AllNotes")
-        {
-            return ("Must " + preceder + "contain notes " + expand(requiredNotes,false));
-        }
-        else if (type == "Tag")
-        {
-            return ("Only scales " + preceder + "tagged with tag: " + tags[0]);
+            case HAS_NOTE:
+            {
+                return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
+            }
+            case HAS_NOTE_AT_POSITION:
+            {
+                if (requiredNotes.length == 1)
+                {
+                    return ("Must " + preceder + "contain the note " +
+                            getNoteName(requiredNotes[0]) + " as a " +
+                            getIntervalName(requiredPosition) + ".");
+                }
+                else
+                {
+                    return ("Must " + preceder + "contain either " +
+                            getNoteName(requiredNotes[0]) + " or " +
+                            getNoteName(requiredNotes[1]) + " as a " +
+                            getIntervalName(requiredPosition) + ".");
+                }
+            }
+            case IS_NAMED:
+            {
+                return ("Must " + preceder + "be a named key.");
+            }
+            case HAS_ALL_NOTES:
+            {
+                return ("Must " + preceder + "contain notes " + expand(requiredNotes,false));
+            }
+            case HAS_TAG:
+            {
+                return ("Only scales " + preceder + "tagged with tag: " + tags[0]);
 
-        }
-        else
-        {
-            return ("UNHANDLED_TYPE: REQUIRED NOTES:" + requiredNotes);
+            }
+            default:
+            {
+                return ("UNHANDLED_TYPE: REQUIRED NOTES:" + requiredNotes);
+            }
+
         }
 
     }
@@ -236,15 +241,15 @@ public class Filter extends TheoryObj
     {
         switch(type)
         {
-            case "isNamed":
+            case IS_NAMED:
             {
                 return (!namer.smartGet(key,ind).equals(""));
             }
-            case "Exotic":
+            case IS_EXOTIC:
             {
                 return (namer.smartGet(key,ind).indexOf("[") > 0);
             }
-            case "Tag":
+            case HAS_TAG:
             {
                 boolean isValid = true;
                 for (String tag : tags)
@@ -266,7 +271,7 @@ public class Filter extends TheoryObj
                 return true;
             }
             //everything below this is the same for indexed and nonindexed check
-            case "AllNotes":
+            case HAS_ALL_NOTES:
             {
                 return massCheck(key);
             }
@@ -294,21 +299,21 @@ public class Filter extends TheoryObj
     {
         for (int note : requiredNotes)
         {
-            if (type.equals("Note") && Arrays.binarySearch(key,note) < 0)
+            if (type == FilterType.HAS_NOTE && Arrays.binarySearch(key,note) < 0)
             {
                 return false;
             }
-            if (type.equals("NotePos") && key[requiredPosition] == note)
+            if (type == FilterType.HAS_NOTE_AT_POSITION && key[requiredPosition] == note)
             {
                 return true;
             }
-
         }
 
-        if (type.equals("NotePos"))
+        if (type == FilterType.HAS_NOTE_AT_POSITION)
         {
             return false;
         }
+
         return true;
 
     }

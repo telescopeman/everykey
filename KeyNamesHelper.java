@@ -248,7 +248,7 @@ public class KeyNamesHelper extends TheoryObj
     
     private static String get(int[] key)
     {
-        var name = stringKeys.get(expand(key,false));
+        String name = stringKeys.get(expand(key,false));
         if (name == null)
         {
             return "";
