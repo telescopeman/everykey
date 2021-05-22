@@ -18,13 +18,5 @@ public abstract class QuickListener implements ActionListener
     /**
      * If this is not overridden, assumes the no-arg method should be used.
      */
-    public void act(String id)
-    {
-        act();
-    }
-    
-    public void act()
-    {
-
-    }
+    public abstract void act(String id);
 }

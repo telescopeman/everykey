@@ -6,7 +6,7 @@ import javax.swing.JLabel;
  * @author Caleb Copeland
  * @version 4/6/21
  */
-public class Infobox extends EasyFrame
+public class Infobox extends ListeningFrame
 {
     // instance variables - replace the example below with your own
     private int[] myScale;
@@ -19,6 +19,7 @@ public class Infobox extends EasyFrame
      */
     public Infobox(int[] scale, String name,String type)
     {
+        super();
         int ind = StringHelper.getEnclosers(name,"()")[0];
         if (ind > -1)
         {
@@ -137,7 +138,7 @@ public class Infobox extends EasyFrame
 
     }
 
-    public void act()
+    public void act(String s)
     {
         clear();
         appear(SMALL);

@@ -49,7 +49,7 @@ public class ModActor extends QuickListener
         action = ModAction.SET_FILTER_TEMPLATE;
     }
 
-    public void act()
+    public void act(String s)
     {
         switch(action)
         {

@@ -39,14 +39,6 @@ public abstract class SliderBox extends ModBox
         }
     }
 
-    /**
-     * Constructor for objects of class SettingsBox
-     */
-    public SliderBox()
-    {
-        super();// initialise instance variables
-    }
-
     public void setUpSlider(float init, float mn, float mx)
     {
         slider_position = init;

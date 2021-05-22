@@ -4,7 +4,7 @@
  * @author Caleb Copeland
  * @version 5/22/21
  */
-public class Sampler extends EasyFrame
+public class Sampler extends ListeningFrame
 {
     
     private final int[] myScale;
@@ -44,7 +44,7 @@ public class Sampler extends EasyFrame
         myScale = scale;
     }
 
-    public void act()
+    public void act(String s)
     {
         clear();
         appear(STANDARD);
