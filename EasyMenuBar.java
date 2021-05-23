@@ -1,20 +1,22 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JMenuBar;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
 
 public class EasyMenuBar extends JMenuBar implements VariableColor {
     Color bgColor= Color.BLUE;
 
     @Override
     public void doLightMode() {
-        bgColor = UIStuff.LIGHT_MODE;
-        setForeground(UIStuff.DARK_TEXT);
+        bgColor = ColorsHelper.LIGHT_MODE;
+        setForeground(ColorsHelper.DARK_TEXT);
     }
 
     @Override
     public void doDarkMode() {
-        bgColor = UIStuff.DARK_MODE;
+        bgColor = ColorsHelper.DARK_MODE;
         //setBackground(UIStuff.DARK_MODE);
-        setForeground(UIStuff.LIGHT_TEXT);
+        setForeground(ColorsHelper.LIGHT_TEXT);
     }
 
     @Override

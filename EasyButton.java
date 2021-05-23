@@ -6,18 +6,18 @@ public class EasyButton extends JButton implements VariableColor {
         setOpaque(false);
         //setContentAreaFilled();
         setBorderPainted(true);
-        setBackground(UIStuff.LIGHT_MODE);
+        setBackground(ColorsHelper.LIGHT_MODE);
     }
 
     @Override
     public void doLightMode() {
-        setBackground(UIStuff.LIGHT_MODE);
+        setBackground(ColorsHelper.LIGHT_MODE);
         //setForeground(UIStuff.DARK_TEXT);
     }
 
     @Override
     public void doDarkMode() {
-        setBackground(UIStuff.DARK_MODE);
+        setBackground(ColorsHelper.DARK_MODE);
     }
 
 

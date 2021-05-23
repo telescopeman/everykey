@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author Caleb Copeland
  * @version 4/6/21
  */
-public class KeyNamesHelper extends TheoryObj
+public abstract class KeyNamesHelper extends TheoryObj
 {
 
     static private int group;

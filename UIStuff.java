@@ -1,8 +1,12 @@
-import javax.swing.*;
-
-
-import java.awt.*;
 import java.util.Arrays;
+
+import java.awt.Component;
+import java.awt.Container;
+import java.awt.BorderLayout;
+
+import javax.swing.JMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JMenuItem;
 
 /**
  * Controls the UI and most other high-level functions.
@@ -19,11 +23,7 @@ public class UIStuff
 
     private static final boolean debugMode = false;
 
-    public static final Color LIGHT_MODE = Color.LIGHT_GRAY,
-            DARK_MODE = MyChord.soften(Color.DARK_GRAY,5),
-            LIGHT_TEXT = Color.WHITE,
-            DARK_TEXT = Color.BLACK;
-
+    
     private static EasyMenuBar menuBar = new EasyMenuBar();
 
 
@@ -168,10 +168,8 @@ public class UIStuff
     public static void adjustColors(Component component)
     {
         try {
-
             if (is_dark_mode) {
                 ((VariableColor) component).doDarkMode();
-
             } else {
                 ((VariableColor) component).doLightMode();
             }
@@ -179,12 +177,11 @@ public class UIStuff
         catch (ClassCastException e)
         {
             if (is_dark_mode) {
-                component.setBackground(DARK_MODE);
-                component.setForeground(LIGHT_TEXT);
-
+                component.setBackground(ColorsHelper.DARK_MODE);
+                component.setForeground(ColorsHelper.LIGHT_TEXT);
             } else {
-                component.setBackground(LIGHT_MODE);
-                component.setForeground(DARK_TEXT);
+                component.setBackground(ColorsHelper.LIGHT_MODE);
+                component.setForeground(ColorsHelper.DARK_TEXT);
             }
         }
 
@@ -199,7 +196,6 @@ public class UIStuff
         }
         catch (ClassCastException e)
         {
-
             // do nothing
         }
     }
@@ -321,12 +317,10 @@ public class UIStuff
         {
             return name + " (" + dispName + ")";
         }
-
     }
 
     public static void toggle_dark_mode() {
         is_dark_mode = !is_dark_mode;
-        System.out.println("Ffff");
         refresh();
     }
 

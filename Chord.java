@@ -3,9 +3,9 @@ import java.awt.Color;
  * Represents a chord.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/23/21
  */
-public class MyChord extends TheoryObj
+public class Chord extends TheoryObj
 {
     private int root;
     private int third;
@@ -18,7 +18,7 @@ public class MyChord extends TheoryObj
     /**
      * Creates a chord with the given notes.
      */
-    public MyChord(int one, int two, int three)
+    public Chord(int one, int two, int three)
     {
         // initialise instance variables
         root = one;
@@ -161,15 +161,15 @@ public class MyChord extends TheoryObj
         {
             case "Augmented":
 
-            return soften(Color.yellow);
+            return ColorsHelper.soften(Color.yellow);
 
             case "Diminished":
 
-            return soften(Color.green);
+            return ColorsHelper.soften(Color.green);
             
             case "♭5":
 
-            return soften(Color.green);
+            return ColorsHelper.soften(Color.green);
             
             case "♭♭5":
 
@@ -184,7 +184,7 @@ public class MyChord extends TheoryObj
 
                 case "Major":
 
-                    return soften(Color.red);
+                    return ColorsHelper.soften(Color.red);
 
                 case "sus2":
 
@@ -202,32 +202,9 @@ public class MyChord extends TheoryObj
     }
 
     
-    /**
-     * Makes a color slightly less vibrant.
-     */
-    public static Color soften(Color color)
-    {
-        float r = color.getRed()/255f;
-        float g = color.getGreen()/255f;
-        float b = color.getBlue()/255f;
-        float m = new Double(0.9).floatValue();
-        return new Color(m*r,m*g,m*b);
-    }
+    
 
-    public static Color soften(Color color, int times) {
-        if (times < 1)
-        {
-            throw new IllegalArgumentException("Times cannot be lower than 1");
-        }
-        else if (times == 1)
-        {
-            return soften(color);
-        }
-        else
-        {
-            return soften(soften(color),times-1);
-        }
-    }
+    
 
     /**
      * Returns the notes of the chord, formatted.

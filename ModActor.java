@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
  * A customized ActionListener that does stuff to the main UI.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
 public class ModActor extends QuickListener
 {

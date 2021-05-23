@@ -8,7 +8,7 @@ import javax.swing.*;
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
  * @version 5/23/21
  */
-public class ChordViewer extends ListeningFrame implements VariableColor
+public class ChordViewer extends ListeningFrame
 {
     private int[] myKey;
     private final String PLAYTEXT = "Play Chord";
@@ -28,19 +28,19 @@ public class ChordViewer extends ListeningFrame implements VariableColor
 
     }
 
-    private static MyChord getChordAt(int[] key, int ind)
+    private static Chord getChordAt(int[] key, int ind)
     {
         int index = ind - 1;
         final int LOOP = 7;
         //System.out.print(ind + "-->");
         if (index > LOOP)
         {
-            return(new MyChord(0,0,0));
+            return(new Chord(0,0,0));
         }
 
         //return "Test Chord";
         //System.out.println(String.valueOf(index) + String.valueOf((index + 2) % LOOP) + String.valueOf((index + 4) % LOOP) + "-->" + key[index] + key[(index + 2) % LOOP] + key[(index + 4) % LOOP]);
-        return new MyChord(key[index], key[((index + 2) % 7)],key[((index + 4) % 7)] );
+        return new Chord(key[index], key[((index + 2) % 7)],key[((index + 4) % 7)] );
 
     }
 
@@ -135,7 +135,7 @@ public class ChordViewer extends ListeningFrame implements VariableColor
 
         for(int i = 1; i < 8; i++) //names of chords
         {
-            MyChord aChord = getChordAt(myKey,i);
+            Chord aChord = getChordAt(myKey,i);
             JLabel jLabel1 = new JLabel(convertToRoman(i) + ": " + aChord, JLabel.CENTER);
             jLabel1.setOpaque(true);
             jLabel1.setBackground(aChord.toColor());
@@ -145,7 +145,7 @@ public class ChordViewer extends ListeningFrame implements VariableColor
 
         for(int i = 1; i < 8; i++) // note names
         {
-            MyChord aChord = getChordAt(myKey,i);
+            Chord aChord = getChordAt(myKey,i);
             addCenteredText("(" + aChord.getNotes() + ")");
         }
 
@@ -181,18 +181,5 @@ public class ChordViewer extends ListeningFrame implements VariableColor
             add(jb3);
         }
         setVisible(true);
-    }
-
-    @Override
-    public void doLightMode() {
-        for(Component c : getComponents())
-        {
-
-        }
-    }
-
-    @Override
-    public void doDarkMode() {
-
     }
 }

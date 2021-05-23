@@ -14,11 +14,11 @@ public class EasyLabel extends JLabel implements VariableColor
 
     @Override
     public void doLightMode() {
-        setForeground(UIStuff.DARK_TEXT);
+        setForeground(ColorsHelper.DARK_TEXT);
     }
 
     @Override
     public void doDarkMode() {
-        setForeground(UIStuff.LIGHT_TEXT);
+        setForeground(ColorsHelper.LIGHT_TEXT);
     }
 }
