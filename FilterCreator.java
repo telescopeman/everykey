@@ -11,9 +11,10 @@ import javax.swing.JLabel;
  */
 public class FilterCreator extends ModBox
 {
+    // instance variables - replace the example below with your own
     private FilterCreationSetting type = FilterCreationSetting.INVALID;
-    private JComboBox<String> list1;
-    private JComboBox<String> list2;
+    private JComboBox list1;
+    private JComboBox list2;
     private JMenu listSub;
     private JCheckBox tickBox;
 
@@ -41,6 +42,7 @@ public class FilterCreator extends ModBox
 
     private void setUpUniqueFactors()
     {
+        //removeAll();
         clear();
 
         addHeader("Filter Designer - " + type);
@@ -87,15 +89,16 @@ public class FilterCreator extends ModBox
 
 
         }
-        list1 = new JComboBox<>(options);
+        list1 = new JComboBox(options);
+        //System.out.println(options);
 
         add(list1);
-        list2 = new JComboBox<>(new String[]{"Dummy"});
+        list2 = new JComboBox(new String[]{"Dummy"});
         list2.setSelectedIndex(0);
 
         if (hasSecondDropDown)
         {
-            list2 = new JComboBox<>(options2);
+            list2 = new JComboBox(options2);
             list2.setSelectedIndex(0);
             add(list2);
         }

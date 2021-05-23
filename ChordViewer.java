@@ -3,7 +3,6 @@ import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 
 import javax.swing.JLabel;
-import javax.swing.JComponent;
 import javax.swing.JButton;
 
 /**
@@ -12,7 +11,7 @@ import javax.swing.JButton;
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
  * @version 5/22/21
  */
-public class ChordViewer extends ListeningFrame
+public class ChordViewer extends EasyFrame
 {
     private int[] myKey;
     private final String PLAYTEXT = "Play Chord";
@@ -159,7 +158,7 @@ public class ChordViewer extends ListeningFrame
             int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
 
-            JButton jb3 = new JButton(PLAYTEXT);
+            JButton jb3 = new JButton(PLAYTEXT);    
             MusicHelper playr = new MusicHelper(seq);
             jb3.addActionListener(playr);
 
@@ -180,7 +179,7 @@ public class ChordViewer extends ListeningFrame
             ButtonAction buttonAction = new ButtonAction(PLAYTEXT);
 
             // when the user types the number of the chord, it plays
-            jb3.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), PLAYTEXT);
+            jb3.getInputMap(jb3.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), PLAYTEXT);
             jb3.getActionMap().put(PLAYTEXT, buttonAction);
 
             add(jb3);

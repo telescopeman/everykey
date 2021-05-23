@@ -3,15 +3,24 @@
  * Handles creation of the huge list of scales.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 4/6/21
  */
 public abstract class MathHelper extends TheoryObj
 {
     
     private static int[][] abstractList;
+    
+    
     private static final int[] initKey = new int[]{1,1,1,1,1,1,1};
     private static int counter;
+
+
     private final static boolean debugMode = false;
+    
+    
+
+    
+    public static String[] notesArr = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","Null"};
 
     /**
      * Generates the list of all possible seven-note scales.
@@ -24,15 +33,29 @@ public abstract class MathHelper extends TheoryObj
         counter = 0;
 
         makeKey(initKey,1);
+        
+        
         return abstractList;
 
     }
 
+    private static void printlnDebug(String str)
+    {
+        if (debugMode)
+        {
+            System.out.println(str);
+        }
+    }
+
+    
+    
     private static void setKey(int[] k, int i)
     {
         abstractList[i] = k;
+
     }
 
+      
     private static void makeKey(int[] curArr, int index)
     {
         if (index == 7)
@@ -61,7 +84,8 @@ public abstract class MathHelper extends TheoryObj
         }
 
     }
-
+    
+    
 
     private static int getEmpty()
     {

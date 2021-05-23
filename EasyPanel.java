@@ -12,7 +12,7 @@ import javax.swing.JLabel;
  * Basically just a JPanel with a few extra methods.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 4/6/21
  */
 public class EasyPanel extends JPanel implements ActionListener
 {
@@ -56,14 +56,14 @@ public class EasyPanel extends JPanel implements ActionListener
 
     public void appear()
     {
-        setVisible(true);
+        show();
         requestFocusInWindow();
 
     }
     
     public void appear(Dimension dim)
     {
-        setVisible(true);
+        show();
         requestFocusInWindow();
         setSize(dim);
 

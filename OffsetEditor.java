@@ -23,7 +23,7 @@ public class OffsetEditor extends EasyPanel
     /**
      * Constructor for objects of class OffsetEditor
      */
-    public OffsetEditor()
+    public OffsetEditor(UIStuff ui)
     {
         super("Change Key");
 
@@ -48,6 +48,7 @@ public class OffsetEditor extends EasyPanel
                         offset = n;
                         StateWatcher.setOffset(n);
                         SpeedCache.setOffset(n);
+                        ui.setOffset(n);
                     }
                 }
             };
@@ -65,5 +66,10 @@ public class OffsetEditor extends EasyPanel
     public int getOffset()
     {
         return offset;
+    }
+
+    public void act()
+    {
+       //System.out.println("nice");
     }
 }

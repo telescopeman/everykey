@@ -32,7 +32,7 @@ public class UIStuff
     private static boolean[] filterStatuses, storedFilterStatuses;
     private static Filter[] curFilters, storedFilters;
 
-    private static int neutral_point = 300;
+    private static int neutral_point = 300; // 300 =dorian
 
     private static SortOption sortStyle;
     private static final String SORT1 = "Brightness (Ascending)",
@@ -41,6 +41,7 @@ public class UIStuff
             SORT4 = "Strangeness (Descending)";
 
     private static int[] absoluteList;
+    private int keyOffset;
 
     /**
      * Runs the main program.
@@ -60,7 +61,7 @@ public class UIStuff
         filterStatuses = new boolean[]{};
         masterList = MathHelper.getAllKeys();
         sortStyle = SortOption.Strangeness_Ascending;
-
+        
         oneTimeSetup();
         refresh();
 
@@ -260,6 +261,12 @@ public class UIStuff
         return result;
     }
 
+    public void setOffset(int n)
+    {
+        keyOffset = n;
+        refresh();
+    }
+
 
     private static String getKeyName(int[] key, int ind)
     {
@@ -285,7 +292,7 @@ public class UIStuff
         JScrollPane outer = new JScrollPane(innerPanel);
         outer.getVerticalScrollBar().setUnitIncrement(16);
 
-        OffsetEditor ofs = new OffsetEditor();
+        OffsetEditor ofs = new OffsetEditor(this);
         
         mainWindow.add(outer);
 

@@ -4,7 +4,7 @@
  * @author Caleb Copeland
  * @version 5/22/21
  */
-public abstract class ModBox extends ListeningFrame
+public abstract class ModBox extends EasyFrame
 {
 
     /**
@@ -22,7 +22,5 @@ public abstract class ModBox extends ListeningFrame
     {
 
     }
-
-
-
+    
 }

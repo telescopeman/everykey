@@ -229,7 +229,7 @@ public class KeyNamesHelper extends TheoryObj
     {
         String dispName = name;
         String[] result = new String[]{};
-        for(boolean i = true; i;)
+        for(boolean i = true; i == true;)
         {
             int[] pt = StringHelper.getEnclosers(dispName,'{','}');
             i = false;

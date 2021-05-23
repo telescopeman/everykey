@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * Inherited class that has a few methods I like to have handy in frames.
@@ -12,7 +13,7 @@ import java.awt.event.ActionListener;
  * @author Caleb Copeland
  * @version 5/22/21
  */
-public class EasyFrame extends JFrame
+public class EasyFrame extends JFrame implements ActionListener
 {
     // size presets
     public final Dimension STANDARD = new Dimension(350,100);
@@ -27,7 +28,11 @@ public class EasyFrame extends JFrame
     /**
      * Constructor for objects of class EasyFrame
      */
-    public EasyFrame() {}
+    public EasyFrame()
+    {
+        // initialise instance variables
+
+    }
 
     public void addHeader(String text)
     {
@@ -45,6 +50,7 @@ public class EasyFrame extends JFrame
 
     public EasyFrame(String name)
     {
+        // initialise instance variables
         setTitle(name);
     }
 
@@ -60,13 +66,14 @@ public class EasyFrame extends JFrame
     public Dimension getDim(int x, int y)
     {
         return new Dimension(x,y);
+
     }
     
     public void setWidth(int x)
     {
          setSize(new Dimension(x,getSize().height));
     }
-
+    
     public void setHeight(int x)
     {
          setSize(new Dimension(getSize().width,x));
@@ -79,13 +86,13 @@ public class EasyFrame extends JFrame
 
     public void appear()
     {
-        setVisible(true);
+        show();
         requestFocusInWindow();
     }
 
     public void appear(Dimension dim)
     {
-        setVisible(true);
+        show();
         requestFocusInWindow();
         setSize(dim);
     }
@@ -106,5 +113,22 @@ public class EasyFrame extends JFrame
         getContentPane().removeAll();
     }
 
+    public void actionPerformed(ActionEvent e)
+    {
+        act(e.getActionCommand());
+    }
 
+    /**
+     * If not overridden, assumes no-arg method should be used.
+     */
+    public void act(String id)
+    {
+        act();
+    }
+    
+    
+    public void act()
+    {
+        
+    }
 }

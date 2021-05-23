@@ -17,6 +17,8 @@ public class StrangeBox extends SliderBox
      */
     public StrangeBox()
     {
+        super();// initialise instance variables
+        
         addHeader("Change Neutral Point for Strangeness Sorting:");
         setUpSlider(UIStuff.getNeutral(),MIN,MAX);
             

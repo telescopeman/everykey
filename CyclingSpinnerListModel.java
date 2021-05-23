@@ -1,5 +1,6 @@
 import javax.swing.SpinnerListModel;
 import javax.swing.SpinnerModel;
+import javax.swing.JComponent;
 
 /**
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
