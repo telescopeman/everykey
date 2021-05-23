@@ -30,6 +30,14 @@ public class ModActor extends QuickListener
         index = ind;
         action = act;
     }
+
+    /**
+     * Constructor for objects of class ModActor
+     */
+    public ModActor(ModAction act)
+    {
+        action = act;
+    }
     
     /**
      * Constructor for objects of class QuickParamHelp
@@ -77,6 +85,11 @@ public class ModActor extends QuickListener
                     UIStuff.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
                     UIStuff.setCurFilters(filters);
                 }
+            }
+            case TOGGLE_DARK_MODE:
+            {
+                UIStuff.toggle_dark_mode();
+                break;
             }
             default:
                 throw new IllegalArgumentException("Illegal ModActor action in constructor!");

@@ -30,7 +30,9 @@ public class MyChord extends TheoryObj
         sort();
     }
 
-    
+
+
+
     private void sort()
     {
         while (root >= third)
@@ -203,13 +205,28 @@ public class MyChord extends TheoryObj
     /**
      * Makes a color slightly less vibrant.
      */
-    public static Color soften(Color c)
+    public static Color soften(Color color)
     {
-        float r = c.getRed()/255;
-        float g = c.getGreen()/255;
-        float b = c.getBlue()/255;
+        float r = color.getRed()/255f;
+        float g = color.getGreen()/255f;
+        float b = color.getBlue()/255f;
         float m = new Double(0.9).floatValue();
         return new Color(m*r,m*g,m*b);
+    }
+
+    public static Color soften(Color color, int times) {
+        if (times < 1)
+        {
+            throw new IllegalArgumentException("Times cannot be lower than 1");
+        }
+        else if (times == 1)
+        {
+            return soften(color);
+        }
+        else
+        {
+            return soften(soften(color),times-1);
+        }
     }
 
     /**

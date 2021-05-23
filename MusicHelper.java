@@ -116,8 +116,8 @@
     throws javax.sound.midi.InvalidMidiDataException
     {
         MidiEvent[] events = new MidiEvent[2];
-        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true),index*timeMult);
-        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false),(index+1)*timeMult);
+        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true), (long) index *timeMult);
+        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false), (long) (index + 1) *timeMult);
         return events;
 
     }

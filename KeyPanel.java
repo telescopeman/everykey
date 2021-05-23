@@ -1,10 +1,5 @@
-import javax.swing.Popup;
-import javax.swing.PopupFactory;
-import javax.swing.JButton;
-import javax.swing.JPopupMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JLabel;
-import java.awt.Font; 
+import javax.swing.*;
+import java.awt.*;
 
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
@@ -14,15 +9,15 @@ import java.awt.event.MouseEvent;
  * Displays a scale's name and info.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/23/21
  */
 public class KeyPanel extends EasyPanel
 {
     
     private MusicHelper playr;
     private Popup p;
+    private EasyLabel label;
 
-    
 
 
     /**
@@ -53,7 +48,6 @@ public class KeyPanel extends EasyPanel
         return dispName;
     }
 
-    
 
     /**
      * Constructor for objects of class KeyPanel
@@ -67,14 +61,14 @@ public class KeyPanel extends EasyPanel
             
         ChordViewer chrds = new ChordViewer(key,name);
 
-        JButton jb2 = new JButton("Intervals");
+        EasyButton jb2 = new EasyButton("Intervals");
         try{
             playr = new MusicHelper(key);
         }
         catch(Exception ed) {
             ed.printStackTrace();
         }
-        JButton b = new JButton("Info");
+        EasyButton b = new EasyButton("Info");
         JPopupMenu jb5 = new JPopupMenu();
         //JMenu jb5 = new JMenu("Info");
         JMenuItem ch = new JMenuItem("Chords");
@@ -107,7 +101,7 @@ public class KeyPanel extends EasyPanel
         b.addMouseListener(popupListener);
 
         //Popup p = infoPanel();
-        JLabel label = new JLabel(lbl);
+        label = new EasyLabel(lbl);
         int[] pt = StringHelper.getEnclosers(name,"[]");
         if (pt[0] > -1 && pt[1] > -1) // makes it so you can hover for modal info.
         {
@@ -140,4 +134,5 @@ public class KeyPanel extends EasyPanel
             p.show();
         }
     }
+
 }

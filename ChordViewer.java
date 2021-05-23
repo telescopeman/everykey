@@ -1,18 +1,14 @@
+import java.awt.*;
 import java.awt.event.ActionEvent;
-import javax.swing.AbstractAction;
-import javax.swing.KeyStroke;
-
-import javax.swing.JLabel;
-import javax.swing.JComponent;
-import javax.swing.JButton;
+import javax.swing.*;
 
 /**
  * Provides a view of the chords of a scale.
  *
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
- * @version 5/22/21
+ * @version 5/23/21
  */
-public class ChordViewer extends ListeningFrame
+public class ChordViewer extends ListeningFrame implements VariableColor
 {
     private int[] myKey;
     private final String PLAYTEXT = "Play Chord";
@@ -74,8 +70,7 @@ public class ChordViewer extends ListeningFrame
      * Converts a whole number to its equivalent in Roman numerals.
      * 
      * @param input The number to be converted.
-     * @since October 19, 2012
-     * @returns The Roman numeral in text.
+     * @return The Roman numeral in text.
      */
     public static String convertToRoman(int input) {
         if (input < 1 || input > 3999)
@@ -159,7 +154,7 @@ public class ChordViewer extends ListeningFrame
             int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
 
-            JButton jb3 = new JButton(PLAYTEXT);
+            EasyButton jb3 = new EasyButton(PLAYTEXT);
             MusicHelper playr = new MusicHelper(seq);
             jb3.addActionListener(playr);
 
@@ -185,7 +180,19 @@ public class ChordViewer extends ListeningFrame
 
             add(jb3);
         }
-        show();
+        setVisible(true);
     }
 
+    @Override
+    public void doLightMode() {
+        for(Component c : getComponents())
+        {
+
+        }
+    }
+
+    @Override
+    public void doDarkMode() {
+
+    }
 }

@@ -1,10 +1,7 @@
-import javax.swing.JMenu;
-import javax.swing.JScrollPane;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
+import javax.swing.*;
 
 
-import java.awt.BorderLayout; 
+import java.awt.*;
 import java.util.Arrays;
 
 /**
@@ -21,6 +18,14 @@ public class UIStuff
     private static EasyPanel innerPanel;
 
     private static final boolean debugMode = false;
+
+    public static final Color LIGHT_MODE = Color.LIGHT_GRAY,
+            DARK_MODE = MyChord.soften(Color.DARK_GRAY,5),
+            LIGHT_TEXT = Color.WHITE,
+            DARK_TEXT = Color.BLACK;
+
+    private static EasyMenuBar menuBar = new EasyMenuBar();
+
 
     private static JMenu view_filters,
             remove_filters,
@@ -41,6 +46,8 @@ public class UIStuff
             SORT4 = "Strangeness (Descending)";
 
     private static int[] absoluteList;
+
+    private static boolean is_dark_mode = false;
 
     /**
      * Runs the main program.
@@ -154,7 +161,47 @@ public class UIStuff
     {
         updateFilterList(curFilters);
         curList = filterKeys(masterList, curFilters);
+        adjustColors(menuBar);
         updateKeys(curList);
+    }
+
+    public static void adjustColors(Component component)
+    {
+        try {
+
+            if (is_dark_mode) {
+                ((VariableColor) component).doDarkMode();
+
+            } else {
+                ((VariableColor) component).doLightMode();
+            }
+        }
+        catch (ClassCastException e)
+        {
+            if (is_dark_mode) {
+                component.setBackground(DARK_MODE);
+                component.setForeground(LIGHT_TEXT);
+
+            } else {
+                component.setBackground(LIGHT_MODE);
+                component.setForeground(DARK_TEXT);
+            }
+        }
+
+        try
+        {
+
+            Container container = (Container) component;
+            for(Component c : container.getComponents())
+            {
+                adjustColors(c);
+            }
+        }
+        catch (ClassCastException e)
+        {
+
+            // do nothing
+        }
     }
 
     private static void printlnDebug(String str)
@@ -277,11 +324,25 @@ public class UIStuff
 
     }
 
+    public static void toggle_dark_mode() {
+        is_dark_mode = !is_dark_mode;
+        System.out.println("Ffff");
+        refresh();
+    }
+
+    public static boolean get_is_dark_mode()
+    {
+        return is_dark_mode;
+    }
+
     private void oneTimeSetup()
     {
         mainWindow = new EasyFrame("Skeleton Key");
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
         innerPanel = new EasyPanel();
+
+        menuBar.setOpaque(true);
+
         JScrollPane outer = new JScrollPane(innerPanel);
         outer.getVerticalScrollBar().setUnitIncrement(16);
 
@@ -289,21 +350,29 @@ public class UIStuff
         
         mainWindow.add(outer);
 
-        JMenu audio,addfilter,viewops,sortops,ftemplates,other;
-        JMenuItem i1, i2, i3, i4, i5, i6,livemaker;
-        JMenuItem s1,s2,s3,s4,neu;
-        JMenuItem a1, a2;  
-        
-        
-        JMenuBar mb=new JMenuBar();  
-        viewops=new JMenu("Sorting Options");
-        filter_menu =new JMenu("Filter Options");
-        audio=new JMenu("Audio Options");
-        other=new JMenu("Viewing Options");
+        JMenu audio,add_filter,sorting_options,sort_order_change,choose_filter_templates,viewing_options;
+        JMenuItem i1, i2, i3,
+                i4, i5, i6,
+                musical_typing,
+                s1,s2,s3,s4,
+                change_neutral_point,
+                note_speed_settings,
+                dark_mode;
         
 
-        sortops=new JMenu("Change Sorting Order");  
-        neu=new JMenuItem("Change Neutral Point");  
+        sorting_options=new JMenu("Sorting Options");
+        filter_menu =new JMenu("Filter Options");
+        audio=new JMenu("Audio Options");
+        viewing_options=new JMenu("Viewing Options");
+
+        sorting_options.setOpaque(false);
+        filter_menu.setOpaque(false);
+        audio.setOpaque(false);
+        viewing_options.setOpaque(false);
+
+        //sorting options
+        sort_order_change=new JMenu("Change Sorting Order");
+        change_neutral_point=new JMenuItem("Change Neutral Point");
 
         s1=new JMenuItem(SORT1);  
         s2=new JMenuItem(SORT2);  
@@ -314,13 +383,23 @@ public class UIStuff
         s2.addActionListener(new ModActor(SortOption.Brightness_Descending));
         s3.addActionListener(new ModActor(SortOption.Strangeness_Ascending));
         s4.addActionListener(new ModActor(SortOption.Strangeness_Descending));
-        neu.addActionListener(new StrangeBox());
+        change_neutral_point.addActionListener(new StrangeBox());
+
+        sorting_options.add(sort_order_change);
+        sorting_options.add(change_neutral_point);
+
+        s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
+        s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
+
+        sort_order_change.add(s1); sort_order_change.add(s2); sort_order_change.add(s3); sort_order_change.add(s4);
+
+        //filtering stuff
 
         view_filters =new JMenu("View/Toggle Active Filters");
-        addfilter=new JMenu("Add New Filter"); 
+        add_filter=new JMenu("Add New Filter");
         remove_filters =new JMenu("Remove Filter");
-        ftemplates=new JMenu("Filter Templates"); 
-        livemaker=new JMenuItem("Open Musical Typing");
+        choose_filter_templates=new JMenu("Filter Templates");
+        musical_typing=new JMenuItem("Open Musical Typing");
 
         i1=new ActionItem(FilterCreationSetting.TONALITY,"Filter by Tonality");
         i2=new ActionItem(FilterCreationSetting.NOTE,"Filter by Note");
@@ -333,32 +412,38 @@ public class UIStuff
         {
             JMenuItem t1 = new JMenuItem(t.getName());
             t1.addActionListener(new ModActor( t.getFilters()));
-            ftemplates.add(t1);
+            choose_filter_templates.add(t1);
         }
 
-        a1=new JMenuItem("Change Note Speed");  
-        a1.addActionListener(new TempoBox()); //not working?
+        musical_typing.addActionListener(new VirtualPiano()); //not working?
 
-        livemaker.addActionListener(new VirtualPiano()); //not working?
 
-        viewops.add(sortops);
-        viewops.add(neu);
+        note_speed_settings=new JMenuItem("Change Note Speed");
+        note_speed_settings.addActionListener(new TempoBox()); //not working?
+
+
         
-        filter_menu.add(view_filters); filter_menu.add(addfilter);
-        filter_menu.add(remove_filters); filter_menu.add(ftemplates);
-        filter_menu.add(livemaker);
-        addfilter.add(i1); addfilter.add(i2); 
-        addfilter.add(i3); addfilter.add(i4);  
-        addfilter.add(i5); addfilter.add(i6);
+        filter_menu.add(view_filters); filter_menu.add(add_filter);
+        filter_menu.add(remove_filters); filter_menu.add(choose_filter_templates);
+        filter_menu.add(musical_typing);
+        add_filter.add(i1); add_filter.add(i2);
+        add_filter.add(i3); add_filter.add(i4);
+        add_filter.add(i5); add_filter.add(i6);
 
-        s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
-        s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
+        //audio
 
-        sortops.add(s1); sortops.add(s2); sortops.add(s3); sortops.add(s4);
+        audio.add(note_speed_settings); //audio.add(a2);
 
-        audio.add(a1); //audio.add(a2);
-        mb.add(viewops); mb.add(filter_menu); mb.add(audio); mb.add(ofs);
-        mainWindow.setJMenuBar(mb);  
+        //viewing options
+
+        dark_mode = new ActionItem(new ModActor(ModAction.TOGGLE_DARK_MODE),"Toggle Dark Mode");
+        viewing_options.add(dark_mode);
+
+
+        menuBar.add(sorting_options); menuBar.add(filter_menu); menuBar.add(audio);
+        menuBar.add(viewing_options); menuBar.add(ofs);
+
+        mainWindow.setJMenuBar(menuBar);
         
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
         mainWindow.appear(mainWindow.MAIN);

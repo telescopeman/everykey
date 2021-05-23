@@ -4,14 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JLayeredPane;
-import javax.swing.AbstractAction;
-import javax.swing.SwingConstants;
-import javax.swing.KeyStroke;
-import javax.swing.Action;
-import javax.swing.JOptionPane;
-import javax.swing.JComponent;
+import javax.swing.*;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
@@ -54,7 +47,7 @@ public class VirtualPiano extends ModBox {
     private final int maxKeys = 12;
 
     public VirtualPiano() {
-        super(false);
+        super(1,1);
     }
 
     public void open() throws javax.sound.midi.MidiUnavailableException
@@ -88,7 +81,8 @@ public class VirtualPiano extends ModBox {
         class PlayAction extends AbstractAction {
             private int pitch;
             private JButton bu;
-            private boolean type = false;
+            private boolean type;
+
             public PlayAction(int i, JButton b,boolean kind)
             {
                 pitch = i;
@@ -319,7 +313,7 @@ public class VirtualPiano extends ModBox {
     private void save()
     {
         apply();
-        hide();
+        setVisible(false);
         UIStuff.storeFilters();
     }
 

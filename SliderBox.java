@@ -13,7 +13,6 @@ import java.awt.Font;
 public abstract class SliderBox extends ModBox
 {
     private float slider_position;
-
     private JSlider slider;
     /**
      * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
@@ -33,7 +32,7 @@ public abstract class SliderBox extends ModBox
          * Updates a variable and calls a method indicating a change has taken place.
          */
         public void stateChanged(ChangeEvent e) {
-            slider_position = (int)sl.getValue();
+            slider_position = sl.getValue();
             softUpdate(sl.getValue());
 
         }
@@ -64,19 +63,9 @@ public abstract class SliderBox extends ModBox
         return slider_position;
     }
     
-    public void setPos(float d)
-    {
-        slider_position = d;
-    }
-    
     public JSlider getSlider()
     {
         return slider;
-    }
-
-    public void update()
-    {
-        //PlayerWatcher.setTempo((int)slider_position);
     }
 
     public abstract void update(float d);

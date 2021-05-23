@@ -3,7 +3,7 @@
  * Manages the tags of scales.
  *
  * @author Caleb Copeland
- * @version 4/5/21
+ * @version 5/23/21
  */
 public abstract class TagsManager
 {
@@ -53,9 +53,9 @@ public abstract class TagsManager
                 boolean addable = true;
                 for (String t : result)
                 {
-                    if (t.equals(tag))
-                    {
+                    if (t.equals(tag)) {
                         addable = false;
+                        break;
                     }
                 }
                 if (addable)

@@ -29,7 +29,7 @@ public class StrangeBox extends SliderBox
     
     private void addLabels()
     {
-        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         labelTable.put(041, new JLabel("Aerygian") );
         labelTable.put(111, new JLabel("Ultra Phrygian ♭♭3") );
         labelTable.put(166, new JLabel("Locrian") );
@@ -61,7 +61,7 @@ public class StrangeBox extends SliderBox
         {
             update(getPos());
             UIStuff.refresh();
-            hide();
+            setVisible(false);
 
         }
     }

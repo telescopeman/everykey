@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 
 /**
@@ -33,4 +33,8 @@ public class ActionItem extends JMenuItem {
     }
 
 
+    public ActionItem(ModAction modAction) {
+        super();
+        addActionListener(new ModActor(modAction));
+    }
 }

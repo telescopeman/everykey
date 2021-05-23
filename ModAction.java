@@ -3,5 +3,6 @@ public enum ModAction {
     REMOVE_FILTER,
     SET_SORT_STYLE,
     SET_FILTER_TEMPLATE,
+    TOGGLE_DARK_MODE,
     DO_NOTHING
 }

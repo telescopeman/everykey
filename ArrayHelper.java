@@ -66,7 +66,7 @@ public abstract class ArrayHelper
         // insert all elements till n
         // then insert x at n+1
         for (i = 0; i < list.length; i++)
-            newarr[i] = new Integer(list[i]);
+            newarr[i] = list[i];
 
         newarr[list.length] = x;
 

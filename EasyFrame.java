@@ -1,9 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 /**
@@ -54,6 +52,15 @@ public class EasyFrame extends JFrame
         add(jb3);
     }
 
+    public void repaint()
+    {
+        super.repaint();
+
+        //System.out.println("Fbrr");
+
+    }
+
+
     /**
      * Generates a Dimension with the given size.
      */
@@ -69,7 +76,8 @@ public class EasyFrame extends JFrame
 
     public void setHeight(int x)
     {
-         setSize(new Dimension(getSize().width,x));
+        //noinspection SuspiciousNameCombination
+        setSize(new Dimension(getSize().width,x));
     }
 
     public void setGrid(int x, int y)
@@ -81,12 +89,15 @@ public class EasyFrame extends JFrame
     {
         setVisible(true);
         requestFocusInWindow();
+        UIStuff.adjustColors(this);
+
     }
+
+
 
     public void appear(Dimension dim)
     {
-        setVisible(true);
-        requestFocusInWindow();
+        appear();
         setSize(dim);
     }
 
@@ -102,7 +113,6 @@ public class EasyFrame extends JFrame
 
     public void clear()
     {
-        // put your code here
         getContentPane().removeAll();
     }
 

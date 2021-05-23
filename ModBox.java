@@ -8,7 +8,7 @@ public abstract class ModBox extends ListeningFrame
 {
 
     /**
-     * Constructor for objects of class ModBox
+     * Creates a ModBox with a default grid layout of 3x1.
      */
     public ModBox()
     {
@@ -16,11 +16,11 @@ public abstract class ModBox extends ListeningFrame
     }
 
     /**
-     * Creates a ModBox without automatically assuming a grid layout.
+     * Creates a ModBox with a custom grid layout.
      */
-    public ModBox(boolean t)
+    public ModBox(int x, int y)
     {
-
+        setGrid(x,y);
     }
 
 

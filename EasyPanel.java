@@ -1,18 +1,14 @@
-import java.awt.Font;
-import java.awt.Dimension;
-import java.awt.Component;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.*;
+
 /**
  * Basically just a JPanel with a few extra methods.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
 public class EasyPanel extends JPanel implements ActionListener
 {
@@ -30,23 +26,31 @@ public class EasyPanel extends JPanel implements ActionListener
     public void makeCenteredList()
     {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        
     }
 
     public void addButton(String name, ActionListener trig)
     {
-        JButton jb3 = new JButton(name);    
+        EasyButton jb3 = new EasyButton(name);
         jb3.addActionListener(trig);
         add(jb3);
     }
     
     public void addHeader(String text)
     {
-        JLabel title = new JLabel(text,JLabel.CENTER);
+        EasyLabel title = new EasyLabel(text,JLabel.CENTER);
         title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
         add(title);
         
     }
+
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
+
+        UIStuff.adjustColors(this);
+    }
+
+
     
     private Dimension getDim(int x, int y)
     {
@@ -59,12 +63,13 @@ public class EasyPanel extends JPanel implements ActionListener
         setVisible(true);
         requestFocusInWindow();
 
+
     }
-    
+
+
     public void appear(Dimension dim)
     {
-        setVisible(true);
-        requestFocusInWindow();
+        appear();
         setSize(dim);
 
     }

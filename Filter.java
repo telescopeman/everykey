@@ -253,10 +253,10 @@ public class Filter extends TheoryObj
                     boolean going = false;
                     for (String t : KeyNamesHelper.getTags(key,ind))
                     {
-                        
-                        if (t.equals(tag))
-                        {
+
+                        if (t.equals(tag)) {
                             going = true;
+                            break;
                         }
 
                     }
