@@ -9,7 +9,7 @@ import javax.swing.event.ChangeListener;
  * Manages root note.
  *
  * @author Caleb Copeland, GingerHead [setWidth() method only]
- * @version 4/6/21
+ * @version 5/22/21
  * @since 4/6/21
  */
 public class OffsetEditor extends EasyPanel
@@ -48,6 +48,7 @@ public class OffsetEditor extends EasyPanel
                         offset = n;
                         StateWatcher.setOffset(n);
                         SpeedCache.setOffset(n);
+                        UIStuff.refresh();
                     }
                 }
             };
