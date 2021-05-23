@@ -41,9 +41,9 @@ public class StrangeBox extends SliderBox
         getSlider().setLabelTable( labelTable );
     }
 
-    public void update(float d)
+    protected void apply()
     {
-        UIStuff.setNeutral( (int) d );
+        UIStuff.setNeutral((int)getPos());
     }
     
     public void act(String id)
@@ -54,7 +54,7 @@ public class StrangeBox extends SliderBox
         }
         else
         {
-            update(getPos());
+            apply();
             UIStuff.refresh();
             setVisible(false);
 

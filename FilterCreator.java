@@ -7,13 +7,12 @@ import javax.swing.JLabel;
  * Dialogue popup that lets the user create a filter.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
 public class FilterCreator extends ModBox
 {
     private FilterCreationSetting type = FilterCreationSetting.INVALID;
-    private JComboBox<String> list1;
-    private JComboBox<String> list2;
+    private JComboBox<String> list1, list2;
     private JMenu listSub;
     private JCheckBox tickBox;
 
@@ -23,15 +22,12 @@ public class FilterCreator extends ModBox
     private static final String[] CHROMATICSCALE = TheoryObj.CHROMATICSCALE;
 
 
-
     public FilterCreator(FilterCreationSetting type)
     {
         this.type = type;
         update();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
-
-
 
     private void update()
     {
@@ -53,19 +49,19 @@ public class FilterCreator extends ModBox
         switch (type)
         {
             case TONALITY:
-                options = new String[]{"Major", "Minor", "Either", "Neither"};
+            options = new String[]{"Major", "Minor", "Either", "Neither"};
             break;
 
             case NOTE:
-                options = CHROMATICSCALE;
+            options = CHROMATICSCALE;
             break;
 
             case CHORD:
-                options = CHROMATICSCALE;
-                options2 = new String[]{"Major", "Minor", "Diminished","Augmented","sus2","sus4","Major ♭5","sus2 ♭5","sus4 ♭5"};
-                setGrid(3,2);
-                add(new JLabel(""));
-                hasSecondDropDown = true;
+            options = CHROMATICSCALE;
+            options2 = new String[]{"Major", "Minor", "Diminished","Augmented","sus2","sus4","Major ♭5","sus2 ♭5","sus4 ♭5"};
+            setGrid(3,2);
+            add(new JLabel(""));
+            hasSecondDropDown = true;
             break;
 
             case TAGS:
@@ -83,8 +79,7 @@ public class FilterCreator extends ModBox
             break;
 
             default:
-                throw new IllegalStateException("Cannot have invalid FilterCreator!");
-
+            throw new IllegalStateException("Cannot have invalid FilterCreator!");
 
         }
         list1 = new JComboBox<>(options);
@@ -127,7 +122,7 @@ public class FilterCreator extends ModBox
             case TAGS:
 
             case MODE:
-                return new Filter((list1.getSelectedItem()).toString());
+            return new Filter((list1.getSelectedItem()).toString());
 
             case SPECIAL:
             {
@@ -279,28 +274,30 @@ public class FilterCreator extends ModBox
             }
             case "Add Filter":
             {
-                String o1 = list1.getSelectedItem().toString();
-                String o2 = list2.getSelectedItem().toString();
-                Filter[] tempList = ArrayHelper.addX(myFilters,constructFilter(o1,o2));
-
-                boolean[] tempList2 = ArrayHelper.addX(setList,true);
-
-                UIStuff.setFilterStatuses(tempList2);
-                UIStuff.setCurFilters(tempList);
-                UIStuff.refresh();
-                update();
-
+                apply();
                 this.dispose();
                 break;
             }
             default:
             {
-
                 setUpUniqueFactors();
                 appear(SUPER_STANDARD);
-
             }
         }
+    }
+
+    protected void apply()
+    {
+        String o1 = list1.getSelectedItem().toString();
+        String o2 = list2.getSelectedItem().toString();
+        Filter[] tempList = ArrayHelper.addX(myFilters,constructFilter(o1,o2));
+
+        boolean[] tempList2 = ArrayHelper.addX(setList,true);
+
+        UIStuff.setFilterStatuses(tempList2);
+        UIStuff.setCurFilters(tempList);
+        UIStuff.refresh();
+        update();
     }
 
 }

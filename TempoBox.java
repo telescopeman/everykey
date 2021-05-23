@@ -3,7 +3,7 @@
  * Box that allows for change of the global tempo.
  *
  * @author Caleb Copeland
- * @version 3/31/21
+ * @version 5/23/21
  */
 public class TempoBox extends SliderBox
 {
@@ -37,9 +37,9 @@ public class TempoBox extends SliderBox
     
 
     
-    public void update(float d)
+    protected void apply()
     {
-        StateWatcher.setTempo(d);
+        StateWatcher.setTempo(getPos());
     }
 
 
@@ -52,7 +52,7 @@ public class TempoBox extends SliderBox
         }
         else
         {
-            update(getPos());
+            apply();
         }
         
     }

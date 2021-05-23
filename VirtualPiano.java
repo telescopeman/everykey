@@ -303,11 +303,10 @@ public class VirtualPiano extends ModBox {
 
     }
 
-    private void apply()
+    protected void apply()
     {
         UIStuff.setFilterStatuses(ArrayHelper.addX(UIStuff.getStoredStatuses(),true));
         UIStuff.setCurFilters(ArrayHelper.addX(UIStuff.getStoredFilters(),toFilter()));
-
     }
 
     private void save()

@@ -33,7 +33,7 @@ public abstract class SliderBox extends ModBox
          */
         public void stateChanged(ChangeEvent e) {
             slider_position = sl.getValue();
-            update(sl.getValue());
+            apply();
 
         }
     }
@@ -68,5 +68,5 @@ public abstract class SliderBox extends ModBox
         return slider;
     }
 
-    public abstract void update(float d);
+    
 }

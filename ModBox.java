@@ -23,6 +23,9 @@ public abstract class ModBox extends ListeningFrame
         setGrid(x,y);
     }
 
-
+    /**
+     * Applies whatever modifications the ModBox is designed for to the program.
+     */
+    protected abstract void apply();
 
 }
