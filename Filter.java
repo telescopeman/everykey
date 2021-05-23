@@ -304,12 +304,7 @@ public class Filter extends TheoryObj
             }
         }
 
-        if (type == FilterType.HAS_NOTE_AT_POSITION)
-        {
-            return false;
-        }
-
-        return true;
+        return type != FilterType.HAS_NOTE_AT_POSITION;
 
     }
 }

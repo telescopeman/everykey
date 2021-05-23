@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 /**
  * Inherited class that has a few methods I like to have handy in frames.
@@ -13,7 +12,7 @@ import java.awt.event.ActionEvent;
  * @author Caleb Copeland
  * @version 5/22/21
  */
-public class EasyFrame extends JFrame implements ActionListener
+public class EasyFrame extends JFrame
 {
     // size presets
     public final Dimension STANDARD = new Dimension(350,100);
@@ -28,11 +27,7 @@ public class EasyFrame extends JFrame implements ActionListener
     /**
      * Constructor for objects of class EasyFrame
      */
-    public EasyFrame()
-    {
-        // initialise instance variables
-
-    }
+    public EasyFrame() {}
 
     public void addHeader(String text)
     {
@@ -50,7 +45,6 @@ public class EasyFrame extends JFrame implements ActionListener
 
     public EasyFrame(String name)
     {
-        // initialise instance variables
         setTitle(name);
     }
 
@@ -66,14 +60,13 @@ public class EasyFrame extends JFrame implements ActionListener
     public Dimension getDim(int x, int y)
     {
         return new Dimension(x,y);
-
     }
     
     public void setWidth(int x)
     {
          setSize(new Dimension(x,getSize().height));
     }
-    
+
     public void setHeight(int x)
     {
          setSize(new Dimension(getSize().width,x));
@@ -86,13 +79,13 @@ public class EasyFrame extends JFrame implements ActionListener
 
     public void appear()
     {
-        show();
+        setVisible(true);
         requestFocusInWindow();
     }
 
     public void appear(Dimension dim)
     {
-        show();
+        setVisible(true);
         requestFocusInWindow();
         setSize(dim);
     }
@@ -113,22 +106,5 @@ public class EasyFrame extends JFrame implements ActionListener
         getContentPane().removeAll();
     }
 
-    public void actionPerformed(ActionEvent e)
-    {
-        act(e.getActionCommand());
-    }
 
-    /**
-     * If not overridden, assumes no-arg method should be used.
-     */
-    public void act(String id)
-    {
-        act();
-    }
-    
-    
-    public void act()
-    {
-        
-    }
 }

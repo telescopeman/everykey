@@ -134,7 +134,7 @@ public abstract class TheoryObj
             {
                 name = name + ", ";
             }
-            else if (count3 == key.length - 2) //second to last 
+            else if (count3 == key.length - 2) //second to last
             {
                 name = name + ", and ";
             }
@@ -178,7 +178,6 @@ public abstract class TheoryObj
             rawNotes[count] = newNote;
         }
 
-
         if (enharmonicsOn)
         {
             return doEnharmonics(rawNotes);
@@ -190,12 +189,11 @@ public abstract class TheoryObj
 
     private static String[] doEnharmonics(String[] notes)
     {
-        /**
-         * if this method is called,
-         * there should now be an array of all the note names.
-         * next comes the formatting into an actual string.
+        /*
+          if this method is called,
+          there should now be an array of all the note names.
+          next comes the formatting into an actual string.
          */
-
         String[] rawNotes = notes;
         final int maxAttempts = 20;
         int attempts = 0;
@@ -205,11 +203,11 @@ public abstract class TheoryObj
         // this is akin to a sorting algorithm. it will iterate thru until no more dupes, or gives up.
         while (dupes > 0 && attempts < maxAttempts)
         {
-            /**
-             * the first note is always gonna be C.
-             * unless i implement a way to change root note, we can just skip it.
-             * also gonna skip the last note for now. that's a special case.
-             **/
+            /*
+              the first note is always gonna be C.
+              unless i implement a way to change root note, we can just skip it.
+              also gonna skip the last note for now. that's a special case.
+             */
             //System.out.println(attempts);
             dupes = 0;
             for(int count2 = 1; count2 < rawNotes.length; count2++)

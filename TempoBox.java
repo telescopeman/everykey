@@ -17,10 +17,7 @@ public class TempoBox extends SliderBox
      */
     public TempoBox()
     {
-        super();// initialise instance variables
-        
         addHeader("Change Note Speed:");
-        
         try{
             playr = new MusicHelper(new int[]{1,3,5,6,8,10,12});
             playr.seqSetup();
