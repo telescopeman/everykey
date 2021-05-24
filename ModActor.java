@@ -1,4 +1,6 @@
 import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * A customized ActionListener that does stuff to the main UI.
@@ -6,7 +8,7 @@ import javax.swing.JOptionPane;
  * @author Caleb Copeland
  * @version 5/23/21
  */
-public class ModActor extends QuickListener
+public class ModActor implements ActionListener
 {
     private int index;
     private SortOption setting;
@@ -57,8 +59,8 @@ public class ModActor extends QuickListener
         action = ModAction.SET_FILTER_TEMPLATE;
     }
 
-    public void act(String s)
-    {
+    @Override
+    public void actionPerformed(ActionEvent e) {
         switch(action)
         {
             case TOGGLE_FILTER:
@@ -78,8 +80,8 @@ public class ModActor extends QuickListener
             }
             case SET_FILTER_TEMPLATE:
             {
-                int input = JOptionPane.showConfirmDialog(null, 
-                "Applying a template will erase all current filters. Are you sure you want to do this?", "Confirmation",JOptionPane.YES_NO_OPTION);
+                int input = JOptionPane.showConfirmDialog(null,
+                        "Applying a template will erase all current filters. Are you sure you want to do this?", "Confirmation",JOptionPane.YES_NO_OPTION);
                 if (input == 0)
                 {
                     FilterBank.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));

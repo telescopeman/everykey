@@ -7,7 +7,7 @@ import javax.swing.*;
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
  * @version 5/24/21
  */
-public class ChordViewer extends ListeningFrame implements LowerBucketCrab
+public class ChordViewer extends CrabFrame
 {
     private final int[] myKey;
 
@@ -172,8 +172,4 @@ public class ChordViewer extends ListeningFrame implements LowerBucketCrab
         setVisible(true);
     }
 
-    @Override
-    protected void onClosed() {
-        BucketCrabManager.pullDown(this);
-    }
 }

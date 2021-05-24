@@ -4,7 +4,7 @@
  * @author Caleb Copeland
  * @version 5/24/21
  */
-public class Sampler extends ListeningFrame implements LowerBucketCrab
+public class Sampler extends CrabFrame
 {
     private String name;
     private final MusicPlayer mus;
@@ -43,14 +43,6 @@ public class Sampler extends ListeningFrame implements LowerBucketCrab
             name = n;
         }
 
-    }
-
-    /**
-     * When the window is closed, stop playing.
-     */
-    @Override
-    protected void onClosed() {
-        BucketCrabManager.pullDown(this);
     }
 
     public void act(String s)
