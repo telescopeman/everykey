@@ -8,7 +8,6 @@ import java.util.HashMap;
  */
 public abstract class EnharmonicsHelper extends BasicTheoryObj
 {
-    // instance variables - replace the example below with your own
     private static final HashMap<String,String> ENHARMONICSBELOW = new HashMap<String,String>()
         {{
                 put("C♯", "B♯♯");
@@ -151,7 +150,7 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
     /**
      * Gets the enharmonic equivalent of a given note.
      */
-    public static String getEnharmonicBelow(String note)
+    private static String getEnharmonicBelow(String note)
     {
         String name = ENHARMONICSBELOW.get(note);
 
@@ -168,7 +167,7 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
     /**
      * Gets the enharmonic equivalent of a given note.
      */
-    public static String getEnharmonicAbove(String note)
+    private static String getEnharmonicAbove(String note)
     {
         String name = ENHARMONICSABOVE.get(note);
         if (name == null)
