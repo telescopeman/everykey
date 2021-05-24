@@ -1,6 +1,5 @@
 import java.awt.event.ActionListener;
 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Dimension;
 import java.awt.Component;
@@ -28,7 +27,7 @@ public class EasyPanel extends JPanel
     
     public void addButton(String name, ActionListener trig)
     {
-        EasyButton jb3 = new EasyButton(name);
+        EasyButton jb3 = new EasyButton(name, CENTER_ALIGNMENT);
         jb3.addActionListener(trig);
         add(jb3);
     }
@@ -36,7 +35,7 @@ public class EasyPanel extends JPanel
     public void addHeader(String text)
     {
         EasyLabel title = new EasyLabel(text,JLabel.CENTER);
-        title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
+        title.embolden();
         add(title);
     }
 

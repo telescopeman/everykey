@@ -1,3 +1,5 @@
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Hashtable;
 import javax.swing.JLabel;
 
@@ -9,25 +11,25 @@ import javax.swing.JLabel;
  */
 public class StrangeBox extends SliderBox
 {
-    private static final int MIN = 20;
-    private static final int MAX = 440;
-
 
     /**
      * Constructor for objects of class StrangeBox
      */
     public StrangeBox()
     {
-        super("Change Neutral Point", LONG);
-
+        super("Change Neutral Point", LONG,
+                Control.getNeutralPoint(),20,440);
         addHeader("Change Neutral Point for Strangeness Sorting:");
-        setUpSlider(Control.getNeutralPoint(),MIN,MAX);
-
         addLabels();
-        
         add(getSlider());
-
-        addButton("Apply",this);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Control.setNeutral((int)getPos());
+                UI.refresh();
+            }
+        });
+        //addButton("Apply",this);
     }
     
     private void addLabels()
@@ -46,10 +48,6 @@ public class StrangeBox extends SliderBox
 
     protected void apply()
     {
-        Control.setNeutral((int)getPos());
-        UI.refresh();
-        setVisible(false);
+        // do nothing lol
     }
-    
-
 }

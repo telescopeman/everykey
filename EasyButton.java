@@ -1,8 +1,9 @@
 import javax.swing.*;
 
 public class EasyButton extends JButton implements VariableColor {
-    public EasyButton(String str) {
+    public EasyButton(String str, float alignment) {
         super(str);
+        setAlignmentY(alignment);
         setOpaque(false);
         //setContentAreaFilled();
         setBorderPainted(true);

@@ -1,3 +1,4 @@
+import javax.sound.midi.MidiUnavailableException;
 
 /**
  * Box that allows for change of the global tempo.
@@ -7,9 +8,6 @@
  */
 public class TempoBox extends SliderBox
 {
-    private final int TEMPO_MIN = 50;
-    private final int TEMPO_MAX = 500;
-    
     private MusicHelper musicPlayer;
 
     /**
@@ -17,21 +15,20 @@ public class TempoBox extends SliderBox
      */
     public TempoBox()
     {
-        super("Change Note Speed", ROUNDISH);
+        super("Change Note Speed", ROUNDISH,
+                StateWatcher.getTempo(),50,500);
         addHeader("Change Note Speed:");
         try{
             musicPlayer = new MusicHelper(new int[]{1,3,5,6,8,10,12});
             musicPlayer.seqSetup();
         }
-        catch(Exception ed)
+        catch(MidiUnavailableException ed)
         {
-            System.out.println(ed);
+            ed.printStackTrace();
         }
-        setUpSlider(StateWatcher.getTempo(),TEMPO_MIN,TEMPO_MAX);
 
         getSlider().setMajorTickSpacing(50);
         add(getSlider());
-
         addButton("Test", musicPlayer);
     }
 

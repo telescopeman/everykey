@@ -25,11 +25,11 @@ public class EasyLabel extends JLabel implements VariableColor
 
     public void italicize()
     {
-        setFont(new Font(getFont().getFontName(),Font.ITALIC,12));
+        setFont(new Font(getFont().getFontName(),Font.ITALIC,getFont().getSize()));
     }
 
-    public void setSize(float size)
+    public void embolden()
     {
-
+        setFont(new Font(getFont().getFontName(),Font.BOLD,getFont().getSize()));
     }
 }

@@ -15,13 +15,29 @@ import java.awt.Font;
 public abstract class SliderBox extends ModBox
 {
     private float slider_position;
-    private JSlider slider;
+    private final JSlider slider;
     private final String APPEARANCE_TRIGGER;
     private final Dimension dimension;
 
-    protected SliderBox(String appearance_trigger, Dimension dimension) {
+    protected SliderBox(String appearance_trigger, Dimension dimension,
+                        float initial_position, float minimum_value, float maximum_value) {
+        slider_position = initial_position;
+
         APPEARANCE_TRIGGER = appearance_trigger;
         this.dimension = dimension;
+        slider = new JSlider(JSlider.HORIZONTAL,
+                (int) minimum_value, (int) maximum_value, (int) slider_position);
+
+        slider.addChangeListener(new SliderListener(slider));
+
+        //Turn on labels at major tick marks.
+        slider.setMinorTickSpacing(1);
+        slider.setPaintTicks(true);
+        slider.setPaintLabels(true);
+        slider.setBorder(
+                BorderFactory.createEmptyBorder(0,0,10,0));
+        Font font = new Font("Serif", Font.ITALIC, 15);
+        slider.setFont(font);
     }
 
     /**
@@ -47,26 +63,6 @@ public abstract class SliderBox extends ModBox
 
         }
     }
-
-    public void setUpSlider(float init, float mn, float mx)
-    {
-        slider_position = init;
-        slider = new JSlider(JSlider.HORIZONTAL,
-            (int) mn, (int) mx, (int) slider_position);
-        slider.addChangeListener(new SliderListener(slider));
-        //Turn on labels at major tick marks.
-
-        slider.setMinorTickSpacing(1);
-        slider.setPaintTicks(true);
-        slider.setPaintLabels(true);
-        slider.setBorder(
-            BorderFactory.createEmptyBorder(0,0,10,0));
-        Font font = new Font("Serif", Font.ITALIC, 15);
-        slider.setFont(font);
-
-    }
-    
-    
     
     public float getPos()
     {

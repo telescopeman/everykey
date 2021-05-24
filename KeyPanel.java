@@ -34,7 +34,7 @@ public class KeyPanel extends EasyPanel
             ed.printStackTrace();
         }
 
-        EasyButton b = new EasyButton("Info");
+        EasyButton b = new EasyButton("Info", CENTER_ALIGNMENT);
         JPopupMenu jb5 = new JPopupMenu();
         JMenuItem ch = new JMenuItem("Chords");
         ch.addActionListener(chordViewer);

@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import javax.swing.*;
 
@@ -46,24 +45,19 @@ public class ChordViewer extends ListeningFrame
 
     private static int[] makeAscending(int[] sequence)
     {
-        int[] seq = sequence;
-        int[] ups = new int[]{0,0,0};
-        if (seq[0] > seq[1])
+        if (sequence[0] > sequence[1])
         {
-            seq[1] += 12;
-            ups[1]++;
+            sequence[1] += 12;
         }
-        if (seq[0] > seq[2])
+        if (sequence[0] > sequence[2])
         {
-            seq[2] += 12;
-            ups[2]++;
+            sequence[2] += 12;
         }
-        if (seq[1] > seq[2])
+        if (sequence[1] > sequence[2])
         {
-            seq[2] += 12;
-            ups[2]++;
+            sequence[2] += 12;
         }
-        return seq;
+        return sequence;
     }
 
     /**
@@ -75,59 +69,59 @@ public class ChordViewer extends ListeningFrame
     public static String convertToRoman(int input) {
         if (input < 1 || input > 3999)
             return "Invalid Roman Number Value";
-        String s = "";
+        StringBuilder s = new StringBuilder();
         while (input >= 1000) {
-            s += "M";
+            s.append("M");
             input -= 1000;        }
         while (input >= 900) {
-            s += "CM";
+            s.append("CM");
             input -= 900;
         }
         while (input >= 500) {
-            s += "D";
+            s.append("D");
             input -= 500;
         }
         while (input >= 400) {
-            s += "CD";
+            s.append("CD");
             input -= 400;
         }
         while (input >= 100) {
-            s += "C";
+            s.append("C");
             input -= 100;
         }
         while (input >= 90) {
-            s += "XC";
+            s.append("XC");
             input -= 90;
         }
         while (input >= 50) {
-            s += "L";
+            s.append("L");
             input -= 50;
         }
         while (input >= 40) {
-            s += "XL";
+            s.append("XL");
             input -= 40;
         }
         while (input >= 10) {
-            s += "X";
+            s.append("X");
             input -= 10;
         }
         while (input >= 9) {
-            s += "IX";
+            s.append("IX");
             input -= 9;
         }
         while (input >= 5) {
-            s += "V";
+            s.append("V");
             input -= 5;
         }
         while (input >= 4) {
-            s += "IV";
+            s.append("IV");
             input -= 4;
         }
         while (input >= 1) {
-            s += "I";
+            s.append("I");
             input -= 1;
         }    
-        return s;
+        return s.toString();
     }
 
     protected void act(String id) {
@@ -154,7 +148,7 @@ public class ChordViewer extends ListeningFrame
             int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
 
-            EasyButton jb3 = new EasyButton(PLAYTEXT);
+            EasyButton jb3 = new EasyButton(PLAYTEXT, CENTER_ALIGNMENT);
             MusicHelper playr = new MusicHelper(seq);
             jb3.addActionListener(playr);
 
