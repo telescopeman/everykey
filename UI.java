@@ -71,12 +71,12 @@ public class UI {
         sort_order_change=new JMenu("Change Sorting Order");
         change_neutral_point=new JMenuItem("Change Neutral Point");
 
-        JMenuItem s1=new JMenuItem(String.valueOf(SortOption.Brightness_Ascending));
-        JMenuItem s2=new JMenuItem(String.valueOf(SortOption.Brightness_Descending));
-        JMenuItem s3=new JMenuItem(String.valueOf(SortOption.Strangeness_Ascending));
-        JMenuItem s4=new JMenuItem(String.valueOf(SortOption.Strangeness_Descending));
-        JMenuItem s5=new JMenuItem(String.valueOf(SortOption.Intervalic_Oddities_Ascending));
-        JMenuItem s6=new JMenuItem(String.valueOf(SortOption.Intervalic_Oddities_Descending));
+        JMenuItem s1=new ActionItem(SortOption.Brightness_Ascending);
+        JMenuItem s2=new ActionItem(SortOption.Brightness_Descending);
+        JMenuItem s3=new ActionItem(SortOption.Strangeness_Ascending);
+        JMenuItem s4=new ActionItem(SortOption.Strangeness_Descending);
+        JMenuItem s5=new ActionItem(SortOption.Intervalic_Oddities_Ascending);
+        JMenuItem s6=new ActionItem(SortOption.Intervalic_Oddities_Descending);
 
         change_neutral_point.addActionListener(new StrangeBox());
 

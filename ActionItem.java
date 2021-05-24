@@ -19,4 +19,10 @@ public class ActionItem extends JMenuItem {
         super(str);
         addActionListener(new FilterCreator(setting));
     }
+
+    public ActionItem(SortOption setting)
+    {
+        super(setting.toString());
+        addActionListener(new ModActor(setting));
+    }
 }
