@@ -17,7 +17,7 @@ public class Control
 
     private static SortOption currentSortStyle = SortOption.Strangeness_Ascending;
 
-    public static int[] absoluteList;
+    private static int[] absoluteList;
 
 
     /**
@@ -48,6 +48,9 @@ public class Control
         neutral_point = i;
     }
 
+    /**
+     * Sorts the scales by the chosen sorting style.
+     */
     public static int[] styleSort()
     {
         int[] result = new int[absoluteList.length];
@@ -114,10 +117,8 @@ public class Control
         UI.refresh();
     }
 
-
     public static int[][] filterKeys(int[][] keyList, Filter[] filterList)
     {
-
         int[][] newList = Arrays.copyOf(keyList,keyList.length);
         int num = 0;
 

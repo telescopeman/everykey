@@ -4,15 +4,15 @@ import java.util.HashMap;
  * Class that helps access names of common keys.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/23/21
  */
 public abstract class KeyNamesHelper extends TheoryObj
 {
 
-    static private int group;
+    private static int group;
 
-    static HashMap<String,String> stringKeys;
-    static private boolean active = false;
+    private static HashMap<String,String> stringKeys;
+    private static boolean active = false;
     //String lastKey;
     /**
      * Most of these are from Wikipedia.
@@ -281,7 +281,6 @@ public abstract class KeyNamesHelper extends TheoryObj
         }
     }
 
-    // formerly a control method
     public static String getKeyName(int[] key, int ind)
     {
         String name = smartGet(key,ind);
