@@ -2,6 +2,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.JSlider;
 import javax.swing.BorderFactory;
+
+import java.awt.Dimension;
 import java.awt.Font;
 
 /**
@@ -14,9 +16,14 @@ public abstract class SliderBox extends ModBox
 {
     private float slider_position;
     private JSlider slider;
-    
-    
-    
+    private final String APPEARANCE_TRIGGER;
+    private final Dimension dimension;
+
+    protected SliderBox(String appearance_trigger, Dimension dimension) {
+        APPEARANCE_TRIGGER = appearance_trigger;
+        this.dimension = dimension;
+    }
+
     /**
      * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
      */
@@ -71,5 +78,16 @@ public abstract class SliderBox extends ModBox
         return slider;
     }
 
+    protected void act(String id)
+    {
+        if (id.equals(APPEARANCE_TRIGGER))
+        {
+            appear(dimension);
+        }
+        else
+        {
+            apply();
+        }
+    }
     
 }

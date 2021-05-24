@@ -32,9 +32,9 @@ public class VirtualPiano extends ModBox {
     private final String
             START_RECORDING = "Start Recording Filter",
             STOP_RECORDING = "Stop Recording Filter",
-            toFilter = "Save as New Filter",
-            exit = "Discard",
-            info = "About Musical Typing";
+            TO_FILTER = "Save as New Filter",
+            EXIT = "Discard",
+            SHOW_INFO = "About Musical Typing";
 
     private int index;
     private int[] pressedKeys;
@@ -217,21 +217,21 @@ public class VirtualPiano extends ModBox {
         b1.setSize(myDim);
         panel.add(b1, 2);
 
-        b2 = new JButton(toFilter);
+        b2 = new JButton(TO_FILTER);
         b2.addActionListener(this);
         b2.setEnabled(false);
         b2.setLocation(10 * width + 6, 20 + width);
         b2.setSize(myDim);
         panel.add(b2, 2);
 
-        b3 = new JButton(exit);
+        b3 = new JButton(EXIT);
         b3.addActionListener(this);
         b3.setEnabled(false);
         b3.setLocation(10 * width + 6, 20 + 2* width);
         b3.setSize(myDim);
         panel.add(b3, 2);
 
-        JButton b4 = new JButton(info);
+        JButton b4 = new JButton(SHOW_INFO);
         b4.addActionListener(this);
         b4.setLocation(10 * width + 6, 20 + 3* width);
         b4.setSize(myDim);
@@ -394,21 +394,20 @@ public class VirtualPiano extends ModBox {
                 break;
             }
 
-            case toFilter:
+            case TO_FILTER:
             {
                 stopRecording();
                 save();
                 break;
             }
-
-            case exit:
+            case EXIT:
             {
                 stopRecording();
                 discard();
                 break;
             }
 
-            case info:
+            case SHOW_INFO:
             {
                 JOptionPane.showMessageDialog(null, 
                     "Musical Typing mode allows for creation of filters" +

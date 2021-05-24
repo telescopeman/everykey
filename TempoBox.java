@@ -10,17 +10,18 @@ public class TempoBox extends SliderBox
     private final int TEMPO_MIN = 50;
     private final int TEMPO_MAX = 500;
     
-    private MusicHelper playr;
+    private MusicHelper musicPlayer;
 
     /**
      * Creates the TempoBox.
      */
     public TempoBox()
     {
+        super("Change Note Speed", ROUNDISH);
         addHeader("Change Note Speed:");
         try{
-            playr = new MusicHelper(new int[]{1,3,5,6,8,10,12});
-            playr.seqSetup();
+            musicPlayer = new MusicHelper(new int[]{1,3,5,6,8,10,12});
+            musicPlayer.seqSetup();
         }
         catch(Exception ed)
         {
@@ -31,28 +32,12 @@ public class TempoBox extends SliderBox
         getSlider().setMajorTickSpacing(50);
         add(getSlider());
 
-        addButton("Test",playr);
+        addButton("Test", musicPlayer);
     }
 
-    
-
-    
     protected void apply()
     {
         StateWatcher.setTempo(getPos());
     }
 
-
-
-    protected void act(String id)
-    {
-        if (id.equals("Change Note Speed"))
-        {
-            appear(ROUNDISH);
-        }
-        else
-        {
-            apply();
-        }
-    }
 }

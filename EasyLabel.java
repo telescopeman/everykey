@@ -1,4 +1,5 @@
 import javax.swing.JLabel;
+import java.awt.Font;
 
 public class EasyLabel extends JLabel implements VariableColor
 {
@@ -20,5 +21,15 @@ public class EasyLabel extends JLabel implements VariableColor
     @Override
     public void doDarkMode() {
         setForeground(ColorsHelper.LIGHT_TEXT);
+    }
+
+    public void italicize()
+    {
+        setFont(new Font(getFont().getFontName(),Font.ITALIC,12));
+    }
+
+    public void setSize(float size)
+    {
+
     }
 }

@@ -1,5 +1,4 @@
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 import java.awt.Font;
 import java.awt.Graphics;
@@ -15,7 +14,7 @@ import javax.swing.JLabel;
  * @author Caleb Copeland
  * @version 5/23/21
  */
-public class EasyPanel extends JPanel implements ActionListener
+public class EasyPanel extends JPanel
 {
     public EasyPanel()
     {
@@ -66,23 +65,5 @@ public class EasyPanel extends JPanel implements ActionListener
             remove(child);
         }
     }
-    
-    public void actionPerformed(ActionEvent e)
-    {
-        act(e.getActionCommand());
-    }
 
-    /**
-     * If not overridden, assumes no-arg method should be used.
-     */
-    public void act(String id)
-    {
-        act();
-    }
-    
-    
-    public void act()
-    {
-        
-    }
 }

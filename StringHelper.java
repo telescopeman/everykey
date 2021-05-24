@@ -92,8 +92,7 @@ public abstract class StringHelper
     {
         String name = "";
         int counter = 0;
-        
-        System.out.println(terms.length);
+
         for (String term : terms)
         {
             name = name + term;
@@ -120,4 +119,20 @@ public abstract class StringHelper
         }
         return name;
     }
+
+
+    /**
+     * Formats a tag to have curly brackets around it so that it can be properly parsed by other parts of the program.
+     */
+    public static String curlAll(String[] tagGroup)
+    {
+        String f = "";
+        for (String str : tagGroup)
+        {
+            f += StringHelper.enclose(str,"{}");
+
+        }
+        return f;
+    }
+
 }

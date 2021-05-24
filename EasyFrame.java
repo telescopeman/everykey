@@ -8,18 +8,18 @@ import java.awt.event.ActionListener;
  * Inherited class that has a few methods I like to have handy in frames.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
 public class EasyFrame extends JFrame
 {
     // size presets
-    public final Dimension STANDARD = new Dimension(350,100);
-    public final Dimension SUPER_STANDARD = new Dimension(550,150);
-    public final Dimension SMALL = new Dimension(200,200);
-    public final Dimension ROUNDISH = new Dimension(350,250);
-    public final Dimension LONG = new Dimension(900,250);
-    public final Dimension LONG2 = new Dimension(900,150);
-    public final Dimension MAIN = new Dimension(850,1000);
+    public static final Dimension STANDARD = new Dimension(350,100);
+    public static final Dimension SUPER_STANDARD = new Dimension(550,150);
+    public static final Dimension SMALL = new Dimension(200,200);
+    public static final Dimension ROUNDISH = new Dimension(350,250);
+    public static final Dimension LONG = new Dimension(900,250);
+    public static final Dimension LONG2 = new Dimension(900,150);
+    public static final Dimension MAIN = new Dimension(850,1000);
 
 
     /**

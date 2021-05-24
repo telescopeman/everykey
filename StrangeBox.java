@@ -5,21 +5,24 @@ import javax.swing.JLabel;
  * Allows for changing the neutral point for strangeness measurements.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
 public class StrangeBox extends SliderBox
 {
-    static final int MIN = 20;
-    static final int MAX = 440;
+    private static final int MIN = 20;
+    private static final int MAX = 440;
+
 
     /**
      * Constructor for objects of class StrangeBox
      */
     public StrangeBox()
     {
+        super("Change Neutral Point", LONG);
+
         addHeader("Change Neutral Point for Strangeness Sorting:");
         setUpSlider(UIStuff.getNeutral(),MIN,MAX);
-            
+
         addLabels();
         
         add(getSlider());
@@ -44,20 +47,9 @@ public class StrangeBox extends SliderBox
     protected void apply()
     {
         UIStuff.setNeutral((int)getPos());
+        UIStuff.refresh();
+        setVisible(false);
     }
     
-    protected void act(String id)
-    {
-        if (id.equals("Change Neutral Point"))
-        {
-            appear(LONG);
-        }
-        else
-        {
-            apply();
-            UIStuff.refresh();
-            setVisible(false);
 
-        }
-    }
 }

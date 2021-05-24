@@ -211,7 +211,7 @@ public abstract class KeyNamesHelper extends TheoryObj
 
     private static String getTags(int group)
     {
-        return TagsManager.curlAll(TagsManager.getTagGroup(group));
+        return StringHelper.curlAll(TagsManager.getTagGroup(group));
     }
 
     /**

@@ -7,8 +7,6 @@
  */
 public abstract class TagsManager
 {
-    // instance variables - replace the example below with your own
-    
     /**
      * The tags.
      */
@@ -67,20 +65,4 @@ public abstract class TagsManager
         
         return result;
     }
-    
-    /**
-     * Formats a tag to have curly brackets around it so that it can be properly parsed by other parts of the program.
-     */
-    public static String curlAll(String[] tagGroup)
-    {
-        String f = "";
-        for (String str : tagGroup)
-        {
-            f += StringHelper.enclose(str,"{}");
-            
-        }
-        return f;
-    }
-    
-    
 }
