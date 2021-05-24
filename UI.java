@@ -52,7 +52,6 @@ public class UI {
         JMenuItem i1, i2, i3,
                 i4, i5, i6,
                 musical_typing,
-                s1,s2,s3,s4,
                 change_neutral_point,
                 note_speed_settings,
                 dark_mode;
@@ -72,10 +71,12 @@ public class UI {
         sort_order_change=new JMenu("Change Sorting Order");
         change_neutral_point=new JMenuItem("Change Neutral Point");
 
-        s1=new JMenuItem(String.valueOf(SortOption.Brightness_Ascending));
-        s2=new JMenuItem(String.valueOf(SortOption.Brightness_Descending));
-        s3=new JMenuItem(String.valueOf(SortOption.Strangeness_Ascending));
-        s4=new JMenuItem(String.valueOf(SortOption.Strangeness_Descending));
+        JMenuItem s1=new JMenuItem(String.valueOf(SortOption.Brightness_Ascending));
+        JMenuItem s2=new JMenuItem(String.valueOf(SortOption.Brightness_Descending));
+        JMenuItem s3=new JMenuItem(String.valueOf(SortOption.Strangeness_Ascending));
+        JMenuItem s4=new JMenuItem(String.valueOf(SortOption.Strangeness_Descending));
+        JMenuItem s5=new JMenuItem(String.valueOf(SortOption.Intervalic_Oddities_Ascending));
+        JMenuItem s6=new JMenuItem(String.valueOf(SortOption.Intervalic_Oddities_Descending));
 
         change_neutral_point.addActionListener(new StrangeBox());
 
@@ -85,7 +86,9 @@ public class UI {
         s3.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
         s4.setToolTipText("\"Strangeness\" refers to a scale's distance from Dorian.");
 
-        sort_order_change.add(s1); sort_order_change.add(s2); sort_order_change.add(s3); sort_order_change.add(s4);
+        sort_order_change.add(s1); sort_order_change.add(s2);
+        sort_order_change.add(s3); sort_order_change.add(s4);
+        sort_order_change.add(s5); sort_order_change.add(s6);
 
         //filtering stuff
 
@@ -188,6 +191,11 @@ public class UI {
         updateKeys(curList);
     }
 
+    public static int[][] getCurrentList()
+    {
+        return curList;
+    }
+
     private static void updateFilterList(Filter[] flist)
     {
         view_filters.removeAll();
@@ -233,12 +241,6 @@ public class UI {
         is_dark_mode = !is_dark_mode;
         refresh();
     }
-
-    public static boolean get_is_dark_mode()
-    {
-        return is_dark_mode;
-    }
-
 
     public static void adjustColors(Component component)
     {

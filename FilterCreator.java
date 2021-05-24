@@ -22,7 +22,7 @@ public class FilterCreator extends ModBox
 
     public FilterCreator(FilterCreationSetting type)
     {
-        super(SUPER_STANDARD);
+        super(SUPER_STANDARD,2,2);
         this.type = type;
         update();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -55,27 +55,31 @@ public class FilterCreator extends ModBox
             options = CHROMATIC_SCALE;
             break;
 
-            case CHORD:
-            options = CHROMATIC_SCALE;
-            options2 = new String[]{"Major", "Minor", "Diminished","Augmented","sus2","sus4","Major ♭5","sus2 ♭5","sus4 ♭5"};
-            setGrid(3,2);
-            add(new JLabel(""));
-            hasSecondDropDown = true;
-            break;
+            case CHORD: {
+                options = CHROMATIC_SCALE;
+                options2 = new String[]{"Major", "Minor", "Diminished", "Augmented", "sus2", "sus4", "Major ♭5", "sus2 ♭5", "sus4 ♭5"};
+                setGrid(3, 2);
+                add(new JLabel(""));
+                hasSecondDropDown = true;
+                break;
+            }
 
-            case TAGS:
-            fullTags = TagsManager.getAllTags();
-            options = ArrayHelper.getFiltered(fullTags,"Mode",false);
-            break;
+            case TAGS: {
+                fullTags = TagsManager.getAllTags();
+                options = ArrayHelper.getFiltered(fullTags, "Mode", false);
+                break;
+            }
 
-            case MODE:
-            fullTags = TagsManager.getAllTags();
-            options = ArrayHelper.getFiltered(fullTags,"Mode",true);
-            break;
+            case MODE: {
+                fullTags = TagsManager.getAllTags();
+                options = ArrayHelper.getFiltered(fullTags, "Mode", true);
+                break;
+            }
 
-            case SPECIAL:
-            options = new String[]{"Named Keys"};
-            break;
+            case SPECIAL: {
+                options = new String[]{"Named Keys"};
+                break;
+            }
 
             default:
             throw new IllegalStateException("Cannot have invalid FilterCreator!");

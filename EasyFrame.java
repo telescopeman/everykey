@@ -60,7 +60,8 @@ public class EasyFrame extends JFrame
 
     public void addButton(String name, ActionListener trig)
     {
-        ActionItem jb3 = new ActionItem(trig,name);
+        EasyButton jb3 = new EasyButton(name,CENTER_ALIGNMENT);
+        jb3.addActionListener(trig);
         add(jb3);
     }
 
@@ -75,7 +76,6 @@ public class EasyFrame extends JFrame
         setVisible(true);
         requestFocusInWindow();
         UI.adjustColors(this);
-
     }
 
 

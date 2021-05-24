@@ -27,6 +27,12 @@ public abstract class ModBox extends ListeningFrame
 
     public ModBox(Dimension dimension) {
         super(dimension);
+        setGrid(3,1);
+    }
+
+    public ModBox(Dimension dimension,int x, int y) {
+        super(dimension);
+        setGrid(x,y);
     }
 
     /**

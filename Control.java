@@ -15,7 +15,7 @@ public class Control
 
     // this is basically a list of the
     // scales indices in order
-    private static int[] sortedIndices;
+    private static int[] scale_indices;
 
     /**
      * Runs the main program.
@@ -45,56 +45,80 @@ public class Control
         neutral_point = i;
     }
 
+    private static int[] sortByStrangeness()
+    {
+        int[] result = new int[scale_indices.length];
+        Integer[] temp = new Integer[]{};
+        for(int c : scale_indices)
+        {
+            temp = ArrayHelper.addX(temp,c);
+        }
+        Arrays.sort(temp, new StrangeCompare(neutral_point));
+        int i = 0;
+        //result = list
+        for(int d : temp)
+        {
+            result[i] = d;
+            i++;
+        }
+        return result;
+    }
+
+    /**
+     * Unfinished
+     * @return
+     */
+    private static int[] sortByIntervals()
+    {
+        int[] result = new int[scale_indices.length];
+        Integer[] temp = new Integer[]{};
+        for(int c : scale_indices)
+        {
+            temp = ArrayHelper.addX(temp,c);
+        }
+        Arrays.sort(temp, new IntervalCompare());
+        int i = 0;
+
+        for(int d : temp)
+        {
+            result[i] = d;
+            i++;
+        }
+        return result;
+    }
+
     /**
      * Sorts the scales by the chosen sorting style.
      */
     public static int[] styleSort()
     {
-        int[] result = new int[sortedIndices.length];
+        int[] result = new int[scale_indices.length];
 
         switch(currentSortStyle)
         {
             case Brightness_Ascending:
             {
-                return sortedIndices;
+                return scale_indices;
             }
             case Brightness_Descending:
             {
-                return ArrayHelper.reverse(sortedIndices);
+                return ArrayHelper.reverse(scale_indices);
             }
             case Strangeness_Ascending:
             {
-                Integer[] temp = new Integer[]{};
-                for(int c : sortedIndices)
-                {
-                    temp = ArrayHelper.addX(temp,c);
-                }
-                Arrays.sort(temp, new StrangeCompare(neutral_point));
-                int i = 0;
-                //result = list
-                for(int d : temp)
-                {
-                    result[i] = d;
-                    i++;
-                }
-                return result;
+                return sortByStrangeness();
             }
             case Strangeness_Descending: //descending "strangeness"
             {
-                Integer[] temp = new Integer[]{};
-                for(int c : sortedIndices)
-                {
-                    temp = ArrayHelper.addX(temp,c);
-                }
-                Arrays.sort(temp, new StrangeCompare());
-                int i = 0;
-
-                for(int d : temp)
-                {
-                    result[i] = d;
-                    i++;
-                }
-                return ArrayHelper.reverse(result);
+                return ArrayHelper.reverse(sortByStrangeness());
+            }
+            case Intervalic_Oddities_Ascending:
+            {
+                return sortByIntervals();
+            }
+            case Intervalic_Oddities_Descending:
+            {
+                return ArrayHelper.reverse(sortByIntervals());
             }
             default:
             {
@@ -125,7 +149,7 @@ public class Control
         int[][] newList = Arrays.copyOf(UI.getMasterList(),UI.getMasterList().length);
         int num = 0;
 
-        Control.sortedIndices = new int[]{};
+        Control.scale_indices = new int[]{};
         for (int[] key : UI.getMasterList())
         {
             boolean valid = true;
@@ -150,7 +174,7 @@ public class Control
             }
             if (valid)
             {
-                Control.sortedIndices = ArrayHelper.addX(Control.sortedIndices,num);
+                scale_indices = ArrayHelper.addX(scale_indices,num);
             }
             else
             {

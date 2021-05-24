@@ -1,4 +1,5 @@
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
 
 public class EasyButton extends JButton implements VariableColor {
     public EasyButton(String str, float alignment) {
@@ -8,6 +9,8 @@ public class EasyButton extends JButton implements VariableColor {
         setBorderPainted(true);
         setBackground(ColorsHelper.LIGHT_MODE);
     }
+
+
 
     @Override
     public void doLightMode() {

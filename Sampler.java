@@ -1,3 +1,6 @@
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 /**
  * Samples random notes and all chords from a scale to give a feel for its sound.
  *
@@ -16,10 +19,15 @@ public class Sampler extends ListeningFrame
      */
     public Sampler(int[] scale, String n)
     {
-        super("Random Sampler",STANDARD);
+        super(n,STANDARD);
+        setTitle("Random Sampler");
         int ind = n.indexOf('(');
-        
+
         mus = new MusicHelper(scale);
+
+
+
+
         if (ind > -1)
         {
             name =n.substring(0, ind);
@@ -44,9 +52,19 @@ public class Sampler extends ListeningFrame
         
     }
 
+    /**
+     * When the window is closed, stop playing.
+     */
+    @Override
+    protected void onClosed() {
+        mus.stop();
+    }
+
     public void act(String s)
     {
         clear();
+        addHeader(name + " - Sampler");
+        addButton("Start",mus);
         appear();
     }
 }

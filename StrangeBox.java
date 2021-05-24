@@ -22,13 +22,6 @@ public class StrangeBox extends SliderBox
         addHeader("Change Neutral Point for Strangeness Sorting:");
         addLabels();
         add(getSlider());
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                Control.setNeutral((int)getPos());
-                UI.refresh();
-            }
-        });
         //addButton("Apply",this);
     }
     
@@ -44,6 +37,12 @@ public class StrangeBox extends SliderBox
         labelTable.put(364, new JLabel("Nohkan") );
         labelTable.put(420, new JLabel("Super Lydian") );
         getSlider().setLabelTable( labelTable );
+    }
+
+    @Override
+    protected void onClosed() {
+        Control.setNeutral((int)getPos());
+        UI.refresh();
     }
 
     protected void apply()

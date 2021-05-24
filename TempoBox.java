@@ -25,6 +25,7 @@ public class TempoBox extends SliderBox
         catch(MidiUnavailableException ed)
         {
             ed.printStackTrace();
+            System.out.println("Bruh");
         }
 
         getSlider().setMajorTickSpacing(50);
