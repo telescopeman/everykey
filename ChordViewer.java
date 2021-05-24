@@ -31,14 +31,10 @@ public class ChordViewer extends ListeningFrame
     {
         int index = ind - 1;
         final int LOOP = 7;
-        //System.out.print(ind + "-->");
         if (index > LOOP)
         {
             return(new Chord(0,0,0));
         }
-
-        //return "Test Chord";
-        //System.out.println(String.valueOf(index) + String.valueOf((index + 2) % LOOP) + String.valueOf((index + 4) % LOOP) + "-->" + key[index] + key[(index + 2) % LOOP] + key[(index + 4) % LOOP]);
         return new Chord(key[index], key[((index + 2) % 7)],key[((index + 4) % 7)] );
 
     }
