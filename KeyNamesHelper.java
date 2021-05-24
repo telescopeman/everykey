@@ -280,4 +280,20 @@ public abstract class KeyNamesHelper extends TheoryObj
             return name;
         }
     }
+
+    // formerly a control method
+    public static String getKeyName(int[] key, int ind)
+    {
+        String name = smartGet(key,ind);
+        String dispName = expandSmart(key,ind,true);
+        //this is inefficient. not sure how to fix this.
+        if (name == "")
+        {
+            return "Unnamed Key (" + dispName + ")";
+        }
+        else
+        {
+            return name + " (" + dispName + ")";
+        }
+    }
 }

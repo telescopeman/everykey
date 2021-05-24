@@ -1,6 +1,6 @@
 
 /**
- * Abstract class NoteIdentifier - write a description of the class here
+ * Identifies notes.
  *
  * @author Caleb Copeland
  * @version 5/23/21
@@ -8,7 +8,7 @@
  */
 public abstract class BasicTheoryObj
 {
-    private static String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
+    private static final String[] noteNames = new String[]{"Null","C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B","C"};
 
     protected static String getNoteName(int ind)
     {

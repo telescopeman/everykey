@@ -11,7 +11,7 @@
     public class MusicHelper extends QuickListener
     {
     
-        private int[] savedNotes;
+        private final int[] savedNotes;
         private Sequence mySequence;
         private Sequencer sequencer;
         private final int timeMult = 5;

@@ -6,7 +6,7 @@
  */
 public abstract class TheoryObj extends BasicTheoryObj
 {
-    private static String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
+    private static final String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
 
     public static final String[] CHROMATICSCALE = 
         new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};

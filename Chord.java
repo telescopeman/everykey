@@ -7,14 +7,9 @@ import java.awt.Color;
  */
 public class Chord extends BasicTheoryObj
 {
-    private int root;
-    private int third;
-    private int fifth;
-    private int permRoot;
-    private int[] extensions;
+    private int root, third, fifth;
+    private final int permRoot;
 
-    private final int LOOP = 7;
-    private int keyOffset;
     /**
      * Creates a chord with the given notes.
      */
@@ -25,8 +20,6 @@ public class Chord extends BasicTheoryObj
         permRoot = root;
         third = two;
         fifth = three;
-        extensions = new int[]{};
-        keyOffset = 0;
         sort();
     }
 
@@ -82,8 +75,6 @@ public class Chord extends BasicTheoryObj
 
         }
         return getNoteName(permRoot) + " " + thirdname + " " + fifthname;
-
-        //return "Test";
     }
 
     private String getFifthType()
@@ -162,12 +153,10 @@ public class Chord extends BasicTheoryObj
 
             case "Diminished":
 
-            return ColorsHelper.soften(Color.green);
-            
             case "♭5":
 
-            return ColorsHelper.soften(Color.green);
-            
+                return ColorsHelper.soften(Color.green);
+
             case "♭♭5":
 
             return new Color(144,144,144);
@@ -185,12 +174,10 @@ public class Chord extends BasicTheoryObj
 
                 case "sus2":
 
-                    return new Color(100,200,200);
-                    
                 case "sus4":
 
                     return new Color(100,200,200);
-                    
+
                 default:
                     return Color.gray;
             }

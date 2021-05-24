@@ -9,7 +9,7 @@ public class Sampler extends ListeningFrame
     
     private final int[] myScale;
     private String name;
-    private MusicHelper mus;
+    private final MusicHelper mus;
     
     /**
      * Plays random notes.

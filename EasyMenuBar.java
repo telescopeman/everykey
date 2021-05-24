@@ -21,7 +21,7 @@ public class EasyMenuBar extends JMenuBar implements VariableColor {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        UIStuff.adjustColors(this);
+        UI.adjustColors(this);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(bgColor);
         g2d.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

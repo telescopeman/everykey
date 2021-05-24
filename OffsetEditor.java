@@ -15,7 +15,7 @@ import javax.swing.event.ChangeListener;
 public class OffsetEditor extends EasyPanel
 {
     private int offset;
-    private JSpinner spinner;
+    private final JSpinner spinner;
     private final int WIDTH = 3;
 
     private final String[] SCALE = TheoryObj.CHROMATICSCALE;
@@ -48,7 +48,7 @@ public class OffsetEditor extends EasyPanel
                         offset = n;
                         StateWatcher.setOffset(n);
                         SpeedCache.setOffset(n);
-                        UIStuff.refresh();
+                        UI.refresh();
                     }
                 }
             };

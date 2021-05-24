@@ -63,17 +63,17 @@ public class ModActor extends QuickListener
         {
             case TOGGLE_FILTER:
             {
-                UIStuff.toggleFilter(index);
+                FilterBank.toggleFilter(index);
                 break;
             }
             case REMOVE_FILTER:
             {
-                UIStuff.removeFilter(index);
+                FilterBank.removeFilter(index);
                 break;
             }
             case SET_SORT_STYLE:
             {
-                UIStuff.setSortStyle(setting);
+                Control.setSortStyle(setting);
                 break;
             }
             case SET_FILTER_TEMPLATE:
@@ -82,14 +82,14 @@ public class ModActor extends QuickListener
                 "Applying a template will erase all current filters. Are you sure you want to do this?", "Confirmation",JOptionPane.YES_NO_OPTION);
                 if (input == 0)
                 {
-                    UIStuff.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
-                    UIStuff.setCurFilters(filters);
+                    FilterBank.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
+                    FilterBank.setCurFilters(filters);
                 }
                 break;
             }
             case TOGGLE_DARK_MODE:
             {
-                UIStuff.toggle_dark_mode();
+                UI.toggle_dark_mode();
                 break;
             }
             default:

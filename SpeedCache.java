@@ -7,8 +7,8 @@
  */
 public abstract class SpeedCache
 {
-    private static String[][] cache = new String[12][462]; // enharmonics on
-    private static String[] cache2 = new String[462]; //enharmonics off
+    private static final String[][] cache = new String[12][462]; // enharmonics on
+    private static final String[] cache2 = new String[462]; //enharmonics off
 
     private static int num = 0;
     private static int num2 = 0;

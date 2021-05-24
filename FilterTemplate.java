@@ -7,8 +7,8 @@
  */
 public class FilterTemplate
 {
-    private Filter[] filters;
-    private String name;
+    private final Filter[] filters;
+    private final String name;
     
     
     /**

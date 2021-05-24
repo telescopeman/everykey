@@ -9,10 +9,10 @@ import javax.swing.JLabel;
 public class Infobox extends ListeningFrame
 {
     // instance variables - replace the example below with your own
-    private int[] myScale;
+    private final int[] myScale;
     private String myName;
-    private String myType;
-    private int[] intervals;
+    private final String myType;
+    private final int[] intervals;
 
     /**
      * Constructor for objects of class InfoBox

@@ -28,7 +28,7 @@ public abstract class SliderBox extends ModBox
      * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
      */
     private class SliderListener implements ChangeListener {
-        private JSlider sl;
+        private final JSlider sl;
         /**
          * Creates a new SliderListener assigned to a JSlider.
          * @param s The slider that will be watched for change.

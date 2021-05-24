@@ -20,7 +20,9 @@ import javax.sound.midi.Synthesizer;
 /**
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
  * played into a custom filter.
- * 
+ *
+ * @version 5/23/21
+ *
  * @author smitha.r from dreamincode.net, Caleb Copeland
  * 
  */
@@ -36,7 +38,6 @@ public class VirtualPiano extends ModBox {
             EXIT = "Discard",
             SHOW_INFO = "About Musical Typing";
 
-    private int index;
     private int[] pressedKeys;
 
     private JButton[] list;
@@ -44,13 +45,14 @@ public class VirtualPiano extends ModBox {
 
     private MidiChannel channel;
     private JLayeredPane panel;
-    private boolean isRecording = false;
-    private boolean lastSet = false;
-    private int lastPitch;
+    private boolean isRecording = false,
+            lastSet = false;
 
-    private final int width = 60;
-    private int height = width * 240 / 40;
-    private final int maxKeys = 12;
+    private int lastPitch,
+        index;
+    private final int width = 60,
+            height = width * 240 / 40,
+            maxKeys = 12;
 
     public VirtualPiano() {
         super(1,1);
@@ -85,9 +87,9 @@ public class VirtualPiano extends ModBox {
 
         
         class PlayAction extends AbstractAction {
-            private int pitch;
-            private JButton bu;
-            private boolean type;
+            private final int pitch;
+            private final JButton bu;
+            private final boolean type;
 
             public PlayAction(int i, JButton b,boolean kind)
             {
@@ -202,7 +204,7 @@ public class VirtualPiano extends ModBox {
         pack();
 
         setVisible(true);
-        UIStuff.storeFilters();
+        FilterBank.storeFilters();
         requestFocusInWindow();
 
     }
@@ -295,13 +297,12 @@ public class VirtualPiano extends ModBox {
     private void startRecording()
     {
         setRecState(true);
-        UIStuff.storeFilters();
+        FilterBank.storeFilters();
         b2.setEnabled(true);
         b3.setEnabled(true);
         for(JButton key : list)
         {
             key.setBackground(Color.WHITE);
-
         }
         pressedKeys = new int[7];
         clearKeys();
@@ -311,20 +312,20 @@ public class VirtualPiano extends ModBox {
 
     protected void apply()
     {
-        UIStuff.setFilterStatuses(ArrayHelper.addX(UIStuff.getStoredStatuses(),true));
-        UIStuff.setCurFilters(ArrayHelper.addX(UIStuff.getStoredFilters(),toFilter()));
+        FilterBank.setFilterStatuses(ArrayHelper.addX(FilterBank.getStoredStatuses(),true));
+        FilterBank.setCurFilters(ArrayHelper.addX(FilterBank.getStoredFilters(),toFilter()));
     }
 
     private void save()
     {
         apply();
         setVisible(false);
-        UIStuff.storeFilters();
+        FilterBank.storeFilters();
     }
 
     private void discard()
     {
-        UIStuff.setCurFilters(UIStuff.getStoredFilters());
+        FilterBank.setCurFilters(FilterBank.getStoredFilters());
         b2.setEnabled(false);
         b3.setEnabled(false);
         for(JButton key : list)
@@ -376,7 +377,6 @@ public class VirtualPiano extends ModBox {
             }
 
         }
-        //System.out.println(keys);
         return new Filter(keys);
     }
 

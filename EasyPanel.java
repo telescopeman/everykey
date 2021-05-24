@@ -43,7 +43,7 @@ public class EasyPanel extends JPanel
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-        UIStuff.adjustColors(this);
+        UI.adjustColors(this);
     }
 
     public void appear()

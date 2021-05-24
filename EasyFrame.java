@@ -89,7 +89,7 @@ public class EasyFrame extends JFrame
     {
         setVisible(true);
         requestFocusInWindow();
-        UIStuff.adjustColors(this);
+        UI.adjustColors(this);
 
     }
 

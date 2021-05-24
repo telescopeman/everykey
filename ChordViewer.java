@@ -10,7 +10,7 @@ import javax.swing.*;
  */
 public class ChordViewer extends ListeningFrame
 {
-    private int[] myKey;
+    private final int[] myKey;
     private final String PLAYTEXT = "Play Chord";
 
     /**

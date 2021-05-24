@@ -3,7 +3,7 @@ JvmtiExport can_hotswap_or_post_breakpoint 1
 JvmtiExport can_post_on_exceptions 1
 # 407 ciObject found
 instanceKlass StrangeCompare
-instanceKlass UIStuff$1
+instanceKlass Control$1
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
@@ -32,7 +32,7 @@ instanceKlass StringHelper
 instanceKlass TagsManager
 instanceKlass BasicTheoryObj
 instanceKlass VariableColor
-instanceKlass UIStuff
+instanceKlass Control
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
@@ -125,7 +125,7 @@ instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass StrangeCompare
-instanceKlass UIStuff$1
+instanceKlass Control$1
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$MH
@@ -180,7 +180,7 @@ instanceKlass StringHelper
 instanceKlass TagsManager
 instanceKlass BasicTheoryObj
 instanceKlass VariableColor
-instanceKlass UIStuff
+instanceKlass Control
 instanceKlass sun/awt/AppContext$PostShutdownEventRunnable
 instanceKlass javax/swing/Autoscroller
 instanceKlass java/awt/EventQueue$1AWTInvocationLock
@@ -606,7 +606,7 @@ instanceKlass java/util/Formatter
 instanceKlass javax/swing/Popup
 instanceKlass StrangeCompare
 instanceKlass javafx/css/Styleable
-instanceKlass UIStuff$1
+instanceKlass Control$1
 instanceKlass bluej/Config
 instanceKlass java/util/concurrent/Executors$DefaultThreadFactory
 instanceKlass java/util/concurrent/RunnableScheduledFuture
@@ -1482,7 +1482,7 @@ instanceKlass VariableColor
 instanceKlass java/awt/LayoutManager
 instanceKlass javax/swing/TransferHandler$HasGetTransferHandler
 instanceKlass javax/accessibility/Accessible
-instanceKlass UIStuff
+instanceKlass Control
 instanceKlass bluej/runtime/ExecServer$3$$Lambda$14
 instanceKlass bluej/runtime/ExecServer$RunnableThrows
 instanceKlass bluej/runtime/Shell

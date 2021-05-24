@@ -21,7 +21,7 @@ public class StrangeBox extends SliderBox
         super("Change Neutral Point", LONG);
 
         addHeader("Change Neutral Point for Strangeness Sorting:");
-        setUpSlider(UIStuff.getNeutral(),MIN,MAX);
+        setUpSlider(Control.getNeutral(),MIN,MAX);
 
         addLabels();
         
@@ -46,8 +46,8 @@ public class StrangeBox extends SliderBox
 
     protected void apply()
     {
-        UIStuff.setNeutral((int)getPos());
-        UIStuff.refresh();
+        Control.setNeutral((int)getPos());
+        UI.refresh();
         setVisible(false);
     }
     
