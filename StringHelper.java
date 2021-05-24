@@ -54,7 +54,6 @@ public abstract class StringHelper
     {
         String newName =  name.substring(0,pts[0]) + name.substring(pts[1]+1);
         return newName;
-
     }
     
     /**
