@@ -1,6 +1,5 @@
 import javax.swing.JSpinner;
 import javax.swing.JFormattedTextField;
-
 import javax.swing.event.ChangeListener;
 
 /**
@@ -12,7 +11,6 @@ import javax.swing.event.ChangeListener;
  */
 public class OffsetEditor extends EasyPanel
 {
-    private int offset = 0;
     private final JSpinner spinner;
 
     /**
@@ -20,7 +18,7 @@ public class OffsetEditor extends EasyPanel
      */
     public OffsetEditor()
     {
-        super("Change Key");
+        super("Change Root Note");
         CyclingSpinnerListModel mdl = new CyclingSpinnerListModel(TheoryObj.CHROMATIC_SCALE);
         spinner = new JSpinner(mdl);
         ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
@@ -29,16 +27,15 @@ public class OffsetEditor extends EasyPanel
 
         ChangeListener listener = e -> {
             String val = (String) spinner.getValue();
-            int n = ArrayHelper.search(TheoryObj.CHROMATIC_SCALE,val);
-            if (n < 0)
+            int currentOffset = ArrayHelper.search(TheoryObj.CHROMATIC_SCALE,val);
+            if (currentOffset < 0)
             {
-                throw new IllegalArgumentException("Illegal selection "+ n);
+                throw new IllegalArgumentException("Illegal selection "+ currentOffset);
             }
             else
             {
-                offset = n;
-                StateWatcher.setOffset(n);
-                SpeedCache.setOffset(n);
+                StateWatcher.setOffset(currentOffset);
+                SpeedCache.setOffset(currentOffset);
                 UI.refresh();
             }
         };
@@ -51,13 +48,5 @@ public class OffsetEditor extends EasyPanel
         JSpinner.DefaultEditor mySpinnerEditor = (JSpinner.DefaultEditor) spinner.getEditor();
         JFormattedTextField jFormattedTextField = mySpinnerEditor.getTextField();
         jFormattedTextField.setColumns(w);
-    }
-
-    /**
-     * Gets the offset of the current root note. C = 0 and D = 2, and so on.
-     */
-    public int getOffset()
-    {
-        return offset;
     }
 }
