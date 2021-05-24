@@ -15,8 +15,5 @@ public abstract class QuickListener implements ActionListener
         act(e.getActionCommand());
     }
 
-    /**
-     * If this is not overridden, assumes the no-arg method should be used.
-     */
     public abstract void act(String id);
 }

@@ -4,12 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLayeredPane;
+import javax.swing.AbstractAction;
+import javax.swing.SwingConstants;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
+import javax.swing.Action;
+import javax.swing.JOptionPane;
 
 import javax.sound.midi.MidiChannel;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Synthesizer;
-
 
 /**
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
@@ -350,7 +356,6 @@ public class VirtualPiano extends ModBox {
     {
         setRecState(false);
         b1.setText(START_RECORDING);
-
     }
     
     private void setRecState(boolean d)
@@ -375,7 +380,7 @@ public class VirtualPiano extends ModBox {
         return new Filter(keys);
     }
 
-    public void act(String id) {
+    protected void act(String id) {
         switch (id)
         {
             case START_RECORDING:

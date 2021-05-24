@@ -19,7 +19,7 @@ public class ChordViewer extends ListeningFrame
     public ChordViewer(int[] k, String name)
     {
 
-        super("Chords of " + KeyPanel.parse(name));
+        super("Chords of " + StringHelper.filterOutTags(name));
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setSize(LONG2);
         setResizable(false);
@@ -130,7 +130,7 @@ public class ChordViewer extends ListeningFrame
         return s;
     }
 
-    public void act(String id) {
+    protected void act(String id) {
         clear();
 
         for(int i = 1; i < 8; i++) //names of chords

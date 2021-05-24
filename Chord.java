@@ -5,7 +5,7 @@ import java.awt.Color;
  * @author Caleb Copeland
  * @version 5/23/21
  */
-public class Chord extends TheoryObj
+public class Chord extends BasicTheoryObj
 {
     private int root;
     private int third;
@@ -29,9 +29,6 @@ public class Chord extends TheoryObj
         keyOffset = 0;
         sort();
     }
-
-
-
 
     private void sort()
     {

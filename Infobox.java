@@ -138,7 +138,7 @@ public class Infobox extends ListeningFrame
 
     }
 
-    public void act(String s)
+    protected void act(String s)
     {
         clear();
         appear(SMALL);
@@ -150,6 +150,5 @@ public class Infobox extends ListeningFrame
             l.setHorizontalAlignment(JLabel.CENTER);
             add(l);
         }
-
     }
 }

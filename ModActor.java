@@ -85,6 +85,7 @@ public class ModActor extends QuickListener
                     UIStuff.setFilterStatuses(ArrayHelper.getGroupOf(true,filters.length));
                     UIStuff.setCurFilters(filters);
                 }
+                break;
             }
             case TOGGLE_DARK_MODE:
             {

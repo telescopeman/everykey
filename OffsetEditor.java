@@ -9,7 +9,7 @@ import javax.swing.event.ChangeListener;
  * Manages root note.
  *
  * @author Caleb Copeland, GingerHead [setWidth() method only]
- * @version 5/22/21
+ * @version 5/23/21
  * @since 4/6/21
  */
 public class OffsetEditor extends EasyPanel
@@ -63,6 +63,9 @@ public class OffsetEditor extends EasyPanel
         jftf.setColumns(w);
     }
 
+    /**
+     * Gets the offset of the current root note. C = 0 and D = 2, and so on.
+     */
     public int getOffset()
     {
         return offset;

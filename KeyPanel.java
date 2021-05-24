@@ -1,6 +1,9 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.Popup;
+import javax.swing.JPopupMenu;
+import javax.swing.JMenuItem;
+import javax.swing.PopupFactory;
 
+import java.awt.Font;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -13,40 +16,8 @@ import java.awt.event.MouseEvent;
  */
 public class KeyPanel extends EasyPanel
 {
-    
     private MusicHelper playr;
     private Popup p;
-    private EasyLabel label;
-
-
-
-    /**
-     * Filters out tags.
-     */
-    public static String parse(String name)
-    {
-        int[] pt = StringHelper.getEnclosers(name,"[]");
-        String dispName;
-        if (pt[0] > -1)
-        {
-            dispName =  StringHelper.quickSubstring(name,pt);
-        }
-        else
-        {
-            dispName =  name;
-        }
-        for(boolean i = true; i;)
-        {
-            pt = StringHelper.getEnclosers(dispName,"{}");
-            i = false;
-            if (pt[0] > -1 && pt[1] > -1)
-            {
-                dispName = StringHelper.quickSubstring(dispName,pt); 
-                i = true;
-            }
-        }
-        return dispName;
-    }
 
 
     /**
@@ -57,7 +28,7 @@ public class KeyPanel extends EasyPanel
 
         super();
         String lbl = "#" + String.format("%03d",num)  //this just means to make sure it has three digits
-            + ": " + parse(name);
+            + ": " + StringHelper.filterOutTags(name);
             
         ChordViewer chrds = new ChordViewer(key,name);
 
@@ -101,14 +72,14 @@ public class KeyPanel extends EasyPanel
         b.addMouseListener(popupListener);
 
         //Popup p = infoPanel();
-        label = new EasyLabel(lbl);
+        EasyLabel label = new EasyLabel(lbl);
         int[] pt = StringHelper.getEnclosers(name,"[]");
         if (pt[0] > -1 && pt[1] > -1) // makes it so you can hover for modal info.
         {
             label.setToolTipText(name.substring(pt[0]+1,pt[1]));
         }
         
-        if (parse(name).substring(0,11).equals("Unnamed Key"))
+        if (StringHelper.filterOutTags(name).substring(0,11).equals("Unnamed Key"))
         {
             label.setFont(new Font(label.getFont().getFontName(),Font.ITALIC,12));
         }

@@ -1,9 +1,9 @@
 
 /**
- * Helps with common String methods
+ * Helps with common String methods.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  * @since 4/6/21
  */
 public abstract class StringHelper
@@ -55,5 +55,70 @@ public abstract class StringHelper
         String newName =  name.substring(0,pts[0]) + name.substring(pts[1]+1);
         return newName;
 
+    }
+    
+    /**
+     * Filters out tags from a string.
+     */
+    public static String filterOutTags(String name)
+    {
+        int[] pt = StringHelper.getEnclosers(name,"[]");
+        String dispName;
+        if (pt[0] > -1)
+        {
+            dispName =  StringHelper.quickSubstring(name,pt);
+        }
+        else
+        {
+            dispName =  name;
+        }
+        for(boolean i = true; i;)
+        {
+            pt = StringHelper.getEnclosers(dispName,"{}");
+            i = false;
+            if (pt[0] > -1 && pt[1] > -1)
+            {
+                dispName = StringHelper.quickSubstring(dispName,pt); 
+                i = true;
+            }
+        }
+        return dispName;
+    }
+    
+    /**
+     * Expands an array into a sentence-like list of the terms. Ex: ["X","Y","Z"] -> "X, Y, and Z."
+     * @param terminator The word right before the last term. Usually 'and' or 'or'.
+     */
+    public static String arrayToString(String[] terms, String terminator, boolean hasPeriod)
+    {
+        String name = "";
+        int counter = 0;
+        
+        System.out.println(terms.length);
+        for (String term : terms)
+        {
+            name = name + term;
+            
+            if (counter < terms.length - 2) // most
+            {
+                name = name + ", ";
+            }
+            else if (counter == terms.length - 2) //second to last
+            {
+                if (terms.length > 2)
+                {
+                    name = name + ",";
+                }
+                
+                name = name + " " + terminator + " ";
+            }
+            else if (hasPeriod)// last
+            {
+                name = name + ".";
+            }
+
+            counter++;
+        }
+        return name;
     }
 }

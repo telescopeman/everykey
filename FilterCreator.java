@@ -260,10 +260,9 @@ public class FilterCreator extends ModBox
     private int littleParse(int note)
     {
         return (((note - 1) % 12) + 1);
-
     }
 
-    public void act(String id)
+    protected void act(String id)
     {
         update();
         switch (id)

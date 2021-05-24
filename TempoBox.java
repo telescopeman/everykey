@@ -44,7 +44,7 @@ public class TempoBox extends SliderBox
 
 
 
-    public void act(String id)
+    protected void act(String id)
     {
         if (id.equals("Change Note Speed"))
         {
@@ -54,6 +54,5 @@ public class TempoBox extends SliderBox
         {
             apply();
         }
-        
     }
 }

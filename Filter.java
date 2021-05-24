@@ -185,9 +185,9 @@ public class Filter extends TheoryObj
                 else
                 {
                     return ("Must " + preceder + "contain either " +
-                            getNoteName(requiredNotes[0]) + " or " +
-                            getNoteName(requiredNotes[1]) + " as a " +
-                            getIntervalName(requiredPosition) + ".");
+                            StringHelper.arrayToString(
+                            expandRaw(clamp(requiredNotes),false),"or",false) +
+                            " as a " + getIntervalName(requiredPosition) + ".");
                 }
             }
             case IS_NAMED:

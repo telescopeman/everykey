@@ -8,12 +8,15 @@ import java.awt.Font;
  * Box that allows for change of the tempo.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
 public abstract class SliderBox extends ModBox
 {
     private float slider_position;
     private JSlider slider;
+    
+    
+    
     /**
      * Listens for changes in a JSlider, and updates variables accordingly, in addition to calling a method for passive updates.
      */

@@ -15,7 +15,6 @@ public class EasyMenuBar extends JMenuBar implements VariableColor {
     @Override
     public void doDarkMode() {
         bgColor = ColorsHelper.DARK_MODE;
-        //setBackground(UIStuff.DARK_MODE);
         setForeground(ColorsHelper.LIGHT_TEXT);
     }
 

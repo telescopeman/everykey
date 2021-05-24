@@ -42,13 +42,12 @@ public class Sampler extends ListeningFrame
         }
         
         myScale = scale;
+        
     }
 
     public void act(String s)
     {
         clear();
         appear(STANDARD);
-        addHeader(name + " - Sampler");
-        addButton("Start",mus);
     }
 }

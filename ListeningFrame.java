@@ -17,5 +17,5 @@ public abstract class ListeningFrame extends EasyFrame implements ActionListener
         act(e.getActionCommand());
     }
 
-    public abstract void act(String id);
+    protected abstract void act(String id);
 }

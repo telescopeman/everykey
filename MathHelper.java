@@ -3,15 +3,13 @@
  * Handles creation of the huge list of scales.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/23/21
  */
-public abstract class MathHelper extends TheoryObj
+public abstract class MathHelper
 {
-    
     private static int[][] abstractList;
     private static final int[] initKey = new int[]{1,1,1,1,1,1,1};
     private static int counter;
-    private final static boolean debugMode = false;
 
     /**
      * Generates the list of all possible seven-note scales.

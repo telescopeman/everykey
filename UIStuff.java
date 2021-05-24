@@ -7,6 +7,7 @@ import java.awt.BorderLayout;
 import javax.swing.JMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JMenuItem;
+import javax.swing.BoxLayout;
 
 /**
  * Controls the UI and most other high-level functions.
@@ -211,7 +212,7 @@ public class UIStuff
     private static void updateKeys(int[][] keys)
     {
         innerPanel.removeAll();
-        innerPanel.makeCenteredList();
+        innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
         int counter = -1;
         int num = 0;
         int[] specificList = styleSort(absoluteList);

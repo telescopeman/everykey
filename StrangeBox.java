@@ -46,7 +46,7 @@ public class StrangeBox extends SliderBox
         UIStuff.setNeutral((int)getPos());
     }
     
-    public void act(String id)
+    protected void act(String id)
     {
         if (id.equals("Change Neutral Point"))
         {
