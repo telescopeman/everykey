@@ -21,7 +21,7 @@ public class StrangeBox extends SliderBox
         super("Change Neutral Point", LONG);
 
         addHeader("Change Neutral Point for Strangeness Sorting:");
-        setUpSlider(Control.getNeutral(),MIN,MAX);
+        setUpSlider(Control.getNeutralPoint(),MIN,MAX);
 
         addLabels();
         
@@ -33,7 +33,7 @@ public class StrangeBox extends SliderBox
     private void addLabels()
     {
         Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
-        labelTable.put(041, new JLabel("Aerygian") );
+        labelTable.put(41, new JLabel("Aerygian") );
         labelTable.put(111, new JLabel("Ultra Phrygian ♭♭3") );
         labelTable.put(166, new JLabel("Locrian") );
         labelTable.put(224, new JLabel("Enigmatic Scale") );

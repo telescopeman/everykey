@@ -9,16 +9,13 @@ import java.util.Arrays;
  */
 public class Control
 {
-
-
-    private static final boolean debugMode = false;
-
     private static int neutral_point = 300;
 
     private static SortOption currentSortStyle = SortOption.Strangeness_Ascending;
 
-    private static int[] absoluteList;
-
+    // this is basically a list of the
+    // scales indices in order
+    private static int[] sortedIndices;
 
     /**
      * Runs the main program.
@@ -35,7 +32,7 @@ public class Control
     /**
      * Returns the index of the scale used for strangeness measurements.
      */
-    public static int getNeutral()
+    public static int getNeutralPoint()
     {
         return neutral_point;
     }
@@ -53,22 +50,22 @@ public class Control
      */
     public static int[] styleSort()
     {
-        int[] result = new int[absoluteList.length];
+        int[] result = new int[sortedIndices.length];
 
         switch(currentSortStyle)
         {
             case Brightness_Ascending:
             {
-                return absoluteList;
+                return sortedIndices;
             }
             case Brightness_Descending:
             {
-                return ArrayHelper.reverse(absoluteList);
+                return ArrayHelper.reverse(sortedIndices);
             }
             case Strangeness_Ascending:
             {
                 Integer[] temp = new Integer[]{};
-                for(int c : absoluteList)
+                for(int c : sortedIndices)
                 {
                     temp = ArrayHelper.addX(temp,c);
                 }
@@ -85,13 +82,13 @@ public class Control
             case Strangeness_Descending: //descending "strangeness"
             {
                 Integer[] temp = new Integer[]{};
-                for(int c : absoluteList)
+                for(int c : sortedIndices)
                 {
                     temp = ArrayHelper.addX(temp,c);
                 }
                 Arrays.sort(temp, new StrangeCompare());
                 int i = 0;
-                //result = list
+
                 for(int d : temp)
                 {
                     result[i] = d;
@@ -117,13 +114,19 @@ public class Control
         UI.refresh();
     }
 
-    public static int[][] filterKeys(int[][] keyList, Filter[] filterList)
+    /**
+     * Filters all the scales, and returns what's left.
+     * @return The remaining scales that fit the filters.
+     */
+    public static int[][] filterKeys()
     {
-        int[][] newList = Arrays.copyOf(keyList,keyList.length);
+        Filter[] filterList = FilterBank.getCurrentFilters();
+
+        int[][] newList = Arrays.copyOf(UI.getMasterList(),UI.getMasterList().length);
         int num = 0;
 
-        Control.absoluteList = new int[]{};
-        for (int[] key : keyList)
+        Control.sortedIndices = new int[]{};
+        for (int[] key : UI.getMasterList())
         {
             boolean valid = true;
             int num2 = -1;
@@ -133,7 +136,7 @@ public class Control
 
                 if (!FilterBank.getFilterStatuses()[num2])
                 {
-                    valid = true;
+                    // if the filter isn't turned on, skip it.
                     continue;
                 }
 
@@ -147,7 +150,7 @@ public class Control
             }
             if (valid)
             {
-                Control.absoluteList = ArrayHelper.addX(Control.absoluteList,num);
+                Control.sortedIndices = ArrayHelper.addX(Control.sortedIndices,num);
             }
             else
             {

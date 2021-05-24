@@ -24,6 +24,11 @@ public class UI {
     private static boolean is_dark_mode = false;
 
 
+    public static int[][] getMasterList()
+    {
+        return masterList;
+    }
+
 
     public static void initialize()
     {
@@ -152,18 +157,11 @@ public class UI {
     {
         innerPanel.removeAll();
         innerPanel.setLayout(new BoxLayout(innerPanel, BoxLayout.Y_AXIS));
-        int counter = -1;
         int num = 0;
         int[] specificList = Control.styleSort();
         for (int ind : specificList)
         {
-            counter++;
-
-            if (keys[ind][0] == 0) //if the first note is nonexistent
-            {
-                continue;
-            }
-            else
+            if (keys[ind][0] != 0) //if the first note is nonexistent
             {
                 num++;
                 KeyPanel keyPanel =
@@ -187,8 +185,8 @@ public class UI {
     public static void refresh()
     {
         updateFilterList(FilterBank.getCurrentFilters());
-        curList = Control.filterKeys(masterList, FilterBank.getCurrentFilters());
-        adjustColors((Component) menuBar);
+        curList = Control.filterKeys();
+        adjustColors(menuBar);
         updateKeys(curList);
     }
 
