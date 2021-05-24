@@ -16,8 +16,7 @@ public class Sampler extends ListeningFrame
      */
     public Sampler(int[] scale, String n)
     {
-        
-        setTitle("Random Sampler");
+        super("Random Sampler",STANDARD);
         int ind = n.indexOf('(');
         
         mus = new MusicHelper(scale);
@@ -48,6 +47,6 @@ public class Sampler extends ListeningFrame
     public void act(String s)
     {
         clear();
-        appear(STANDARD);
+        appear();
     }
 }

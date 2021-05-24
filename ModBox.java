@@ -1,8 +1,10 @@
+import java.awt.Dimension;
+
 /**
  * Represents a box that will modify the main class through user input.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/24/21
  */
 public abstract class ModBox extends ListeningFrame
 {
@@ -21,6 +23,10 @@ public abstract class ModBox extends ListeningFrame
     public ModBox(int x, int y)
     {
         setGrid(x,y);
+    }
+
+    public ModBox(Dimension dimension) {
+        super(dimension);
     }
 
     /**

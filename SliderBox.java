@@ -10,21 +10,20 @@ import java.awt.Font;
  * Box that allows for change of the tempo.
  *
  * @author Caleb Copeland
- * @version 5/23/21
+ * @version 5/24/21
  */
 public abstract class SliderBox extends ModBox
 {
     private float slider_position;
     private final JSlider slider;
     private final String APPEARANCE_TRIGGER;
-    private final Dimension dimension;
 
     protected SliderBox(String appearance_trigger, Dimension dimension,
                         float initial_position, float minimum_value, float maximum_value) {
-        slider_position = initial_position;
+        super(dimension);
 
+        slider_position = initial_position;
         APPEARANCE_TRIGGER = appearance_trigger;
-        this.dimension = dimension;
         slider = new JSlider(JSlider.HORIZONTAL,
                 (int) minimum_value, (int) maximum_value, (int) slider_position);
 
@@ -78,7 +77,7 @@ public abstract class SliderBox extends ModBox
     {
         if (id.equals(APPEARANCE_TRIGGER))
         {
-            appear(dimension);
+            appear();
         }
         else
         {

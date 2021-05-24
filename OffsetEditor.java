@@ -1,24 +1,19 @@
 import javax.swing.JSpinner;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
  * Manages root note.
  *
  * @author Caleb Copeland, GingerHead [setWidth() method only]
- * @version 5/23/21
+ * @version 5/24/21
  * @since 4/6/21
  */
 public class OffsetEditor extends EasyPanel
 {
-    private int offset;
+    private int offset = 0;
     private final JSpinner spinner;
-    private final int WIDTH = 3;
-
-    private final String[] SCALE = TheoryObj.CHROMATICSCALE;
 
     /**
      * Constructor for objects of class OffsetEditor
@@ -26,41 +21,36 @@ public class OffsetEditor extends EasyPanel
     public OffsetEditor()
     {
         super("Change Key");
-
-        offset = 0;
-        CyclingSpinnerListModel mdl = new CyclingSpinnerListModel(TheoryObj.CHROMATICSCALE);
-        spinner = new JSpinner((mdl));
-        setWidth(WIDTH);
+        CyclingSpinnerListModel mdl = new CyclingSpinnerListModel(TheoryObj.CHROMATIC_SCALE);
+        spinner = new JSpinner(mdl);
+        ((JSpinner.DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
+        setWidth(2);
         add(spinner);
 
-        ChangeListener listener = new ChangeListener()
-        {
-                public void stateChanged(ChangeEvent e) {
-                    String val = (String) spinner.getValue();
-                    //System.out.println(val);
-                    int n = ArrayHelper.search(SCALE,val);
-                    if (n < 0)
-                    {
-                        throw new IllegalArgumentException("Illegal selection "+ n);
-                    }
-                    else
-                    {
-                        offset = n;
-                        StateWatcher.setOffset(n);
-                        SpeedCache.setOffset(n);
-                        UI.refresh();
-                    }
-                }
-            };
+        ChangeListener listener = e -> {
+            String val = (String) spinner.getValue();
+            int n = ArrayHelper.search(TheoryObj.CHROMATIC_SCALE,val);
+            if (n < 0)
+            {
+                throw new IllegalArgumentException("Illegal selection "+ n);
+            }
+            else
+            {
+                offset = n;
+                StateWatcher.setOffset(n);
+                SpeedCache.setOffset(n);
+                UI.refresh();
+            }
+        };
         
         spinner.addChangeListener(listener);
     }
 
     public void setWidth(int w)
     {
-        JComponent mySpinnerEditor = spinner.getEditor();
-        JFormattedTextField jftf = ((JSpinner.DefaultEditor) mySpinnerEditor).getTextField();
-        jftf.setColumns(w);
+        JSpinner.DefaultEditor mySpinnerEditor = (JSpinner.DefaultEditor) spinner.getEditor();
+        JFormattedTextField jFormattedTextField = mySpinnerEditor.getTextField();
+        jFormattedTextField.setColumns(w);
     }
 
     /**

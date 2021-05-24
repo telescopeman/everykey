@@ -3,9 +3,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.BoxLayout;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
+import java.awt.*;
 
 /**
  * @since 5/23/21
@@ -37,7 +35,7 @@ public class UI {
 
     public static void oneTimeSetup()
     {
-        mainWindow = new EasyFrame("Skeleton Key");
+        mainWindow = new EasyFrame("Skeleton Key",EasyFrame.MAIN_WINDOW);
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
         innerPanel = new EasyPanel();
 
@@ -142,7 +140,7 @@ public class UI {
         mainWindow.setJMenuBar(menuBar);
 
         mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
-        mainWindow.appear(EasyFrame.MAIN);
+        mainWindow.appear();
     }
 
 
@@ -178,7 +176,7 @@ public class UI {
         innerPanel.add(top,0);
 
         mainWindow.pack();
-        mainWindow.setWidth(800);
+        mainWindow.setSize(new Dimension(800,mainWindow.getSize().height));
 
     }
 

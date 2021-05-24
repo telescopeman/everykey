@@ -21,12 +21,13 @@ import javax.sound.midi.Synthesizer;
  * A virtual piano that can be played with the keyboard or mouse, and can convert notes
  * played into a custom filter.
  *
- * @version 5/23/21
+ * @version 5/24/21
  *
  * @author smitha.r from dreamincode.net, Caleb Copeland
  * 
  */
 public class VirtualPiano extends ModBox {
+
     private final String[]
             WHITE_KEY_BUTTONS = new String[]{"A","S","D","F","G","H","J","K","L","SEMICOLON"},
             BLACK_KEY_BUTTONS = new String[]{"W","E","T","Y","U","O","P"};
@@ -45,14 +46,14 @@ public class VirtualPiano extends ModBox {
 
     private MidiChannel channel;
     private JLayeredPane panel;
+
     private boolean isRecording = false,
             lastSet = false;
 
     private int lastPitch,
-        index;
+        index = 0;
     private final int width = 60,
-            height = width * 240 / 40,
-            maxKeys = 12;
+            height = width * 240 / 40;
 
     public VirtualPiano() {
         super(1,1);
@@ -62,16 +63,15 @@ public class VirtualPiano extends ModBox {
     {
         clear();
         pressedKeys = new int[7];
-        index = 0;
         setResizable(false);
-        setSize(getDim(14*width,3 * height / 2));
+        setSize(new Dimension(14*width,3 * height / 2));
         setRecState(false);
         Synthesizer synthesizer = MidiSystem.getSynthesizer();
         synthesizer.open();
         channel = synthesizer.getChannels()[1];
 
         panel = new JLayeredPane();
-        panel.setPreferredSize(getDim(14*width,height));
+        panel.setPreferredSize(new Dimension(14*width,height));
         add(panel);
 
         addWindowListener(new java.awt.event.WindowAdapter()
@@ -111,8 +111,9 @@ public class VirtualPiano extends ModBox {
 
         int numWhite = 0;
         int numBlack = 0;
+        int maxKeys = 12;
         list = new JButton[maxKeys];
-        for ( int i = 0; i < maxKeys; i++) {
+        for (int i = 0; i < maxKeys; i++) {
 
             final int ja =i+50;
 
@@ -211,7 +212,7 @@ public class VirtualPiano extends ModBox {
 
     private void addButtons()
     {
-        Dimension myDim = getDim(9*height/16, width);
+        Dimension myDim = new Dimension(9*height/16, width);
 
         b1 = new JButton(START_RECORDING);
         b1.addActionListener(this);

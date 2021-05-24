@@ -5,12 +5,11 @@ import javax.swing.*;
  * Provides a view of the chords of a scale.
  *
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
- * @version 5/23/21
+ * @version 5/24/21
  */
 public class ChordViewer extends ListeningFrame
 {
     private final int[] myKey;
-    private final String PLAYTEXT = "Play Chord";
 
     /**
      * Creates a ChordViewer of a specified scale with a specified name.
@@ -18,9 +17,8 @@ public class ChordViewer extends ListeningFrame
     public ChordViewer(int[] k, String name)
     {
 
-        super("Chords of " + StringHelper.filterOutTags(name));
+        super("Chords of " + StringHelper.filterOutTags(name), LONG_AND_THIN);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(LONG2);
         setResizable(false);
         setGrid(3, 7);
         myKey= k;
@@ -144,6 +142,7 @@ public class ChordViewer extends ListeningFrame
             int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
 
+            String PLAYTEXT = "Play Chord";
             EasyButton jb3 = new EasyButton(PLAYTEXT, CENTER_ALIGNMENT);
             MusicHelper playr = new MusicHelper(seq);
             jb3.addActionListener(playr);

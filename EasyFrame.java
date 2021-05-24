@@ -1,14 +1,15 @@
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 /**
  * Inherited class that has a few methods I like to have handy in frames.
  *
  * @author Caleb Copeland
- * @version 5/23/21
+ * @version 5/24/21
  */
 public class EasyFrame extends JFrame
 {
@@ -18,8 +19,8 @@ public class EasyFrame extends JFrame
     public static final Dimension SMALL = new Dimension(200,200);
     public static final Dimension ROUNDISH = new Dimension(350,250);
     public static final Dimension LONG = new Dimension(900,250);
-    public static final Dimension LONG2 = new Dimension(900,150);
-    public static final Dimension MAIN = new Dimension(850,1000);
+    public static final Dimension LONG_AND_THIN = new Dimension(900,150);
+    public static final Dimension MAIN_WINDOW = new Dimension(850,1000);
 
 
     /**
@@ -27,10 +28,21 @@ public class EasyFrame extends JFrame
      */
     public EasyFrame() {}
 
+    public EasyFrame(String name, Dimension dimension)
+    {
+        setTitle(name);
+        setSize(dimension);
+
+    }
+
+    public EasyFrame(Dimension dimension) {
+        setSize(dimension);
+    }
+
     public void addHeader(String text)
     {
-        JLabel title = new JLabel(text,JLabel.CENTER);
-        title.setFont(new Font(title.getFont().getFontName(),Font.BOLD,12));
+        EasyLabel title = new EasyLabel(text,JLabel.CENTER);
+        title.embolden();
         add(title);
 
     }
@@ -52,33 +64,6 @@ public class EasyFrame extends JFrame
         add(jb3);
     }
 
-    public void repaint()
-    {
-        super.repaint();
-
-        //System.out.println("Fbrr");
-
-    }
-
-
-    /**
-     * Generates a Dimension with the given size.
-     */
-    public Dimension getDim(int x, int y)
-    {
-        return new Dimension(x,y);
-    }
-    
-    public void setWidth(int x)
-    {
-         setSize(new Dimension(x,getSize().height));
-    }
-
-    public void setHeight(int x)
-    {
-        //noinspection SuspiciousNameCombination
-        setSize(new Dimension(getSize().width,x));
-    }
 
     public void setGrid(int x, int y)
     {
@@ -93,13 +78,6 @@ public class EasyFrame extends JFrame
 
     }
 
-
-
-    public void appear(Dimension dim)
-    {
-        appear();
-        setSize(dim);
-    }
 
 
     /**

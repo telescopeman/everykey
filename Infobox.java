@@ -4,7 +4,7 @@ import javax.swing.JLabel;
  * Displays info about the intervals of a scale.
  *
  * @author Caleb Copeland
- * @version 4/6/21
+ * @version 5/24/21
  */
 public class Infobox extends ListeningFrame
 {
@@ -19,7 +19,7 @@ public class Infobox extends ListeningFrame
      */
     public Infobox(int[] scale, String name,String type)
     {
-        super();
+        super(SMALL);
         int ind = StringHelper.getEnclosers(name,"()")[0];
         if (ind > -1)
         {
@@ -34,31 +34,17 @@ public class Infobox extends ListeningFrame
         if (ind > -1)
         {
             myName = myName.substring(0, ind);
-
-        }
-        else
-        {
-            myName = myName;
         }
         ind = StringHelper.getEnclosers(name,"[]")[0];
         if (ind > -1)
         {
             myName = myName.substring(0, ind);
-
-        }
-        else
-        {
-            myName = myName;
         }
         ind = StringHelper.getEnclosers(name,"/|")[0];
         if (ind > -1)
         {
             myName = myName.substring(0, ind);
 
-        }
-        else
-        {
-            myName = myName;
         }
         myType = type;
         myScale = scale;
@@ -141,7 +127,7 @@ public class Infobox extends ListeningFrame
     protected void act(String s)
     {
         clear();
-        appear(SMALL);
+        appear();
         addHeader(myName + ": " + myType);
         setGrid(getText(intervals).length + 1,1);
         for (String lab : getText(intervals))

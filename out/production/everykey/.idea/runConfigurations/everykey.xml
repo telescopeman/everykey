@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="everykey" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="9" />
-    <option name="MAIN_CLASS_NAME" value="UIStuff" />
+    <option name="MAIN_CLASS_NAME" value="Control" />
     <module name="everykey" />
     <method v="2">
       <option name="Make" enabled="true" />

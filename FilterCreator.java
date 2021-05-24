@@ -1,29 +1,28 @@
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import javax.swing.JMenu;
 import javax.swing.JLabel;
 
 /**
  * Dialogue popup that lets the user create a filter.
  *
  * @author Caleb Copeland
- * @version 5/23/21
+ * @version 5/24/21
  */
 public class FilterCreator extends ModBox
 {
-    private FilterCreationSetting type = FilterCreationSetting.INVALID;
+    private FilterCreationSetting type;
     private JComboBox<String> list1, list2;
-    private JMenu listSub;
     private JCheckBox tickBox;
 
     private Filter[] myFilters;
     private boolean[] setList;
 
-    private static final String[] CHROMATICSCALE = TheoryObj.CHROMATICSCALE;
+    private static final String[] CHROMATIC_SCALE = TheoryObj.CHROMATIC_SCALE;
 
 
     public FilterCreator(FilterCreationSetting type)
     {
+        super(SUPER_STANDARD);
         this.type = type;
         update();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -53,11 +52,11 @@ public class FilterCreator extends ModBox
             break;
 
             case NOTE:
-            options = CHROMATICSCALE;
+            options = CHROMATIC_SCALE;
             break;
 
             case CHORD:
-            options = CHROMATICSCALE;
+            options = CHROMATIC_SCALE;
             options2 = new String[]{"Major", "Minor", "Diminished","Augmented","sus2","sus4","Major ♭5","sus2 ♭5","sus4 ♭5"};
             setGrid(3,2);
             add(new JLabel(""));
@@ -280,7 +279,7 @@ public class FilterCreator extends ModBox
             default:
             {
                 setUpUniqueFactors();
-                appear(SUPER_STANDARD);
+                appear();
             }
         }
     }

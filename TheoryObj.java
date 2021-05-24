@@ -8,7 +8,7 @@ public abstract class TheoryObj extends BasicTheoryObj
 {
     private static final String[] coolNames = new String[]{"root","second","third","fourth","fifth","sixth","seventh"};
 
-    public static final String[] CHROMATICSCALE = 
+    public static final String[] CHROMATIC_SCALE =
         new String[]{"C","D♭","D","E♭","E","F","G♭","G","A♭","A","B♭","B"};
     
 
