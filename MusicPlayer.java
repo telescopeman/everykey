@@ -8,12 +8,16 @@ import java.awt.event.ActionListener;
      * @author Caleb Copeland
      * @version 5/24/21
      */
+
+    //IT DOESNT CHANGE SAMPLER STUFF EACH TIME
+    // THATS WHY NOTHING WORKS
     public class MusicPlayer extends UpperBucketCrab implements ActionListener
     {
         private final int[] MY_NOTES;
         private Sequencer sequencer;
         private final int TIME_CONSTANT = 100;
         private boolean activated = false;
+        public boolean pedalBass = false;
 
         private final int[] time_signature = new int[]{4,4};
 
@@ -46,6 +50,7 @@ import java.awt.event.ActionListener;
         {
         Sequence seq = new Sequence(Sequence.PPQ,5,20);
         Track mainTrack = seq.getTracks()[0];
+        //System.out.println("Going");
 
         switch (type)
         {
@@ -68,38 +73,7 @@ import java.awt.event.ActionListener;
             }
             case Sampler.PLAY_TEXT:
             {
-                System.out.println("playing in: " + time_signature[0] + "/" + time_signature[1]);
-
-                double chord_length = 16 / (float) time_signature[1];
-                for(int i = 1; i < 8; i++)
-                {
-                    // at the start of each measure...
-                    double chord_start_time = (i-1) * chord_length;
-                    addClump(mainTrack, TheoryObj.getRawChordAt(MY_NOTES,i), chord_start_time,chord_length);
-
-                    for (double j = 0.0; j < time_signature[0] ; j++)
-                    {
-                        double this_quarter_note = j * (chord_length / ((double) time_signature[0] )) + chord_start_time;
-
-                        for (double k = 0; k < 2; k++)
-                        {
-                            //in an eighth note pattern...
-                            double this_eighth_note = k * (chord_length / ((double) time_signature[0] * 2)) +
-                                    this_quarter_note;
-
-                            // take a random note from the scale
-                            addFullNote(mainTrack, MY_NOTES[MathHelper.getRandomNumberInRange(0,6)] + 12, this_eighth_note);
-                        }
-                        //in a quarter note pattern...
-                        // pedal bass
-                        addFullNote(mainTrack, MY_NOTES[0] -12, this_quarter_note);
-                    }
-                }
-                double lastTime = 7*chord_length;
-                addClump(mainTrack, TheoryObj.getRawChordAt(MY_NOTES,1), lastTime,chord_length);
-                addFullNote(mainTrack, MY_NOTES[0] + 12, chord_length);
-                addFullNote(mainTrack, MY_NOTES[0] - 12, chord_length);
-                //mainTrack.add(new MidiEvent(new MetaMessage(MetaMessage.META), (long) (8*chord_length)))
+                sampleScale(mainTrack);
                 break;
             }
             default:
@@ -118,6 +92,51 @@ import java.awt.event.ActionListener;
         }
 
         return seq;
+    }
+
+    private void sampleScale(Track mainTrack) throws InvalidMidiDataException {
+        //System.out.println("playing in: " + time_signature[0] + "/" + time_signature[1]);
+
+        double chord_length = 16 / (float) time_signature[1];
+        for(int i = 1; i < 8; i++)
+        {
+            // at the start of each measure...
+            double chord_start_time = (i-1) * chord_length;
+            addClump(mainTrack, TheoryObj.getRawChordAt(MY_NOTES,i), chord_start_time,chord_length);
+
+            for (double j = 0.0; j < time_signature[0] ; j++)
+            {
+                double this_quarter_note = j * (chord_length / ((double) time_signature[0] )) + chord_start_time;
+
+                for (double k = 0; k < 2; k++)
+                {
+                    //in an eighth note pattern...
+                    double this_eighth_note = k * (chord_length / ((double) time_signature[0] * 2)) +
+                            this_quarter_note;
+
+                    // take a random note from the scale and play as melody
+                    addFullNote(mainTrack, MY_NOTES[MathHelper.getRandomNumberInRange(0,6)] + 12, this_eighth_note);
+                }
+                //in a quarter note pattern...
+                // do bass
+                int bass_note;
+
+                if (pedalBass) {
+                    bass_note = MY_NOTES[0] - 12;
+                }
+                else
+                {
+                    bass_note = MY_NOTES[i-1] - 12;
+                }
+
+                addFullNote(mainTrack, bass_note, this_quarter_note);
+            }
+        }
+        double lastTime = 7*chord_length;
+        addClump(mainTrack, TheoryObj.getRawChordAt(MY_NOTES,1), lastTime,chord_length);
+        addFullNote(mainTrack, MY_NOTES[0] + 12, chord_length);
+        addFullNote(mainTrack, MY_NOTES[0] - 12, chord_length);
+        //mainTrack.add(new MidiEvent(new MetaMessage(MetaMessage.META), (long) (8*chord_length)))
     }
 
 
@@ -220,21 +239,18 @@ import java.awt.event.ActionListener;
     public void actionPerformed(ActionEvent e)
     {
         String id = e.getActionCommand();
-        if (id.equals("Stop"))
+        if (id.equals(Sampler.STOP_TEXT))
         {
             stop();
         }
         else
         {
-            if (id.equals(Sampler.PLAY_TEXT))
-            {
-                stop();
-            }
 
             try
             {
-                if (!activated)
+                if (!activated || id.equals(Sampler.PLAY_TEXT))
                 {
+                    stop();
                     seqSetup();
                     activate(id);
                 }

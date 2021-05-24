@@ -15,7 +15,7 @@ public class KeyPanel extends EasyPanel implements LowerBucketCrab
 {
     private MusicPlayer musicPlayer;
     public static final String PLAY_TEXT = "Listen";
-
+    public static final String SAMPLE_TEXT = "Sampler";
 
     /**
      * Constructor for objects of class KeyPanel
@@ -41,7 +41,7 @@ public class KeyPanel extends EasyPanel implements LowerBucketCrab
         ch.addActionListener(chordViewer);
         JMenuItem intervals = new JMenuItem("Intervals");
         intervals.addActionListener(new Infobox(key,name,"Intervals"));
-        JMenuItem sampler = new JMenuItem("Sampler");
+        JMenuItem sampler = new JMenuItem(SAMPLE_TEXT);
         sampler.addActionListener(new Sampler(key,name));
         jb5.add(ch); jb5.add(intervals); jb5.add(sampler);
 

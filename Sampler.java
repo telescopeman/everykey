@@ -1,5 +1,8 @@
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JCheckBox;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.GridLayout;
 
 /**
  * Samples random notes and all chords from a scale to give a feel for its sound.
@@ -10,8 +13,12 @@ import java.awt.*;
 public class Sampler extends CrabFrame
 {
     private String name;
-    public MusicPlayer mus;
+    private final MusicPlayer mus;
+    private final JCheckBox pedalBassBox = new JCheckBox("Pedal bass?",false);
     public static final String PLAY_TEXT = "Start";
+    public static final String STOP_TEXT = "Stop";
+    private JButton play_button;
+
 
     class TimeSignatureEditor extends SpinnerEditor
     {
@@ -77,23 +84,41 @@ public class Sampler extends CrabFrame
 
     public void act(String s)
     {
-        System.out.println(s);
-        clear();
-        addHeader(name + " - Sampler");
-        //JPanel p = new JPanel(new GridLayout());
-        //p.add(new JLabel("Time:"));
-        //p.add(new TimeSignatureEditor(0));
-        //EasyLabel label = new EasyLabel("/");
-        //label.setVerticalAlignment(SwingConstants.CENTER);
-        //label.setHorizontalAlignment(SwingConstants.CENTER);
-        //label.setFontSize(20);
-        //p.add(label);
-        //p.add(new TimeSignatureEditor(1));
-        //add(p);
+        if (s.equals(KeyPanel.SAMPLE_TEXT)) {
 
-        addButton(PLAY_TEXT,mus);
+            System.out.println(s);
+            clear();
+            addHeader(name + " - " + KeyPanel.SAMPLE_TEXT);
+            JPanel p = new JPanel(new GridLayout());
+            //p.add(new JLabel("Time:"));
+            //p.add(new TimeSignatureEditor(0));
+            //EasyLabel label = new EasyLabel("/");
+            //label.setVerticalAlignment(SwingConstants.CENTER);
+            //label.setHorizontalAlignment(SwingConstants.CENTER);
+            //label.setFontSize(20);
+            //p.add(label);
+            //p.add(new TimeSignatureEditor(1));
+            add(p);
 
 
-        appear();
+            play_button = new JButton(PLAY_TEXT);
+            play_button.addActionListener(this);
+            play_button.addActionListener(mus);
+            add(play_button);
+            add(pedalBassBox);
+            mus.pedalBass = pedalBassBox.isSelected();
+            pedalBassBox.addItemListener(e -> mus.pedalBass = pedalBassBox.isSelected());
+
+            appear();
+        }
+        else if (s.equals(PLAY_TEXT))
+        {
+            play_button.setText(STOP_TEXT);
+        }
+        else if (s.equals(STOP_TEXT))
+        {
+            mus.stop();
+            play_button.setText(PLAY_TEXT);
+        }
     }
 }
