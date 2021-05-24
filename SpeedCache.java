@@ -10,8 +10,6 @@ public abstract class SpeedCache
     private static final String[][] cache = new String[12][462]; // enharmonics on
     private static final String[] cache2 = new String[462]; //enharmonics off
 
-    private static int num = 0;
-    private static int num2 = 0;
     private static int ofs = 0;
     
     public static void setOffset(int n)
@@ -28,12 +26,10 @@ public abstract class SpeedCache
         if (enh)
         {
             cache[ofs][ind] = str;
-            //log();
         }
         else
         {
             cache2[ind] = str;
-            //log2();
         }
     }
     
@@ -72,16 +68,9 @@ public abstract class SpeedCache
             return (cache2[ind]==null);
         }
     }
-    
-    private static void log()
+
+    public static int getOffset()
     {
-        num++;
-        System.out.println("Stored alpha cache #" + num);
-    }
-    
-    private static void log2()
-    {
-        num2++;
-        System.out.println("Stored beta cache #" + num2);
+        return ofs;
     }
 }

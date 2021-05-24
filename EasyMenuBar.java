@@ -6,6 +6,12 @@ import java.awt.Graphics;
 public class EasyMenuBar extends JMenuBar implements VariableColor {
     Color bgColor= Color.BLUE;
 
+    public EasyMenuBar()
+    {
+        super();
+        setOpaque(true);
+    }
+
     @Override
     public void doLightMode() {
         bgColor = ColorsHelper.LIGHT_MODE;

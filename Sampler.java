@@ -1,18 +1,13 @@
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-
 /**
  * Samples random notes and all chords from a scale to give a feel for its sound.
  *
  * @author Caleb Copeland
- * @version 5/22/21
+ * @version 5/24/21
  */
-public class Sampler extends ListeningFrame
+public class Sampler extends ListeningFrame implements LowerBucketCrab
 {
-    
-    private final int[] myScale;
     private String name;
-    private final MusicHelper mus;
+    private final MusicPlayer mus;
     
     /**
      * Plays random notes.
@@ -23,7 +18,7 @@ public class Sampler extends ListeningFrame
         setTitle("Random Sampler");
         int ind = n.indexOf('(');
 
-        mus = new MusicHelper(scale);
+        mus = new MusicPlayer(scale,this);
 
 
 
@@ -47,9 +42,7 @@ public class Sampler extends ListeningFrame
         {
             name = n;
         }
-        
-        myScale = scale;
-        
+
     }
 
     /**
@@ -57,7 +50,7 @@ public class Sampler extends ListeningFrame
      */
     @Override
     protected void onClosed() {
-        mus.stop();
+        BucketCrabManager.pullDown(this);
     }
 
     public void act(String s)

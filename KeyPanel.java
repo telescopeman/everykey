@@ -11,9 +11,9 @@ import java.awt.event.MouseEvent;
  * @author Caleb Copeland
  * @version 5/23/21
  */
-public class KeyPanel extends EasyPanel
+public class KeyPanel extends EasyPanel implements LowerBucketCrab
 {
-    private MusicHelper musicPlayer;
+    private MusicPlayer musicPlayer;
 
 
     /**
@@ -28,7 +28,7 @@ public class KeyPanel extends EasyPanel
             
         ChordViewer chordViewer = new ChordViewer(key,name);
         try{
-            musicPlayer = new MusicHelper(key);
+            musicPlayer = new MusicPlayer(key,this);
         }
         catch(Exception ed) {
             ed.printStackTrace();

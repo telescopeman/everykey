@@ -1,6 +1,7 @@
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import java.util.Objects;
 
 /**
  * Dialogue popup that lets the user create a filter.
@@ -10,7 +11,7 @@ import javax.swing.JLabel;
  */
 public class FilterCreator extends ModBox
 {
-    private FilterCreationSetting type;
+    private final FilterCreationSetting type;
     private JComboBox<String> list1, list2;
     private JCheckBox tickBox;
 
@@ -40,10 +41,10 @@ public class FilterCreator extends ModBox
 
         addHeader("Filter Designer - " + type);
 
-        String[] options = new String[]{"Error!"};
+        String[] options;
         String[] options2 = new String[]{"Error!"};
         boolean hasSecondDropDown = false;
-        String[] fullTags = {"f"};
+        String[] fullTags;
 
         switch (type)
         {
@@ -103,6 +104,7 @@ public class FilterCreator extends ModBox
         addButton("Add Filter",this);
     }
 
+    @SuppressWarnings("SwitchStatementWithTooFewBranches")
     public Filter constructFilter(String opt1, String opt2)
     {
         switch (type)
@@ -125,7 +127,8 @@ public class FilterCreator extends ModBox
             case TAGS:
 
             case MODE:
-            return new Filter((list1.getSelectedItem()).toString());
+            return new Filter((Objects.requireNonNull(
+                    list1.getSelectedItem())).toString());
 
             case SPECIAL:
             {
@@ -247,9 +250,7 @@ public class FilterCreator extends ModBox
             }
             default:
             {
-                third = root + 2;
-                fifth = root + 7;
-                break;
+                throw new IllegalStateException("FilterCreator fork up");
             }
         }
 
@@ -288,10 +289,15 @@ public class FilterCreator extends ModBox
         }
     }
 
+    @Override
+    protected void onClosed() {
+        // do nothing
+    }
+
     protected void apply()
     {
-        String o1 = list1.getSelectedItem().toString();
-        String o2 = list2.getSelectedItem().toString();
+        String o1 = Objects.requireNonNull(list1.getSelectedItem()).toString();
+        String o2 = Objects.requireNonNull(list2.getSelectedItem()).toString();
         Filter[] tempList = ArrayHelper.addX(myFilters,constructFilter(o1,o2));
 
         boolean[] tempList2 = ArrayHelper.addX(setList,true);

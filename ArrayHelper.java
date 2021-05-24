@@ -15,18 +15,18 @@ public abstract class ArrayHelper
         int i;
 
         // create a new array of size n+1
-        String[] newarr = new String[list.length + 1];
+        String[] new_array = new String[list.length + 1];
 
         // insert the elements from
         // the old array into the new array
         // insert all elements till n
         // then insert x at n+1
         for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
+            new_array[i] = list[i];
 
-        newarr[list.length] = x;
+        new_array[list.length] = x;
 
-        return newarr;
+        return new_array;
     }
 
     /**
@@ -37,18 +37,18 @@ public abstract class ArrayHelper
         int i;
 
         // create a new array of size n+1
-        int[] newarr = new int[list.length + 1];
+        int[] new_array = new int[list.length + 1];
 
         // insert the elements from
         // the old array into the new array
         // insert all elements till n
         // then insert x at n+1
         for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
+            new_array[i] = list[i];
 
-        newarr[list.length] = x;
+        new_array[list.length] = x;
 
-        return newarr;
+        return new_array;
     }
     
     /**
@@ -59,18 +59,18 @@ public abstract class ArrayHelper
         int i;
 
         // create a new array of size n+1
-        Integer[] newarr = new Integer[list.length + 1];
+        Integer[] new_array = new Integer[list.length + 1];
 
         // insert the elements from
         // the old array into the new array
         // insert all elements till n
         // then insert x at n+1
         for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
+            new_array[i] = list[i];
 
-        newarr[list.length] = x;
+        new_array[list.length] = x;
 
-        return newarr;
+        return new_array;
     }
     
     /**
@@ -89,7 +89,7 @@ public abstract class ArrayHelper
         String[] result = new String[]{};
         for(String item : list)
         {
-            if ((item.indexOf(term) > -1) == mod)
+            if ((item.contains(term)) == mod)
             {
                 result = addX(result,item);
                 
@@ -138,18 +138,18 @@ public abstract class ArrayHelper
         int i;
 
         // create a new array of size n+1
-        boolean[] newarr = new boolean[list.length + 1];
+        boolean[] new_array = new boolean[list.length + 1];
 
         // insert the elements from
         // the old array into the new array
         // insert all elements till n
         // then insert x at n+1
         for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
+            new_array[i] = list[i];
 
-        newarr[list.length] = x;
+        new_array[list.length] = x;
 
-        return newarr;
+        return new_array;
     }
 
     /**
@@ -163,15 +163,14 @@ public abstract class ArrayHelper
         }
 
         // create a new array of size n-1
-        boolean[] newarr = new boolean[list.length-1];
+        boolean[] new_array = new boolean[list.length-1];
 
-        for (int i = 0; i < index; i++)
-            newarr[i] = list[i];
+        if (index >= 0) System.arraycopy(list, 0, new_array, 0, index);
 
-        for (int i = index + 1; i < index; i++) //add all old items to new array other than [index]
-            newarr[i-1] = list[i];
+        //add all old items to new array other than [index]
+        if (index - (index + 1) >= 0) System.arraycopy(list, index + 1, new_array, index + 1 - 1, index - (index + 1));
 
-        return newarr;
+        return new_array;
     }
 
     /**
@@ -201,15 +200,15 @@ public abstract class ArrayHelper
         }
 
         // create a new array of size n+1
-        Filter[] newarr = new Filter[list.length-1];
+        Filter[] new_array = new Filter[list.length-1];
 
-        for (int i = 0; i < index; i++)
-            newarr[i] = list[i];
+        if (index >= 0) System.arraycopy(list, 0, new_array, 0, index);
 
-        for (int i = index + 1; i < list.length; i++) //add all old items to new array other than [index]
-            newarr[i-1] = list[i];
+        //add all old items to new array other than [index]
+        if (list.length - (index + 1) >= 0)
+            System.arraycopy(list, index + 1, new_array, index + 1 - 1, list.length - (index + 1));
 
-        return newarr;
+        return new_array;
     }
 
     /**
@@ -220,17 +219,17 @@ public abstract class ArrayHelper
         int i;
 
         // create a new array of size n+1
-        Filter[] newarr = new Filter[list.length + 1];
+        Filter[] new_array = new Filter[list.length + 1];
 
         // insert the elements from
         // the old array into the new array
         // insert all elements till n
         // then insert x at n+1
         for (i = 0; i < list.length; i++)
-            newarr[i] = list[i];
+            new_array[i] = list[i];
 
-        newarr[list.length] = x;
+        new_array[list.length] = x;
 
-        return newarr;
+        return new_array;
     }
 }

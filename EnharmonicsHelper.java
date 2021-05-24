@@ -8,58 +8,55 @@ import java.util.HashMap;
  */
 public abstract class EnharmonicsHelper extends BasicTheoryObj
 {
-    private static final HashMap<String,String> ENHARMONICSBELOW = new HashMap<String,String>()
-        {{
-                put("C♯", "B♯♯");
-                put("D♭", "C♯");
-                put("D", "C♯♯");
-                put("E♭♭", "D");
-                put("E♭", "D♯");
-                put("E", "D♯♯");
-                put("F♭♭", "E♭");
-                put("F♭", "E");
-                put("F", "E♯");
-                put("F♯", "F♯");
-                put("G♭♭", "F");
-                put("G♭", "F♯");
-                put("G", "F♯♯");
-                put("A♭♭", "G");
-                put("A♭", "G♯");
-                put("A", "G♯♯");
-                put("B♭", "A♯");
-                put("B", "A♯♯");
-            }};
+    private static final HashMap<String,String> ENHARMONICS_BELOW = new HashMap<>() {{
+        put("C♯", "B♯♯");
+        put("D♭", "C♯");
+        put("D", "C♯♯");
+        put("E♭♭", "D");
+        put("E♭", "D♯");
+        put("E", "D♯♯");
+        put("F♭♭", "E♭");
+        put("F♭", "E");
+        put("F", "E♯");
+        put("F♯", "F♯");
+        put("G♭♭", "F");
+        put("G♭", "F♯");
+        put("G", "F♯♯");
+        put("A♭♭", "G");
+        put("A♭", "G♯");
+        put("A", "G♯♯");
+        put("B♭", "A♯");
+        put("B", "A♯♯");
+    }};
 
-    private static final HashMap<String,String> ENHARMONICSABOVE = new HashMap<String,String>()
-        {{
-                put("C", "D♭♭");
-                put("C♯", "D♭");
-                put("C♯♯", "D");
-                put("C♯♯", "D");
-                put("D♭", "E♭♭♭");
-                put("D", "E♭♭");
-                put("D♯", "E♭");
-                put("D♯♯", "E");
-                put("E♭", "F♭♭");
-                put("E", "F♭");
-                put("E♯", "F");
-                put("E♯♯", "F♯");
-                put("F", "G♭♭");
-                put("F♯", "G♭");
-                put("F♯♯", "G");
-                put("G♭", "A♭♭♭");
-                put("G", "A♭♭");
-                put("G♯", "A♭");
-                put("G♯♯", "A");
-                put("A♭", "B♭♭♭");
-                put("A", "B♭♭");
-                put("A♯", "B♭");
-                put("A♯♯", "B");
-                put("B♭", "C♭♭");
-                put("B", "C♭");
-                put("B♯♯", "C♯");
-                put("C♭", "D♭♭♭");
-            }};
+    private static final HashMap<String,String> ENHARMONICS_ABOVE = new HashMap<>() {{
+        put("C", "D♭♭");
+        put("C♯", "D♭");
+        put("C♯♯", "D");
+        put("D♭", "E♭♭♭");
+        put("D", "E♭♭");
+        put("D♯", "E♭");
+        put("D♯♯", "E");
+        put("E♭", "F♭♭");
+        put("E", "F♭");
+        put("E♯", "F");
+        put("E♯♯", "F♯");
+        put("F", "G♭♭");
+        put("F♯", "G♭");
+        put("F♯♯", "G");
+        put("G♭", "A♭♭♭");
+        put("G", "A♭♭");
+        put("G♯", "A♭");
+        put("G♯♯", "A");
+        put("A♭", "B♭♭♭");
+        put("A", "B♭♭");
+        put("A♯", "B♭");
+        put("A♯♯", "B");
+        put("B♭", "C♭♭");
+        put("B", "C♭");
+        put("B♯♯", "C♯");
+        put("C♭", "D♭♭♭");
+    }};
             
             
     public static String[] doEnharmonics(String[] notes)
@@ -69,13 +66,13 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
           there should now be an array of all the note names.
           next comes the formatting into an actual string.
          */
-        String[] rawNotes = notes;
         final int maxAttempts = 20;
         int attempts = 0;
         int dupes = 1;
-        String[] cur = rawNotes;
-        cur[0] = getNoteName(1);
-        // this is akin to a sorting algorithm. it will iterate thru until no more dupes, or gives up.
+        notes[0] = getNoteName(1);
+        // this is akin to a sorting algorithm.
+        // it will iterate through until there
+        // are no more dupes, or it gives up.
         while (dupes > 0 && attempts < maxAttempts)
         {
             /*
@@ -85,33 +82,33 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
              */
             //System.out.println(attempts);
             dupes = 0;
-            for(int count2 = 1; count2 < rawNotes.length; count2++)
+            for(int count2 = 1; count2 < notes.length; count2++)
             {
-                String curNote = cur[count2];
-                String prevNote = cur[count2-1];
+                String curNote = notes[count2];
+                String prevNote = notes[count2-1];
                 String nextNote;
-                if (count2 < rawNotes.length -1 )
+                if (count2 < notes.length -1 )
                 {
-                    nextNote = cur[count2+1];
+                    nextNote = notes[count2+1];
                 }
                 else
                 {
                     nextNote = "dummy";
                 }
-                cur[count2] = curNote;
+                notes[count2] = curNote;
 
                 if (testIfDupe(curNote,prevNote))
                 {
 
-                    cur[count2] = getEnharmonicAbove(curNote);
+                    notes[count2] = getEnharmonicAbove(curNote);
                     dupes++;
                     continue;
                 }
-                if (count2 < rawNotes.length -1  && testIfDupe(cur[count2],nextNote))
+                if (count2 < notes.length -1  && testIfDupe(notes[count2],nextNote))
                 {
-                    String rpl = getEnharmonicBelow(cur[count2]);
+                    String rpl = getEnharmonicBelow(notes[count2]);
 
-                    cur[count2] = rpl;
+                    notes[count2] = rpl;
 
                     dupes++;
                 }
@@ -121,7 +118,7 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
         }
         if (attempts < maxAttempts)
         {
-            return cur;
+            return notes;
         }
         else // filtering has (somehow) failed
         {
@@ -152,7 +149,7 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
      */
     private static String getEnharmonicBelow(String note)
     {
-        String name = ENHARMONICSBELOW.get(note);
+        String name = ENHARMONICS_BELOW.get(note);
 
         if (name == null)
         {
@@ -169,7 +166,7 @@ public abstract class EnharmonicsHelper extends BasicTheoryObj
      */
     private static String getEnharmonicAbove(String note)
     {
-        String name = ENHARMONICSABOVE.get(note);
+        String name = ENHARMONICS_ABOVE.get(note);
         if (name == null)
         {
             System.out.println("Unhandled above note: " + note);

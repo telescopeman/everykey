@@ -43,7 +43,7 @@ public abstract class ColorsHelper
         float r = color.getRed()/255f;
         float g = color.getGreen()/255f;
         float b = color.getBlue()/255f;
-        float m = new Double(0.9).floatValue();
+        float m = 0.9f;
         return new Color(m*r,m*g,m*b);
     }
 }

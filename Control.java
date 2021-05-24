@@ -23,9 +23,8 @@ public class Control
     public static void main(String[] args)
     {
         KeyNamesHelper.initialize();
-        UI.initialize();
         FilterBank.initialize();
-        UI.oneTimeSetup();
+        UI.initialize();
         UI.refresh();
     }
 
@@ -65,8 +64,8 @@ public class Control
     }
 
     /**
-     * Unfinished
-     * @return
+     * Sorts a list of scales by interval weirdness.
+     * @return The indices of the scales, sorted.
      */
     private static int[] sortByIntervals()
     {
@@ -112,11 +111,11 @@ public class Control
             {
                 return ArrayHelper.reverse(sortByStrangeness());
             }
-            case Intervalic_Oddities_Ascending:
+            case Interval_Oddness_Ascending:
             {
                 return sortByIntervals();
             }
-            case Intervalic_Oddities_Descending:
+            case Interval_Oddness_Descending:
             {
                 return ArrayHelper.reverse(sortByIntervals());
             }

@@ -52,8 +52,7 @@ public abstract class StringHelper
      */
     public static String quickSubstring(String name, int[] pts)
     {
-        String newName =  name.substring(0,pts[0]) + name.substring(pts[1]+1);
-        return newName;
+        return name.substring(0,pts[0]) + name.substring(pts[1]+1);
     }
     
     /**
@@ -62,26 +61,26 @@ public abstract class StringHelper
     public static String filterOutTags(String name)
     {
         int[] pt = StringHelper.getEnclosers(name,"[]");
-        String dispName;
+        String display_Name;
         if (pt[0] > -1)
         {
-            dispName =  StringHelper.quickSubstring(name,pt);
+            display_Name =  StringHelper.quickSubstring(name,pt);
         }
         else
         {
-            dispName =  name;
+            display_Name =  name;
         }
         for(boolean i = true; i;)
         {
-            pt = StringHelper.getEnclosers(dispName,"{}");
+            pt = StringHelper.getEnclosers(display_Name,"{}");
             i = false;
             if (pt[0] > -1 && pt[1] > -1)
             {
-                dispName = StringHelper.quickSubstring(dispName,pt); 
+                display_Name = StringHelper.quickSubstring(display_Name,pt);
                 i = true;
             }
         }
-        return dispName;
+        return display_Name;
     }
     
     /**
@@ -90,34 +89,34 @@ public abstract class StringHelper
      */
     public static String arrayToString(String[] terms, String terminator, boolean hasPeriod)
     {
-        String name = "";
+        StringBuilder name = new StringBuilder();
         int counter = 0;
 
         for (String term : terms)
         {
-            name = name + term;
+            name.append(term);
             
             if (counter < terms.length - 2) // most
             {
-                name = name + ", ";
+                name.append(", ");
             }
             else if (counter == terms.length - 2) //second to last
             {
                 if (terms.length > 2)
                 {
-                    name = name + ",";
+                    name.append(",");
                 }
                 
-                name = name + " " + terminator + " ";
+                name.append(" ").append(terminator).append(" ");
             }
             else if (hasPeriod)// last
             {
-                name = name + ".";
+                name.append(".");
             }
 
             counter++;
         }
-        return name;
+        return name.toString();
     }
 
 
@@ -126,13 +125,13 @@ public abstract class StringHelper
      */
     public static String curlAll(String[] tagGroup)
     {
-        String f = "";
+        StringBuilder f = new StringBuilder();
         for (String str : tagGroup)
         {
-            f += StringHelper.enclose(str,"{}");
+            f.append(StringHelper.enclose(str, "{}"));
 
         }
-        return f;
+        return f.toString();
     }
 
 }

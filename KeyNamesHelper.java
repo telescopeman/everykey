@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Class that helps access names of common keys.
@@ -17,6 +18,7 @@ public abstract class KeyNamesHelper extends TheoryObj
     /**
      * Most of these are from Wikipedia.
      */
+    @SuppressWarnings("CommentedOutCode")
     public static void initialize()
     {
         
@@ -28,7 +30,7 @@ public abstract class KeyNamesHelper extends TheoryObj
         {
             active = true;
         }
-        stringKeys = new HashMap<String,String>();
+        stringKeys = new HashMap<>();
 
         group = 0; // major
 
@@ -155,16 +157,14 @@ public abstract class KeyNamesHelper extends TheoryObj
         addScale("C, D, E♭, G♭, G, B♭, and B.", "Lydian ♭3, ♯6");
         //addScale("C, D, E♭, G♭, G, A♭, and B.", "Algerian 1"); //could not find enough consistent info
 
-        group = 12; //deep jazz, altered hmajor
+        group = 12; //deep jazz, altered harmonic major
         addScale("C, D♭, E♭, E, G♭, G, and B♭.", "Altered Harmonic Major"); // the modes of harmonic major
         addScale("C, D, E♭, F, G♭, A, and B.", "Jeths's Mode / Melodic Minor ♭5 [Second mode of Altered Harmonic Major]"); // the modes of melodic minor
         addScale("C, D♭, E♭, E, G, A, and B♭.", "Super Dorian ♭2 [Third mode of Altered Harmonic Major]");
         addScale("C, D, E♭, G♭, A♭, A, and B.", "Lydian Augmented-Diminished [Fourth mode of Altered Harmonic Major]");
         addScale("C, D♭, E, G♭, G, A, and B♭.", "Lydian Dominant ♭2 [Fifth mode of Altered Harmonic Major]"); 
         addScale("C, E♭, F, G♭, A♭, A, and B.", "Super Lydian [Sixth mode of Altered Harmonic Major]"); 
-        addScale("C, D, E♭, E, G♭, A♭, and A.", "Moravian Pistalkova / Hungarian Major Inverse [Seventh mode of Altered Harmonic Major]"); 
-        //addScale("C, D♭, E♭, G♭, G, A♭, and B♭.", "Black Keys + Perfect Fifth"); //Fun keys I made up
-        //addScale("C, D♭, E, F, G♭, G, and B♭.", "\"The Becoming\" Scale");
+        addScale("C, D, E♭, E, G♭, A♭, and A.", "Moravian Pistalkova / Hungarian Major Inverse [Seventh mode of Altered Harmonic Major]");
 
         group = 13; //the modes of altered minor
         //altered minor
@@ -227,16 +227,16 @@ public abstract class KeyNamesHelper extends TheoryObj
      */
     public static String[] getTags(String name)
     {
-        String dispName = name;
+        String display_Name = name;
         String[] result = new String[]{};
         for(boolean i = true; i;)
         {
-            int[] pt = StringHelper.getEnclosers(dispName,'{','}');
+            int[] pt = StringHelper.getEnclosers(display_Name,'{','}');
             i = false;
             if (pt[0] > -1 && pt[1] > -1)
             {
-                result = ArrayHelper.addX(result,StringHelper.quickSubstring(dispName,pt));
-                dispName = dispName.substring(pt[1]+1);
+                result = ArrayHelper.addX(result,StringHelper.quickSubstring(display_Name,pt));
+                display_Name = display_Name.substring(pt[1]+1);
 
                 i = true;
             }
@@ -249,14 +249,7 @@ public abstract class KeyNamesHelper extends TheoryObj
     private static String get(int[] key)
     {
         String name = stringKeys.get(expand(key,false));
-        if (name == null)
-        {
-            return "";
-        }
-        else
-        {
-            return name;
-        }
+        return Objects.requireNonNullElse(name, "");
     }
 
     /**
@@ -271,28 +264,21 @@ public abstract class KeyNamesHelper extends TheoryObj
         String name = stringKeys.get(expandSmart(key,ind,false));
         // enharmonics are turned off due to my shit coding.
         // if they were on everything would break.
-        if (name == null)
-        {
-            return "";
-        }
-        else
-        {
-            return name;
-        }
+        return Objects.requireNonNullElse(name, "");
     }
 
     public static String getKeyName(int[] key, int ind)
     {
         String name = smartGet(key,ind);
-        String dispName = expandSmart(key,ind,true);
+        String display_Name = expandSmart(key,ind,true);
         //this is inefficient. not sure how to fix this.
-        if (name == "")
+        if (name.equals(""))
         {
-            return "Unnamed Key (" + dispName + ")";
+            return "Unnamed Key (" + display_Name + ")";
         }
         else
         {
-            return name + " (" + dispName + ")";
+            return name + " (" + display_Name + ")";
         }
     }
 }

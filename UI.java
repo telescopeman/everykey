@@ -3,62 +3,57 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.BoxLayout;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Container;
 
 /**
  * @since 5/23/21
  */
 public class UI {
 
-    private static EasyFrame mainWindow;
-    private static EasyPanel innerPanel;
+    private static final EasyFrame mainWindow = new EasyFrame("Skeleton Key",EasyFrame.MAIN_WINDOW);
+    private static final EasyPanel innerPanel = new EasyPanel();
     private static final EasyMenuBar menuBar = new EasyMenuBar();
-    private static JMenu view_filters,
-            remove_filters,
-            filter_menu;
+    private static final JMenu view_filters =new JMenu("View/Toggle Active Filters"),
+            remove_filters =new JMenu("Remove Filter");
 
-    private static int[][] masterList, curList;
+    private static final int[][] masterList = ScalesGenerator.getAllKeys();
+    private static int[][] curList;
 
     private static boolean is_dark_mode = false;
 
 
+    /**
+     * Retrieves the master list of all scales.
+     */
     public static int[][] getMasterList()
     {
         return masterList;
     }
 
 
+    /**
+     * Sets up the basic UI elements.
+     */
     public static void initialize()
     {
-        masterList = MathHelper.getAllKeys();
-    }
-
-    public static void oneTimeSetup()
-    {
-        mainWindow = new EasyFrame("Skeleton Key",EasyFrame.MAIN_WINDOW);
-        mainWindow.setDefaultCloseOperation(mainWindow.EXIT_ON_CLOSE);
-        innerPanel = new EasyPanel();
-
-        menuBar.setOpaque(true);
-
         JScrollPane outer = new JScrollPane(innerPanel);
         outer.getVerticalScrollBar().setUnitIncrement(16);
-
-        OffsetEditor ofs = new OffsetEditor();
-
         mainWindow.add(outer);
 
-        JMenu audio,add_filter,sorting_options,sort_order_change,choose_filter_templates,viewing_options;
-        JMenuItem i1, i2, i3,
-                i4, i5, i6,
-                musical_typing,
+        JMenu audio,add_filter,sorting_options,sort_order_change,
+                choose_filter_templates,viewing_options;
+
+        JMenuItem musical_typing,
                 change_neutral_point,
                 note_speed_settings,
                 dark_mode;
 
 
         sorting_options=new JMenu("Sorting Options");
-        filter_menu =new JMenu("Filter Options");
+        JMenu filter_menu = new JMenu("Filter Options");
         audio=new JMenu("Audio Options");
         viewing_options=new JMenu("Viewing Options");
 
@@ -71,12 +66,12 @@ public class UI {
         sort_order_change=new JMenu("Change Sorting Order");
         change_neutral_point=new JMenuItem("Change Neutral Point");
 
-        JMenuItem s1=new ActionItem(SortOption.Brightness_Ascending);
-        JMenuItem s2=new ActionItem(SortOption.Brightness_Descending);
-        JMenuItem s3=new ActionItem(SortOption.Strangeness_Ascending);
-        JMenuItem s4=new ActionItem(SortOption.Strangeness_Descending);
-        JMenuItem s5=new ActionItem(SortOption.Intervalic_Oddities_Ascending);
-        JMenuItem s6=new ActionItem(SortOption.Intervalic_Oddities_Descending);
+        ActionItem s1=new ActionItem(SortOption.Brightness_Ascending);
+        ActionItem s2=new ActionItem(SortOption.Brightness_Descending);
+        ActionItem s3=new ActionItem(SortOption.Strangeness_Ascending);
+        ActionItem s4=new ActionItem(SortOption.Strangeness_Descending);
+        ActionItem s5=new ActionItem(SortOption.Interval_Oddness_Ascending);
+        ActionItem s6=new ActionItem(SortOption.Interval_Oddness_Descending);
 
         change_neutral_point.addActionListener(new StrangeBox());
 
@@ -90,20 +85,18 @@ public class UI {
         sort_order_change.add(s3); sort_order_change.add(s4);
         sort_order_change.add(s5); sort_order_change.add(s6);
 
-        //filtering stuff
+        //filter stuff
 
-        view_filters =new JMenu("View/Toggle Active Filters");
         add_filter=new JMenu("Add New Filter");
-        remove_filters =new JMenu("Remove Filter");
         choose_filter_templates=new JMenu("Filter Templates");
         musical_typing=new JMenuItem("Open Musical Typing");
 
-        i1=new ActionItem(FilterCreationSetting.TONALITY,"Filter by Tonality");
-        i2=new ActionItem(FilterCreationSetting.NOTE,"Filter by Note");
-        i3=new ActionItem(FilterCreationSetting.CHORD,"Filter by Chord");
-        i4=new ActionItem(FilterCreationSetting.TAGS,"Filter by Tags");
-        i5=new ActionItem(FilterCreationSetting.MODE,"Filter by Mode");
-        i6=new ActionItem(FilterCreationSetting.SPECIAL, "Filter by Special");
+        ActionItem i1=new ActionItem(FilterCreationSetting.TONALITY,"Filter by Tonality");
+        ActionItem i2=new ActionItem(FilterCreationSetting.NOTE,"Filter by Note");
+        ActionItem i3=new ActionItem(FilterCreationSetting.CHORD,"Filter by Chord");
+        ActionItem i4=new ActionItem(FilterCreationSetting.TAGS,"Filter by Tags");
+        ActionItem i5=new ActionItem(FilterCreationSetting.MODE,"Filter by Mode");
+        ActionItem i6=new ActionItem(FilterCreationSetting.SPECIAL, "Filter by Special");
 
         for (FilterTemplate t : TemplatesHelper.getAll())
         {
@@ -112,11 +105,11 @@ public class UI {
             choose_filter_templates.add(t1);
         }
 
-        musical_typing.addActionListener(new VirtualPiano()); //not working?
+        musical_typing.addActionListener(new VirtualPiano());
 
 
         note_speed_settings=new JMenuItem("Change Note Speed");
-        note_speed_settings.addActionListener(new TempoBox()); //not working?
+        note_speed_settings.addActionListener(new TempoBox());
 
 
 
@@ -129,13 +122,13 @@ public class UI {
 
         //audio
 
-        audio.add(note_speed_settings); //audio.add(a2);
+        audio.add(note_speed_settings);
 
         //viewing options
 
         dark_mode = new ActionItem(new ModActor(ModAction.TOGGLE_DARK_MODE),"Toggle Dark Mode");
         viewing_options.add(dark_mode);
-
+        OffsetEditor ofs = new OffsetEditor();
 
         menuBar.add(sorting_options); menuBar.add(filter_menu); menuBar.add(audio);
         menuBar.add(viewing_options); menuBar.add(ofs);
@@ -196,25 +189,25 @@ public class UI {
         return curList;
     }
 
-    private static void updateFilterList(Filter[] flist)
+    private static void updateFilterList(Filter[] filters)
     {
         view_filters.removeAll();
         remove_filters.removeAll();
         int counter = 0;
-        while (FilterBank.getFilterStatuses().length < flist.length)
+        while (FilterBank.getFilterStatuses().length < filters.length)
         {
             FilterBank.setFilterStatuses(
                     ArrayHelper.addX(FilterBank.getFilterStatuses(),true));
         }
 
-        if (flist.length == 0)
+        if (filters.length == 0)
         {
             view_filters.add(new JMenuItem("(None)"));
             remove_filters.add(new JMenuItem("(None)"));
 
         }
 
-        for (Filter f : flist)
+        for (Filter f : filters)
         {
             String status;
             if (FilterBank.getFilterStatuses()[counter])

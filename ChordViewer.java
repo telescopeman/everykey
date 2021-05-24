@@ -7,7 +7,7 @@ import javax.swing.*;
  * @author Caleb Copeland, User1752197 on StackOverflow [convertToRoman() method only]
  * @version 5/24/21
  */
-public class ChordViewer extends ListeningFrame
+public class ChordViewer extends ListeningFrame implements LowerBucketCrab
 {
     private final int[] myKey;
 
@@ -142,10 +142,10 @@ public class ChordViewer extends ListeningFrame
             int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
 
-            String PLAYTEXT = "Play Chord";
-            EasyButton jb3 = new EasyButton(PLAYTEXT, CENTER_ALIGNMENT);
-            MusicHelper playr = new MusicHelper(seq);
-            jb3.addActionListener(playr);
+            String PLAY_TEXT = "Play Chord";
+            EasyButton jb3 = new EasyButton(PLAY_TEXT, CENTER_ALIGNMENT);
+            MusicPlayer musicPlayer = new MusicPlayer(seq,this);
+            jb3.addActionListener(musicPlayer);
 
             class ButtonAction extends AbstractAction
             {
@@ -157,18 +157,23 @@ public class ChordViewer extends ListeningFrame
 
                 public void actionPerformed(ActionEvent ae)
                 {
-                    playr.actionPerformed(ae);
+                    musicPlayer.actionPerformed(ae);
                 }
             }
 
-            ButtonAction buttonAction = new ButtonAction(PLAYTEXT);
+            ButtonAction buttonAction = new ButtonAction(PLAY_TEXT);
 
             // when the user types the number of the chord, it plays
-            jb3.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), PLAYTEXT);
-            jb3.getActionMap().put(PLAYTEXT, buttonAction);
+            jb3.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(String.valueOf(i).charAt(0)), PLAY_TEXT);
+            jb3.getActionMap().put(PLAY_TEXT, buttonAction);
 
             add(jb3);
         }
         setVisible(true);
+    }
+
+    @Override
+    protected void onClosed() {
+        BucketCrabManager.pullDown(this);
     }
 }

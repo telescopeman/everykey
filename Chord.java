@@ -7,8 +7,8 @@ import java.awt.Color;
  */
 public class Chord extends BasicTheoryObj
 {
-    private int root, third, fifth;
-    private final int permRoot;
+    private final int root;
+    private int third, fifth;
 
     /**
      * Creates a chord with the given notes.
@@ -17,7 +17,7 @@ public class Chord extends BasicTheoryObj
     {
         // initialise instance variables
         root = one;
-        permRoot = root;
+
         third = two;
         fifth = three;
         sort();
@@ -37,107 +37,84 @@ public class Chord extends BasicTheoryObj
 
     }
 
-    
-    private void invert()
-    {
-        int temp = root;
-        root = third - 12;
-        third = fifth - 12;
-        fifth = temp;
-    }
 
     /**
      * Returns the name of the chord.
      */
     public String toString()
     {
-        String rootname = getNoteName(root);
-        String thirdname = getThirdType();
-        String fifthname  = getFifthType();
-        if (fifthname.equals("?")) //invert twice if getting null values
-        {
-            invert();
-            rootname = getNoteName(root);
-            thirdname = getThirdType();
-            fifthname  = getFifthType();
-            if (fifthname.equals("?"))
-            {
-                invert();
-                rootname = getNoteName(root);
-                thirdname = getThirdType();
-                fifthname  = getFifthType();
-            }
-        }
+        String third_name = getThirdType();
+        String fifth_name  = getFifthType();
 
-        if (fifthname.equals("Augmented") || fifthname.equals("Diminished"))
+        if (fifth_name.equals("Augmented") || fifth_name.equals("Diminished"))
         {
-            thirdname = "";
+            third_name = "";
 
         }
-        return getNoteName(permRoot) + " " + thirdname + " " + fifthname;
+        return getNoteName(root) + " " + third_name + " " + fifth_name;
     }
 
     private String getFifthType()
     {
-        String fifthname = "";
-        int fifthint = fifth - root;
-        int thirdinterval = third - root;
-        if (fifthint == 7)
+        String fifth_name;
+        int fifth_interval = fifth - root;
+        int third_interval = third - root;
+        if (fifth_interval == 7)
         {
-            fifthname = "";
+            fifth_name = "";
         }
-        else if (fifthint == 8 && thirdinterval != 3)
+        else if (fifth_interval == 8 && third_interval != 3)
         {
-            fifthname = "Augmented";
+            fifth_name = "Augmented";
         }
-        else if (fifthint == 6 && thirdinterval == 3)
+        else if (fifth_interval == 6 && third_interval == 3)
         {
-            fifthname = "Diminished";
+            fifth_name = "Diminished";
         }
-        else if (fifthint == 6 && thirdinterval != 3)
+        else if (fifth_interval == 6)
         {
-            fifthname = "♭5";
+            fifth_name = "♭5";
         }
-        else if (fifthint == 5)
+        else if (fifth_interval == 5)
         {
-            fifthname = "♭♭5";
+            fifth_name = "♭♭5";
         }
         else
         {
-            fifthname = "?";
+            fifth_name = "?";
         }
-        return fifthname;
+        return fifth_name;
 
     }
 
     private String getThirdType()
     {
-        String thirdname = "";
-        int thirdinterval = third - root;
-        if (thirdinterval == 4)
+        String third_name;
+        int third_interval = third - root;
+        if (third_interval == 4)
         {
-            thirdname = "Major";
+            third_name = "Major";
 
         }
-        else if (thirdinterval == 3)
+        else if (third_interval == 3)
         {
-            thirdname = "Minor";
+            third_name = "Minor";
 
         }
-        else if (thirdinterval == 2)
+        else if (third_interval == 2)
         {
-            thirdname = "sus2";
+            third_name = "sus2";
         }
-        else if (thirdinterval == 5)
+        else if (third_interval == 5)
         {
-            thirdname = "sus4";
+            third_name = "sus4";
         }
         else
         {
-            thirdname = "?";
+            third_name = "?";
         }
 
-        return thirdname;
+        return third_name;
     }
 
     /**

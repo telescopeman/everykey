@@ -8,8 +8,6 @@ import javax.swing.JLabel;
  */
 public class Infobox extends ListeningFrame
 {
-    // instance variables - replace the example below with your own
-    private final int[] myScale;
     private String myName;
     private final String myType;
     private final int[] intervals;
@@ -47,29 +45,29 @@ public class Infobox extends ListeningFrame
 
         }
         myType = type;
-        myScale = scale;
-        intervals = getIntervals(myScale);
+        // instance variables - replace the example below with your own
+        intervals = getIntervals(scale);
     }
 
     private int[] getIntervals(int[] s)
     {
-        int[] ints = new int[]{0,0,0,0,0,0,0};
+        int[] intervals = new int[]{0,0,0,0,0,0,0};
         for(int i = 0; i < 6; i++)
         {
             int gap = s[i + 1] - s[i] - 1;
-            ints[gap]++;
+            intervals[gap]++;
 
         }
         int gap = s[0] - s[6] + 12 - 1;
-        ints[gap]++;
-        return ints;
+        intervals[gap]++;
+        return intervals;
     }
 
-    private String[] getText(int[] ints)
+    private String[] getText(int[] intervals)
     {
         String[] s = new String[]{};
         int counter = 1;
-        for (int interval : ints)
+        for (int interval : intervals)
         {
             if (interval > 0)
             {
@@ -136,5 +134,10 @@ public class Infobox extends ListeningFrame
             l.setHorizontalAlignment(JLabel.CENTER);
             add(l);
         }
+    }
+
+    @Override
+    protected void onClosed() {
+        // do literally nothing
     }
 }

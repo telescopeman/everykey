@@ -1,15 +1,11 @@
-import java.util.Comparator;
-
 /**
  *
  */
-public class IntervalCompare implements Comparator<Integer> {
+public class IntervalCompare extends LayeredComparator<Integer> {
 
-    @Override
-    public int compare(Integer o1, Integer o2)
-    {
 
-        return getStrangeness(o1) - getStrangeness(o2);
+    public IntervalCompare() {
+        super(new StrangeCompare());
     }
 
     /**
@@ -20,9 +16,9 @@ public class IntervalCompare implements Comparator<Integer> {
      * @param o1 The index of the scale to measure.
      * @return The weirdness of the intervals in the scale.
      */
-    public int getStrangeness(Integer o1)
+    public int getValue(Integer o1)
     {
-        final double WEIGHT = 2;
+        final double WEIGHT = 3;
 
         int[] scale = UI.getCurrentList()[o1];
         int sum = 0;
@@ -41,13 +37,22 @@ public class IntervalCompare implements Comparator<Integer> {
 
             // basically, we make big intervals matter
             // far more than small intervals.
-            sum += Math.pow(thisInterval,WEIGHT);
+            switch (thisInterval)
+            {
+                case 0:
+
+                case 1:
+
+                case 2:
+                    break;
+                default:
+                    sum += Math.pow(thisInterval,WEIGHT);
+                    break;
+            }
+
         }
         return sum;
     }
 
-    @Override
-    public Comparator<Integer> reversed() {
-        return Comparator.super.reversed();
-    }
+
 }

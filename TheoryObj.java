@@ -75,13 +75,9 @@ public abstract class TheoryObj extends BasicTheoryObj
             if (newNote == null)
             {
                 //System.out.println("tripped");
-                String[] temp = rawNotes;
                 String[] rawNotes2 = new String[count];
-                for(int count2 = 0; count2 < count; count2++)
-                {
-                    rawNotes2[count2] = temp[count2];
-                    //System.out.println(temp[count2]);
-                }
+                //System.out.println(temp[count2]);
+                System.arraycopy(rawNotes, 0, rawNotes2, 0, count);
                 return rawNotes2;
             }
             rawNotes[count] = newNote;

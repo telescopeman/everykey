@@ -1,9 +1,5 @@
 import java.awt.event.ActionListener;
-
 import java.awt.Graphics;
-import java.awt.Dimension;
-import java.awt.Component;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 
@@ -43,26 +39,6 @@ public class EasyPanel extends JPanel
     {
         super.paintComponent(g);
         UI.adjustColors(this);
-    }
-
-    public void appear()
-    {
-        setVisible(true);
-        requestFocusInWindow();
-    }
-
-    public void appear(Dimension dim)
-    {
-        appear();
-        setSize(dim);
-    }
-
-    public void clear()
-    {
-        for(Component child : getComponents())
-        {
-            remove(child);
-        }
     }
 
 }

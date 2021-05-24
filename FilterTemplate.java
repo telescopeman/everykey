@@ -12,7 +12,7 @@ public class FilterTemplate
     
     
     /**
-     * Creates a FilterTemplate with a name and a filterbank.
+     * Creates a FilterTemplate with a name and a list of filters.
      */
     public FilterTemplate(String n, Filter[] f)
     {

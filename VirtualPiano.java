@@ -156,27 +156,27 @@ public class VirtualPiano extends ModBox {
                     }
                 }
             );
-            String mnem;
+            String text_on_button;
             if (isWhite)
             {
-                mnem = WHITE_KEY_BUTTONS[numWhite];
+                text_on_button = WHITE_KEY_BUTTONS[numWhite];
             }
             else
             {
-                mnem = BLACK_KEY_BUTTONS[numBlack];
+                text_on_button = BLACK_KEY_BUTTONS[numBlack];
             }
             b.setVerticalAlignment( SwingConstants.BOTTOM );
-            if (mnem.equals("SEMICOLON"))
+            if (text_on_button.equals("SEMICOLON"))
             {
                 b.setText(";");
             }
             else
             {
-                b.setText(mnem);
+                b.setText(text_on_button);
             }
 
-            b.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + mnem), pr);
-            b.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + mnem),rl);
+            b.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("pressed " + text_on_button), pr);
+            b.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released " + text_on_button),rl);
             Action ac = new PlayAction(ja,b,true);
             Action ac2 = new PlayAction(ja,b,false);
             b.getActionMap().put(pr, ac);
@@ -212,6 +212,7 @@ public class VirtualPiano extends ModBox {
 
     private void addButtons()
     {
+        //noinspection SuspiciousNameCombination
         Dimension myDim = new Dimension(9*height/16, width);
 
         b1 = new JButton(START_RECORDING);
@@ -362,9 +363,7 @@ public class VirtualPiano extends ModBox {
     
     private void setRecState(boolean d)
     {
-        StateWatcher.isPianoOpen = d;
         isRecording = d;
-        StateWatcher.togglePiano();
     }
 
     private Filter toFilter()
@@ -430,5 +429,10 @@ public class VirtualPiano extends ModBox {
             }
         }
 
+    }
+
+    @Override
+    protected void onClosed() {
+        discard();
     }
 }

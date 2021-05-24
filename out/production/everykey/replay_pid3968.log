@@ -27,7 +27,7 @@ instanceKlass TemplatesHelper
 instanceKlass SliderBox$SliderListener
 instanceKlass QuickListener
 instanceKlass OffsetEditor$1
-instanceKlass MathHelper
+instanceKlass ScalesGenerator
 instanceKlass StringHelper
 instanceKlass TagsManager
 instanceKlass BasicTheoryObj
@@ -175,7 +175,7 @@ instanceKlass TemplatesHelper
 instanceKlass SliderBox$SliderListener
 instanceKlass QuickListener
 instanceKlass OffsetEditor$1
-instanceKlass MathHelper
+instanceKlass ScalesGenerator
 instanceKlass StringHelper
 instanceKlass TagsManager
 instanceKlass BasicTheoryObj
@@ -1203,7 +1203,7 @@ instanceKlass java/awt/Window$1
 instanceKlass sun/awt/AWTAccessor$WindowAccessor
 instanceKlass javax/swing/RootPaneContainer
 instanceKlass javax/swing/WindowConstants
-instanceKlass MathHelper
+instanceKlass ScalesGenerator
 instanceKlass java/lang/invoke/LambdaForm$MH
 instanceKlass java/lang/invoke/LambdaForm$DMH
 instanceKlass java/lang/invoke/LambdaForm$MH

@@ -3,8 +3,8 @@ public enum SortOption {
     Brightness_Descending("Brightness (Descending)"),
     Strangeness_Ascending("Strangeness (Ascending)"),
     Strangeness_Descending("Strangeness (Descending)"),
-    Intervalic_Oddities_Ascending("Interval Oddness (Ascending)"),
-    Intervalic_Oddities_Descending("Interval Oddness (Descending)");
+    Interval_Oddness_Ascending("Interval Oddness (Ascending)"),
+    Interval_Oddness_Descending("Interval Oddness (Descending)");
 
     private final String string;
 

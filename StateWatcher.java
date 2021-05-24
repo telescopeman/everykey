@@ -9,8 +9,7 @@
 public abstract class StateWatcher
 {
     // instance variables - replace the example below with your own
-    static private MusicHelper curPlayer;
-    static public boolean isPianoOpen = false;
+    static private MusicPlayer curPlayer;
     static private float tempo = 140.0f;
     
     
@@ -30,9 +29,7 @@ public abstract class StateWatcher
         return tempo;
     }
 
-    public static void requestControl(MusicHelper src) 
-        throws javax.sound.midi.MidiUnavailableException
-    {
+    public static void requestControl(MusicPlayer src) {
         if (curPlayer != null)
         {
             curPlayer.stop();
@@ -42,15 +39,11 @@ public abstract class StateWatcher
         
     }
     
-    private static void updatePlayer(MusicHelper m)
+    private static void updatePlayer(MusicPlayer m)
     {
         curPlayer = m;
     }
-    
-    public static void togglePiano()
-    {
-        //UIStuff.setFilterControlsDisabled(isPianoOpen);
-    }
+
     
     private static int keyOffset = 0;
     

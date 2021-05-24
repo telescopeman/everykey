@@ -1,35 +1,40 @@
-    import java.util.Random;
+import javax.sound.midi.Sequencer;
+import javax.sound.midi.Sequence;
+import javax.sound.midi.Track;
+import javax.sound.midi.MidiEvent;
+import javax.sound.midi.MidiMessage;
+import javax.sound.midi.ShortMessage;
+import javax.sound.midi.MidiSystem;
+import javax.sound.midi.MidiUnavailableException;
+import javax.sound.midi.InvalidMidiDataException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    import javax.sound.midi.*;
-
-    /**
-     * Handles the playing of scales and chords. Replacement for removed class MusicPlayer.
+/**
+     * Handles the playing of scales and chords.
      *
      * @author Caleb Copeland
-     * @version 4/6/21
+     * @version 5/24/21
      */
-    public class MusicHelper extends QuickListener
+    public class MusicPlayer extends UpperBucketCrab implements ActionListener
     {
-    
         private final int[] savedNotes;
-        private Sequence mySequence;
         private Sequencer sequencer;
-        private final int timeMult = 5;
-        private final int length = 5;
-    
+        private final int time_constant = 5;
+
         private boolean activated = false;
-        static private Random r;
+
     
         /**
          * Constructor for objects of class MusicHelper
          */
-        public MusicHelper(int[] keyAsInts)
+        public MusicPlayer(int[] notes, LowerBucketCrab link)
         {
-        savedNotes = keyAsInts;
-        r = new Random();
-    }
+            super(link);
+            savedNotes = notes;
+        }
 
-    private Sequence toMIDI(int[] notes, String type) 
+    private Sequence toMIDI(String type)
     throws javax.sound.midi.InvalidMidiDataException
     {
         Sequence seq = new Sequence(Sequence.PPQ,5,20);
@@ -57,11 +62,11 @@
             {
                 for(int i = 0; i < 7; i++)
                 {
-                    addClump(myTrack,TheoryObj.getRawChordAt(savedNotes,i+1),i*timeMult);
+                    addClump(myTrack,TheoryObj.getRawChordAt(savedNotes,i+1),i* time_constant);
                     int counter = 0;
                     for (int j = 0; j < 4; j++)
                     {
-                        addFullNote(myTrack, savedNotes[getRandomNumberInRange(0,6)] + 12, counter + i * 4);
+                        addFullNote(myTrack, savedNotes[MathHelper.getRandomNumberInRange(0,6)] + 12, counter + i * 4);
                         counter++;
                     }
                 }
@@ -72,12 +77,12 @@
                 try 
                 {
                     Integer.valueOf(type);
-                    return toMIDI(notes,"Play Chord");
+                    return toMIDI("Play Chord");
                 }
                 catch (java.lang.NumberFormatException e) // if the string is not a number, its not a chord
                 {
 
-                    return toMIDI(notes,"Listen");
+                    return toMIDI("Listen");
                 }
             }
         }
@@ -85,13 +90,7 @@
         return seq;
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-        if (min >= max) {
-            throw new IllegalArgumentException("Max must be greater than min");
-        }
-        
-        return r.nextInt((max - min) + 1) + min;
-    }
+
 
     private void addClump(Track myTrack, int[] notes, int offset)
     throws javax.sound.midi.InvalidMidiDataException
@@ -116,8 +115,8 @@
     throws javax.sound.midi.InvalidMidiDataException
     {
         MidiEvent[] events = new MidiEvent[2];
-        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true), (long) index *timeMult);
-        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false), (long) (index + 1) *timeMult);
+        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true), (long) index * time_constant);
+        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false), (long) (index + 1) * time_constant);
         return events;
 
     }
@@ -133,7 +132,6 @@
         ShortMessage myMsg = new ShortMessage();
         myMsg.setMessage(active, 0, 60 + (note - 1), 93); //middle c plus note value
 
-        long timeStamp = -1;
         return myMsg;
 
     }
@@ -162,7 +160,7 @@
 
     private void activate(String type) throws javax.sound.midi.InvalidMidiDataException
     {
-        mySequence = toMIDI(savedNotes,type);
+        Sequence mySequence = toMIDI(type);
         sequencer.setSequence(mySequence);
 
         activated = true;
@@ -181,8 +179,9 @@
     /**
      * Either stops or starts the player.
      */
-    public void act(String id)
+    public void actionPerformed(ActionEvent e)
     {
+        String id = e.getActionCommand();
         if (id.equals("Stop"))
         {
             stop();
@@ -209,4 +208,8 @@
         }
     }
 
-}
+        @Override
+        public void onPulledDown() {
+            stop();
+        }
+    }

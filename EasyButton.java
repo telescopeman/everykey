@@ -1,5 +1,4 @@
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
 
 public class EasyButton extends JButton implements VariableColor {
     public EasyButton(String str, float alignment) {

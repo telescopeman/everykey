@@ -79,16 +79,6 @@ public class EasyFrame extends JFrame
     }
 
 
-
-    /**
-     * Adds a label with the specified String.
-     */
-    public void add(String str)
-    {
-        add(new JLabel(str));
-
-    }
-
     public void clear()
     {
         getContentPane().removeAll();

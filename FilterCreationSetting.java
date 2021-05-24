@@ -4,6 +4,5 @@ public enum FilterCreationSetting {
     CHORD,
     TAGS,
     MODE,
-    SPECIAL,
-    INVALID
+    SPECIAL
 }

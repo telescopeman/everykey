@@ -162,29 +162,29 @@ public class Filter extends TheoryObj
             return description;
         }
 
-        String preceder = "";
+        String negation = "";
         if (inverted)
         {
-            preceder = "not ";
+            negation = "not ";
         }
 
         switch (type)
         {
             case HAS_NOTE:
             {
-                return ("Must " + preceder + "contain the note " + getNoteName(requiredNotes[0]));
+                return ("Must " + negation + "contain the note " + getNoteName(requiredNotes[0]));
             }
             case HAS_NOTE_AT_POSITION:
             {
                 if (requiredNotes.length == 1)
                 {
-                    return ("Must " + preceder + "contain the note " +
+                    return ("Must " + negation + "contain the note " +
                             getNoteName(requiredNotes[0]) + " as a " +
                             getIntervalName(requiredPosition) + ".");
                 }
                 else
                 {
-                    return ("Must " + preceder + "contain either " +
+                    return ("Must " + negation + "contain either " +
                             StringHelper.arrayToString(
                             expandRaw(clamp(requiredNotes),false),"or",false) +
                             " as a " + getIntervalName(requiredPosition) + ".");
@@ -192,36 +192,26 @@ public class Filter extends TheoryObj
             }
             case IS_NAMED:
             {
-                return ("Must " + preceder + "be a named key.");
+                return ("Must " + negation + "be a named key.");
             }
             case HAS_ALL_NOTES:
             {
-                return ("Must " + preceder + "contain notes " + expand(requiredNotes,false));
+                return ("Must " + negation + "contain notes " + expand(requiredNotes,false));
             }
             case HAS_TAG:
             {
-                return ("Only scales " + preceder + "tagged with tag: " + tags[0]);
+                return ("Only scales " + negation + "tagged with tag: " + tags[0]);
 
             }
             default:
             {
-                return ("UNHANDLED_TYPE: REQUIRED NOTES:" + requiredNotes);
+                return ("UNHANDLED_TYPE");
             }
 
         }
 
     }
 
-    /**
-     * Analyzes a given scale to see if it matches the Filter.
-     * @param key The key to analyze.
-     * @return A boolean noting if the scale matched the Filter or not.
-     */
-    public boolean checkKey(int[] key)
-    {
-        return !(inverted == checkKeyHelper(key,-1));
-    }
-    
     /**
      * Analyzes a given scale to see if it matches the Filter.
      * @param key The key to analyze.
@@ -246,7 +236,6 @@ public class Filter extends TheoryObj
             }
             case HAS_TAG:
             {
-                boolean isValid = true;
                 for (String tag : tags)
                 {
 
@@ -265,12 +254,12 @@ public class Filter extends TheoryObj
                 }
                 return true;
             }
-            //everything below this is the same for indexed and nonindexed check
+            //everything below this is the same for indexed and non-indexed check
             case HAS_ALL_NOTES:
             {
                 return massCheck(key);
             }
-            default: //note or notepos
+            default: //note or note position
             {
                 return defCheck(key);
             }

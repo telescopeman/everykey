@@ -30,14 +30,17 @@ import javax.swing.SpinnerModel;
  * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
+ * I modified this slightly by removing some things that weren't necessary in the project.
+ *
  * @author Oracle
  * @since 4/6/21
  * 
  **/ 
 public class CyclingSpinnerListModel extends SpinnerListModel {
-    Object firstValue, lastValue;
-    SpinnerModel linkedModel = null;
+    final Object firstValue;
+    final Object lastValue;
+    final SpinnerModel linkedModel = null;
 
     public CyclingSpinnerListModel(Object[] values) {
         super(values);
@@ -45,17 +48,10 @@ public class CyclingSpinnerListModel extends SpinnerListModel {
         lastValue = values[values.length - 1];
     }
 
-    public void setLinkedModel(SpinnerModel linkedModel) {
-        this.linkedModel = linkedModel;
-    }
-
     public Object getNextValue() {
         Object value = super.getNextValue();
         if (value == null) {
             value = firstValue;
-            if (linkedModel != null) {
-                linkedModel.setValue(linkedModel.getNextValue());
-            }
         }
         return value;
     }
@@ -64,9 +60,6 @@ public class CyclingSpinnerListModel extends SpinnerListModel {
         Object value = super.getPreviousValue();
         if (value == null) {
             value = lastValue;
-            if (linkedModel != null) {
-                linkedModel.setValue(linkedModel.getPreviousValue());
-            }
         }
         return value;
     }

@@ -3,8 +3,6 @@ public enum FilterType {
     IS_EXOTIC,
     HAS_TAG,
     HAS_ALL_NOTES,
-    HAS_SOME_NOTES,
     HAS_NOTE,
-    HAS_NOTE_AT_POSITION,
-    DO_NOTHING
+    HAS_NOTE_AT_POSITION
 }
