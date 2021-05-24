@@ -11,14 +11,34 @@ public abstract class ListeningFrame extends EasyFrame implements ActionListener
     public ListeningFrame()
     {
         super();
+        init_listener();
+    }
+
+    private void init_listener()
+    {
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                onClosed();
+            }
+
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent windowEvent)
+            {
+                onClosed();
+            }
+        });
     }
 
     public ListeningFrame(String name, Dimension dimension) {
         super(name,dimension);
+        init_listener();
     }
 
     public ListeningFrame(Dimension dimension) {
         super(dimension);
+        init_listener();
     }
 
     public void actionPerformed(ActionEvent e)

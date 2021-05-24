@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 public class KeyPanel extends EasyPanel implements LowerBucketCrab
 {
     private MusicPlayer musicPlayer;
+    public static final String PLAY_TEXT = "Listen";
 
 
     /**
@@ -76,7 +77,7 @@ public class KeyPanel extends EasyPanel implements LowerBucketCrab
         }
         add(label);
         add(b); 
-        addButton("Listen", musicPlayer);
+        addButton(PLAY_TEXT, musicPlayer);
     }
 
 

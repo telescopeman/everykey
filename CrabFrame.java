@@ -1,4 +1,4 @@
-import java.awt.*;
+import java.awt.Dimension;
 
 public abstract class CrabFrame extends ListeningFrame implements LowerBucketCrab {
 
@@ -9,5 +9,6 @@ public abstract class CrabFrame extends ListeningFrame implements LowerBucketCra
     @Override
     protected void onClosed() {
         BucketCrabManager.pullDown(this);
+        System.out.println("gggg");
     }
 }

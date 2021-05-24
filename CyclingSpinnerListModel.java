@@ -1,5 +1,4 @@
 import javax.swing.SpinnerListModel;
-import javax.swing.SpinnerModel;
 
 /**
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
@@ -40,7 +39,6 @@ import javax.swing.SpinnerModel;
 public class CyclingSpinnerListModel extends SpinnerListModel {
     final Object firstValue;
     final Object lastValue;
-    final SpinnerModel linkedModel = null;
 
     public CyclingSpinnerListModel(Object[] values) {
         super(values);

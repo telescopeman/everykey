@@ -74,13 +74,7 @@ public class VirtualPiano extends ModBox {
         panel.setPreferredSize(new Dimension(14*width,height));
         add(panel);
 
-        addWindowListener(new java.awt.event.WindowAdapter()
-            {
-                @Override
-                public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                    discard();
-                }
-            });
+
 
         int width2 = width * 16 / 20;
         int height2 = height * 80 / 120;
@@ -434,5 +428,6 @@ public class VirtualPiano extends ModBox {
     @Override
     protected void onClosed() {
         discard();
+        channel.allNotesOff();
     }
 }

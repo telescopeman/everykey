@@ -1,5 +1,8 @@
 import java.awt.event.ActionEvent;
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 /**
  * Provides a view of the chords of a scale.
@@ -10,13 +13,13 @@ import javax.swing.*;
 public class ChordViewer extends CrabFrame
 {
     private final int[] myKey;
+    public static final String PLAY_TEXT = "Play Chord";
 
     /**
      * Creates a ChordViewer of a specified scale with a specified name.
      */
     public ChordViewer(int[] k, String name)
     {
-
         super("Chords of " + StringHelper.filterOutTags(name), LONG_AND_THIN);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -142,7 +145,7 @@ public class ChordViewer extends CrabFrame
             int[] noteSequence = TheoryObj.getRawChordAt(myKey,i);
             int[] seq = makeAscending(noteSequence);
 
-            String PLAY_TEXT = "Play Chord";
+
             EasyButton jb3 = new EasyButton(PLAY_TEXT, CENTER_ALIGNMENT);
             MusicPlayer musicPlayer = new MusicPlayer(seq,this);
             jb3.addActionListener(musicPlayer);
@@ -171,5 +174,4 @@ public class ChordViewer extends CrabFrame
         }
         setVisible(true);
     }
-
 }

@@ -1,12 +1,4 @@
-import javax.sound.midi.Sequencer;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
-import javax.sound.midi.MidiEvent;
-import javax.sound.midi.MidiMessage;
-import javax.sound.midi.ShortMessage;
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.MidiUnavailableException;
-import javax.sound.midi.InvalidMidiDataException;
+import javax.sound.midi.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,12 +10,22 @@ import java.awt.event.ActionListener;
      */
     public class MusicPlayer extends UpperBucketCrab implements ActionListener
     {
-        private final int[] savedNotes;
+        private final int[] MY_NOTES;
         private Sequencer sequencer;
-        private final int time_constant = 5;
-
+        private final int TIME_CONSTANT = 100;
         private boolean activated = false;
 
+        private final int[] time_signature = new int[]{4,4};
+
+        public void changeTimeSignature(int num, int index)
+        {
+            time_signature[index] = num;
+        }
+
+        public int getTimeSignature(int index)
+        {
+            return time_signature[index];
+        }
     
         /**
          * Constructor for objects of class MusicHelper
@@ -31,58 +33,86 @@ import java.awt.event.ActionListener;
         public MusicPlayer(int[] notes, LowerBucketCrab link)
         {
             super(link);
-            savedNotes = notes;
+            MY_NOTES = notes;
         }
 
-    private Sequence toMIDI(String type)
-    throws javax.sound.midi.InvalidMidiDataException
-    {
+        public MusicPlayer(int[] notes) {
+            super();
+            MY_NOTES = notes;
+        }
+
+
+        private Sequence toMIDI(String type) throws javax.sound.midi.InvalidMidiDataException
+        {
         Sequence seq = new Sequence(Sequence.PPQ,5,20);
-        Track myTrack = seq.getTracks()[0];
+        Track mainTrack = seq.getTracks()[0];
+
         switch (type)
         {
-            case "Listen":
+            case KeyPanel.PLAY_TEXT:
             {
                 int counter = 0;
-                for (int note : savedNotes)
+                for (int note : MY_NOTES)
                 {
-                    addFullNote(myTrack, note, counter);
+                    addFullNote(mainTrack, note, counter);
                     counter++;
                 }
-                addFullNote(myTrack,savedNotes[0] + 12, counter);
+                addFullNote(mainTrack, MY_NOTES[0] + 12, counter);
 
                 break;
             }
-            case "Play Chord":
+            case ChordViewer.PLAY_TEXT:
             {
-                addClump(myTrack,savedNotes,0);
+                addClump(mainTrack, MY_NOTES,0,20);
                 break;
             }
-            case "Start": //sampler player
+            case Sampler.PLAY_TEXT:
             {
-                for(int i = 0; i < 7; i++)
+                System.out.println("playing in: " + time_signature[0] + "/" + time_signature[1]);
+
+                double chord_length = 16 / (float) time_signature[1];
+                for(int i = 1; i < 8; i++)
                 {
-                    addClump(myTrack,TheoryObj.getRawChordAt(savedNotes,i+1),i* time_constant);
-                    int counter = 0;
-                    for (int j = 0; j < 4; j++)
+                    // at the start of each measure...
+                    double chord_start_time = (i-1) * chord_length;
+                    addClump(mainTrack, TheoryObj.getRawChordAt(MY_NOTES,i), chord_start_time,chord_length);
+
+                    for (double j = 0.0; j < time_signature[0] ; j++)
                     {
-                        addFullNote(myTrack, savedNotes[MathHelper.getRandomNumberInRange(0,6)] + 12, counter + i * 4);
-                        counter++;
+                        double this_quarter_note = j * (chord_length / ((double) time_signature[0] )) + chord_start_time;
+
+                        for (double k = 0; k < 2; k++)
+                        {
+                            //in an eighth note pattern...
+                            double this_eighth_note = k * (chord_length / ((double) time_signature[0] * 2)) +
+                                    this_quarter_note;
+
+                            // take a random note from the scale
+                            addFullNote(mainTrack, MY_NOTES[MathHelper.getRandomNumberInRange(0,6)] + 12, this_eighth_note);
+                        }
+                        //in a quarter note pattern...
+                        // pedal bass
+                        addFullNote(mainTrack, MY_NOTES[0] -12, this_quarter_note);
                     }
                 }
+                double lastTime = 7*chord_length;
+                addClump(mainTrack, TheoryObj.getRawChordAt(MY_NOTES,1), lastTime,chord_length);
+                addFullNote(mainTrack, MY_NOTES[0] + 12, chord_length);
+                addFullNote(mainTrack, MY_NOTES[0] - 12, chord_length);
+                //mainTrack.add(new MidiEvent(new MetaMessage(MetaMessage.META), (long) (8*chord_length)))
                 break;
             }
             default:
             {
-                try 
+                try
                 {
                     Integer.valueOf(type);
-                    return toMIDI("Play Chord");
+                    return toMIDI(ChordViewer.PLAY_TEXT);
                 }
                 catch (java.lang.NumberFormatException e) // if the string is not a number, its not a chord
                 {
 
-                    return toMIDI("Listen");
+                    return toMIDI(KeyPanel.PLAY_TEXT);
                 }
             }
         }
@@ -92,17 +122,17 @@ import java.awt.event.ActionListener;
 
 
 
-    private void addClump(Track myTrack, int[] notes, int offset)
+    private void addClump(Track myTrack, int[] notes, double offset,double length)
     throws javax.sound.midi.InvalidMidiDataException
     {
         for (int note : notes)
         {
             myTrack.add(toNote(note,offset     )[0]);
-            myTrack.add(toNote(note,offset + 20)[1]);
+            myTrack.add(toNote(note,offset + length)[1]);
         }
     }
 
-    private void addFullNote(Track myTrack, int pitch, int counter)
+    private void addFullNote(Track myTrack, int pitch, double counter)
     throws javax.sound.midi.InvalidMidiDataException
     {
         for (MidiEvent event : toNote(pitch,counter))
@@ -111,12 +141,13 @@ import java.awt.event.ActionListener;
         }
     }
 
-    private MidiEvent[] toNote(int pitch, int index)
+    private MidiEvent[] toNote(int pitch, double index)
     throws javax.sound.midi.InvalidMidiDataException
     {
         MidiEvent[] events = new MidiEvent[2];
-        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true), (long) index * time_constant);
-        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false), (long) (index + 1) * time_constant);
+
+        events[0] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),true), (long) ( index * TIME_CONSTANT));
+        events[1] = new MidiEvent(makeMessage(pitch+StateWatcher.getOffset(),false), (long) ((index + 1.0) * TIME_CONSTANT));
         return events;
 
     }
@@ -146,7 +177,7 @@ import java.awt.event.ActionListener;
             throw new IllegalArgumentException("Tempo must be greater than zero!");
         }
 
-        sequencer.setTempoInBPM(newTempo);
+        sequencer.setTempoInBPM(newTempo*10);
 
     }
 
@@ -155,8 +186,15 @@ import java.awt.event.ActionListener;
      */
     public void stop()
     {
-        sequencer.stop();
+        try {
+            sequencer.stop();
+        }
+        catch (NullPointerException e)
+        {
+            // do nothing
+        }
     }
+
 
     private void activate(String type) throws javax.sound.midi.InvalidMidiDataException
     {
@@ -188,6 +226,11 @@ import java.awt.event.ActionListener;
         }
         else
         {
+            if (id.equals(Sampler.PLAY_TEXT))
+            {
+                stop();
+            }
+
             try
             {
                 if (!activated)

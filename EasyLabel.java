@@ -32,4 +32,10 @@ public class EasyLabel extends JLabel implements VariableColor
     {
         setFont(new Font(getFont().getFontName(),Font.BOLD,getFont().getSize()));
     }
+
+    public void setFontSize(int size)
+    {
+        setFont(new Font(getFont().getFontName(),getFont().getStyle(),size));
+    }
+
 }
