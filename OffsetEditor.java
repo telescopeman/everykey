@@ -1,5 +1,4 @@
 
-
 /**
  * Manages root note of all scales.
  *

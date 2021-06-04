@@ -7,7 +7,7 @@ import java.util.Objects;
  * Dialogue popup that lets the user create a filter.
  *
  * @author Caleb Copeland
- * @version 5/24/21
+ * @version 6/4/21
  */
 public class FilterCreator extends ModBox
 {
@@ -15,11 +15,13 @@ public class FilterCreator extends ModBox
     private JComboBox<String> list1, list2;
     private JCheckBox tickBox;
 
+    private static final String
+            EITHER = "Either",
+            NEITHER = "Neither",
+            ADD_FILTER = "Add Filter";
+
     private Filter[] myFilters;
     private boolean[] setList;
-
-    private static final String[] CHROMATIC_SCALE = TheoryObj.CHROMATIC_SCALE;
-
 
     public FilterCreator(FilterCreationSetting type)
     {
@@ -49,16 +51,20 @@ public class FilterCreator extends ModBox
         switch (type)
         {
             case TONALITY:
-            options = new String[]{"Major", "Minor", "Either", "Neither"};
+            options = new String[]{
+                    Chord.MAJOR,
+                    Chord.MINOR,
+                    EITHER,
+                    NEITHER};
             break;
 
             case NOTE:
-            options = CHROMATIC_SCALE;
+            options = TheoryObj.CHROMATIC_SCALE;
             break;
 
             case CHORD: {
-                options = CHROMATIC_SCALE;
-                options2 = new String[]{"Major", "Minor", "Diminished", "Augmented", "sus2", "sus4", "Major ♭5", "sus2 ♭5", "sus4 ♭5"};
+                options = TheoryObj.CHROMATIC_SCALE;
+                options2 = Chord.TYPES;
                 setGrid(3, 2);
                 add(new JLabel(""));
                 hasSecondDropDown = true;
@@ -101,10 +107,10 @@ public class FilterCreator extends ModBox
 
         tickBox = new JCheckBox("Inverted?");
         add(tickBox);
-        addButton("Add Filter",this);
+        addButton(ADD_FILTER,this);
     }
 
-    @SuppressWarnings("SwitchStatementWithTooFewBranches")
+
     public Filter constructFilter(String opt1, String opt2)
     {
         switch (type)
@@ -132,18 +138,10 @@ public class FilterCreator extends ModBox
 
             case SPECIAL:
             {
-                switch (opt1)
-                {
-                    case "Named Keys":
-                    {
-                        return new Filter(FilterType.IS_NAMED,tickBox.isSelected());
-                    }
-
-                    default:
-                    {
-                        return new Filter("e");
-                    }
+                if ("Named Keys".equals(opt1)) {
+                    return new Filter(FilterType.IS_NAMED, tickBox.isSelected());
                 }
+                return new Filter("e");
             }
 
             default:
@@ -157,22 +155,22 @@ public class FilterCreator extends ModBox
         Filter f;
         switch (opt1)
         {
-            case "Major":
+            case Chord.MAJOR:
             f = new Filter(5,2);
             f.setDescription("Must be a major key.");
             break;
 
-            case "Minor":
+            case Chord.MINOR:
             f = new Filter(4,2);
             f.setDescription("Must be a minor key.");
             break;
 
-            case "Either":
+            case EITHER:
             f = new Filter(new int[]{4,5},3);
             f.setDescription("Must be either major or minor.");
             break;
 
-            case "Neither":
+            case NEITHER:
             f = new Filter(new int[]{4,5},3,true);
             f.setDescription("Must be neither major nor minor.");
             break;
@@ -192,56 +190,56 @@ public class FilterCreator extends ModBox
         int fifth;
         switch (opt2)
         {
-            case "Major":
+            case Chord.MAJOR:
             {
                 third = root + 4;
                 fifth = root + 7;
                 break;
             }
-            case "Minor":
+            case Chord.MINOR:
             {
                 third = root + 3;
                 fifth = root + 7;
                 break;
             }
-            case "Diminished":
+            case Chord.DIMINISHED:
             {
                 third = root + 3;
                 fifth = root + 6;
                 break;
             }
-            case "Augmented":
+            case Chord.AUGMENTED:
             {
                 third = root + 4;
                 fifth = root + 8;
                 break;
             }
-            case "Major ♭5":
+            case Chord.MAJOR_FLAT_5:
             {
                 third = root + 4;
                 fifth = root + 6;
                 break;
             }
-            case "sus2":
+            case Chord.SUSPENDED_2:
             {
                 third = root + 2;
                 fifth = root + 7;
                 break;
             }
-            case "sus4":
+            case Chord.SUSPENDED_4:
             {
                 third = root + 5;
                 fifth = root + 7;
                 break;
 
             }
-            case "sus2 ♭5":
+            case Chord.SUSPENDED_2_FLAT_5:
             {
                 third = root + 2;
                 fifth = root + 6;
                 break;
             }
-            case "sus4 ♭5":
+            case Chord.SUSPENDED_4_FLAT_5:
             {
                 third = root + 5;
                 fifth = root + 6;
@@ -269,23 +267,12 @@ public class FilterCreator extends ModBox
     protected void act(String id)
     {
         update();
-        switch (id)
-        {
-            case "comboBoxChanged":
-            {
-                break;
-            }
-            case "Add Filter":
-            {
-                apply();
-                this.dispose();
-                break;
-            }
-            default:
-            {
-                setUpUniqueFactors();
-                appear();
-            }
+        if (ADD_FILTER.equals(id)) {
+            apply();
+            this.dispose();
+        } else {
+            setUpUniqueFactors();
+            appear();
         }
     }
 

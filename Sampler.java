@@ -35,7 +35,7 @@ public class Sampler extends CrabFrame
 
         @Override
         protected int getCurrentValue() {
-            return (int) model.getValue();
+            return (int) spinner.getModel().getValue();
         }
 
         @Override
@@ -84,41 +84,40 @@ public class Sampler extends CrabFrame
 
     public void act(String s)
     {
-        if (s.equals(KeyPanel.SAMPLE_TEXT)) {
+        switch (s) {
+            case KeyPanel.SAMPLE_TEXT:
 
-            System.out.println(s);
-            clear();
-            addHeader(name + " - " + KeyPanel.SAMPLE_TEXT);
-            JPanel p = new JPanel(new GridLayout());
-            //p.add(new JLabel("Time:"));
-            //p.add(new TimeSignatureEditor(0));
-            //EasyLabel label = new EasyLabel("/");
-            //label.setVerticalAlignment(SwingConstants.CENTER);
-            //label.setHorizontalAlignment(SwingConstants.CENTER);
-            //label.setFontSize(20);
-            //p.add(label);
-            //p.add(new TimeSignatureEditor(1));
-            add(p);
+                System.out.println(s);
+                clear();
+                addHeader(name + " - " + KeyPanel.SAMPLE_TEXT);
+                JPanel p = new JPanel(new GridLayout());
+                //p.add(new JLabel("Time:"));
+                //p.add(new TimeSignatureEditor(0));
+                //EasyLabel label = new EasyLabel("/");
+                //label.setVerticalAlignment(SwingConstants.CENTER);
+                //label.setHorizontalAlignment(SwingConstants.CENTER);
+                //label.setFontSize(20);
+                //p.add(label);
+                //p.add(new TimeSignatureEditor(1));
+                add(p);
 
 
-            play_button = new JButton(PLAY_TEXT);
-            play_button.addActionListener(this);
-            play_button.addActionListener(mus);
-            add(play_button);
-            add(pedalBassBox);
-            mus.pedalBass = pedalBassBox.isSelected();
-            pedalBassBox.addItemListener(e -> mus.pedalBass = pedalBassBox.isSelected());
-
-            appear();
-        }
-        else if (s.equals(PLAY_TEXT))
-        {
-            play_button.setText(STOP_TEXT);
-        }
-        else if (s.equals(STOP_TEXT))
-        {
-            mus.stop();
-            play_button.setText(PLAY_TEXT);
+                play_button = new JButton(PLAY_TEXT);
+                play_button.addActionListener(this);
+                play_button.addActionListener(mus);
+                add(play_button);
+                add(pedalBassBox);
+                mus.pedalBass = pedalBassBox.isSelected();
+                pedalBassBox.addItemListener(e -> mus.pedalBass = pedalBassBox.isSelected());
+                appear();
+                break;
+            case PLAY_TEXT:
+                play_button.setText(STOP_TEXT);
+                break;
+            case STOP_TEXT:
+                mus.stop();
+                play_button.setText(PLAY_TEXT);
+                break;
         }
     }
 }

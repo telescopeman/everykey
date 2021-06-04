@@ -10,6 +10,19 @@ public class Chord extends BasicTheoryObj
     private final int root;
     private int third, fifth;
 
+    public static final String
+            MAJOR = "Major",
+            MINOR = "Minor",
+            DIMINISHED = "Diminished",
+            AUGMENTED = "Augmented",
+            SUSPENDED_2 = "sus2",
+            SUSPENDED_4 = "sus4",
+            MAJOR_FLAT_5 = "Major ♭5",
+            SUSPENDED_2_FLAT_5 = "sus2 ♭5",
+            SUSPENDED_4_FLAT_5 = "sus4 ♭5";
+
+    public static final String[] TYPES = {MAJOR,MINOR,DIMINISHED,AUGMENTED,SUSPENDED_2,SUSPENDED_4,MAJOR_FLAT_5,SUSPENDED_2_FLAT_5,SUSPENDED_4_FLAT_5};
+
     /**
      * Creates a chord with the given notes.
      */
